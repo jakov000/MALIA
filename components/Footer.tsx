@@ -1,0 +1,31 @@
+"use client";
+import React from 'react';
+
+export default function Footer() {
+  return (
+    <div className="fixed bottom-0 left-0 w-full z-50 bg-white/95 backdrop-blur-sm border-t border-gray-100 py-3 px-6 md:px-12">
+      <div className="max-w-7xl mx-auto flex items-center justify-end gap-4 md:gap-8">
+        
+        {/* Datumsanzeige (Beispielhaft wie im Screen) */}
+        <div className="hidden md:flex items-center gap-6 text-[11px] uppercase tracking-widest text-gray-500 font-sans">
+          <div className="flex gap-2">
+            <span className="font-bold text-gray-900 text-sm">21</span> Okt 2025
+          </div>
+          <div className="flex gap-2">
+            <span className="font-bold text-gray-900 text-sm">22</span> Okt 2025
+          </div>
+        </div>
+
+        {/* Buttons */}
+        <div className="flex gap-2 w-full md:w-auto">
+          <button className="flex-1 md:flex-none px-8 py-3 border border-gray-900 text-gray-900 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-gray-50 transition-all">
+            Buchen
+          </button>
+          <button className="flex-1 md:flex-none px-8 py-3 bg-[#333] text-white text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-black transition-all">
+            Anfragen
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

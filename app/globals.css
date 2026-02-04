@@ -8,8 +8,14 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  /* Hier verknüpfen wir die Next.js Fonts mit Tailwind-Klassen */
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+
+  /* Optionale Luxus-Farben für den Forsthofgut-Look */
+  --color-luxury-cream: #fcfaf8;
+  --color-luxury-dark: #1a1a1a;
 }
 
 @media (prefers-color-scheme: dark) {
