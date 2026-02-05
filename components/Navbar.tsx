@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, User, MapPin, Gift, Phone, ChevronDown } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,14 +19,13 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: 'MALIA - Alpine Hideaway', href: '#' },
-    { name: 'Our Hideaways', href: '#' },
-    { name: 'MALIA Specials', href: '#' },
-    { name: 'The Feeling', href: '#' },
-    { name: 'The Setting', href: '#' },
+    { name: 'MALIA - Alpine Hideaway', href: '/' },
+    { name: 'Our Hideaways', href: '/our-hideaways' },
+    { name: 'MALIA Specials', href: '/malia-specials' },
+    { name: 'The Feeling', href: '/the-feeling' },
+    { name: 'The Setting', href: '/the-setting' },
   ];
 
-  // Icons für die rechte Seite basierend auf dem Screenshot
   const topIcons = [
     { icon: <User size={20} strokeWidth={1.5} />, label: 'Account' },
     { icon: <MapPin size={20} strokeWidth={1.5} />, label: 'Lage' },
@@ -44,7 +44,7 @@ export default function Navbar() {
         {/* LINKS: Erste zwei Links */}
         <div className="hidden lg:flex space-x-8 flex-1">
           {navLinks.slice(0, 2).map((link) => (
-            <a
+            <Link
               key={link.name}
               href={link.href}
               className={`uppercase tracking-[0.2em] text-[10px] transition-colors ${
@@ -52,21 +52,21 @@ export default function Navbar() {
               }`}
             >
               {link.name}
-            </a>
+            </Link>
           ))}
         </div>
 
         {/* MITTE: Logo zentral */}
-        <div className={`text-3xl font-serif tracking-[0.3em] transition-colors px-4 ${
+        <Link href="/" className={`text-3xl font-serif tracking-[0.3em] transition-colors px-4 ${
           isScrolled ? 'text-gray-900' : 'text-white'
         }`}>
           <span className="font-light">MALIA</span>
-        </div>
+        </Link>
 
-        {/* RECHTS: Restliche Links, Icons und Sprachschalter */}
+        {/* RECHTS: Icons und Sprachschalter */}
         <div className="hidden lg:flex items-center justify-end space-x-8 flex-1">
           {navLinks.slice(2).map((link) => (
-            <a
+            <Link
               key={link.name}
               href={link.href}
               className={`uppercase tracking-[0.2em] text-[10px] transition-colors ${
@@ -74,7 +74,7 @@ export default function Navbar() {
               }`}
             >
               {link.name}
-            </a>
+            </Link>
           ))}
 
           {/* Icons-Gruppe */}
@@ -91,24 +91,23 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Sprachschalter mit Unterstreichung */}
+          {/* Sprachschalter */}
           <div className="relative group cursor-pointer">
-            <div className={`flex items-center space-x-1 pb-1 border-b-2 transition-colors ${
+            <div className={`flex items-center space-x-1 pb-1 border-b-[1px] transition-colors ${
               isScrolled ? 'text-gray-900 border-gray-900' : 'text-white border-white'
             }`}>
-              <span className="text-sm font-light tracking-widest">{currentLang}</span>
+              <span className="text-xs font-light tracking-widest">{currentLang}</span>
               <ChevronDown size={14} />
             </div>
             
-            {/* Dropdown-Vorschau (DE/ENG) */}
             <div className="absolute top-full right-0 mt-2 bg-white text-gray-900 hidden group-hover:block shadow-xl py-2 px-4 min-w-[80px]">
-              <div className="cursor-pointer hover:font-bold py-1" onClick={() => setCurrentLang('DE')}>DE</div>
-              <div className="cursor-pointer hover:font-bold py-1" onClick={() => setCurrentLang('ENG')}>ENG</div>
+              <div className="cursor-pointer hover:font-bold py-1 text-xs" onClick={() => setCurrentLang('DE')}>DE</div>
+              <div className="cursor-pointer hover:font-bold py-1 text-xs" onClick={() => setCurrentLang('ENG')}>ENG</div>
             </div>
           </div>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Button */}
         <div className="lg:hidden flex items-center">
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -119,7 +118,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Navigation Overlay */}
+      {/* Mobile Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -137,22 +136,15 @@ export default function Navbar() {
             
             <div className="flex flex-col space-y-6">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.name}
                   href={link.href}
                   className="text-gray-900 text-xl font-light uppercase tracking-widest"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.name}
-                </a>
+                </Link>
               ))}
-            </div>
-
-            <div className="mt-auto flex justify-center space-x-8 text-gray-400 py-10 border-t">
-              <User size={24} />
-              <MapPin size={24} />
-              <Gift size={24} />
-              <Phone size={24} />
             </div>
           </motion.div>
         )}
