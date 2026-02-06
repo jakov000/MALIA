@@ -1,8 +1,10 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image'; // NEW
 import { motion, AnimatePresence } from 'framer-motion';
-import { Instagram, Facebook, Youtube } from 'lucide-react';
 import PageFooter from './PageFooter';
+import Button from './ui/Button'; // NEW
+import SectionHeader from './ui/SectionHeader'; // NEW
 
 export default function Hero() {
   // --- 1. BILDER-KONFIGURATION ---
@@ -29,9 +31,6 @@ export default function Hero() {
     return () => clearInterval(timer);
   }, [heroImages.length]);
 
-  // --- 2. VIOMA KONFIGURATION ---
-  // (Entfernt da nun interne Seiten genutzt werden)
-
   return (
     <div className="flex flex-col w-full">
 
@@ -48,10 +47,12 @@ export default function Hero() {
             transition={{ duration: 2, ease: "easeInOut" }}
             className="absolute inset-0"
           >
-            <img
+            <Image
               src={heroImages[currentImg]}
-              className="w-full h-full object-cover opacity-70"
+              fill
+              className="object-cover opacity-70"
               alt="MALIA Alpine Hideaway Impression"
+              priority={true}
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/50" />
           </motion.div>
@@ -77,12 +78,15 @@ export default function Hero() {
             Malia <br className="md:hidden" /> Alpine Hideaway
           </motion.h1>
 
-          <a
-            href="/booking"
-            className="md:hidden border border-white/40 backdrop-blur-md px-8 py-3 uppercase text-[10px] tracking-widest text-white transition-all hover:bg-white hover:text-black"
-          >
-            Jetzt Entdecken
-          </a>
+          <div className="md:hidden">
+            <Button
+              href="/booking"
+              variant="white"
+              className="backdrop-blur-md bg-white/10 border-white/40 text-white hover:bg-white hover:text-black"
+            >
+              Jetzt Entdecken
+            </Button>
+          </div>
         </div>
 
         {/* Slider Indikatoren (Striche unten) */}
@@ -98,21 +102,12 @@ export default function Hero() {
 
       {/* --- SECTION 2: INTRO TEXT --- */}
       <section className="py-24 md:py-40 px-6 bg-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }}>
-            <h2 className="text-3xl md:text-5xl font-serif text-stone-800 mb-12 tracking-wide uppercase">
-              Your Private Escape to Alpine Bliss: <br />
-              <span className="italic normal-case">MALIA – Alpine Hideaway</span>
-            </h2>
-            <p className="text-lg md:text-2xl font-serif text-gray-800 leading-relaxed mb-12 italic text-balance">
-              Ein Ort für Menschen, die das Besondere suchen – nicht im Überfluss, sondern im Wesentlichen.
-            </p>
-            <p className="text-sm md:text-lg font-sans font-light text-gray-600 leading-relaxed tracking-wide max-w-2xl mx-auto">
-              Das MALIA Alpine Hideaway ist kein Ort für großen Luxus, sondern für echten.
-              Klare Architektur, natürliche Materialien und ein Gefühl von Zeitlosigkeit.
-            </p>
-          </motion.div>
-        </div>
+        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }}>
+          <SectionHeader
+            title="Your Private Escape to Alpine Bliss"
+            description="Ein Ort für Menschen, die das Besondere suchen – nicht im Überfluss, sondern im Wesentlichen. Das MALIA Alpine Hideaway ist kein Ort für großen Luxus, sondern für echten. Klare Architektur, natürliche Materialien und ein Gefühl von Zeitlosigkeit."
+          />
+        </motion.div>
       </section>
 
       {/* --- SECTION 3: EXPERIENCE GRID --- */}
@@ -120,21 +115,35 @@ export default function Hero() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-start border-b border-gray-100 pb-24 md:pb-40">
 
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <div className="relative aspect-[3/4] overflow-hidden mb-10 group">
-              <img src="/pictures/hero/hero2/IMG_1115.jpeg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Wellness" />
+            <div className="relative aspect-[3/4] overflow-hidden mb-10 group bg-stone-100">
+              <Image
+                src="/pictures/hero/hero2/IMG_1115.jpeg"
+                fill
+                className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                alt="Wellness"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
             </div>
             <h3 className="font-serif text-xl md:text-2xl mb-4 tracking-widest uppercase">Wellness Area</h3>
-            <a href="/booking" className="inline-block px-8 py-3 border border-stone-800 text-[10px] uppercase tracking-widest font-bold hover:bg-stone-800 hover:text-white transition-all">
+            <Button href="/booking" variant="outline" className="border-stone-800 hover:bg-stone-800 hover:text-white">
               Jetzt Urlaub buchen
-            </a>
+            </Button>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="md:mt-40">
-            <div className="relative aspect-[3/4] overflow-hidden mb-10 shadow-sm group">
-              <img src="/pictures/hero/hero2/füllbild.jpg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Special" />
+            <div className="relative aspect-[3/4] overflow-hidden mb-10 shadow-sm group bg-stone-100">
+              <Image
+                src="/pictures/hero/hero2/füllbild.jpg"
+                fill
+                className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                alt="Special"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
             </div>
             <h3 className="font-serif text-xl md:text-2xl mb-4 tracking-widest uppercase">7 = 6 Special</h3>
-            <button className="px-8 py-3 border border-stone-800 text-[10px] uppercase tracking-widest font-bold transition-all hover:bg-stone-50">Details anzeigen</button>
+            <Button href="/malia-specials" variant="outline" className="border-stone-800 hover:bg-stone-50">
+              Details anzeigen
+            </Button>
           </motion.div>
         </div>
       </section>
@@ -147,21 +156,37 @@ export default function Hero() {
             <p className="text-gray-600 font-sans font-light leading-relaxed text-sm tracking-wide mb-8">
               Wir, <span className="italic">Madleine (23)</span> und <span className="italic">Julia (20)</span>, begrüßen euch herzlich im MALIA.
             </p>
-            <button className="px-10 py-4 border border-stone-800 text-[10px] uppercase tracking-widest font-bold hover:bg-stone-800 hover:text-white transition-all">Kennenlernen</button>
+            <Button href="/about" variant="outline" className="border-stone-800 hover:bg-stone-800 hover:text-white">
+              Kennenlernen
+            </Button>
           </div>
           <div className="order-1 lg:order-2">
-            <img src="/pictures/hero/hero3/IMG_1041.jpg" className="aspect-[3/4] w-full object-cover shadow-2xl" alt="Hosts" />
+            <div className="relative aspect-[3/4] w-full shadow-2xl bg-stone-100">
+              <Image
+                src="/pictures/hero/hero3/IMG_1041.jpg"
+                fill
+                className="object-cover"
+                alt="Hosts"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </div>
           </div>
         </div>
       </section>
 
       {/* --- SECTION 5: VOUCHER --- */}
-      <section className="relative h-[70vh] w-full flex items-center overflow-hidden">
-        <img src="/pictures/hero/hero4/Küche.jpg" className="absolute inset-0 w-full h-full object-cover" alt="Voucher" />
-        <div className="absolute inset-0 bg-black/40" />
+      <section className="relative h-[70vh] w-full flex items-center overflow-hidden bg-stone-900">
+        <Image
+          src="/pictures/hero/hero4/Küche.jpg"
+          fill
+          className="object-cover opacity-60"
+          alt="Voucher"
+        />
         <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 text-white text-center md:text-left">
           <h2 className="text-3xl md:text-5xl font-serif mb-8 uppercase tracking-widest">Zeit schenken.</h2>
-          <button className="px-10 py-4 border border-white text-[10px] uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all">Gutscheine schenken</button>
+          <Button href="/vouchers" variant="white" className="bg-transparent border border-white text-white hover:bg-white hover:text-black">
+            Gutscheine Geschenken
+          </Button>
         </div>
       </section>
 
@@ -169,14 +194,23 @@ export default function Hero() {
       <section className="bg-white py-20 md:py-32 px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-serif text-[#7d3a2a] mb-4 tracking-wide uppercase">Lage & Anreise</h2>
-            <p className="uppercase tracking-[0.3em] text-[10px] text-gray-400 font-sans">Ihre Anreise in das MALIA Alpine Hideaway</p>
+            <SectionHeader
+              title="Lage & Anreise"
+              subtitle="Ihre Anreise in das MALIA Alpine Hideaway"
+              centered={true}
+            />
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="h-full min-h-[400px]">
-              <div className="relative h-full w-full overflow-hidden shadow-sm">
-                <img src="/pictures/hero/hero5/haus sommer.png" className="w-full h-full object-cover transition-transform duration-[3000ms] hover:scale-105" alt="Lage" />
+              <div className="relative h-full w-full overflow-hidden shadow-sm bg-stone-100 min-h-[400px]">
+                <Image
+                  src="/pictures/hero/hero5/haus sommer.png"
+                  fill
+                  className="object-cover transition-transform duration-[3000ms] hover:scale-105"
+                  alt="Lage"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
               </div>
             </motion.div>
 

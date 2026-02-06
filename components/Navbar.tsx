@@ -4,11 +4,17 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, User, MapPin, Gift, Phone, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState('DE');
+  const pathname = usePathname();
+
+  // Bestimmte Seiten haben kein Hero-Bild und brauchen sofort den "Scrolled" Style (dunkler Text)
+  const isLightPage = pathname === '/inquiry';
+  const showScrolledStyle = isScrolled || isLightPage;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,7 +41,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-500 ease-in-out px-4 md:px-12 py-4 ${isScrolled ? 'bg-white/95 backdrop-blur-sm py-3 shadow-sm' : 'bg-transparent py-6'
+      className={`fixed w-full z-50 transition-all duration-500 ease-in-out px-4 md:px-12 py-4 ${showScrolledStyle ? 'bg-white/95 backdrop-blur-sm py-3 shadow-sm' : 'bg-transparent py-6'
         }`}
     >
       <div className="max-w-[1800px] mx-auto flex justify-between items-center">
@@ -46,7 +52,7 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              className={`uppercase tracking-[0.2em] text-[10px] transition-colors ${isScrolled ? 'text-gray-900 hover:text-gray-500' : 'text-white hover:text-gray-300'
+              className={`uppercase tracking-[0.2em] text-[10px] transition-colors ${showScrolledStyle ? 'text-gray-900 hover:text-gray-500' : 'text-white hover:text-gray-300'
                 }`}
             >
               {link.name}
@@ -55,7 +61,7 @@ export default function Navbar() {
         </div>
 
         {/* MITTE: Logo zentral */}
-        <Link href="/" className={`text-3xl font-serif tracking-[0.3em] transition-colors px-4 ${isScrolled ? 'text-gray-900' : 'text-white'
+        <Link href="/" className={`text-3xl font-serif tracking-[0.3em] transition-colors px-4 ${showScrolledStyle ? 'text-gray-900' : 'text-white'
           }`}>
           <span className="font-light">MALIA</span>
         </Link>
@@ -66,7 +72,7 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              className={`uppercase tracking-[0.2em] text-[10px] transition-colors ${isScrolled ? 'text-gray-900 hover:text-gray-500' : 'text-white hover:text-gray-300'
+              className={`uppercase tracking-[0.2em] text-[10px] transition-colors ${showScrolledStyle ? 'text-gray-900 hover:text-gray-500' : 'text-white hover:text-gray-300'
                 }`}
             >
               {link.name}
@@ -79,7 +85,7 @@ export default function Navbar() {
               <a
                 key={idx}
                 href={item.label === 'Kontakt' ? '/inquiry' : '#'}
-                className={`transition-transform hover:scale-110 ${isScrolled ? 'text-gray-900' : 'text-white'
+                className={`transition-transform hover:scale-110 ${showScrolledStyle ? 'text-gray-900' : 'text-white'
                   }`}
                 title={item.label}
               >
@@ -90,7 +96,7 @@ export default function Navbar() {
 
           {/* Sprachschalter */}
           <div className="relative group cursor-pointer">
-            <div className={`flex items-center space-x-1 pb-1 border-b-[1px] transition-colors ${isScrolled ? 'text-gray-900 border-gray-900' : 'text-white border-white'
+            <div className={`flex items-center space-x-1 pb-1 border-b-[1px] transition-colors ${showScrolledStyle ? 'text-gray-900 border-gray-900' : 'text-white border-white'
               }`}>
               <span className="text-xs font-light tracking-widest">{currentLang}</span>
               <ChevronDown size={14} />
@@ -107,7 +113,7 @@ export default function Navbar() {
         <div className="lg:hidden flex items-center">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={isScrolled ? 'text-gray-900' : 'text-white'}
+            className={showScrolledStyle ? 'text-gray-900' : 'text-white'}
           >
             {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>

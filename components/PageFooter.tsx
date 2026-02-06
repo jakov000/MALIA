@@ -1,5 +1,5 @@
 import React from 'react';
-import { Instagram, Facebook, Youtube } from 'lucide-react';
+import SocialLinks from './ui/SocialLinks';
 
 export default function PageFooter() {
     return (
@@ -13,13 +13,7 @@ export default function PageFooter() {
 
                 <div className="flex flex-col md:flex-row items-center gap-10 mb-16">
                     <div className="flex items-center gap-8 text-gray-800">
-                        <a href="https://www.instagram.com/malia.alpine.hideaway/" target="_blank" rel="noopener noreferrer">
-                            <Instagram size={18} strokeWidth={1.5} className="cursor-pointer hover:scale-110 transition-transform" />
-                        </a>
-                        <a href="https://www.facebook.com/people/MALIA-Alpine-Hideaway/61582954802618/" target="_blank" rel="noopener noreferrer">
-                            <Facebook size={18} strokeWidth={1.5} className="cursor-pointer hover:scale-110 transition-transform" />
-                        </a>
-                        <Youtube size={18} strokeWidth={1.5} className="cursor-pointer hover:scale-110 transition-transform" />
+                        <SocialLinks className="text-gray-800" iconSize={18} />
                         <span className="text-[10px] font-bold cursor-pointer hover:text-black">SPOTIFY</span>
                     </div>
                     <button className="px-10 py-3 border border-gray-400 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-white transition-all shadow-sm">
