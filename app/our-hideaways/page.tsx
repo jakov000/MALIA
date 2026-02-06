@@ -40,27 +40,31 @@ function AccordionItem({ title, children }: { title: string, children: React.Rea
 export default function OurHideawaysContent() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // --- VIOMA KONFIGURATION ---
+  const VIOMA_BOOKING_URL = "https://zugang.vioma.de/booking/malia-hideaway"; 
+  const VIOMA_REQUEST_URL = "https://zugang.vioma.de/anfrage/malia-hideaway";
+
   const suites = [
     {
       title: "THE ALPINE HIDEAWAY",
       price: "150",
       persons: "2-10",
       sqm: "400",
-      img: "https://images.unsplash.com/photo-1590490359683-658d3d23f972?auto=format&fit=crop&q=80"
+      img: "/pictures/hideaways/kitchen2.JPG"
     },
     {
       title: "THE RESIDENCE",
       price: "120",
       persons: "2-8",
       sqm: "360",
-      img: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&q=80"
+      img: "/pictures/hideaways/IMG_1289.jpeg"
     },
     {
       title: "THE RETREAT",
       price: "45",
       persons: "2",
       sqm: "40",
-      img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80"
+      img: "/pictures/hideaways/IMG_1504.jpeg"
     }
   ];
 
@@ -73,7 +77,7 @@ export default function OurHideawaysContent() {
       {/* --- 1. HERO SECTION --- */}
       <section className="relative h-screen w-full overflow-hidden">
         <div className="absolute inset-0">
-          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Hero" />
+          <img src="/pictures/hideaways/IMG-1402.png" className="w-full h-full object-cover" alt="Hero" />
           <div className="absolute inset-0 bg-black/10" />
         </div>
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-white text-center">
@@ -82,7 +86,7 @@ export default function OurHideawaysContent() {
                <path d="M50 10L85 60H70L95 90H60L85 110H15L40 90H5L30 60H15L50 10Z" stroke="white" strokeWidth="1.2" />
             </svg>
           </motion.div>
-          <motion.h1 initial={{ opacity: 0, letterSpacing: "0.2em" }} animate={{ opacity: 1, letterSpacing: "0.4em" }} className="text-5xl md:text-7xl font-serif uppercase tracking-[0.4em] font-light">Zimmer</motion.h1>
+          <motion.h1 initial={{ opacity: 0, letterSpacing: "0.2em" }} animate={{ opacity: 1, letterSpacing: "0.4em" }} className="text-4xl md:text-7xl font-serif uppercase tracking-[0.4em] font-light px-4">Inspired by Nature, Designed for YOU!</motion.h1>
           <div className="absolute bottom-24 flex flex-col items-center">
             <span className="uppercase tracking-[0.4em] text-[10px] mb-4 font-light opacity-80 italic">scroll for happiness</span>
             <div className="w-[1px] h-12 bg-white/40" />
@@ -90,7 +94,7 @@ export default function OurHideawaysContent() {
         </div>
       </section>
 
-      {/* --- 2. INTRO TEXT & KATEGORIEN --- */}
+      {/* --- 2. INTRO TEXT --- */}
       <section className="py-24 md:py-40 px-6 bg-white text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-5xl font-serif text-[#7d3a2a] mb-8 tracking-wide uppercase">Zimmer & Suiten</h2>
@@ -98,7 +102,6 @@ export default function OurHideawaysContent() {
           <p className="text-sm md:text-lg font-sans font-light text-gray-600 leading-relaxed tracking-wide max-w-3xl mx-auto">
             Altholz, strukturierter Stein, feine Leinenstoffe und Farben, die direkt aus der Natur stammen. Die großzügigen Glasfronten holen die Berge direkt ins Haus und lassen die Grenzen zwischen Innen und Außen verschwimmen.
           </p>
-
         </div>
       </section>
 
@@ -129,10 +132,28 @@ export default function OurHideawaysContent() {
                   <div className="max-w-md space-y-6">
                     <h3 className="text-2xl font-serif uppercase tracking-widest text-stone-800">{suite.title}</h3>
                     <div className="text-xs text-gray-500 font-light space-y-1 tracking-[0.2em]"><p>ab € {suite.price},00</p><p>{suite.persons} Personen</p><p>{suite.sqm} m²</p></div>
+                    
+                    {/* BUTTON GROUP MIT VIOMA LINKS */}
                     <div className="flex flex-wrap gap-3 pt-4" onClick={(e) => e.stopPropagation()}>
-                      <button className="px-8 py-3 border border-stone-200 text-[9px] uppercase tracking-widest font-bold">Details</button>
-                      <button className="px-8 py-3 border border-stone-200 text-[9px] uppercase tracking-widest font-bold">Anfragen</button>
-                      <button className="px-8 py-3 bg-stone-800 text-white text-[9px] uppercase tracking-widest font-bold">Buchen</button>
+                      <button className="px-8 py-3 border border-stone-200 text-[9px] uppercase tracking-widest font-bold hover:bg-stone-50 transition-all">Details</button>
+                      
+                      <a 
+                        href={VIOMA_REQUEST_URL} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="px-8 py-3 border border-stone-200 text-[9px] uppercase tracking-widest font-bold hover:bg-stone-50 transition-all"
+                      >
+                        Anfragen
+                      </a>
+                      
+                      <a 
+                        href={VIOMA_BOOKING_URL} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="px-8 py-3 bg-stone-800 text-white text-[9px] uppercase tracking-widest font-bold hover:bg-stone-700 transition-all"
+                      >
+                        Buchen
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -142,11 +163,9 @@ export default function OurHideawaysContent() {
         </div>
       </section>
 
-      {/* --- 4. GUT ZU WISSEN SECTION (MIT FIXIERTEN BILDERN) --- */}
+      {/* --- 4. GUT ZU WISSEN SECTION --- */}
       <section className="py-24 md:py-40 px-6 bg-stone-50/30">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-          
-          {/* Linke Spalte: Accordions */}
           <div className="lg:col-span-7 space-y-10">
             <h2 className="text-xl md:text-2xl font-serif uppercase tracking-[0.3em] text-stone-800 border-b border-stone-100 pb-6">Gut zu wissen</h2>
             <div className="space-y-1">
@@ -200,29 +219,30 @@ export default function OurHideawaysContent() {
             </div>
           </div>
 
-          {/* Mittlere Spalte: Bild (FIXIERT mit sticky) */}
           <div className="lg:col-span-3 sticky top-32 self-start">
             <div className="aspect-[3/4] overflow-hidden shadow-sm">
-              <img src="https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Ambiente" />
+              <img src="/pictures/hideaways/Bild 3889.JPG" className="w-full h-full object-cover" alt="Ambiente" />
             </div>
           </div>
 
-          {/* Rechte Spalte: Zitat & Detailbild (FIXIERT mit sticky) */}
           <div className="lg:col-span-2 sticky top-32 self-start flex flex-col justify-between space-y-12">
             <p className="text-base md:text-lg font-serif italic text-stone-600 leading-relaxed text-center lg:text-left">„Einfach ankommen & glücklich sein.“</p>
             <div className="aspect-square overflow-hidden shadow-sm">
-              <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Detail" />
+              <img src="/pictures/hideaways/_DSC2878.JPG" className="w-full h-full object-cover" alt="Detail" />
             </div>
           </div>
-
         </div>
       </section>
 
-      {/* --- 5. FOOTER SECTION --- */}
+      {/* --- 5. FOOTER --- */}
       <footer className="bg-[#f8f6f3] pt-24 pb-32 px-6">
         <div className="max-w-7xl mx-auto flex flex-col items-center">
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-16 text-[9px] md:text-[11px] uppercase tracking-[0.25em] text-gray-500 font-sans text-center">
-            <span className="hover:text-black cursor-pointer">FAQ</span><span className="hover:text-black cursor-pointer">Anreise</span><span className="hover:text-black cursor-pointer">Inklusivleistungen</span><span className="hover:text-black cursor-pointer">Impressum</span><span className="hover:text-black cursor-pointer">Datenschutz</span>
+            <span className="hover:text-black cursor-pointer">FAQ</span>
+            <span className="hover:text-black cursor-pointer">Anreise</span>
+            <span className="hover:text-black cursor-pointer">Inklusivleistungen</span>
+            <span className="hover:text-black cursor-pointer">Impressum</span>
+            <span className="hover:text-black cursor-pointer">Datenschutz</span>
           </div>
           <div className="flex flex-col md:flex-row items-center gap-10 mb-16">
             <div className="flex items-center gap-8 text-gray-800"><Instagram size={18} strokeWidth={1.5} className="cursor-pointer" /><Facebook size={18} strokeWidth={1.5} className="cursor-pointer" /><Youtube size={18} strokeWidth={1.5} className="cursor-pointer" /><span className="text-[10px] font-bold cursor-pointer">SPOTIFY</span></div>
@@ -230,7 +250,7 @@ export default function OurHideawaysContent() {
           </div>
           <div className="text-center text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-gray-400 font-sans leading-loose">
             <p>MALIA Alpine Hideaway — Familie Madleine & Julia — Ländbergstraße 6 — 6213 Pertisau</p>
-            <p className="mt-2 text-gray-500 font-medium">hello@malia-hideaway.at</p>
+            <p className="mt-2 text-gray-500 font-medium font-sans">hello@malia-hideaway.at</p>
           </div>
         </div>
       </footer>

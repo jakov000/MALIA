@@ -1,43 +1,63 @@
 "use client";
-import React from 'react';
-import { motion } from 'framer-motion';
-// Wichtig: Diese Icons müssen importiert sein!
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Instagram, Facebook, Youtube } from 'lucide-react';
 
 export default function Hero() {
-  const suites = [
-    {
-      title: "Alpine Loft Suite",
-      size: "85 m²",
-      price: "ab € 320",
-      image: "https://images.unsplash.com/photo-1590490359683-658d3d23f972?auto=format&fit=crop&q=80"
-    },
-    {
-      title: "Summit Residence",
-      size: "140 m²",
-      price: "ab € 580",
-      image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&q=80"
-    }
+  // --- 1. BILDER-KONFIGURATION ---
+  // Basierend auf deiner Ordnerstruktur in der Screenshot-Grafik
+  const heroImages = [
+    "/pictures/hero/hero/_DSC4122.JPG",
+    "/pictures/hero/hero/Bad The Lakeside__.jpg",
+    "/pictures/hero/hero/Bild Küche__.jpg",
+    "/pictures/hero/hero/Haus ausblick.jpg",
+    "/pictures/hero/hero/IMG_1289.jpeg",
+    "/pictures/hero/hero/IMG_1402.png",
+    "/pictures/hero/hero/Küche 2.JPG",
+    "/pictures/hero/hero/madleine_ausblick Sommer.jpeg",
+    "/pictures/hero/hero/NEU Haus Winter.png"
   ];
+
+  const [currentImg, setCurrentImg] = useState(0);
+
+  // Automatischer Bildwechsel alle 6 Sekunden
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImg((prev) => (prev + 1) % heroImages.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [heroImages.length]);
+
+  // --- 2. VIOMA KONFIGURATION ---
+  const VIOMA_BOOKING_URL = "https://zugang.vioma.de/booking/malia-hideaway"; 
+  const VIOMA_REQUEST_URL = "https://zugang.vioma.de/anfrage/malia-hideaway";
 
   return (
     <div className="flex flex-col w-full">
-      {/* --- 1. HERO VIDEO/IMAGE SECTION --- */}
-      <section className="relative h-[100svh] w-full overflow-hidden bg-luxury-dark">
-        <motion.div 
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 10, ease: "linear" }}
-          className="absolute inset-0"
-        >
-          <img 
-            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80" 
-            className="w-full h-full object-cover"
-            alt="MALIA Alpine Hideaway"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40" />
-        </motion.div>
+      
+      {/* --- SECTION 1: HERO IMAGE SLIDER --- */}
+      <section className="relative h-[100svh] w-full overflow-hidden bg-stone-900">
+        
+        {/* Bilder mit sanftem Crossfade-Übergang */}
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={currentImg}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 2, ease: "easeInOut" }}
+            className="absolute inset-0"
+          >
+            <img 
+              src={heroImages[currentImg]} 
+              className="w-full h-full object-cover opacity-70" 
+              alt="MALIA Alpine Hideaway Impression" 
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/50" />
+          </motion.div>
+        </AnimatePresence>
 
+        {/* Text-Content (bleibt fixiert) */}
         <div className="relative z-10 h-full flex flex-col justify-center items-center text-white px-6 text-center">
           <motion.span 
             initial={{ opacity: 0, y: 10 }}
@@ -57,28 +77,36 @@ export default function Hero() {
             Malia <br className="md:hidden" /> Alpine Hideaway
           </motion.h1>
 
-          <motion.button 
-            className="md:hidden border border-white/40 backdrop-blur-md px-8 py-3 uppercase text-[10px] tracking-widest"
+          <a 
+            href={VIOMA_BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="md:hidden border border-white/40 backdrop-blur-md px-8 py-3 uppercase text-[10px] tracking-widest text-white transition-all hover:bg-white hover:text-black"
           >
             Jetzt Entdecken
-          </motion.button>
+          </a>
+        </div>
+
+        {/* Slider Indikatoren (Striche unten) */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+          {heroImages.map((_, idx) => (
+            <div 
+              key={idx} 
+              className={`h-[2px] transition-all duration-1000 ${idx === currentImg ? 'w-8 bg-white' : 'w-3 bg-white/20'}`}
+            />
+          ))}
         </div>
       </section>
 
-      {/* --- 2. INTRO TEXT SECTION --- */}
+      {/* --- SECTION 2: INTRO TEXT --- */}
       <section className="py-24 md:py-40 px-6 bg-white">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-          >
-            <h2 className="text-3xl md:text-5xl font-serif text-luxury-dark mb-12 tracking-wide uppercase">
+          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }}>
+            <h2 className="text-3xl md:text-5xl font-serif text-stone-800 mb-12 tracking-wide uppercase">
               Your Private Escape to Alpine Bliss: <br />
               <span className="italic normal-case">MALIA – Alpine Hideaway</span>
             </h2>
-            <p className="text-lg md:text-2xl font-serif text-gray-800 leading-relaxed mb-12 italic">
+            <p className="text-lg md:text-2xl font-serif text-gray-800 leading-relaxed mb-12 italic text-balance">
               Ein Ort für Menschen, die das Besondere suchen – nicht im Überfluss, sondern im Wesentlichen.
             </p>
             <p className="text-sm md:text-lg font-sans font-light text-gray-600 leading-relaxed tracking-wide max-w-2xl mx-auto">
@@ -89,196 +117,132 @@ export default function Hero() {
         </div>
       </section>
 
-      {/* --- 3. EXPERIENCE GRID --- */}
-      <section className="pb-24 md:pb-40 px-6 md:px-12 bg-white">
+      {/* --- SECTION 3: EXPERIENCE GRID --- */}
+      <section className="pb-24 md:pb-40 px-6 md:px-12 bg-white text-stone-800">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-start border-b border-gray-100 pb-24 md:pb-40">
-          {/* Wellness Block */}
+          
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <div className="relative aspect-[3/4] overflow-hidden mb-10">
-              <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Wellness" />
+            <div className="relative aspect-[3/4] overflow-hidden mb-10 group">
+              <img src="/pictures/hero/hero2/IMG_1115.jpeg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Wellness" />
             </div>
-            <h3 className="font-serif text-xl md:text-2xl text-luxury-dark mb-4 tracking-widest uppercase">Wellness Area</h3>
-            <button className="px-8 py-3 border border-luxury-dark text-[10px] uppercase tracking-widest">Jetzt Urlaub buchen</button>
+            <h3 className="font-serif text-xl md:text-2xl mb-4 tracking-widest uppercase">Wellness Area</h3>
+            <a href={VIOMA_BOOKING_URL} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-3 border border-stone-800 text-[10px] uppercase tracking-widest font-bold hover:bg-stone-800 hover:text-white transition-all">
+              Jetzt Urlaub buchen
+            </a>
           </motion.div>
 
-          {/* Angebot Block */}
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="md:mt-40">
-            <div className="relative aspect-[3/4] overflow-hidden mb-10 shadow-sm">
-              <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Special" />
+            <div className="relative aspect-[3/4] overflow-hidden mb-10 shadow-sm group">
+              <img src="/pictures/hero/hero2/füllbild.jpg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Special" />
             </div>
-            <h3 className="font-serif text-xl md:text-2xl text-luxury-dark mb-4 tracking-widest uppercase">7 = 6 Special</h3>
-            <button className="px-8 py-3 border border-luxury-dark text-[10px] uppercase tracking-widest">Details anzeigen</button>
+            <h3 className="font-serif text-xl md:text-2xl mb-4 tracking-widest uppercase">7 = 6 Special</h3>
+            <button className="px-8 py-3 border border-stone-800 text-[10px] uppercase tracking-widest font-bold transition-all hover:bg-stone-50">Details anzeigen</button>
           </motion.div>
         </div>
       </section>
 
-      {/* --- 4. HOSTS SECTION --- */}
+      {/* --- SECTION 4: HOSTS --- */}
       <section className="py-24 md:py-40 px-6 md:px-12 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           <div className="order-2 lg:order-1">
-            <h2 className="text-3xl font-serif text-luxury-dark mb-10 uppercase tracking-widest">Wir sind eure Gastgeber</h2>
+            <h2 className="text-3xl font-serif text-stone-800 mb-10 uppercase tracking-widest">Wir sind eure Gastgeber</h2>
             <p className="text-gray-600 font-sans font-light leading-relaxed text-sm tracking-wide mb-8">
               Wir, <span className="italic">Madleine (23)</span> und <span className="italic">Julia (20)</span>, begrüßen euch herzlich im MALIA.
             </p>
-            <button className="px-10 py-4 border border-luxury-dark text-[10px] uppercase tracking-widest">Kennenlernen</button>
+            <button className="px-10 py-4 border border-stone-800 text-[10px] uppercase tracking-widest font-bold hover:bg-stone-800 hover:text-white transition-all">Kennenlernen</button>
           </div>
           <div className="order-1 lg:order-2">
-            <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&q=80" className="aspect-[3/4] object-cover shadow-2xl" alt="Hosts" />
+            <img src="/pictures/hero/hero3/IMG_1041.jpg" className="aspect-[3/4] w-full object-cover shadow-2xl" alt="Hosts" />
           </div>
         </div>
       </section>
 
-      {/* --- 5. VOUCHER / GUTSCHEIN SECTION --- */}
+      {/* --- SECTION 5: VOUCHER --- */}
       <section className="relative h-[70vh] w-full flex items-center overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover" alt="Voucher" />
+        <img src="/pictures/hero/hero4/Küche.jpg" className="absolute inset-0 w-full h-full object-cover" alt="Voucher" />
         <div className="absolute inset-0 bg-black/40" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 text-white">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 text-white text-center md:text-left">
           <h2 className="text-3xl md:text-5xl font-serif mb-8 uppercase tracking-widest">Zeit schenken.</h2>
-          <button className="px-10 py-4 border border-white text-[10px] uppercase tracking-widest">Gutscheine schenken</button>
+          <button className="px-10 py-4 border border-white text-[10px] uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all">Gutscheine schenken</button>
         </div>
       </section>
 
-{/* --- 6. LAGE & ANREISE (Kompakt-Layout) --- */}
+      {/* --- SECTION 6: LAGE & ANREISE --- */}
       <section className="bg-white py-20 md:py-32 px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
-          
-          {/* Header: Jetzt dezent und weniger raumgreifend */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-5xl font-serif text-[#7d3a2a] mb-4 tracking-wide uppercase">
-              Lage & Anreise
-            </h2>
-            <p className="uppercase tracking-[0.3em] text-[10px] text-gray-400 font-sans">
-              Ihre Anreise in das MALIA Alpine Hideaway
-            </p>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-serif text-[#7d3a2a] mb-4 tracking-wide uppercase">Lage & Anreise</h2>
+            <p className="uppercase tracking-[0.3em] text-[10px] text-gray-400 font-sans">Ihre Anreise in das MALIA Alpine Hideaway</p>
           </motion.div>
 
-          {/* Das kompakte Grid: Alles auf einer Ebene sichtbar */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
-            
-            {/* LINKER BLOCK: Bild (Höhe passt sich dem Text rechts an) */}
-            <motion.div 
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="h-full min-h-[400px]"
-            >
+            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="h-full min-h-[400px]">
               <div className="relative h-full w-full overflow-hidden shadow-sm">
-                <img 
-                  src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80" 
-                  className="w-full h-full object-cover transition-transform duration-[3000ms] hover:scale-105" 
-                  alt="Lage MALIA Alpine Hideaway" 
-                />
+                <img src="/pictures/hero/hero5/haus sommer.png" className="w-full h-full object-cover transition-transform duration-[3000ms] hover:scale-105" alt="Lage" />
               </div>
             </motion.div>
 
-            {/* RECHTER BLOCK: Alle Texte kompakt zusammengefasst */}
-            <motion.div 
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="flex flex-col justify-between space-y-10"
-            >
-              {/* 1. Region & Anfahrt Info */}
+            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="flex flex-col justify-between space-y-10">
               <div className="space-y-4">
-                <h3 className="text-[11px] uppercase tracking-[0.3em] font-bold text-luxury-dark border-b border-gray-100 pb-2">
-                  Der Ort & Die Anfahrt
-                </h3>
-                <div className="text-gray-600 font-sans font-light text-xs md:text-sm leading-relaxed tracking-wide">
-                  <p>
-                    Das <span className="text-luxury-dark font-normal">MALIA-Alpine-Hideaway</span> liegt in Pertisau am Achensee. 
-                    Die <span className="text-luxury-dark font-normal">Bergbahn ist nur 2 Gehminuten entfernt</span> – perfekt für Ski und Wandern. 
-                    Naturidylle und Nähe zum Geschehen verbinden sich hier perfekt. 
-                    Wir bieten zudem genügend freie überdachte Parkplätze an.
-                  </p>
-                </div>
-              </div>
-
-              {/* 2. Bahn Info */}
-              <div className="space-y-4">
-                <h3 className="text-[11px] uppercase tracking-[0.3em] font-bold text-luxury-dark border-b border-gray-100 pb-2">
-                  Anreise mit der Bahn
-                </h3>
+                <h3 className="text-[11px] uppercase tracking-[0.3em] font-bold text-stone-800 border-b border-gray-100 pb-2">Der Ort & Die Anfahrt</h3>
                 <p className="text-gray-600 font-sans font-light text-xs md:text-sm leading-relaxed tracking-wide">
-                  Der nächstgelegene Bahnhof ist <span className="text-luxury-dark font-normal">Jenbach</span>, nur rund 15 Minuten entfernt. 
-                  Genießen Sie eine stressfreie Anreise ohne Auto.
+                  Das <span className="text-stone-800 font-normal">MALIA-Alpine-Hideaway</span> liegt in Pertisau am Achensee. Die Bergbahn ist nur 2 Gehminuten entfernt. Wir bieten zudem genügend freie überdachte Parkplätze an.
                 </p>
               </div>
-
-              {/* 3. Kontakt & Adresse */}
-              <div className="space-y-4 bg-luxury-cream/30 p-6 border-l-2 border-[#7d3a2a]/20">
-                <h3 className="text-[11px] uppercase tracking-[0.3em] font-bold text-luxury-dark">
-                  Kontakt & Adresse
-                </h3>
+              <div className="space-y-4">
+                <h3 className="text-[11px] uppercase tracking-[0.3em] font-bold text-stone-800 border-b border-gray-100 pb-2">Anreise mit der Bahn</h3>
+                <p className="text-gray-600 font-sans font-light text-xs md:text-sm leading-relaxed tracking-wide">
+                  Der nächstgelegene Bahnhof ist <span className="text-stone-800 font-normal">Jenbach</span>, nur rund 15 Minuten entfernt.
+                </p>
+              </div>
+              <div className="space-y-4 bg-stone-50 p-6 border-l-2 border-[#7d3a2a]/20">
+                <h3 className="text-[11px] uppercase tracking-[0.3em] font-bold text-stone-800">Kontakt & Adresse</h3>
                 <div className="text-gray-600 font-sans font-light text-xs md:text-sm leading-loose tracking-widest">
-                  <p className="font-medium text-luxury-dark uppercase">MALIA - Alpine Hideaway</p>
+                  <p className="font-medium text-stone-800 uppercase tracking-tighter">MALIA - Alpine Hideaway</p>
                   <p>Madleine & Julia Rieser</p>
                   <p>Ländbergstraße 6 | A-6213 Pertisau</p>
-                  <div className="mt-4 pt-4 border-t border-gray-100/50 space-y-1 text-[11px]">
-                    <p>Tel: XXX</p>
-                    <p className="underline underline-offset-4">info@malia-alpine-hideaway.at</p>
+                  <div className="mt-4 pt-4 border-t border-gray-200/50 space-y-1 text-[11px]">
+                    <p>hello@malia-hideaway.at</p>
+                    <p>+43 123 456 789</p>
                   </div>
                 </div>
               </div>
-
-              <p className="italic font-serif text-[#7d3a2a] text-base md:text-lg">
-                Gute und sichere Anreise!
-              </p>
+              <p className="italic font-serif text-[#7d3a2a] text-base md:text-lg text-center lg:text-left">Gute und sichere Anreise!</p>
             </motion.div>
-
           </div>
         </div>
       </section>
 
-      {/* --- 7. MAP SECTION --- */}
-      <section className="relative w-full h-[500px] grayscale contrast-125">
-        <iframe width="100%" height="100%" frameBorder="0" src="https://maps.google.com/maps?q=Ländbergstraße%206,%206213%20Pertisau&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+      {/* --- SECTION 7: MAP --- */}
+      <section className="relative w-full h-[500px] grayscale opacity-80 hover:opacity-100 transition-opacity duration-700">
+        <iframe width="100%" height="100%" style={{ border: 0 }} src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2689.47!2d11.68!3d47.47!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479d63!2sPertisau!5e0!3m2!1sde!2sat!4v123456789" allowFullScreen loading="lazy"></iframe>
       </section>
 
-   {/* --- 8. IN-PAGE FOOTER --- */}
-      {/* Wir fügen pb-32 hinzu, damit der beige Hintergrund bis unter die Sticky-Bar geht, 
-          der Inhalt aber darüber stoppt. */}
-      <section className="bg-[#f8f6f3] pt-24 pb-32 px-6 mt-0">
+      {/* --- SECTION 8: IN-PAGE FOOTER --- */}
+      <section className="bg-[#f8f6f3] pt-24 pb-32 px-6">
         <div className="max-w-7xl mx-auto flex flex-col items-center">
-          {/* Link-Reihe */}
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-16 text-[9px] md:text-[11px] uppercase tracking-[0.25em] text-gray-500 font-sans text-center">
-            <span className="hover:text-black cursor-pointer">FAQ</span>
-            <span className="hover:text-black cursor-pointer">Anreise</span>
-            <span className="hover:text-black cursor-pointer">Inklusivleistungen</span>
-            <span className="hover:text-black cursor-pointer">Club</span>
-            <span className="hover:text-black cursor-pointer">Presse</span>
-            <span className="hover:text-black cursor-pointer">Jobs</span>
-            <span className="hover:text-black cursor-pointer">Kataloge</span>
-            <span className="hover:text-black cursor-pointer">AGB</span>
-            <span className="hover:text-black cursor-pointer">Impressum</span>
-            <span className="hover:text-black cursor-pointer">Datenschutz</span>
+            {["FAQ", "Anreise", "Inklusivleistungen", "Club", "Presse", "Jobs", "Kataloge", "AGB", "Impressum", "Datenschutz"].map((link) => (
+              <span key={link} className="hover:text-black cursor-pointer transition-colors">{link}</span>
+            ))}
           </div>
 
-          {/* Social & Sign Up Row */}
           <div className="flex flex-col md:flex-row items-center gap-10 mb-16">
             <div className="flex items-center gap-8 text-gray-800">
-              <Instagram size={18} strokeWidth={1.5} className="cursor-pointer" />
-              <Facebook size={18} strokeWidth={1.5} className="cursor-pointer" />
-              <Youtube size={18} strokeWidth={1.5} className="cursor-pointer" />
-              <span className="text-[10px] font-bold cursor-pointer">SPOTIFY</span>
+              <Instagram size={18} strokeWidth={1.5} className="cursor-pointer hover:scale-110 transition-transform" />
+              <Facebook size={18} strokeWidth={1.5} className="cursor-pointer hover:scale-110 transition-transform" />
+              <Youtube size={18} strokeWidth={1.5} className="cursor-pointer hover:scale-110 transition-transform" />
+              <span className="text-[10px] font-bold cursor-pointer tracking-widest hover:text-black">SPOTIFY</span>
             </div>
-            <button className="px-10 py-3 border border-gray-400 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-white transition-all">
-              Sign up for inspiration
-            </button>
+            <button className="px-10 py-3 border border-gray-400 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-white transition-all shadow-sm">Sign up for inspiration</button>
           </div>
 
-          {/* Adress-Zeile */}
           <div className="text-center text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-gray-400 font-sans leading-loose">
             <p>MALIA Alpine Hideaway — Familie Madleine & Julia — Ländbergstraße 6 — 6213 Pertisau — Österreich</p>
             <p className="mt-2 text-gray-500 font-medium">hello@malia-hideaway.at — +43 123 456 789</p>
           </div>
         </div>
       </section>
-      {/* KEIN extra Div mehr hier! */}
     </div>
   );
 }
