@@ -1,20 +1,177 @@
 "use client";
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Instagram, Facebook, Youtube, ChevronRight } from 'lucide-react';
+import PageFooter from '@/components/PageFooter';
+
+// Slideshow Komponente
+const ImageSlideshow = ({ images, title }: { images: string[], title: string }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (images.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 4000); // Bildwechsel alle 4 Sekunden
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  return (
+    <div className="relative w-full h-full overflow-hidden bg-stone-100 shadow-sm">
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={currentIndex}
+          src={images[currentIndex]}
+          alt={`${title} - Bild ${currentIndex + 1}`}
+          className="absolute inset-0 w-full h-full object-cover"
+          initial={{ opacity: 0, scale: 1.1 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+        />
+      </AnimatePresence>
+
+      {/* Fortschrittsanzeige (optional, dezent) */}
+      <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
+        {images.map((_, idx) => (
+          <div
+            key={idx}
+            className={`w-1 h-1 rounded-full transition-all duration-500 ${idx === currentIndex ? 'bg-white w-4' : 'bg-white/50'}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default function TheFeelingPage() {
   // Definition der Bereiche für die Bilder-Navigation
   const areas = [
-    { id: "room-1", title: "Zimmer 1", subtitle: "Private Retreat", category: "The Hideaway" },
-    { id: "room-2", title: "Zimmer 2", subtitle: "Alpine Comfort", category: "The Residence" },
-    { id: "room-3", title: "Zimmer 3", subtitle: "Modern Stillness", category: "The Retreat" },
-    { id: "room-4", title: "Zimmer 4", subtitle: "Nature View", category: "Alpine Loft" },
-    { id: "room-5", title: "Zimmer 5", subtitle: "Skyline Suite", category: "Summit Loft" },
-    { id: "wellness", title: "Wellness", subtitle: "Sauna & Infrarot", category: "Relax" },
-    { id: "kitchen", title: "Küche", subtitle: "Ehrliche Materialien", category: "Living" },
-    { id: "living", title: "Wohnzimmer", subtitle: "Feuer & Stein", category: "Community" },
-    { id: "outdoor", title: "Außenbereich", subtitle: "Karwendel-Blick", category: "Nature" },
+    {
+      id: "room-1",
+      title: "Zimmer 1",
+      subtitle: "Private Retreat",
+      category: "The Hideaway",
+      images: [
+        "/pictures/hideaways/alpine/Zimmer1/IMG_0889.jpeg",
+        "/pictures/hideaways/alpine/Zimmer1/IMG_1151.jpeg",
+        "/pictures/hideaways/alpine/Zimmer1/IMG_3141.jpeg"
+      ]
+    },
+    {
+      id: "room-2",
+      title: "Zimmer 2",
+      subtitle: "Alpine Comfort",
+      category: "The Residence",
+      images: [
+        "/pictures/hideaways/alpine/Zimmer2/IMG_1385 (1).jpeg",
+        "/pictures/hideaways/alpine/Zimmer2/IMG_1393.jpeg",
+        "/pictures/hideaways/alpine/Zimmer2/IMG_1406.jpeg",
+        "/pictures/hideaways/alpine/Zimmer2/IMG_3045.jpeg",
+        "/pictures/hideaways/alpine/Zimmer2/bad madleine 1.jpg",
+        "/pictures/hideaways/alpine/Zimmer2/bad madleine 2.jpg",
+        "/pictures/hideaways/alpine/Zimmer2/madleine_ausblick Sommer.jpeg",
+        "/pictures/hideaways/alpine/Zimmer2/madleine_ausblick Winter 2.jpeg"
+      ]
+    },
+    {
+      id: "room-3",
+      title: "Zimmer 3",
+      subtitle: "Modern Stillness",
+      category: "The Retreat",
+      images: [
+        "/pictures/hideaways/alpine/Zimmer3/Bad Juli 1.jpeg",
+        "/pictures/hideaways/alpine/Zimmer3/IMG_1344.jpeg",
+        "/pictures/hideaways/alpine/Zimmer3/IMG_1366.jpeg",
+        "/pictures/hideaways/alpine/Zimmer3/IMG_1374.jpeg",
+        "/pictures/hideaways/alpine/Zimmer3/bad julia 2.jpg",
+        "/pictures/hideaways/alpine/Zimmer3/bad julia.jpg"
+      ]
+    },
+    {
+      id: "room-4",
+      title: "Zimmer 4",
+      subtitle: "Nature View",
+      category: "Alpine Loft",
+      images: [
+        "/pictures/hideaways/alpine/Zimmer4/Bad Maria 1.jpg",
+        "/pictures/hideaways/alpine/Zimmer4/IMG_1429.jpeg",
+        "/pictures/hideaways/alpine/Zimmer4/IMG_1434.jpeg",
+        "/pictures/hideaways/alpine/Zimmer4/IMG_1445.jpeg",
+        "/pictures/hideaways/alpine/Zimmer4/IMG_1447.jpeg",
+        "/pictures/hideaways/alpine/Zimmer4/bad maria 3.jpg",
+        "/pictures/hideaways/alpine/Zimmer4/bad maria.png",
+        "/pictures/hideaways/alpine/Zimmer4/zimmer maria.jpg"
+      ]
+    },
+    {
+      id: "room-5",
+      title: "Zimmer 5",
+      subtitle: "Skyline Suite",
+      category: "Summit Loft",
+      images: [
+        "/pictures/hideaways/alpine/Zimmer5/804CEFBC-C6C4-45D1-98C6-CFB0DEE667B2.JPG",
+        "/pictures/hideaways/alpine/Zimmer5/IMG_1470.jpeg",
+        "/pictures/hideaways/alpine/Zimmer5/IMG_1473.jpeg",
+        "/pictures/hideaways/alpine/Zimmer5/IMG_1501.jpeg",
+        "/pictures/hideaways/alpine/Zimmer5/IMG_1504.jpeg"
+      ]
+    },
+    {
+      id: "wellness",
+      title: "Wellness",
+      subtitle: "Sauna & Infrarot",
+      category: "Relax",
+      images: [
+        "/pictures/hideaways/alpine/Wellness/IMG_1111.jpeg",
+        "/pictures/hideaways/alpine/Wellness/IMG_1283.jpeg",
+        "/pictures/hideaways/alpine/Wellness/IMG_1289.jpeg",
+        "/pictures/hideaways/alpine/Wellness/IMG_1296.jpeg",
+        "/pictures/hideaways/alpine/Wellness/IMG_1310.jpeg",
+        "/pictures/hideaways/alpine/Wellness/IMG_1327.jpeg",
+        "/pictures/hideaways/alpine/Wellness/IMG_1385.jpeg"
+      ]
+    },
+    {
+      id: "kitchen",
+      title: "Küche",
+      subtitle: "Ehrliche Materialien",
+      category: "Living",
+      images: [
+        "/pictures/hideaways/alpine/Küche/Esstisch.JPG",
+        "/pictures/hideaways/alpine/Küche/IMG_1236 (1).jpeg",
+        "/pictures/hideaways/alpine/Küche/IMG_1244.jpeg",
+        "/pictures/hideaways/alpine/Küche/Küche 4.JPG",
+        "/pictures/hideaways/alpine/Küche/küche 2.JPG",
+        "/pictures/hideaways/alpine/Küche/küche 3.JPG"
+      ]
+    },
+    {
+      id: "living",
+      title: "Wohnzimmer",
+      subtitle: "Feuer & Stein",
+      category: "Community",
+      images: [
+        "/pictures/hideaways/alpine/Wohnzimmer/IMG_0972.jpeg",
+        "/pictures/hideaways/alpine/Wohnzimmer/IMG_1022.jpeg",
+        "/pictures/hideaways/alpine/Wohnzimmer/IMG_1200.jpeg",
+        "/pictures/hideaways/alpine/Wohnzimmer/IMG_3169.jpeg",
+        "/pictures/hideaways/alpine/Wohnzimmer/IMG_3205.jpeg",
+        "/pictures/hideaways/alpine/Wohnzimmer/IMG_3209.jpeg",
+        "/pictures/hideaways/alpine/Wohnzimmer/IMG_3217.jpeg"
+      ]
+    },
+    {
+      id: "outdoor",
+      title: "Außenbereich",
+      subtitle: "Karwendel-Blick",
+      category: "Nature",
+      images: [
+        "/pictures/hideaways/alpine/HausAußen/haus sommer.png",
+        "/pictures/hideaways/alpine/HausAußen/haus winter 2.jpeg",
+        "/pictures/hideaways/alpine/HausAußen/haus winter.jpeg"
+      ]
+    },
   ];
 
   return (
@@ -22,8 +179,8 @@ export default function TheFeelingPage() {
       {/* --- 1. HERO SECTION --- */}
       <section className="relative h-screen w-full overflow-hidden">
         <div className="absolute inset-0">
-          <img 
-            src="/pictures/the-feeling/IMG_1151.jpeg" 
+          <img
+            src="/pictures/the-feeling/IMG_1151.jpeg"
             className="w-full h-full object-cover"
             alt="MALIA Architektur"
           />
@@ -33,13 +190,13 @@ export default function TheFeelingPage() {
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-white text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2 }} className="mb-6">
             <svg width="60" height="80" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <path d="M50 10L85 60H70L95 90H60L85 110H15L40 90H5L30 60H15L50 10Z" stroke="white" strokeWidth="1.2" />
+              <path d="M50 10L85 60H70L95 90H60L85 110H15L40 90H5L30 60H15L50 10Z" stroke="white" strokeWidth="1.2" />
             </svg>
           </motion.div>
 
-          <motion.h1 
-            initial={{ opacity: 0, letterSpacing: "0.2em" }} 
-            animate={{ opacity: 1, letterSpacing: "0.4em" }} 
+          <motion.h1
+            initial={{ opacity: 0, letterSpacing: "0.2em" }}
+            animate={{ opacity: 1, letterSpacing: "0.4em" }}
             className="text-5xl md:text-7xl font-serif uppercase tracking-[0.4em] font-light"
           >
             The Feeling
@@ -57,7 +214,7 @@ export default function TheFeelingPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="space-y-32 md:space-y-64">
             {areas.map((area, idx) => (
-              <motion.div 
+              <motion.div
                 key={area.id}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -65,18 +222,18 @@ export default function TheFeelingPage() {
                 transition={{ duration: 1 }}
                 className={`flex flex-col ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-12 md:gap-24`}
               >
-                {/* Bild-Container */}
+                {/* Bild-Container (Slideshow) */}
                 <div className="w-full md:w-3/5">
                   <div className="relative aspect-[4/5] md:aspect-[16/10] overflow-hidden bg-stone-100 shadow-sm">
-                    <img 
-                      src={`/pictures/the-feeling/${area.id}.jpg`} // HIER DEINE BILDER EINPFLEGEN (z.B. room-1.jpg)
-                      className="w-full h-full object-cover transition-transform duration-[3000ms] hover:scale-110"
-                      alt={area.title}
-                      onError={(e) => {
-                        // Fallback falls Bild noch nicht existiert
-                        (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1590490359683-658d3d23f972?auto=format&fit=crop&q=80";
-                      }}
-                    />
+                    {area.images && area.images.length > 0 ? (
+                      <ImageSlideshow images={area.images} title={area.title} />
+                    ) : (
+                      <img
+                        src={`/pictures/the-feeling/${area.id}.jpg`}
+                        className="w-full h-full object-cover"
+                        alt={area.title}
+                      />
+                    )}
                   </div>
                 </div>
 
@@ -102,32 +259,7 @@ export default function TheFeelingPage() {
       </section>
 
       {/* --- 3. FOOTER SECTION --- */}
-      <footer className="bg-[#f8f6f3] pt-24 pb-32 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col items-center">
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-16 text-[9px] md:text-[11px] uppercase tracking-[0.25em] text-gray-500 font-sans text-center">
-            {["FAQ", "Anreise", "Inklusivleistungen", "Impressum", "Datenschutz"].map(link => (
-              <span key={link} className="hover:text-black cursor-pointer transition-colors">{link}</span>
-            ))}
-          </div>
-
-          <div className="flex flex-col md:flex-row items-center gap-10 mb-16">
-            <div className="flex items-center gap-8 text-gray-800">
-              <Instagram size={18} strokeWidth={1.5} className="cursor-pointer hover:scale-110 transition-transform" />
-              <Facebook size={18} strokeWidth={1.5} className="cursor-pointer hover:scale-110 transition-transform" />
-              <Youtube size={18} strokeWidth={1.5} className="cursor-pointer hover:scale-110 transition-transform" />
-              <span className="text-[10px] font-bold cursor-pointer">SPOTIFY</span>
-            </div>
-            <button className="px-10 py-3 border border-gray-400 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-white transition-all">
-              Sign up for inspiration
-            </button>
-          </div>
-
-          <div className="text-center text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-gray-400 font-sans leading-loose">
-            <p>MALIA Alpine Hideaway — Familie Madleine & Julia — Ländbergstraße 6 — 6213 Pertisau</p>
-            <p className="mt-2 text-gray-500 font-medium">hello@malia-hideaway.at</p>
-          </div>
-        </div>
-      </footer>
+      <PageFooter />
     </div>
   );
 }

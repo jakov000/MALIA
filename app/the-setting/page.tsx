@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Instagram, Facebook, Youtube, Snowflake, Sun, Map, ExternalLink } from 'lucide-react';
+import PageFooter from '@/components/PageFooter';
 
 export default function TheSettingPage() {
   return (
@@ -9,8 +10,8 @@ export default function TheSettingPage() {
       {/* --- 1. HERO SECTION --- */}
       <section className="relative h-screen w-full overflow-hidden">
         <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80" 
+          <img
+            src="/pictures/the%20setting/IMG_1406.jpeg"
             className="w-full h-full object-cover"
             alt="MALIA Setting"
           />
@@ -19,7 +20,7 @@ export default function TheSettingPage() {
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-white text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2 }} className="mb-6">
             <svg width="60" height="80" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <path d="M50 10L85 60H70L95 90H60L85 110H15L40 90H5L30 60H15L50 10Z" stroke="white" strokeWidth="1.2" />
+              <path d="M50 10L85 60H70L95 90H60L85 110H15L40 90H5L30 60H15L50 10Z" stroke="white" strokeWidth="1.2" />
             </svg>
           </motion.div>
           <motion.h1 initial={{ opacity: 0, letterSpacing: "0.2em" }} animate={{ opacity: 1, letterSpacing: "0.4em" }} className="text-5xl md:text-7xl font-serif uppercase tracking-[0.4em] font-light">
@@ -52,7 +53,7 @@ export default function TheSettingPage() {
             </p>
           </div>
           <div className="aspect-[4/5] overflow-hidden">
-             <img src="https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?auto=format&fit=crop&q=80" className="w-full h-full object-cover shadow-sm" alt="Winter" />
+            <img src="https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?auto=format&fit=crop&q=80" className="w-full h-full object-cover shadow-sm" alt="Winter" />
           </div>
         </div>
 
@@ -83,9 +84,9 @@ export default function TheSettingPage() {
             Auch im Winter ist der Achensee da. Still, weit und klar.<br />
             Winterspaziergänge am Ufer, kalte Luft, glitzernder Schnee – ein Ort zum Durchatmen und Innehalten, mitten zwischen Berg und Wasser.
           </p>
-          <button className="px-12 py-5 bg-stone-800 text-white text-[10px] uppercase tracking-[0.3em] font-bold hover:bg-stone-700 transition-all">
+          <a href="/inquiry" className="inline-block px-12 py-5 bg-stone-800 text-white text-[10px] uppercase tracking-[0.3em] font-bold hover:bg-stone-700 transition-all">
             Hol dir dein Angebot für ruhigen Luxus im Winter
-          </button>
+          </a>
         </div>
       </section>
 
@@ -149,8 +150,8 @@ export default function TheSettingPage() {
             Mit der interaktiven Karte der Achensee-Region findest du dich leicht zurecht – schon vor deiner Anreise und auch unterwegs. Du entdeckst (Winter)Wanderwege, Spaziergänge am See, Routen durchs Karwendel und Touren ins Rofangebirge – von ruhig bis anspruchsvoller.<br /><br />
             Alle Wege sind übersichtlich dargestellt, ergänzt durch hilfreiche Infos zu Streckenverlauf, Einkehrmöglichkeiten und Sehenswertem. So planst du deine Tage nach deinem Gefühl: spontan oder vorbereitet, aktiv oder ganz entspannt.
           </p>
-          <a 
-            href="https://maps.achensee.com/v2/de/gdi_winter/2d/-1/default/11.274303742091197/47.474272478275765/11.689434077743158/-1/-1/" 
+          <a
+            href="https://maps.achensee.com/v2/de/gdi_winter/2d/-1/default/11.274303742091197/47.474272478275765/11.689434077743158/-1/-1/"
             target="_blank"
             className="group flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.4em]"
           >
@@ -169,8 +170,8 @@ export default function TheSettingPage() {
             <p>Wer sich bewegen möchte, findet im Lakeside Gym, in der Boulderhalle oder im Sportbereich vielfältige Möglichkeiten. Alles großzügig angelegt, alles mit Blick auf die umliegende Landschaft.</p>
             <p className="italic pt-6">Das Atoll ist kein Muss. Aber eine schöne Ergänzung – für Tage, an denen du Wasser, Wärme oder Bewegung suchst, bevor du wieder ins MALIA zurückkehrst.</p>
           </div>
-          <a 
-            href="https://www.atoll-achensee.com/" 
+          <a
+            href="https://www.atoll-achensee.com/"
             target="_blank"
             className="inline-block mt-8 px-10 py-4 border border-stone-200 text-[10px] uppercase tracking-widest font-bold hover:bg-white transition-all"
           >
@@ -180,21 +181,7 @@ export default function TheSettingPage() {
       </section>
 
       {/* --- 5. FOOTER SECTION --- */}
-      <footer className="bg-[#f8f6f3] pt-24 pb-32 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col items-center">
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-16 text-[9px] md:text-[11px] uppercase tracking-[0.25em] text-gray-500 font-sans text-center">
-            <span className="hover:text-black cursor-pointer">FAQ</span><span className="hover:text-black cursor-pointer">Anreise</span><span className="hover:text-black cursor-pointer">Inklusivleistungen</span><span className="hover:text-black cursor-pointer">Impressum</span><span className="hover:text-black cursor-pointer">Datenschutz</span>
-          </div>
-          <div className="flex flex-col md:flex-row items-center gap-10 mb-16">
-            <div className="flex items-center gap-8 text-gray-800"><Instagram size={18} strokeWidth={1.5} className="cursor-pointer" /><Facebook size={18} strokeWidth={1.5} className="cursor-pointer" /><Youtube size={18} strokeWidth={1.5} className="cursor-pointer" /><span className="text-[10px] font-bold cursor-pointer">SPOTIFY</span></div>
-            <button className="px-10 py-3 border border-gray-400 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-white transition-all">Sign up for inspiration</button>
-          </div>
-          <div className="text-center text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-gray-400 font-sans leading-loose">
-            <p>MALIA Alpine Hideaway — Familie Madleine & Julia — Ländbergstraße 6 — 6213 Pertisau</p>
-            <p className="mt-2 text-gray-500 font-medium">hello@malia-hideaway.at</p>
-          </div>
-        </div>
-      </footer>
+      <PageFooter />
     </div>
   );
 }

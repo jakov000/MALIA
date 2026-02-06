@@ -2,13 +2,13 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Instagram, Facebook, Youtube, X, Check } from 'lucide-react';
+import PageFooter from '@/components/PageFooter';
 
 export default function MaliaSpecialsPage() {
   const [selectedSpecial, setSelectedSpecial] = useState<number | null>(null);
 
   // --- VIOMA KONFIGURATION ---
-  const VIOMA_BOOKING_URL = "https://zugang.vioma.de/booking/malia-hideaway";
-  const VIOMA_REQUEST_URL = "https://zugang.vioma.de/anfrage/malia-hideaway";
+  // (Entfernt da nun interne Seiten genutzt werden)
 
   const specials = [
     {
@@ -61,25 +61,25 @@ export default function MaliaSpecialsPage() {
 
   return (
     <div className="bg-white min-h-screen">
-      
+
       {/* --- MODAL SYSTEM --- */}
       <AnimatePresence>
         {selectedSpecial && currentSpecial && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] bg-stone-900/40 backdrop-blur-md flex items-center justify-center p-4 md:p-8"
             onClick={() => setSelectedSpecial(null)} // Schließt Modal beim Klick auf Hintergrund
           >
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()} // Verhindert Schließen beim Klick ins Modal
               className="bg-white w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl relative rounded-sm"
             >
-              <button 
+              <button
                 onClick={() => setSelectedSpecial(null)}
                 className="absolute top-6 right-6 p-2 hover:bg-stone-100 rounded-full transition-colors z-10"
               >
@@ -113,16 +113,14 @@ export default function MaliaSpecialsPage() {
                 </div>
 
                 <div className="flex flex-wrap gap-4 pt-4 justify-center">
-                  <a 
-                    href={VIOMA_BOOKING_URL} 
-                    target="_blank" 
+                  <a
+                    href="/booking"
                     className="px-10 py-4 bg-stone-800 text-white text-[10px] uppercase tracking-[0.3em] font-bold hover:bg-stone-700 transition-all min-w-[200px] text-center"
                   >
                     Jetzt Buchen
                   </a>
-                  <a 
-                    href={VIOMA_REQUEST_URL} 
-                    target="_blank" 
+                  <a
+                    href="/inquiry"
                     className="px-10 py-4 border border-stone-200 text-stone-800 text-[10px] uppercase tracking-[0.3em] font-bold hover:bg-stone-50 transition-all min-w-[200px] text-center"
                   >
                     Unverbindlich Anfragen
@@ -137,8 +135,8 @@ export default function MaliaSpecialsPage() {
       {/* --- 1. HERO SECTION --- */}
       <section className="relative h-screen w-full overflow-hidden">
         <div className="absolute inset-0">
-          <img 
-            src="/pictures/malia-specials/ausblicksommer.jpeg" 
+          <img
+            src="/pictures/malia-specials/ausblicksommer.jpeg"
             className="w-full h-full object-cover"
             alt="MALIA Angebote"
           />
@@ -148,15 +146,15 @@ export default function MaliaSpecialsPage() {
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-white text-center px-6">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="mb-6">
             <svg width="60" height="80" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <path d="M50 10L85 60H70L95 90H60L85 110H15L40 90H5L30 60H15L50 10Z" stroke="white" strokeWidth="1.2" />
+              <path d="M50 10L85 60H70L95 90H60L85 110H15L40 90H5L30 60H15L50 10Z" stroke="white" strokeWidth="1.2" />
             </svg>
           </motion.div>
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, letterSpacing: "0.2em" }}
             animate={{ opacity: 1, letterSpacing: "0.3em" }}
             className="text-4xl md:text-7xl font-serif uppercase tracking-[0.3em] font-light leading-tight"
           >
-            MALIA Specials <br /> 
+            MALIA Specials <br />
             <span className="text-xl md:text-3xl tracking-[0.5em] block mt-4 opacity-80 italic normal-case">Unsere Angebote</span>
           </motion.h1>
           <div className="absolute bottom-24 flex flex-col items-center">
@@ -170,7 +168,7 @@ export default function MaliaSpecialsPage() {
       <section className="py-24 md:py-40 px-6 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
           {specials.map((special) => (
-            <motion.div 
+            <motion.div
               key={special.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -179,13 +177,13 @@ export default function MaliaSpecialsPage() {
               onClick={() => setSelectedSpecial(special.id)}
             >
               <div className="aspect-[4/5] overflow-hidden relative mb-8 shadow-sm">
-                <img 
-                  src={special.img} 
-                  className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110" 
-                  alt={special.shortTitle} 
+                <img
+                  src={special.img}
+                  className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110"
+                  alt={special.shortTitle}
                 />
                 <div className="absolute inset-0 bg-stone-900/20 group-hover:bg-stone-900/40 transition-colors duration-500" />
-                
+
                 {/* Center Content */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-8">
                   <span className="text-[10px] uppercase tracking-[0.4em] mb-4 opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0">
@@ -197,7 +195,7 @@ export default function MaliaSpecialsPage() {
                   <p className="text-sm md:text-lg italic font-serif opacity-90">
                     {special.subtitle}
                   </p>
-                  
+
                   <button className="mt-12 px-10 py-4 border border-white/50 backdrop-blur-sm text-[9px] uppercase tracking-[0.3em] font-bold hover:bg-white hover:text-stone-900 transition-all duration-500">
                     Details anzeigen
                   </button>
@@ -209,32 +207,7 @@ export default function MaliaSpecialsPage() {
       </section>
 
       {/* --- 3. FOOTER SECTION --- */}
-      <footer className="bg-[#f8f6f3] pt-24 pb-32 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col items-center">
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-16 text-[9px] md:text-[11px] uppercase tracking-[0.25em] text-gray-500 font-sans text-center">
-            {["FAQ", "Anreise", "Inklusivleistungen", "Impressum", "Datenschutz"].map(link => (
-              <span key={link} className="hover:text-black cursor-pointer transition-colors">{link}</span>
-            ))}
-          </div>
-
-          <div className="flex flex-col md:flex-row items-center gap-10 mb-16">
-            <div className="flex items-center gap-8 text-gray-800">
-              <Instagram size={18} strokeWidth={1.5} className="cursor-pointer hover:scale-110 transition-transform" />
-              <Facebook size={18} strokeWidth={1.5} className="cursor-pointer hover:scale-110 transition-transform" />
-              <Youtube size={18} strokeWidth={1.5} className="cursor-pointer hover:scale-110 transition-transform" />
-              <span className="text-[10px] font-bold cursor-pointer">SPOTIFY</span>
-            </div>
-            <button className="px-10 py-3 border border-gray-400 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-white transition-all">
-              Sign up for inspiration
-            </button>
-          </div>
-
-          <div className="text-center text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-gray-400 font-sans leading-loose">
-            <p>MALIA Alpine Hideaway — Familie Madleine & Julia — Ländbergstraße 6 — 6213 Pertisau</p>
-            <p className="mt-2 text-gray-500 font-medium">hello@malia-hideaway.at</p>
-          </div>
-        </div>
-      </footer>
+      <PageFooter />
     </div>
   );
 }

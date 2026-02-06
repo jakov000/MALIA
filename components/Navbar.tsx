@@ -34,22 +34,20 @@ export default function Navbar() {
   ];
 
   return (
-    <nav 
-      className={`fixed w-full z-50 transition-all duration-500 ease-in-out px-4 md:px-12 py-4 ${
-        isScrolled ? 'bg-white/95 backdrop-blur-sm py-3 shadow-sm' : 'bg-transparent py-6'
-      }`}
+    <nav
+      className={`fixed w-full z-50 transition-all duration-500 ease-in-out px-4 md:px-12 py-4 ${isScrolled ? 'bg-white/95 backdrop-blur-sm py-3 shadow-sm' : 'bg-transparent py-6'
+        }`}
     >
       <div className="max-w-[1800px] mx-auto flex justify-between items-center">
-        
+
         {/* LINKS: Erste zwei Links */}
         <div className="hidden lg:flex space-x-8 flex-1">
           {navLinks.slice(0, 2).map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className={`uppercase tracking-[0.2em] text-[10px] transition-colors ${
-                isScrolled ? 'text-gray-900 hover:text-gray-500' : 'text-white hover:text-gray-300'
-              }`}
+              className={`uppercase tracking-[0.2em] text-[10px] transition-colors ${isScrolled ? 'text-gray-900 hover:text-gray-500' : 'text-white hover:text-gray-300'
+                }`}
             >
               {link.name}
             </Link>
@@ -57,9 +55,8 @@ export default function Navbar() {
         </div>
 
         {/* MITTE: Logo zentral */}
-        <Link href="/" className={`text-3xl font-serif tracking-[0.3em] transition-colors px-4 ${
-          isScrolled ? 'text-gray-900' : 'text-white'
-        }`}>
+        <Link href="/" className={`text-3xl font-serif tracking-[0.3em] transition-colors px-4 ${isScrolled ? 'text-gray-900' : 'text-white'
+          }`}>
           <span className="font-light">MALIA</span>
         </Link>
 
@@ -69,9 +66,8 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              className={`uppercase tracking-[0.2em] text-[10px] transition-colors ${
-                isScrolled ? 'text-gray-900 hover:text-gray-500' : 'text-white hover:text-gray-300'
-              }`}
+              className={`uppercase tracking-[0.2em] text-[10px] transition-colors ${isScrolled ? 'text-gray-900 hover:text-gray-500' : 'text-white hover:text-gray-300'
+                }`}
             >
               {link.name}
             </Link>
@@ -80,26 +76,26 @@ export default function Navbar() {
           {/* Icons-Gruppe */}
           <div className="flex items-center space-x-5 px-4 border-l border-current/20">
             {topIcons.map((item, idx) => (
-              <button
+              <a
                 key={idx}
-                className={`transition-transform hover:scale-110 ${
-                  isScrolled ? 'text-gray-900' : 'text-white'
-                }`}
+                href={item.label === 'Kontakt' ? '/inquiry' : '#'}
+                className={`transition-transform hover:scale-110 ${isScrolled ? 'text-gray-900' : 'text-white'
+                  }`}
+                title={item.label}
               >
                 {item.icon}
-              </button>
+              </a>
             ))}
           </div>
 
           {/* Sprachschalter */}
           <div className="relative group cursor-pointer">
-            <div className={`flex items-center space-x-1 pb-1 border-b-[1px] transition-colors ${
-              isScrolled ? 'text-gray-900 border-gray-900' : 'text-white border-white'
-            }`}>
+            <div className={`flex items-center space-x-1 pb-1 border-b-[1px] transition-colors ${isScrolled ? 'text-gray-900 border-gray-900' : 'text-white border-white'
+              }`}>
               <span className="text-xs font-light tracking-widest">{currentLang}</span>
               <ChevronDown size={14} />
             </div>
-            
+
             <div className="absolute top-full right-0 mt-2 bg-white text-gray-900 hidden group-hover:block shadow-xl py-2 px-4 min-w-[80px]">
               <div className="cursor-pointer hover:font-bold py-1 text-xs" onClick={() => setCurrentLang('DE')}>DE</div>
               <div className="cursor-pointer hover:font-bold py-1 text-xs" onClick={() => setCurrentLang('ENG')}>ENG</div>
@@ -109,7 +105,7 @@ export default function Navbar() {
 
         {/* Mobile Button */}
         <div className="lg:hidden flex items-center">
-          <button 
+          <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className={isScrolled ? 'text-gray-900' : 'text-white'}
           >
@@ -133,7 +129,7 @@ export default function Navbar() {
                 <X size={32} />
               </button>
             </div>
-            
+
             <div className="flex flex-col space-y-6">
               {navLinks.map((link) => (
                 <Link

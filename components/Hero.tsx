@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Instagram, Facebook, Youtube } from 'lucide-react';
+import PageFooter from './PageFooter';
 
 export default function Hero() {
   // --- 1. BILDER-KONFIGURATION ---
@@ -29,18 +30,17 @@ export default function Hero() {
   }, [heroImages.length]);
 
   // --- 2. VIOMA KONFIGURATION ---
-  const VIOMA_BOOKING_URL = "https://zugang.vioma.de/booking/malia-hideaway"; 
-  const VIOMA_REQUEST_URL = "https://zugang.vioma.de/anfrage/malia-hideaway";
+  // (Entfernt da nun interne Seiten genutzt werden)
 
   return (
     <div className="flex flex-col w-full">
-      
+
       {/* --- SECTION 1: HERO IMAGE SLIDER --- */}
       <section className="relative h-[100svh] w-full overflow-hidden bg-stone-900">
-        
+
         {/* Bilder mit sanftem Crossfade-Übergang */}
         <AnimatePresence mode="wait">
-          <motion.div 
+          <motion.div
             key={currentImg}
             initial={{ opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -48,10 +48,10 @@ export default function Hero() {
             transition={{ duration: 2, ease: "easeInOut" }}
             className="absolute inset-0"
           >
-            <img 
-              src={heroImages[currentImg]} 
-              className="w-full h-full object-cover opacity-70" 
-              alt="MALIA Alpine Hideaway Impression" 
+            <img
+              src={heroImages[currentImg]}
+              className="w-full h-full object-cover opacity-70"
+              alt="MALIA Alpine Hideaway Impression"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/50" />
           </motion.div>
@@ -59,7 +59,7 @@ export default function Hero() {
 
         {/* Text-Content (bleibt fixiert) */}
         <div className="relative z-10 h-full flex flex-col justify-center items-center text-white px-6 text-center">
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
@@ -67,8 +67,8 @@ export default function Hero() {
           >
             Luxury Estate & Spa
           </motion.span>
-          
-          <motion.h1 
+
+          <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
@@ -77,10 +77,8 @@ export default function Hero() {
             Malia <br className="md:hidden" /> Alpine Hideaway
           </motion.h1>
 
-          <a 
-            href={VIOMA_BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+          <a
+            href="/booking"
             className="md:hidden border border-white/40 backdrop-blur-md px-8 py-3 uppercase text-[10px] tracking-widest text-white transition-all hover:bg-white hover:text-black"
           >
             Jetzt Entdecken
@@ -90,8 +88,8 @@ export default function Hero() {
         {/* Slider Indikatoren (Striche unten) */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-2">
           {heroImages.map((_, idx) => (
-            <div 
-              key={idx} 
+            <div
+              key={idx}
               className={`h-[2px] transition-all duration-1000 ${idx === currentImg ? 'w-8 bg-white' : 'w-3 bg-white/20'}`}
             />
           ))}
@@ -110,7 +108,7 @@ export default function Hero() {
               Ein Ort für Menschen, die das Besondere suchen – nicht im Überfluss, sondern im Wesentlichen.
             </p>
             <p className="text-sm md:text-lg font-sans font-light text-gray-600 leading-relaxed tracking-wide max-w-2xl mx-auto">
-              Das MALIA Alpine Hideaway ist kein Ort für großen Luxus, sondern für echten. 
+              Das MALIA Alpine Hideaway ist kein Ort für großen Luxus, sondern für echten.
               Klare Architektur, natürliche Materialien und ein Gefühl von Zeitlosigkeit.
             </p>
           </motion.div>
@@ -120,13 +118,13 @@ export default function Hero() {
       {/* --- SECTION 3: EXPERIENCE GRID --- */}
       <section className="pb-24 md:pb-40 px-6 md:px-12 bg-white text-stone-800">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-start border-b border-gray-100 pb-24 md:pb-40">
-          
+
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <div className="relative aspect-[3/4] overflow-hidden mb-10 group">
               <img src="/pictures/hero/hero2/IMG_1115.jpeg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Wellness" />
             </div>
             <h3 className="font-serif text-xl md:text-2xl mb-4 tracking-widest uppercase">Wellness Area</h3>
-            <a href={VIOMA_BOOKING_URL} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-3 border border-stone-800 text-[10px] uppercase tracking-widest font-bold hover:bg-stone-800 hover:text-white transition-all">
+            <a href="/booking" className="inline-block px-8 py-3 border border-stone-800 text-[10px] uppercase tracking-widest font-bold hover:bg-stone-800 hover:text-white transition-all">
               Jetzt Urlaub buchen
             </a>
           </motion.div>
@@ -219,30 +217,7 @@ export default function Hero() {
       </section>
 
       {/* --- SECTION 8: IN-PAGE FOOTER --- */}
-      <section className="bg-[#f8f6f3] pt-24 pb-32 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col items-center">
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-16 text-[9px] md:text-[11px] uppercase tracking-[0.25em] text-gray-500 font-sans text-center">
-            {["FAQ", "Anreise", "Inklusivleistungen", "Club", "Presse", "Jobs", "Kataloge", "AGB", "Impressum", "Datenschutz"].map((link) => (
-              <span key={link} className="hover:text-black cursor-pointer transition-colors">{link}</span>
-            ))}
-          </div>
-
-          <div className="flex flex-col md:flex-row items-center gap-10 mb-16">
-            <div className="flex items-center gap-8 text-gray-800">
-              <Instagram size={18} strokeWidth={1.5} className="cursor-pointer hover:scale-110 transition-transform" />
-              <Facebook size={18} strokeWidth={1.5} className="cursor-pointer hover:scale-110 transition-transform" />
-              <Youtube size={18} strokeWidth={1.5} className="cursor-pointer hover:scale-110 transition-transform" />
-              <span className="text-[10px] font-bold cursor-pointer tracking-widest hover:text-black">SPOTIFY</span>
-            </div>
-            <button className="px-10 py-3 border border-gray-400 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-white transition-all shadow-sm">Sign up for inspiration</button>
-          </div>
-
-          <div className="text-center text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-gray-400 font-sans leading-loose">
-            <p>MALIA Alpine Hideaway — Familie Madleine & Julia — Ländbergstraße 6 — 6213 Pertisau — Österreich</p>
-            <p className="mt-2 text-gray-500 font-medium">hello@malia-hideaway.at — +43 123 456 789</p>
-          </div>
-        </div>
-      </section>
+      <PageFooter />
     </div>
   );
 }

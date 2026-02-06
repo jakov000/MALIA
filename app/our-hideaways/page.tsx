@@ -2,19 +2,20 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Instagram, Facebook, Youtube } from 'lucide-react';
+import PageFooter from '@/components/PageFooter';
 
 // --- HILFS-KOMPONENTE: ACCORDION ---
 function AccordionItem({ title, children }: { title: string, children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="border-b border-stone-100">
-      <button 
+      <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full py-6 flex justify-between items-center group transition-colors hover:bg-stone-50/50 px-2 text-left"
       >
         <span className="text-[11px] md:text-xs uppercase tracking-[0.2em] font-bold text-stone-700">{title}</span>
         <span className={`transform transition-transform duration-300 text-stone-400 ${isOpen ? 'rotate-180' : ''}`}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6 9l6 6 6-6"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6 9l6 6 6-6" /></svg>
         </span>
       </button>
       <AnimatePresence>
@@ -41,8 +42,7 @@ export default function OurHideawaysContent() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // --- VIOMA KONFIGURATION ---
-  const VIOMA_BOOKING_URL = "https://zugang.vioma.de/booking/malia-hideaway"; 
-  const VIOMA_REQUEST_URL = "https://zugang.vioma.de/anfrage/malia-hideaway";
+  // (Entfernt da nun interne Seiten genutzt werden)
 
   const suites = [
     {
@@ -83,7 +83,7 @@ export default function OurHideawaysContent() {
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-white text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="mb-6">
             <svg width="60" height="80" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <path d="M50 10L85 60H70L95 90H60L85 110H15L40 90H5L30 60H15L50 10Z" stroke="white" strokeWidth="1.2" />
+              <path d="M50 10L85 60H70L95 90H60L85 110H15L40 90H5L30 60H15L50 10Z" stroke="white" strokeWidth="1.2" />
             </svg>
           </motion.div>
           <motion.h1 initial={{ opacity: 0, letterSpacing: "0.2em" }} animate={{ opacity: 1, letterSpacing: "0.4em" }} className="text-4xl md:text-7xl font-serif uppercase tracking-[0.4em] font-light px-4">Inspired by Nature, Designed for YOU!</motion.h1>
@@ -132,24 +132,20 @@ export default function OurHideawaysContent() {
                   <div className="max-w-md space-y-6">
                     <h3 className="text-2xl font-serif uppercase tracking-widest text-stone-800">{suite.title}</h3>
                     <div className="text-xs text-gray-500 font-light space-y-1 tracking-[0.2em]"><p>ab € {suite.price},00</p><p>{suite.persons} Personen</p><p>{suite.sqm} m²</p></div>
-                    
+
                     {/* BUTTON GROUP MIT VIOMA LINKS */}
                     <div className="flex flex-wrap gap-3 pt-4" onClick={(e) => e.stopPropagation()}>
                       <button className="px-8 py-3 border border-stone-200 text-[9px] uppercase tracking-widest font-bold hover:bg-stone-50 transition-all">Details</button>
-                      
-                      <a 
-                        href={VIOMA_REQUEST_URL} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
+
+                      <a
+                        href="/inquiry"
                         className="px-8 py-3 border border-stone-200 text-[9px] uppercase tracking-widest font-bold hover:bg-stone-50 transition-all"
                       >
                         Anfragen
                       </a>
-                      
-                      <a 
-                        href={VIOMA_BOOKING_URL} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
+
+                      <a
+                        href="/booking"
                         className="px-8 py-3 bg-stone-800 text-white text-[9px] uppercase tracking-widest font-bold hover:bg-stone-700 transition-all"
                       >
                         Buchen
@@ -235,25 +231,7 @@ export default function OurHideawaysContent() {
       </section>
 
       {/* --- 5. FOOTER --- */}
-      <footer className="bg-[#f8f6f3] pt-24 pb-32 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col items-center">
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-16 text-[9px] md:text-[11px] uppercase tracking-[0.25em] text-gray-500 font-sans text-center">
-            <span className="hover:text-black cursor-pointer">FAQ</span>
-            <span className="hover:text-black cursor-pointer">Anreise</span>
-            <span className="hover:text-black cursor-pointer">Inklusivleistungen</span>
-            <span className="hover:text-black cursor-pointer">Impressum</span>
-            <span className="hover:text-black cursor-pointer">Datenschutz</span>
-          </div>
-          <div className="flex flex-col md:flex-row items-center gap-10 mb-16">
-            <div className="flex items-center gap-8 text-gray-800"><Instagram size={18} strokeWidth={1.5} className="cursor-pointer" /><Facebook size={18} strokeWidth={1.5} className="cursor-pointer" /><Youtube size={18} strokeWidth={1.5} className="cursor-pointer" /><span className="text-[10px] font-bold cursor-pointer">SPOTIFY</span></div>
-            <button className="px-10 py-3 border border-gray-400 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-white transition-all">Sign up for inspiration</button>
-          </div>
-          <div className="text-center text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-gray-400 font-sans leading-loose">
-            <p>MALIA Alpine Hideaway — Familie Madleine & Julia — Ländbergstraße 6 — 6213 Pertisau</p>
-            <p className="mt-2 text-gray-500 font-medium font-sans">hello@malia-hideaway.at</p>
-          </div>
-        </div>
-      </footer>
+      <PageFooter />
     </div>
   );
 }
