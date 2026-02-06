@@ -1,31 +1,20 @@
 "use client";
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Instagram, Facebook, Youtube } from 'lucide-react';
+import { Instagram, Facebook, Youtube, ChevronRight } from 'lucide-react';
 
 export default function TheFeelingPage() {
-  // Daten für die "Gefühlsmomente" Galerie
-  const moments = [
-    { 
-      title: "Alpines Handwerk", 
-      img: "https://images.unsplash.com/photo-1596237563267-84fee9928b01?auto=format&fit=crop&q=80",
-      size: "md:col-span-2 aspect-[16/9]" 
-    },
-    { 
-      title: "Stille am Berg", 
-      img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80",
-      size: "aspect-square" 
-    },
-    { 
-      title: "Natürliche Texturen", 
-      img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80",
-      size: "aspect-[3/4]" 
-    },
-    { 
-      title: "Wellness für die Seele", 
-      img: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&q=80",
-      size: "md:col-span-2 aspect-[16/9]" 
-    }
+  // Definition der Bereiche für die Bilder-Navigation
+  const areas = [
+    { id: "room-1", title: "Zimmer 1", subtitle: "Private Retreat", category: "The Hideaway" },
+    { id: "room-2", title: "Zimmer 2", subtitle: "Alpine Comfort", category: "The Residence" },
+    { id: "room-3", title: "Zimmer 3", subtitle: "Modern Stillness", category: "The Retreat" },
+    { id: "room-4", title: "Zimmer 4", subtitle: "Nature View", category: "Alpine Loft" },
+    { id: "room-5", title: "Zimmer 5", subtitle: "Skyline Suite", category: "Summit Loft" },
+    { id: "wellness", title: "Wellness", subtitle: "Sauna & Infrarot", category: "Relax" },
+    { id: "kitchen", title: "Küche", subtitle: "Ehrliche Materialien", category: "Living" },
+    { id: "living", title: "Wohnzimmer", subtitle: "Feuer & Stein", category: "Community" },
+    { id: "outdoor", title: "Außenbereich", subtitle: "Karwendel-Blick", category: "Nature" },
   ];
 
   return (
@@ -34,7 +23,7 @@ export default function TheFeelingPage() {
       <section className="relative h-screen w-full overflow-hidden">
         <div className="absolute inset-0">
           <img 
-            src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?auto=format&fit=crop&q=80" 
+            src="/pictures/the-feeling/IMG_1151.jpeg" 
             className="w-full h-full object-cover"
             alt="MALIA Architektur"
           />
@@ -57,45 +46,54 @@ export default function TheFeelingPage() {
           </motion.h1>
 
           <div className="absolute bottom-24 flex flex-col items-center">
-            <span className="uppercase tracking-[0.4em] text-[10px] mb-4 font-light opacity-80 italic">scroll for happiness</span>
+            <span className="uppercase tracking-[0.4em] text-[10px] mb-4 font-light opacity-80 italic">explore the soul of malia</span>
             <div className="w-[1px] h-12 bg-white/40" />
           </div>
         </div>
       </section>
 
-      {/* --- 2. INTRO SECTION --- */}
-      <section className="py-24 md:py-40 px-6 bg-white text-center">
-        <div className="max-w-4xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }}>
-            <h2 className="text-3xl md:text-5xl font-serif text-[#7d3a2a] mb-8 tracking-wide uppercase">Einfach Sein</h2>
-            <p className="text-xl md:text-2xl font-serif text-gray-800 leading-relaxed mb-8 italic">Ein Ort, an dem die Zeit langsamer schlägt.</p>
-            <p className="text-sm md:text-lg font-sans font-light text-gray-600 leading-relaxed tracking-wide max-w-3xl mx-auto italic">
-              Das Gefühl von warmem Holz unter den Füßen, der Duft von frischen Bergkräutern in der Luft und der endlose Blick über das Karwendelgebirge.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* --- 3. GALLERY SECTION: FEELING MOMENTS --- */}
-      <section className="pb-24 md:pb-40 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {moments.map((moment, idx) => (
+      {/* --- 2. DISCOVERY SECTION (DIE KAPITEL) --- */}
+      <section className="py-24 md:py-40 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="space-y-32 md:space-y-64">
+            {areas.map((area, idx) => (
               <motion.div 
-                key={idx}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: idx * 0.2 }}
-                className={`relative overflow-hidden group ${moment.size}`}
+                key={area.id}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={{ duration: 1 }}
+                className={`flex flex-col ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-12 md:gap-24`}
               >
-                <img 
-                  src={moment.img} 
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
-                  alt={moment.title} 
-                />
-                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                  <span className="text-white uppercase tracking-[0.3em] text-xs font-serif italic">{moment.title}</span>
+                {/* Bild-Container */}
+                <div className="w-full md:w-3/5">
+                  <div className="relative aspect-[4/5] md:aspect-[16/10] overflow-hidden bg-stone-100 shadow-sm">
+                    <img 
+                      src={`/pictures/the-feeling/${area.id}.jpg`} // HIER DEINE BILDER EINPFLEGEN (z.B. room-1.jpg)
+                      className="w-full h-full object-cover transition-transform duration-[3000ms] hover:scale-110"
+                      alt={area.title}
+                      onError={(e) => {
+                        // Fallback falls Bild noch nicht existiert
+                        (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1590490359683-658d3d23f972?auto=format&fit=crop&q=80";
+                      }}
+                    />
+                  </div>
+                </div>
+
+                {/* Text-Container */}
+                <div className="w-full md:w-2/5 space-y-6">
+                  <span className="text-[10px] uppercase tracking-[0.5em] text-[#7d3a2a] font-bold">
+                    {area.category}
+                  </span>
+                  <h2 className="text-4xl md:text-6xl font-serif text-stone-800 uppercase tracking-widest leading-tight">
+                    {area.title}
+                  </h2>
+                  <p className="text-xl md:text-2xl font-serif text-stone-500 italic">
+                    {area.subtitle}
+                  </p>
+                  <div className="pt-6">
+                    <div className="w-12 h-[1px] bg-stone-300" />
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -103,32 +101,30 @@ export default function TheFeelingPage() {
         </div>
       </section>
 
-      {/* --- 4. FOOTER SECTION --- */}
+      {/* --- 3. FOOTER SECTION --- */}
       <footer className="bg-[#f8f6f3] pt-24 pb-32 px-6">
         <div className="max-w-7xl mx-auto flex flex-col items-center">
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-16 text-[9px] md:text-[11px] uppercase tracking-[0.25em] text-gray-500 font-sans text-center">
-            <span className="hover:text-black cursor-pointer">FAQ</span>
-            <span className="hover:text-black cursor-pointer">Anreise</span>
-            <span className="hover:text-black cursor-pointer">Inklusivleistungen</span>
-            <span className="hover:text-black cursor-pointer">Impressum</span>
-            <span className="hover:text-black cursor-pointer">Datenschutz</span>
+            {["FAQ", "Anreise", "Inklusivleistungen", "Impressum", "Datenschutz"].map(link => (
+              <span key={link} className="hover:text-black cursor-pointer transition-colors">{link}</span>
+            ))}
           </div>
 
           <div className="flex flex-col md:flex-row items-center gap-10 mb-16">
             <div className="flex items-center gap-8 text-gray-800">
-              <Instagram size={18} strokeWidth={1.5} className="cursor-pointer" />
-              <Facebook size={18} strokeWidth={1.5} className="cursor-pointer" />
-              <Youtube size={18} strokeWidth={1.5} className="cursor-pointer" />
-              <span className="text-[10px] font-bold cursor-pointer font-sans">SPOTIFY</span>
+              <Instagram size={18} strokeWidth={1.5} className="cursor-pointer hover:scale-110 transition-transform" />
+              <Facebook size={18} strokeWidth={1.5} className="cursor-pointer hover:scale-110 transition-transform" />
+              <Youtube size={18} strokeWidth={1.5} className="cursor-pointer hover:scale-110 transition-transform" />
+              <span className="text-[10px] font-bold cursor-pointer">SPOTIFY</span>
             </div>
-            <button className="px-10 py-3 border border-gray-400 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-white transition-all font-sans">
+            <button className="px-10 py-3 border border-gray-400 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-white transition-all">
               Sign up for inspiration
             </button>
           </div>
 
           <div className="text-center text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-gray-400 font-sans leading-loose">
             <p>MALIA Alpine Hideaway — Familie Madleine & Julia — Ländbergstraße 6 — 6213 Pertisau</p>
-            <p className="mt-2 text-gray-500 font-medium font-sans">hello@malia-hideaway.at</p>
+            <p className="mt-2 text-gray-500 font-medium">hello@malia-hideaway.at</p>
           </div>
         </div>
       </footer>
