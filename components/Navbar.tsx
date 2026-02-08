@@ -13,7 +13,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   // Bestimmte Seiten haben kein Hero-Bild und brauchen sofort den "Scrolled" Style (dunkler Text)
-  const isLightPage = pathname === '/inquiry';
+  const isLightPage = pathname === '/inquiry' || pathname === '/vouchers' || pathname === '/agb' || pathname === '/impressum' || pathname === '/datenschutz';
   const showScrolledStyle = isScrolled || isLightPage;
 
   useEffect(() => {
@@ -81,17 +81,24 @@ export default function Navbar() {
 
           {/* Icons-Gruppe */}
           <div className="flex items-center space-x-5 px-4 border-l border-current/20">
-            {topIcons.map((item, idx) => (
-              <a
-                key={idx}
-                href={item.label === 'Kontakt' ? '/inquiry' : '#'}
-                className={`transition-transform hover:scale-110 ${showScrolledStyle ? 'text-gray-900' : 'text-white'
-                  }`}
-                title={item.label}
-              >
-                {item.icon}
-              </a>
-            ))}
+            {topIcons.map((item, idx) => {
+              let href = '#';
+              switch (item.label) {
+                case 'Kontakt': href = '/inquiry'; break;
+                case 'Gutscheine': href = '/vouchers'; break;
+              }
+              return (
+                <Link
+                  key={idx}
+                  href={href}
+                  className={`transition-transform hover:scale-110 ${showScrolledStyle ? 'text-gray-900' : 'text-white'
+                    }`}
+                  title={item.label}
+                >
+                  {item.icon}
+                </Link>
+              );
+            })}
           </div>
 
           {/* Sprachschalter */}

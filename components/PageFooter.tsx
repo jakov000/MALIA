@@ -6,8 +6,14 @@ export default function PageFooter() {
         <footer className="bg-[#f8f6f3] pt-24 pb-32 px-6">
             <div className="max-w-7xl mx-auto flex flex-col items-center">
                 <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-16 text-[9px] md:text-[11px] uppercase tracking-[0.25em] text-gray-500 font-sans text-center">
-                    {["FAQ", "Anreise", "Inklusivleistungen", "Impressum", "Datenschutz"].map((link) => (
-                        <span key={link} className="hover:text-black cursor-pointer transition-colors">{link}</span>
+                    {[
+                        { name: "AGB", href: "/agb" },
+                        { name: "Impressum", href: "/impressum" },
+                        { name: "Datenschutz", href: "/datenschutz" }
+                    ].map((link) => (
+                        <a key={link.name} href={link.href} className="hover:text-black cursor-pointer transition-colors block">
+                            {link.name}
+                        </a>
                     ))}
                 </div>
 

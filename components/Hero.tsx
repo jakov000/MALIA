@@ -12,7 +12,7 @@ export default function Hero() {
   const heroImages = [
     "/pictures/hero/hero/_DSC4122.JPG",
     "/pictures/hero/hero/Bad The Lakeside__.jpg",
-    "/pictures/hero/hero/Bild Küche__.jpg",
+    "/pictures/hero/hero/BildKueche_.jpg",
     "/pictures/hero/hero/Haus ausblick.jpg",
     "/pictures/hero/hero/IMG_1289.jpeg",
     "/pictures/hero/hero/IMG_1402.png",
@@ -184,8 +184,8 @@ export default function Hero() {
         />
         <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 text-white text-center md:text-left">
           <h2 className="text-3xl md:text-5xl font-serif mb-8 uppercase tracking-widest">Zeit schenken.</h2>
-          <Button href="/vouchers" variant="white" className="bg-transparent border border-white text-white hover:bg-white hover:text-black">
-            Gutscheine Geschenken
+          <Button href="/vouchers" variant="outline" className="border-white text-white hover:bg-white hover:text-stone-900 hover:border-white bg-transparent">
+            Gutscheine schenken
           </Button>
         </div>
       </section>
