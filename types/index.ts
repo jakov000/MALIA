@@ -4,6 +4,7 @@ export interface Suite {
     persons: string;
     sqm: string;
     img: string;
+    href?: string;
 }
 
 export interface Special {

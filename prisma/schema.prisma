@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id       String @id @default(cuid())
+  email    String @unique
+  password String // Hashed
+  role     String @default("ADMIN") // ADMIN, OWNER, MANAGER
+}
+
+model Booking {
+  id            String   @id @default(cuid())
+  guestName     String
+  guestEmail    String
+  startDate     DateTime
+  endDate       DateTime
+  room          String   @default("The Alpine Hideaway")
+  guests        Int      @default(2)
+  totalPrice    Float
+  status        String   @default("PENDING") // PENDING, PAID, CANCELLED
+  stripeId      String?  @unique
+  voucherId     String?  
+  notes         String?
+  source        String   @default("DIRECT") // DIRECT, AIRBNB, BOOKING
+  createdAt     DateTime @default(now())
+}
+
+model BlockedDate {
+  id          String   @id @default(cuid())
+  startDate   DateTime
+  endDate     DateTime
+  reason      String?  
+  source      String   @default("MANUAL") // MANUAL, AIRBNB, BOOKING
+}
+
+model Voucher {
+  id             String   @id @default(cuid())
+  code           String   @unique
+  discountValue  Float    
+  discountType   String   @default("FIXED") // FIXED, PERCENTAGE
+  currentBalance Float    
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  expiresAt      DateTime?
+}

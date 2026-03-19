@@ -13,7 +13,17 @@ export default function Navbar() {
   const pathname = usePathname();
 
   // Bestimmte Seiten haben kein Hero-Bild und brauchen sofort den "Scrolled" Style (dunkler Text)
-  const isLightPage = pathname === '/inquiry' || pathname === '/vouchers' || pathname === '/agb' || pathname === '/impressum' || pathname === '/datenschutz';
+  const isLightPage =
+    (pathname.startsWith("/our-hideaways/") && pathname !== "/our-hideaways") ||
+    pathname === "/booking" ||
+    pathname === "/admin/login" ||
+    pathname === "/admin" ||
+    pathname === '/agb' ||
+    pathname === '/impressum' ||
+    pathname === '/datenschutz' ||
+    pathname === '/success' ||
+    pathname === '/inquiry' ||
+    pathname === '/vouchers';
   const showScrolledStyle = isScrolled || isLightPage;
 
   useEffect(() => {
@@ -84,6 +94,7 @@ export default function Navbar() {
             {topIcons.map((item, idx) => {
               let href = '#';
               switch (item.label) {
+                case 'Account': href = '/admin/login'; break;
                 case 'Kontakt': href = '/inquiry'; break;
                 case 'Gutscheine': href = '/vouchers'; break;
               }

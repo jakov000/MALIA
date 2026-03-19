@@ -142,8 +142,8 @@ export default function MaliaSpecialsContent() {
                                     </p>
 
                                     <div className="mt-12">
-                                        <Button variant="white" className="bg-transparent border border-white/50 backdrop-blur-sm hover:bg-white hover:text-stone-900">
-                                            Details anzeigen
+                                        <Button href="/booking" variant="white" className="bg-transparent border border-white/50 backdrop-blur-sm hover:bg-white hover:text-stone-900">
+                                            Jetzt buchen
                                         </Button>
                                     </div>
                                 </div>

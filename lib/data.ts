@@ -6,21 +6,24 @@ export const SUITES: Suite[] = [
         price: "150",
         persons: "2-10",
         sqm: "400",
-        img: "/pictures/hideaways/kitchen2.JPG"
+        img: "/pictures/hideaways/kitchen2.JPG",
+        href: "/our-hideaways/the-alpine-hideaway"
     },
     {
         title: "THE RESIDENCE",
         price: "120",
         persons: "2-8",
         sqm: "360",
-        img: "/pictures/hideaways/IMG_1289.jpeg"
+        img: "/pictures/hideaways/IMG_1289.jpeg",
+        href: "/our-hideaways/the-residence"
     },
     {
         title: "THE RETREAT",
         price: "45",
         persons: "2",
         sqm: "40",
-        img: "/pictures/hideaways/IMG_1504.jpeg"
+        img: "/pictures/hideaways/IMG_1504.jpeg",
+        href: "/our-hideaways/the-retreat"
     }
 ];
 

@@ -121,7 +121,7 @@ export default function OurHideawaysContent() {
 
                                         {/* BUTTON GROUP */}
                                         <div className="flex flex-col sm:flex-row gap-4 pt-4" onClick={(e) => e.stopPropagation()}>
-                                            <Button variant="outline">Details</Button>
+                                            <Button href={suite.href} variant="outline">Details</Button>
                                             <Button href="/inquiry" variant="outline">Jetzt Anfragen</Button>
                                         </div>
 
