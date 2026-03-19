@@ -21,7 +21,7 @@ export async function GET() {
     });
 
     // Add bookings to calendar (as 'Malia Booking' to maintain privacy of guest names)
-    bookings.forEach(booking => {
+    bookings.forEach((booking: any) => {
       calendar.createEvent({
         start: booking.startDate,
         end: booking.endDate,
@@ -33,7 +33,7 @@ export async function GET() {
     });
 
     // Add manually blocked dates to calendar
-    blockedDates.forEach(block => {
+    blockedDates.forEach((block: any) => {
       calendar.createEvent({
         start: block.startDate,
         end: block.endDate,
