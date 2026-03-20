@@ -7,7 +7,16 @@ export const SUITES: Suite[] = [
         persons: "2-10",
         sqm: "400",
         img: "/pictures/hideaways/kitchen2.JPG",
-        href: "/our-hideaways/the-alpine-hideaway"
+        href: "/our-hideaways/the-alpine-hideaway",
+        description: "Das exklusive 400qm Alpen-Chalet bietet den ultimativen Luxus für Familien und Freunde mit spektakulärem Blick auf das Karwendelgebirge.",
+        features: [
+            "5 luxuriöse Schlafzimmer",
+            "Privater Wellnessbereich (Sauna, Infrarot, freistehende Badewanne)",
+            "Voll ausgestattete Designer-Küche & großer Esstisch",
+            "Wohnzimmer mit Kamin & raumhohen Glasfronten",
+            "270° Panorama-Terrasse",
+            "Naturmaterialien & Calm-Luxury-Design"
+        ]
     },
     {
         title: "THE RESIDENCE",
@@ -15,7 +24,16 @@ export const SUITES: Suite[] = [
         persons: "2-8",
         sqm: "360",
         img: "/pictures/hideaways/IMG_1289.jpeg",
-        href: "/our-hideaways/the-residence"
+        href: "/our-hideaways/the-residence",
+        description: "Ein großzügiges Refugium für bis zu 8 Personen. Der perfekte Rückzugsort, der Privatsphäre und gemeinsame Wohlfühlzeiten elegant vereint.",
+        features: [
+            "4 luxuriöse Schlafzimmer mit Bergblick",
+            "Private Sauna und Infrarotkabine",
+            "Offener, gemütlicher Wohn- und Essbereich",
+            "Voll ausgestattete Küche",
+            "Private Panorama-Terrasse",
+            "Ski- & Abstellraum mit Skischuhtrockner"
+        ]
     },
     {
         title: "THE RETREAT",
@@ -23,7 +41,16 @@ export const SUITES: Suite[] = [
         persons: "2",
         sqm: "40",
         img: "/pictures/hideaways/IMG_1504.jpeg",
-        href: "/our-hideaways/the-retreat"
+        href: "/our-hideaways/the-retreat",
+        description: "Unser offenes Studio-Apartment für zwei – hell, ruhig und bewusst reduziert. Ein Hideaway für alle, die Nähe, Stille und Calm Luxury suchen.",
+        features: [
+            "Offenes Studio-Apartment (40 qm)",
+            "Halboffener Schlafbereich mit Komfortbett",
+            "Voll ausgestattete offene Küche",
+            "Lichtdurchflutetes Milchglas-Bad mit Regendusche",
+            "Private Terrasse",
+            "Kostenlose, überdachte Parkplätze am Haus"
+        ]
     }
 ];
 

@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import { Loader2, Plus, Trash2 } from "lucide-react";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
+import { SUITES } from "@/lib/data";
 
 type BlockedDate = {
   id: string;
   startDate: string;
   endDate: string;
   reason: string | null;
+  room: string;
   source: string;
 };
 
@@ -20,6 +22,7 @@ export default function AdminCalendar() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [reason, setReason] = useState("");
+  const [room, setRoom] = useState("ALL");
   const [creating, setCreating] = useState(false);
 
   useEffect(() => {
@@ -50,7 +53,8 @@ export default function AdminCalendar() {
         body: JSON.stringify({
           startDate: new Date(startDate).toISOString(),
           endDate: new Date(endDate).toISOString(),
-          reason
+          reason,
+          room
         }),
       });
       
@@ -89,7 +93,7 @@ export default function AdminCalendar() {
           <p className="text-stone-500 font-light text-sm mb-6">Blockiere Daten für private Nutzung, Reinigung oder Handwerker.</p>
         </div>
         
-        <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+        <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
           <div className="md:col-span-1">
             <label className="block text-xs uppercase tracking-wider text-stone-500 mb-2">Von</label>
             <input required type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="w-full border-b border-stone-300 py-2 focus:border-stone-900 focus:outline-none bg-transparent" />
@@ -97,6 +101,13 @@ export default function AdminCalendar() {
           <div className="md:col-span-1">
             <label className="block text-xs uppercase tracking-wider text-stone-500 mb-2">Bis</label>
             <input required type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="w-full border-b border-stone-300 py-2 focus:border-stone-900 focus:outline-none bg-transparent" />
+          </div>
+          <div className="md:col-span-1">
+            <label className="block text-xs uppercase tracking-wider text-stone-500 mb-2">Zimmer</label>
+            <select value={room} onChange={e => setRoom(e.target.value)} className="w-full border-b border-stone-300 py-2 focus:border-stone-900 focus:outline-none bg-transparent text-sm">
+              <option value="ALL">Alle Zimmer</option>
+              {SUITES.map(s => <option key={s.title} value={s.title}>{s.title}</option>)}
+            </select>
           </div>
           <div className="md:col-span-1">
             <label className="block text-xs uppercase tracking-wider text-stone-500 mb-2">Grund (optional)</label>
@@ -118,6 +129,7 @@ export default function AdminCalendar() {
             <thead className="bg-stone-50 border-b text-stone-600 font-medium">
               <tr>
                 <th className="px-6 py-4">Zeitraum</th>
+                <th className="px-6 py-4">Zimmer</th>
                 <th className="px-6 py-4">Quelle</th>
                 <th className="px-6 py-4">Grund</th>
                 <th className="px-6 py-4 text-right">Aktion</th>
@@ -133,6 +145,9 @@ export default function AdminCalendar() {
                     <span className="font-medium text-stone-900">{format(new Date(b.startDate), "dd.MM.yyyy")}</span>
                     <span className="text-stone-400 mx-2">-</span>
                     <span className="font-medium text-stone-900">{format(new Date(b.endDate), "dd.MM.yyyy")}</span>
+                  </td>
+                  <td className="px-6 py-4 text-xs font-bold text-stone-600 uppercase">
+                    {b.room === "ALL" ? "Alle Zimmer" : b.room}
                   </td>
                   <td className="px-6 py-4">
                     <span className={`px-2.5 py-1 text-[10px] uppercase font-bold tracking-wider rounded-full ${

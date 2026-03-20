@@ -1,16 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { LogOut, CalendarRange, Ticket, Calendar as CalIcon } from "lucide-react";
+import { LogOut, CalendarRange, Ticket, Calendar as CalIcon, Settings } from "lucide-react";
 import { signOut } from "next-auth/react";
 
 // Placeholder components that we will build next
 import BookingsTable from "@/components/admin/BookingsTable";
 import VoucherManager from "@/components/admin/VoucherManager";
 import AdminCalendar from "@/components/admin/AdminCalendar";
+import SettingsPanel from "@/components/admin/SettingsPanel";
 
 export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState<"bookings" | "vouchers" | "calendar">("bookings");
+  const [activeTab, setActiveTab] = useState<"bookings" | "vouchers" | "calendar" | "settings">("bookings");
 
   return (
     <div className="min-h-screen bg-stone-50 flex flex-col md:flex-row font-sans">
@@ -46,6 +47,14 @@ export default function AdminDashboard() {
             <Ticket size={20} />
             <span>Gutscheine</span>
           </button>
+
+          <button 
+            onClick={() => setActiveTab("settings")}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-md transition-colors ${activeTab === "settings" ? "bg-stone-800 text-white" : "text-stone-400 hover:bg-stone-800 hover:text-white"}`}
+          >
+            <Settings size={20} />
+            <span>Einstellungen</span>
+          </button>
         </nav>
 
         <div className="p-4 mt-auto">
@@ -65,6 +74,7 @@ export default function AdminDashboard() {
           {activeTab === "bookings" && <BookingsTable />}
           {activeTab === "calendar" && <AdminCalendar />}
           {activeTab === "vouchers" && <VoucherManager />}
+          {activeTab === "settings" && <SettingsPanel />}
         </div>
       </main>
 

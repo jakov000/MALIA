@@ -7,6 +7,7 @@ const createBlockedSchema = z.object({
   startDate: z.string().datetime(),
   endDate: z.string().datetime(),
   reason: z.string().optional(),
+  room: z.string().optional(),
 });
 
 // GET all blocked dates
@@ -32,13 +33,14 @@ export async function POST(req: Request) {
     if (!session || !session.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const body = await req.json();
-    const { startDate, endDate, reason } = createBlockedSchema.parse(body);
+    const { startDate, endDate, reason, room } = createBlockedSchema.parse(body);
 
     const blocked = await db.blockedDate.create({
       data: {
         startDate: new Date(startDate),
         endDate: new Date(endDate),
         reason,
+        room: room || "ALL",
         source: "MANUAL",
       }
     });

@@ -2,8 +2,7 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { db } from "@/lib/db";
 import { headers } from "next/headers";
-// Need to import nodemailer setup for Phase 9 here, or a dummy for now.
-// We'll prepare it to call an email function later.
+import { sendBookingConfirmation, sendAdminNotification } from "@/lib/mail";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_dummy123", {
   apiVersion: "2026-02-25.clover",
@@ -54,8 +53,11 @@ export async function POST(req: Request) {
           }
         }
 
-        // 3. TODO: Send Confirmation Email (Phase 9)
-        console.log(`Payment successful for booking ${bookingId}. User: ${booking.guestEmail}. Send email here.`);
+        // 3. Send Confirmation Emails
+        await sendBookingConfirmation(booking.guestEmail, booking.guestName, booking.startDate, booking.endDate);
+        await sendAdminNotification(booking);
+        
+        console.log(`Payment successful for booking ${bookingId}. Emails dispatched.`);
       }
       break;
     }

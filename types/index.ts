@@ -5,6 +5,8 @@ export interface Suite {
     sqm: string;
     img: string;
     href?: string;
+    description?: string;
+    features?: string[];
 }
 
 export interface Special {

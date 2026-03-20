@@ -39,6 +39,7 @@ export async function GET(req: Request) {
       select: {
         startDate: true,
         endDate: true,
+        room: true,
       },
     });
 
@@ -56,6 +57,7 @@ export async function GET(req: Request) {
         startDate: true,
         endDate: true,
         reason: true,
+        room: true,
       },
     });
 

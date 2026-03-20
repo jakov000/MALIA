@@ -10,6 +10,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_dummy123", {
 const checkoutSchema = z.object({
   guestName: z.string().min(2),
   guestEmail: z.string().email(),
+  guestPhone: z.string().min(4),
+  guestAddress: z.string().min(5),
   startDate: z.string().datetime(),
   endDate: z.string().datetime(),
   room: z.string().min(2),
@@ -24,9 +26,69 @@ export async function POST(req: Request) {
     const body = await req.json();
     const parsed = checkoutSchema.parse(body);
 
-    let finalTotal = parsed.cartTotal;
     let voucherId = null;
     let discountApplied = 0;
+
+    // Fetch live Room Config from DB
+    const roomConfig = await db.roomConfig.findUnique({
+      where: { roomName: parsed.room }
+    });
+
+    if (!roomConfig) {
+      return NextResponse.json({ error: "Room configuration not found." }, { status: 404 });
+    }
+
+    // Server-side validation
+    const start = new Date(parsed.startDate);
+    const end = new Date(parsed.endDate);
+    const nights = Math.round((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+    
+    if (nights < roomConfig.minStayDays) {
+      return NextResponse.json({ error: `Mindestaufenthalt nicht erreicht. Minimum: ${roomConfig.minStayDays} Nächte.` }, { status: 400 });
+    }
+
+    const noCheckoutDays = JSON.parse(roomConfig.noCheckoutDays);
+    if (noCheckoutDays.includes(end.getDay())) {
+      return NextResponse.json({ error: "Abreise an diesem Wochentag nicht erlaubt." }, { status: 400 });
+    }
+
+    // ----------------------------------------------------------------------
+    // SERVER-SIDE AVAILABILITY & OVERLAP CHECK (Hierarchical Room Logic)
+    // ----------------------------------------------------------------------
+    const relatedRooms = parsed.room === "THE ALPINE HIDEAWAY" 
+      ? ["THE ALPINE HIDEAWAY", "THE RESIDENCE", "THE RETREAT"]
+      : (parsed.room === "THE RESIDENCE" 
+          ? ["THE RESIDENCE", "THE ALPINE HIDEAWAY"] 
+          : ["THE RETREAT", "THE ALPINE HIDEAWAY"]);
+
+    const overlappingBooking = await db.booking.findFirst({
+      where: {
+        status: "PAID",
+        room: { in: relatedRooms },
+        startDate: { lt: end },
+        endDate: { gt: start },
+      }
+    });
+
+    if (overlappingBooking) {
+      return NextResponse.json({ error: "Dieser Zeitraum ist leider in der Zwischenzeit gebucht worden." }, { status: 400 });
+    }
+
+    const overlappingBlock = await db.blockedDate.findFirst({
+      where: {
+        room: { in: ["ALL", ...relatedRooms] },
+        startDate: { lt: end },
+        endDate: { gt: start },
+      }
+    });
+
+    if (overlappingBlock) {
+      return NextResponse.json({ error: "Dieser Zeitraum ist aufgrund von Sperrungen nicht verfügbar." }, { status: 400 });
+    }
+    // ----------------------------------------------------------------------
+
+    // Server-side price calculation override (never trust client)
+    let finalTotal = nights * roomConfig.pricePerNight;
 
     // Optional: Validate Voucher again server-side before creating checkout
     if (parsed.voucherCode) {
@@ -62,6 +124,8 @@ export async function POST(req: Request) {
       data: {
         guestName: parsed.guestName,
         guestEmail: parsed.guestEmail,
+        guestPhone: parsed.guestPhone,
+        guestAddress: parsed.guestAddress,
         startDate: new Date(parsed.startDate),
         endDate: new Date(parsed.endDate),
         room: parsed.room,

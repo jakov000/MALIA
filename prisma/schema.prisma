@@ -17,6 +17,8 @@ model Booking {
   id            String   @id @default(cuid())
   guestName     String
   guestEmail    String
+  guestPhone    String   @default("")
+  guestAddress  String   @default("")
   startDate     DateTime
   endDate       DateTime
   room          String   @default("The Alpine Hideaway")
@@ -34,6 +36,7 @@ model BlockedDate {
   id          String   @id @default(cuid())
   startDate   DateTime
   endDate     DateTime
+  room        String   @default("ALL") // "ALL" blocks the entire property, otherwise specific room name
   reason      String?  
   source      String   @default("MANUAL") // MANUAL, AIRBNB, BOOKING
 }
@@ -47,4 +50,13 @@ model Voucher {
   isActive       Boolean  @default(true)
   createdAt      DateTime @default(now())
   expiresAt      DateTime?
+}
+
+model RoomConfig {
+  id               String   @id @default(cuid())
+  roomName         String   @unique
+  pricePerNight    Float
+  minStayDays      Int      @default(1)
+  noCheckoutDays   String   @default("[]") // JSON array of numbers e.g. [0,6]
+  updatedAt        DateTime @updatedAt
 }

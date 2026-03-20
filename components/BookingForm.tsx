@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { format, differenceInDays, addDays } from "date-fns";
 import { de } from "date-fns/locale";
 import { Calendar } from "@/components/ui/calendar";
@@ -16,12 +16,16 @@ export default function BookingForm() {
   });
   
   const [loadingDates, setLoadingDates] = useState(true);
-  const [blockedDates, setBlockedDates] = useState<Date[]>([]);
+  const [rawBookings, setRawBookings] = useState<any[]>([]);
+  const [rawBlockedDates, setRawBlockedDates] = useState<any[]>([]);
+  const [roomConfigs, setRoomConfigs] = useState<any[]>([]);
   
   const [step, setStep] = useState<1 | 2>(1); // 1 = Calendar & Suite, 2 = Form Details
   
   // Room and Guest Selection
   const [selectedRoomIndex, setSelectedRoomIndex] = useState<number>(0);
+  const [detailsRoomIndex, setDetailsRoomIndex] = useState<number | null>(null); // State for Room Details Modal
+
   const selectedRoom = SUITES[selectedRoomIndex];
   const maxGuests = selectedRoom.persons.includes('-') ? parseInt(selectedRoom.persons.split('-')[1]) : parseInt(selectedRoom.persons);
   const minGuests = selectedRoom.persons.includes('-') ? parseInt(selectedRoom.persons.split('-')[0]) : parseInt(selectedRoom.persons);
@@ -35,6 +39,8 @@ export default function BookingForm() {
 
   const [guestName, setGuestName] = useState("");
   const [guestEmail, setGuestEmail] = useState("");
+  const [guestPhone, setGuestPhone] = useState("");
+  const [guestAddress, setGuestAddress] = useState("");
   const [notes, setNotes] = useState("");
   
   const [voucherCode, setVoucherCode] = useState("");
@@ -52,28 +58,20 @@ export default function BookingForm() {
         const todayStr = new Date().toISOString();
         const nextYearStr = addDays(new Date(), 365).toISOString();
         
-        const res = await fetch(`/api/availability?start=${todayStr}&end=${nextYearStr}`);
+        const res = await fetch(`/api/availability?start=${todayStr}&end=${nextYearStr}`, { cache: "no-store" });
         if (res.ok) {
           const data = await res.json();
-          const allBlocked: Date[] = [];
-          
-          // Helper to generate array of dates between start and end
-          const getDatesInRange = (startDate: string, endDate: string) => {
-            const date = new Date(startDate);
-            const end = new Date(endDate);
-            const dates = [];
-            while (date <= end) {
-              dates.push(new Date(date));
-              date.setDate(date.getDate() + 1);
-            }
-            return dates;
-          };
-
-          data.bookings.forEach((b: any) => allBlocked.push(...getDatesInRange(b.startDate, b.endDate)));
-          data.blockedDates.forEach((b: any) => allBlocked.push(...getDatesInRange(b.startDate, b.endDate)));
-          
-          setBlockedDates(allBlocked);
+          setRawBookings(data.bookings || []);
+          setRawBlockedDates(data.blockedDates || []);
         }
+        
+        // Fetch specific room configurations
+        const configRes = await fetch("/api/settings", { cache: "no-store" });
+        if (configRes.ok) {
+          const configData = await configRes.json();
+          setRoomConfigs(configData);
+        }
+        
       } catch (err) {
         console.error("Failed to load availability", err);
       } finally {
@@ -83,14 +81,105 @@ export default function BookingForm() {
     loadAvailability();
   }, []);
 
+  // Dynamic Settings
+  const activeConfig = roomConfigs.find(c => c.roomName === selectedRoom.title);
+  const minStay = activeConfig?.minStayDays || 1;
+  const noCheckoutDays: number[] = activeConfig && typeof activeConfig.noCheckoutDays === "string" 
+    ? JSON.parse(activeConfig.noCheckoutDays) 
+    : [];
+
+  const blockedDates = useMemo(() => {
+    const allBlocked: Date[] = [];
+    const getDatesInRange = (startDate: string, endDate: string) => {
+      const d = new Date(startDate); d.setHours(0,0,0,0);
+      const end = new Date(endDate); end.setHours(0,0,0,0);
+      // Determine the nights. The checkout day itself is NOT a blocked night for the property!
+      // This allows the next guest to check in on the checkout day.
+      end.setDate(end.getDate() - 1); 
+      
+      const dates = [];
+      while (d <= end) {
+        dates.push(new Date(d));
+        d.setDate(d.getDate() + 1);
+      }
+      return dates;
+    };
+
+    const relatedRooms = selectedRoom.title === "THE ALPINE HIDEAWAY" 
+      ? ["THE ALPINE HIDEAWAY", "THE RESIDENCE", "THE RETREAT"]
+      : (selectedRoom.title === "THE RESIDENCE" 
+          ? ["THE RESIDENCE", "THE ALPINE HIDEAWAY"] 
+          : ["THE RETREAT", "THE ALPINE HIDEAWAY"]);
+
+    rawBookings.forEach((b: any) => {
+      if (relatedRooms.includes(b.room)) {
+        allBlocked.push(...getDatesInRange(b.startDate, b.endDate));
+      }
+    });
+
+    rawBlockedDates.forEach((b: any) => {
+      if (b.room === "ALL" || relatedRooms.includes(b.room)) {
+        allBlocked.push(...getDatesInRange(b.startDate, b.endDate));
+      }
+    });
+
+    return allBlocked;
+  }, [rawBookings, rawBlockedDates, selectedRoom.title]);
+
   // Compute Prices
   const nights = date?.from && date?.to ? differenceInDays(date.to, date.from) : 0;
-  const basePricePerNight = parseInt(selectedRoom.price);
+  const basePricePerNight = activeConfig ? activeConfig.pricePerNight : parseInt(selectedRoom.price);
   const subtotal = Math.max(0, nights * basePricePerNight);
   const discountAmount = voucherData 
     ? (voucherData.type === "PERCENTAGE" ? subtotal * (voucherData.discount / 100) : Math.min(voucherData.discount, subtotal)) 
     : 0;
   const finalTotal = Math.max(0, subtotal - discountAmount);
+
+  // Dynamic Calendar Constraints
+  const getDisabledDates = () => {
+    let disabled: any[] = [
+      { before: new Date() }, // Cannot book past
+      ...blockedDates
+    ];
+
+    if (date?.from && !date?.to) {
+      // 1. Minimum Stay restriction
+      if (minStay > 1) {
+        disabled.push({
+          after: date.from,
+          before: addDays(date.from, minStay)
+        });
+      }
+
+      // 2. Prevent overlapping into other bookings
+      const nextBlockedDate = blockedDates
+        .filter(d => d > date.from!)
+        .sort((a, b) => a.getTime() - b.getTime())[0];
+        
+      if (nextBlockedDate) {
+        // We MUST allow checking out on the 'nextBlockedDate' (the day the next guest arrives).
+        // Since 'nextBlockedDate' is currently in 'disabled' (via ...blockedDates), we must remove it
+        // from 'disabled' so the user can click it to complete their checkout.
+        disabled = disabled.filter(
+          matcher => !(matcher instanceof Date && matcher.getTime() === nextBlockedDate.getTime())
+        );
+
+        // Then we strictly disable everything AFTER the checkout day!
+        disabled.push({ after: nextBlockedDate });
+      }
+    }
+
+    return disabled;
+  };
+
+  const modifiers = {
+    noCheckout: (d: Date) => noCheckoutDays.includes(d.getDay())
+  };
+
+  const modifiersStyles: any = {
+    // @ts-ignore
+    noCheckout: { textDecoration: 'underline', textDecorationColor: '#f87171', textDecorationStyle: 'dotted', textUnderlineOffset: '4px' }
+  };
 
   // Handlers
   const handleValidateVoucher = async () => {
@@ -131,6 +220,8 @@ export default function BookingForm() {
         body: JSON.stringify({
           guestName,
           guestEmail,
+          guestPhone,
+          guestAddress,
           startDate: date.from.toISOString(),
           endDate: date.to.toISOString(),
           room: selectedRoom.title,
@@ -171,14 +262,23 @@ export default function BookingForm() {
             <label className="block text-sm text-stone-600 font-medium">Welches Hideaway?</label>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {SUITES.map((suite, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setSelectedRoomIndex(idx)}
-                  className={`p-4 border text-left transition-colors flex flex-col justify-between h-24 ${selectedRoomIndex === idx ? 'border-stone-900 bg-stone-50' : 'border-stone-200 hover:border-stone-400'}`}
-                >
-                  <span className="font-serif text-sm uppercase tracking-wider">{suite.title}</span>
-                  <span className="text-xs text-stone-500">{suite.persons} Personen</span>
-                </button>
+                <div key={idx} className="relative flex flex-col">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedRoomIndex(idx)}
+                    className={`p-4 border text-left transition-colors flex flex-col justify-between h-24 w-full ${selectedRoomIndex === idx ? 'border-stone-900 bg-stone-50' : 'border-stone-200 hover:border-stone-400'}`}
+                  >
+                    <span className="font-serif text-sm uppercase tracking-wider pr-14 leading-tight">{suite.title}</span>
+                    <span className="text-xs text-stone-500">{suite.persons} Personen</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={(e) => { e.preventDefault(); setDetailsRoomIndex(idx); }}
+                    className="absolute bottom-4 right-4 text-[10px] uppercase tracking-wider text-stone-400 hover:text-stone-800 hover:font-bold underline transition-all z-10"
+                  >
+                    Details
+                  </button>
+                </div>
               ))}
             </div>
           </div>
@@ -207,20 +307,29 @@ export default function BookingForm() {
               <Loader2 className="animate-spin text-stone-400" size={32} />
             </div>
           ) : (
-             <div className="bg-stone-50 p-4 rounded-lg flex justify-center border border-stone-200">
-               <Calendar
-                mode="range"
-                selected={date}
-                // @ts-ignore
-                onSelect={setDate}
-                numberOfMonths={1}
-                disabled={[
-                  { before: new Date() }, // Cannot book past
-                  ...blockedDates // Cannot book blocked
-                ]}
-                className="rounded-md mx-auto"
-              />
-            </div>
+             <>
+               <div className="bg-stone-50 p-6 md:p-8 rounded-lg flex justify-center border border-stone-200 overflow-hidden">
+                 <div className="transform scale-110 origin-top">
+                   <Calendar
+                    mode="range"
+                    selected={date}
+                    // @ts-ignore
+                    onSelect={setDate}
+                    numberOfMonths={1}
+                    disabled={getDisabledDates()}
+                    modifiers={modifiers}
+                    modifiersStyles={modifiersStyles}
+                    className="rounded-md mx-auto relative z-10"
+                  />
+                 </div>
+              </div>
+              {noCheckoutDays.length > 0 && (
+                <div className="flex justify-center mt-6 text-xs font-medium text-stone-600 items-center gap-3 bg-stone-50 py-2 px-4 rounded-sm border border-stone-100 inline-flex mx-auto">
+                   <span className="w-8 border-b-[3px] border-red-400 border-dotted opacity-80"></span>
+                   <span className="tracking-wide">Keine Abreise an diesem Wochentag möglich</span>
+                </div>
+              )}
+            </>
           )}
         </div>
 
@@ -228,11 +337,11 @@ export default function BookingForm() {
           <div className="bg-stone-900 text-white p-6 rounded-lg space-y-4">
             <h3 className="font-serif text-xl tracking-wider">Dein Aufenthalt</h3>
             <div className="flex justify-between text-sm font-light">
-              <span>Anreise:</span>
+              <span>Anreise (ab 15:00 Uhr):</span>
               <span>{format(date.from, "dd. MMMM yyyy", { locale: de })}</span>
             </div>
             <div className="flex justify-between text-sm font-light">
-              <span>Abreise:</span>
+              <span>Abreise (bis 10:00 Uhr):</span>
               <span>{format(date.to, "dd. MMMM yyyy", { locale: de })}</span>
             </div>
             <div className="flex justify-between text-sm font-light">
@@ -250,6 +359,19 @@ export default function BookingForm() {
             
             <hr className="border-stone-700 my-4" />
             
+            {/* Validation Messages */}
+            {date.to && nights < minStay && (
+              <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-sm text-sm mb-4">
+                Mindestaufenthalt für dieses Hideaway: <strong>{minStay} {minStay === 1 ? 'Nacht' : 'Nächte'}</strong>.<br/>Bitte wähle einen längeren Zeitraum.
+              </div>
+            )}
+            
+            {date.to && noCheckoutDays.includes(date.to.getDay()) && (
+              <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-sm text-sm mb-4">
+                An einem <strong>{format(date.to, "EEEE", { locale: de })}</strong> ist leider keine Abreise möglich.<br/>Bitte passe das Abreisedatum an.
+              </div>
+            )}
+
             <div className="flex justify-between items-center text-lg">
               <span>Zwischensumme:</span>
               <span>€ {subtotal.toFixed(2)}</span>
@@ -270,7 +392,8 @@ export default function BookingForm() {
             {step === 1 && (
               <button 
                 onClick={() => setStep(2)}
-                className="w-full mt-6 py-3 bg-white text-stone-900 font-medium uppercase tracking-widest text-xs hover:bg-stone-200 transition-colors"
+                disabled={nights < minStay || (date?.to ? noCheckoutDays.includes(date.to.getDay()) : false)}
+                className="w-full mt-6 py-3 bg-white text-stone-900 font-medium uppercase tracking-widest text-xs hover:bg-stone-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Weiter zu den Daten
               </button>
@@ -306,6 +429,28 @@ export default function BookingForm() {
               onChange={e => setGuestEmail(e.target.value)}
               className="w-full border-b border-stone-300 py-2 px-1 focus:border-stone-900 focus:outline-none bg-transparent transition-colors" 
               placeholder="max@beispiel.de"
+            />
+          </div>
+          <div>
+            <label className="block text-sm text-stone-600 mb-1">Telefonnummer *</label>
+            <input 
+              required
+              type="tel" 
+              value={guestPhone}
+              onChange={e => setGuestPhone(e.target.value)}
+              className="w-full border-b border-stone-300 py-2 px-1 focus:border-stone-900 focus:outline-none bg-transparent transition-colors" 
+              placeholder="+43 123 45678"
+            />
+          </div>
+          <div>
+            <label className="block text-sm text-stone-600 mb-1">Anschrift (Straße, PLZ, Ort) *</label>
+            <input 
+              required
+              type="text" 
+              value={guestAddress}
+              onChange={e => setGuestAddress(e.target.value)}
+              className="w-full border-b border-stone-300 py-2 px-1 focus:border-stone-900 focus:outline-none bg-transparent transition-colors" 
+              placeholder="Musterstraße 1, 1010 Wien"
             />
           </div>
           <div>
@@ -347,9 +492,19 @@ export default function BookingForm() {
             )}
           </div>
 
+          <div className="bg-stone-50 border border-stone-200 p-4 text-xs text-stone-600 mt-6 flex flex-col gap-2 leading-relaxed shadow-sm">
+            <p className="font-bold text-stone-800 uppercase tracking-widest text-[10px]">Stornierungsbedingungen</p>
+            <ul className="list-none space-y-1">
+              <li>• Bis zu 60 Tage vor Anreise: <span className="font-medium text-stone-800">Kostenfrei</span></li>
+              <li>• Bis zu 30 Tage vor Anreise: <span className="font-medium text-stone-800">50%</span> Stornokosten</li>
+              <li>• Bis zu 14 Tage vor Anreise: <span className="font-medium text-stone-800">70%</span> Stornokosten</li>
+              <li>• Unter 14 Tagen / No-Show: <span className="font-medium text-stone-800">100%</span> Stornokosten</li>
+            </ul>
+          </div>
+
           <button 
             type="submit" 
-            disabled={checkingOut || !date?.from || !date?.to || !guestName || !guestEmail}
+            disabled={checkingOut || !date?.from || !date?.to || !guestName || !guestEmail || !guestPhone || !guestAddress}
             className="w-full bg-stone-900 text-white py-4 uppercase tracking-[0.2em] font-light text-sm hover:bg-stone-800 transition-colors mt-8 disabled:opacity-50 flex justify-center items-center"
           >
             {checkingOut ? <Loader2 className="animate-spin mr-2" /> : null}
@@ -362,6 +517,59 @@ export default function BookingForm() {
 
         </form>
       </div>
+
+      {/* Room Details Modal */}
+      {detailsRoomIndex !== null && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-sm"
+             onClick={() => setDetailsRoomIndex(null)}>
+          <div 
+            className="bg-white max-w-lg w-full p-8 rounded-sm shadow-2xl relative"
+            onClick={e => e.stopPropagation()} // Prevent close when clicking inside modal
+          >
+            <button 
+              type="button"
+              onClick={() => setDetailsRoomIndex(null)}
+              className="absolute top-4 right-4 text-stone-400 hover:text-stone-900 text-2xl font-light leading-none"
+            >
+              &times;
+            </button>
+            
+            <h3 className="font-serif text-2xl text-stone-900 mb-2 tracking-wide">{SUITES[detailsRoomIndex].title}</h3>
+            <div className="flex gap-4 text-xs tracking-widest uppercase text-[#7d3a2a] mb-6 font-medium">
+              <span>{SUITES[detailsRoomIndex].sqm} m²</span>
+              <span>•</span>
+              <span>{SUITES[detailsRoomIndex].persons} Gäste</span>
+              <span>•</span>
+              <span>Ab € {SUITES[detailsRoomIndex].price}</span>
+            </div>
+            
+            <p className="text-stone-600 text-sm leading-relaxed mb-6 font-light">
+              {SUITES[detailsRoomIndex].description}
+            </p>
+            
+            <ul className="space-y-2 mb-8 border-t border-stone-100 pt-6">
+              {SUITES[detailsRoomIndex].features?.map((feat, i) => (
+                <li key={i} className="flex gap-3 text-sm text-stone-700 font-light items-start">
+                  <span className="text-[#7d3a2a] mt-0.5">•</span>
+                  <span>{feat}</span>
+                </li>
+              ))}
+            </ul>
+            
+            <Button 
+              variant="primary" 
+              onClick={() => {
+                setSelectedRoomIndex(detailsRoomIndex);
+                setDetailsRoomIndex(null);
+              }}
+              className="w-full justify-center"
+            >
+              Verstanden, weiter zur Buchung
+            </Button>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

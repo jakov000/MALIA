@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
-import { Loader2, Trash2 } from "lucide-react";
+import { Loader2, Trash2, XCircle } from "lucide-react";
 
 type Booking = {
   id: string;
@@ -11,6 +11,7 @@ type Booking = {
   guestEmail: string;
   startDate: string;
   endDate: string;
+  room: string;
   totalPrice: number;
   status: string;
   source: string;
@@ -42,7 +43,7 @@ export default function BookingsTable() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Buchung wirklich löschen?")) return;
+    if (!confirm("Buchung wirklich komplett löschen? Dies kann nicht rückgängig gemacht werden.")) return;
     
     try {
       const res = await fetch(`/api/bookings/${id}`, { method: "DELETE" });
@@ -50,6 +51,25 @@ export default function BookingsTable() {
         fetchBookings();
       } else {
         alert("Löschen fehlgeschlagen.");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleCancel = async (id: string) => {
+    if (!confirm("Buchung stornieren? Dadurch wird der Kalender für diesen Zeitraum wieder freigegeben.")) return;
+    
+    try {
+      const res = await fetch(`/api/bookings/${id}`, { 
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: "CANCELLED" })
+      });
+      if (res.ok) {
+        fetchBookings();
+      } else {
+        alert("Stornierung fehlgeschlagen.");
       }
     } catch (err) {
       console.error(err);
@@ -72,7 +92,7 @@ export default function BookingsTable() {
           <thead className="bg-stone-50 border-b text-stone-600 font-medium">
             <tr>
               <th className="px-6 py-4">Gast</th>
-              <th className="px-6 py-4">Zeitraum</th>
+              <th className="px-6 py-4">Objekt / Zeitraum</th>
               <th className="px-6 py-4">Preis</th>
               <th className="px-6 py-4">Status</th>
               <th className="px-6 py-4">Quelle</th>
@@ -90,6 +110,7 @@ export default function BookingsTable() {
                   <div className="text-xs text-stone-500">{b.guestEmail}</div>
                 </td>
                 <td className="px-6 py-4">
+                  <span className="inline-block px-2 py-0.5 bg-stone-100 text-[#7d3a2a] text-[10px] uppercase tracking-wider rounded-sm font-bold mb-1.5">{b.room}</span>
                   <div className="text-stone-900 block">{format(new Date(b.startDate), "dd.MM.yyyy")}</div>
                   <div className="text-stone-500 text-xs mt-0.5">bis {format(new Date(b.endDate), "dd.MM.yyyy")}</div>
                 </td>
@@ -108,11 +129,20 @@ export default function BookingsTable() {
                 <td className="px-6 py-4 text-xs font-medium text-stone-500 uppercase">
                   {b.source}
                 </td>
-                <td className="px-6 py-4 text-right">
+                <td className="px-6 py-4 text-right flex justify-end gap-2">
+                  {b.status !== "CANCELLED" && (
+                    <button 
+                      onClick={() => handleCancel(b.id)}
+                      className="text-stone-400 hover:text-orange-600 transition-colors p-2"
+                      title="Buchung stornieren"
+                    >
+                      <XCircle size={16} />
+                    </button>
+                  )}
                   <button 
                     onClick={() => handleDelete(b.id)}
                     className="text-stone-400 hover:text-red-600 transition-colors p-2"
-                    title="Löschen"
+                    title="Endgültig löschen"
                   >
                     <Trash2 size={16} />
                   </button>

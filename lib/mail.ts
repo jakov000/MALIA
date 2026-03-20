@@ -18,15 +18,15 @@ export async function sendBookingConfirmation(email: string, name: string, start
   const mailOptions = {
     from: FROM_EMAIL,
     to: email,
-    subject: "Buchungsbestätigung - Malia Villa Tirol",
+    subject: "Buchungsbestätigung - Malia Alpine Hideaway",
     html: `
       <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
         <h2>Vielen Dank für deine Buchung, ${name}!</h2>
-        <p>Wir freuen uns sehr, dich bald in der Malia Villa Tirol begrüßen zu dürfen.</p>
+        <p>Wir freuen uns sehr, dich bald im Malia Alpine Hideaway begrüßen zu dürfen.</p>
         <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin: 20px 0;">
           <strong>Dein Aufenthalt:</strong><br/>
-          Anreise: ${startDate.toLocaleDateString('de-DE')}<br/>
-          Abreise: ${endDate.toLocaleDateString('de-DE')}
+          Anreise: ${startDate.toLocaleDateString('de-DE')} (ab 15:00 Uhr)<br/>
+          Abreise: ${endDate.toLocaleDateString('de-DE')} (bis 10:00 Uhr)
         </div>
         <p>Wir haben deine Zahlung erhalten. Solltest du noch Fragen haben, antworte einfach auf diese E-Mail.</p>
         <p>Herzliche Grüße,<br/>Dein Malia Team</p>
@@ -39,6 +39,36 @@ export async function sendBookingConfirmation(email: string, name: string, start
     console.log(`Booking confirmation sent to ${email}`);
   } catch (error) {
     console.error("Error sending booking confirmation email:", error);
+  }
+}
+
+export async function sendAdminNotification(booking: any) {
+  const mailOptions = {
+    from: FROM_EMAIL,
+    to: FROM_EMAIL, // Admin receives it at their own email
+    subject: `Neue Buchung: ${booking.room} - ${booking.guestName}`,
+    html: `
+      <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+        <h2>Neue Buchung eingegangen!</h2>
+        <p>Ein Gast hat soeben einen Aufenthalt gebucht und per Stripe bezahlt.</p>
+        <ul>
+          <li><strong>Gast:</strong> ${booking.guestName} (${booking.guestEmail})</li>
+          <li><strong>Hideaway:</strong> ${booking.room}</li>
+          <li><strong>Gästezahl:</strong> ${booking.guests}</li>
+          <li><strong>Zeitraum:</strong> ${booking.startDate.toLocaleDateString('de-DE')} - ${booking.endDate.toLocaleDateString('de-DE')}</li>
+          <li><strong>Umsatz:</strong> €${booking.totalPrice.toFixed(2)}</li>
+          <li><strong>Notizen:</strong> ${booking.notes || "-"}</li>
+        </ul>
+        <p>Die Buchung ist nun im Admin Dashboard als PAID markiert und der Kalender ist geblockt.</p>
+      </div>
+    `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log(`Admin notification sent to ${FROM_EMAIL}`);
+  } catch (error) {
+    console.error("Error sending admin notification:", error);
   }
 }
 
