@@ -16,7 +16,7 @@ export async function POST(request: Request) {
         const transporter = nodemailer.createTransport({
             host: process.env.SMTP_HOST || "smtp.gmail.com", // Fallback oder Platzhalter
             port: parseInt(process.env.SMTP_PORT || "587"),
-            secure: false, // true for 465, false for other ports
+            secure: parseInt(process.env.SMTP_PORT || "587") === 465, // true for 465, false for other ports
             auth: {
                 user: process.env.SMTP_USER, // Deine Email
                 pass: process.env.SMTP_PASS, // Dein App Password
