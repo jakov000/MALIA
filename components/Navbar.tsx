@@ -78,8 +78,11 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-500 ease-in-out px-4 md:px-12 py-4 ${showScrolledStyle ? 'bg-white/95 backdrop-blur-sm py-3 shadow-sm' : 'bg-transparent py-6'
-        }`}
+      className={`fixed w-full z-50 transition-all duration-500 ease-in-out px-4 md:px-12 py-4 ${
+        showScrolledStyle 
+          ? 'bg-white py-3 shadow-sm' 
+          : 'bg-white shadow-sm lg:bg-transparent lg:shadow-none py-3 lg:py-6'
+      }`}
     >
       <div className="max-w-[1800px] mx-auto flex justify-between items-center">
 
@@ -98,7 +101,8 @@ export default function Navbar() {
         </div>
 
         {/* MITTE: Logo zentral */}
-        <Link href={loc('/')} className={`text-3xl font-serif tracking-[0.3em] transition-colors px-4 ${showScrolledStyle ? 'text-gray-900' : 'text-white'
+        <Link href={loc('/')} className={`text-3xl font-serif tracking-[0.3em] transition-colors px-4 ${
+          showScrolledStyle ? 'text-gray-900' : 'text-gray-900 lg:text-white'
           }`}>
           <span className="font-light">MALIA</span>
         </Link>
@@ -171,7 +175,7 @@ export default function Navbar() {
         <div className="lg:hidden flex items-center">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={showScrolledStyle ? 'text-gray-900' : 'text-white'}
+            className="text-gray-900"
           >
             {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
@@ -199,12 +203,51 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-gray-900 text-xl font-light uppercase tracking-widest"
+                  className="text-gray-900 text-xl font-light uppercase tracking-widest hover:text-gray-500 transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.name}
                 </Link>
               ))}
+            </div>
+
+            {/* Mobile Icons and Lang Switcher */}
+            <div className="mt-12 flex flex-col space-y-6 border-t border-stone-200 pt-8">
+              {topIcons.map((item, idx) => {
+                 let href = '#';
+                 switch (item.label) {
+                    case 'Account': href = loc('/admin/login'); break;
+                    case 'Kontakt': href = loc('/inquiry'); break;
+                    case 'Gutscheine': href = loc('/vouchers'); break;
+                 }
+                 return (
+                   <Link
+                     key={idx}
+                     href={href}
+                     className="flex items-center space-x-4 text-gray-900 text-xl font-light uppercase tracking-widest hover:text-gray-500 transition-colors"
+                     onClick={() => setMobileMenuOpen(false)}
+                   >
+                     {item.icon}
+                     <span>{item.label}</span>
+                   </Link>
+                 )
+              })}
+
+              {/* Mobile Lang Switcher */}
+              <div className="flex space-x-6 pt-4">
+                 <button 
+                   onClick={() => switchLanguage('de')} 
+                   className={`text-lg uppercase tracking-widest hover:text-gray-500 transition-colors ${currentLocale === 'de' ? 'font-bold' : 'font-light'}`}
+                 >
+                   DE
+                 </button>
+                 <button 
+                   onClick={() => switchLanguage('en')} 
+                   className={`text-lg uppercase tracking-widest hover:text-gray-500 transition-colors ${currentLocale === 'en' ? 'font-bold' : 'font-light'}`}
+                 >
+                   ENG
+                 </button>
+              </div>
             </div>
           </motion.div>
         )}
