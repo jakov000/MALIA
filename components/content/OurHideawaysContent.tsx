@@ -114,7 +114,7 @@ export default function OurHideawaysContent() {
                     <div className="flex-1 relative">
                         <motion.div animate={{ x: isMobile ? 0 : `-${currentIndex * 55}%` }} transition={{ type: "spring", stiffness: 80, damping: 20 }} className="flex flex-col md:flex-row gap-16 md:gap-12">
                             {SUITES.map((suite, index) => (
-                                <div key={index} onClick={() => handleSuiteClick(index)} className={`w-full md:min-w-[50%] flex-shrink-0 transition-opacity duration-700 cursor-pointer ${currentIndex === index ? 'opacity-100' : 'opacity-100 md:opacity-30 md:hover:opacity-50'}`}>
+                                <div key={index} onClick={() => handleSuiteClick(index)} className={`w-full md:w-auto md:min-w-[50%] flex-shrink-0 transition-opacity duration-700 cursor-pointer ${currentIndex === index ? 'opacity-100' : 'opacity-100 md:opacity-30 md:hover:opacity-50'}`}>
                                     <div className="aspect-[4/3] overflow-hidden shadow-sm relative bg-stone-100">
                                         <Image
                                             src={suite.img}
