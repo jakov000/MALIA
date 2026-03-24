@@ -6,51 +6,7 @@ import { FEELING_AREAS } from '@/lib/data';
 import PageFooter from '@/components/PageFooter';
 import { useTranslations } from 'next-intl';
 
-// Slideshow Komponente
-const ImageSlideshow = ({ images, title }: { images: string[], title: string }) => {
-    const [currentIndex, setCurrentIndex] = useState(0);
-
-    useEffect(() => {
-        if (images.length <= 1) return;
-        const interval = setInterval(() => {
-            setCurrentIndex((prev) => (prev + 1) % images.length);
-        }, 4000); // Bildwechsel alle 4 Sekunden
-        return () => clearInterval(interval);
-    }, [images.length]);
-
-    return (
-        <div className="relative w-full h-full overflow-hidden bg-stone-100 shadow-sm">
-            <AnimatePresence mode="wait">
-                <motion.div
-                    key={currentIndex}
-                    initial={{ opacity: 0, scale: 1.1 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 1.5, ease: "easeInOut" }}
-                    className="absolute inset-0 w-full h-full"
-                >
-                    <Image
-                        src={images[currentIndex]}
-                        fill
-                        className="object-cover"
-                        alt={`${title} - Bild ${currentIndex + 1}`}
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                </motion.div>
-            </AnimatePresence>
-
-            {/* Fortschrittsanzeige (optional, dezent) */}
-            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
-                {images.map((_, idx) => (
-                    <div
-                        key={idx}
-                        className={`w-1 h-1 rounded-full transition-all duration-500 ${idx === currentIndex ? 'bg-white w-4' : 'bg-white/50'}`}
-                    />
-                ))}
-            </div>
-        </div>
-    );
-};
+import ImageSlideshow from '@/components/ui/ImageSlideshow';
 
 export default function TheFeelingContent() {
     const t = useTranslations('TheFeeling');
