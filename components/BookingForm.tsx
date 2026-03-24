@@ -12,6 +12,7 @@ import { useTranslations } from "next-intl";
 
 export default function BookingForm() {
   const t = useTranslations('BookingForm');
+  const tRooms = useTranslations('Rooms');
   const [date, setDate] = useState<DateRange | undefined>({
     from: undefined,
     to: undefined,
@@ -563,15 +564,46 @@ export default function BookingForm() {
               <span>{t('modal_from')} {SUITES[detailsRoomIndex].price}</span>
             </div>
             
-            <p className="text-stone-600 text-sm leading-relaxed mb-6 font-light">
-              {SUITES[detailsRoomIndex].description}
-            </p>
+            <div className="text-stone-600 text-sm leading-relaxed mb-6 font-light space-y-4">
+              {SUITES[detailsRoomIndex].title === "THE ALPINE HIDEAWAY" && (
+                <>
+                  <p dangerouslySetInnerHTML={{ __html: tRooms('Hideaway.p1') }} />
+                  <p dangerouslySetInnerHTML={{ __html: tRooms('Hideaway.p2') }} />
+                </>
+              )}
+              {SUITES[detailsRoomIndex].title === "THE RESIDENCE" && (
+                <>
+                  <p dangerouslySetInnerHTML={{ __html: tRooms('Residence.p1') }} />
+                  <p dangerouslySetInnerHTML={{ __html: tRooms('Residence.p2') }} />
+                </>
+              )}
+              {SUITES[detailsRoomIndex].title === "THE RETREAT" && (
+                <>
+                  <p dangerouslySetInnerHTML={{ __html: tRooms('Retreat.p1') }} />
+                  <p dangerouslySetInnerHTML={{ __html: tRooms('Retreat.p2') }} />
+                  <p dangerouslySetInnerHTML={{ __html: tRooms('Retreat.p3') }} />
+                  <p dangerouslySetInnerHTML={{ __html: tRooms('Retreat.p4') }} />
+                </>
+              )}
+            </div>
             
             <ul className="space-y-2 mb-8 border-t border-stone-100 pt-6">
-              {SUITES[detailsRoomIndex].features?.map((feat, i) => (
+              {SUITES[detailsRoomIndex].title === "THE ALPINE HIDEAWAY" && tRooms.raw('Hideaway.bullets').map((feat: string, i: number) => (
                 <li key={i} className="flex gap-3 text-sm text-stone-700 font-light items-start">
                   <span className="text-[#7d3a2a] mt-0.5">•</span>
-                  <span>{feat}</span>
+                  <span dangerouslySetInnerHTML={{ __html: feat }} />
+                </li>
+              ))}
+              {SUITES[detailsRoomIndex].title === "THE RESIDENCE" && tRooms.raw('Residence.bullets').map((feat: string, i: number) => (
+                <li key={i} className="flex gap-3 text-sm text-stone-700 font-light items-start">
+                  <span className="text-[#7d3a2a] mt-0.5">•</span>
+                  <span dangerouslySetInnerHTML={{ __html: feat }} />
+                </li>
+              ))}
+              {SUITES[detailsRoomIndex].title === "THE RETREAT" && tRooms.raw('Retreat.bullets').map((feat: string, i: number) => (
+                <li key={i} className="flex gap-3 text-sm text-stone-700 font-light items-start">
+                  <span className="text-[#7d3a2a] mt-0.5">•</span>
+                  <span dangerouslySetInnerHTML={{ __html: feat }} />
                 </li>
               ))}
             </ul>
