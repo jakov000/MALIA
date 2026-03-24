@@ -19,7 +19,7 @@ export async function POST(request: Request) {
         });
 
         const mailOptions = {
-            from: '"Website Anfrage" <no-reply@malia-hideaway.at>',
+            from: process.env.SMTP_FROM || `"Website Anfrage" <${process.env.SMTP_USER}>`,
             to: "info@malia-alpine-hideaway.at",
             replyTo: email,
             subject: `Neue Anfrage von ${firstName} ${lastName}`,

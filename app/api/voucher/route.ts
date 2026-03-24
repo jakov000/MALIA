@@ -25,7 +25,7 @@ export async function POST(request: Request) {
 
         // E-Mail Inhalt
         const mailOptions = {
-            from: '"Gutschein Anfrage" <no-reply@malia-hideaway.at>', // Absender
+            from: process.env.SMTP_FROM || `"Gutschein Anfrage" <${process.env.SMTP_USER}>`, // Absender
             to: "info@malia-alpine-hideaway.at", // Empfänger (Deine Hotel-Email)
             replyTo: email, // Damit du direkt dem Kunden antworten kannst
             subject: `Neue Gutschein-Anfrage von ${firstName} ${lastName}`,
