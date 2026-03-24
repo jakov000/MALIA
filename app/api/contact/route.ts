@@ -6,7 +6,7 @@ export async function POST(request: Request) {
         const data = await request.json();
         console.log('Received inquiry:', data);
 
-        const { firstName, lastName, email, phone, arrival, departure, persons, pets, message, source } = data;
+        const { title, firstName, lastName, email, phone, room, adults, children, checkIn, checkOut, message } = data;
 
         const transporter = nodemailer.createTransport({
             host: process.env.SMTP_HOST || "smtp.gmail.com",
@@ -32,12 +32,10 @@ export async function POST(request: Request) {
         Tel: ${phone || 'n/a'}
         
         REISEDATEN:
-        Anreise: ${arrival || 'n/a'}
-        Abreise: ${departure || 'n/a'}
-        Personen: ${persons || 'n/a'}
-        Haustiere: ${pets === 'yes' ? 'Ja' : 'Nein'}
-        
-        QUELLE: ${source || 'n/a'}
+        Zimmer: ${room || 'Keine Wahl'}
+        Anreise: ${checkIn || 'n/a'}
+        Abreise: ${checkOut || 'n/a'}
+        Personen: ${adults} Erwachsene, ${children} Kinder
         
         NACHRICHT:
         ${message}
@@ -52,13 +50,13 @@ export async function POST(request: Request) {
           <p><strong>Telefon:</strong> ${phone || '-'}</p>
           
           <h3 style="margin-top: 20px; background-color: #f9f9f9; padding: 10px;">Reisedaten:</h3>
+          <p><strong>Zimmer / Suite:</strong> ${room || '-'}</p>
           <div style="display: flex; gap: 20px;">
-             <p><strong>Von:</strong> ${arrival || '-'}</p>
-             <p><strong>Bis:</strong> ${departure || '-'}</p>
+             <p><strong>Von:</strong> ${checkIn || '-'}</p>
+             <p><strong>Bis:</strong> ${checkOut || '-'}</p>
           </div>
-          <p><strong>Personen:</strong> ${persons || '-'}</p>
-          <p><strong>Haustiere:</strong> ${pets === 'yes' ? 'Ja' : 'Nein'}</p>
-           <p><strong>Gefunden über:</strong> ${source || '-'}</p>
+          <p><strong>Erwachsene:</strong> ${adults || 0}</p>
+          <p><strong>Kinder:</strong> ${children || 0}</p>
           
           <h3 style="margin-top: 20px;">Nachricht:</h3>
           <blockquote style="background: #f0f0f0; border-left: 4px solid #7d3a2a; margin: 0; padding: 10px 20px;">
