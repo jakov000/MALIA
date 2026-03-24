@@ -32,7 +32,7 @@ export default function PageFooter() {
 
                 <div className="text-center text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-gray-400 font-sans leading-loose">
                     <p>{t('address')}</p>
-                    <p className="mt-2 text-gray-500 font-medium">[EMAIL_ADDRESS]</p>
+                    <p className="mt-2 text-gray-500 font-medium">info@malia-alpine-hideaway.at</p>
                 </div>
             </div>
         </footer>
