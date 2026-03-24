@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, User, MapPin, Gift, Phone, ChevronDown } from 'lucide-react';
+import { Menu, X, Gift, Phone, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useRouter, usePathname } from 'next/navigation';
@@ -72,8 +72,6 @@ export default function Navbar() {
   ];
 
   const topIcons = [
-    { icon: <User size={20} strokeWidth={1.5} />, label: 'Account' },
-    { icon: <MapPin size={20} strokeWidth={1.5} />, label: 'Lage' },
     { icon: <Gift size={20} strokeWidth={1.5} />, label: 'Gutscheine' },
     { icon: <Phone size={20} strokeWidth={1.5} />, label: 'Kontakt' },
   ];
