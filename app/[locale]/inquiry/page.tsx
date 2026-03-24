@@ -166,11 +166,9 @@ export default function InquiryPage() {
                                         className="w-full md:w-1/2 bg-stone-50 border border-stone-200 p-3 text-sm focus:outline-none focus:border-stone-400 transition-colors"
                                     >
                                         <option value="">{t('please_select')}</option>
-                                        <option value="Zimmer 1">{t('room1')}</option>
-                                        <option value="Zimmer 2">{t('room2')}</option>
-                                        <option value="Zimmer 3">{t('room3')}</option>
-                                        <option value="Zimmer 4">{t('room4')}</option>
-                                        <option value="Zimmer 5">{t('room5')}</option>
+                                        <option value="The Hideaway">{t('room1')}</option>
+                                        <option value="The Residence">{t('room2')}</option>
+                                        <option value="The Retreat">{t('room3')}</option>
                                     </select>
                                 </div>
 

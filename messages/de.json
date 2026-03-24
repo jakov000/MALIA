@@ -645,11 +645,9 @@
     "submit": "Absenden",
     "alert_error": "Fehler beim Senden der Anfrage.",
     "alert_general": "Ein Fehler ist aufgetreten.",
-    "room1": "Zimmer 1 (The Hideaway)",
-    "room2": "Zimmer 2 (The Residence)",
-    "room3": "Zimmer 3 (The Retreat)",
-    "room4": "Zimmer 4 (Alpine Loft)",
-    "room5": "Zimmer 5 (Summit Loft)"
+    "room1": "The Hideaway",
+    "room2": "The Residence",
+    "room3": "The Retreat"
   },
   "Vouchers": {
     "hero": {
