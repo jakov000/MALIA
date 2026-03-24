@@ -46,6 +46,14 @@ export default function OurHideawaysContent() {
     const t = useTranslations('Hideaways');
     const localActive = useLocale();
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+
+    React.useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     const loc = (path: string) => `/${localActive}${path}`;
 
@@ -104,9 +112,9 @@ export default function OurHideawaysContent() {
                 <div className="max-w-[1800px] mx-auto px-6 flex relative">
                     <div className="hidden md:block w-16 relative"><span className="absolute top-0 left-0 origin-top-left -rotate-90 translate-y-40 whitespace-nowrap text-[10px] uppercase tracking-[0.6em] font-bold text-gray-400">{t('suites.label')}</span></div>
                     <div className="flex-1 relative">
-                        <motion.div animate={{ x: `-${currentIndex * 55}%` }} transition={{ type: "spring", stiffness: 80, damping: 20 }} className="flex gap-12">
+                        <motion.div animate={{ x: isMobile ? 0 : `-${currentIndex * 55}%` }} transition={{ type: "spring", stiffness: 80, damping: 20 }} className="flex flex-col md:flex-row gap-16 md:gap-12">
                             {SUITES.map((suite, index) => (
-                                <div key={index} onClick={() => handleSuiteClick(index)} className={`min-w-[85%] md:min-w-[50%] transition-all duration-700 cursor-pointer ${currentIndex === index ? 'opacity-100' : 'opacity-30 hover:opacity-50'}`}>
+                                <div key={index} onClick={() => handleSuiteClick(index)} className={`w-full md:min-w-[50%] flex-shrink-0 transition-opacity duration-700 cursor-pointer ${currentIndex === index ? 'opacity-100' : 'opacity-100 md:opacity-30 md:hover:opacity-50'}`}>
                                     <div className="aspect-[4/3] overflow-hidden shadow-sm relative bg-stone-100">
                                         <Image
                                             src={suite.img}
@@ -116,7 +124,7 @@ export default function OurHideawaysContent() {
                                             sizes="(max-width: 768px) 85vw, 50vw"
                                         />
                                     </div>
-                                    <div className="h-24 flex items-center justify-between">
+                                    <div className="hidden md:flex h-24 items-center justify-between">
                                         {currentIndex === index && (
                                             <div className="flex items-center gap-8" onClick={(e) => e.stopPropagation()}>
                                                 <div className="flex gap-2">
@@ -131,7 +139,7 @@ export default function OurHideawaysContent() {
                                             </div>
                                         )}
                                     </div>
-                                    <div className="max-w-md space-y-6">
+                                    <div className="max-w-md space-y-6 pt-6 md:pt-0">
                                         <h3 className="text-2xl font-serif uppercase tracking-widest text-stone-800">{suite.title}</h3>
                                         <div className="text-xs text-gray-500 font-light space-y-1 tracking-[0.2em]"><p>{t('suites.from')} {suite.price},00</p><p>{suite.persons} {t('suites.persons')}</p><p>{suite.sqm} {t('suites.sqm')}</p></div>
 
@@ -215,7 +223,7 @@ export default function OurHideawaysContent() {
                         </div>
                     </div>
 
-                    <div className="lg:col-span-3 sticky top-32 self-start">
+                    <div className="lg:col-span-3 lg:sticky lg:top-32 self-start mt-12 lg:mt-0">
                         <div className="aspect-[3/4] overflow-hidden shadow-sm relative bg-stone-100">
                             <Image
                                 src="/pictures/hideaways/Bild 3889.JPG"
@@ -227,7 +235,7 @@ export default function OurHideawaysContent() {
                         </div>
                     </div>
 
-                    <div className="lg:col-span-2 sticky top-32 self-start flex flex-col justify-between space-y-12">
+                    <div className="lg:col-span-2 lg:sticky lg:top-32 self-start flex flex-col justify-between space-y-12 mt-12 lg:mt-0">
                         <p className="text-base md:text-lg font-serif italic text-stone-600 leading-relaxed text-center lg:text-left">{t('quote')}</p>
                         <div className="aspect-square overflow-hidden shadow-sm relative bg-stone-100">
                             <Image

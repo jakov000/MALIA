@@ -215,10 +215,11 @@ export default function Navbar() {
             <div className="mt-12 flex flex-col space-y-6 border-t border-stone-200 pt-8">
               {topIcons.map((item, idx) => {
                  let href = '#';
+                 let translatedLabel = item.label;
                  switch (item.label) {
                     case 'Account': href = loc('/admin/login'); break;
-                    case 'Kontakt': href = loc('/inquiry'); break;
-                    case 'Gutscheine': href = loc('/vouchers'); break;
+                    case 'Kontakt': href = loc('/inquiry'); translatedLabel = t('contact'); break;
+                    case 'Gutscheine': href = loc('/vouchers'); translatedLabel = t('vouchers'); break;
                  }
                  return (
                    <Link
@@ -228,7 +229,7 @@ export default function Navbar() {
                      onClick={() => setMobileMenuOpen(false)}
                    >
                      {item.icon}
-                     <span>{item.label}</span>
+                     <span>{translatedLabel}</span>
                    </Link>
                  )
               })}
