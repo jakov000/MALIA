@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import OurHideawaysContent from '@/components/content/OurHideawaysContent';
+import { setRequestLocale } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'Unsere Hideaways | MALIA',
@@ -11,6 +12,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function OurHideawaysPage() {
+export default async function OurHideawaysPage({
+  params
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const resolvedParams = await params;
+  setRequestLocale(resolvedParams.locale);
+
   return <OurHideawaysContent />;
 }

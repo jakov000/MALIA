@@ -1,9 +1,9 @@
 import React from 'react';
 
 interface SectionHeaderProps {
-    title: string;
-    subtitle?: string;
-    description?: string;
+    title: React.ReactNode;
+    subtitle?: React.ReactNode;
+    description?: React.ReactNode;
     centered?: boolean;
     light?: boolean;
 }
@@ -28,9 +28,9 @@ export default function SectionHeader({
             </h2>
 
             {description && (
-                <p className={`text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto ${light ? 'text-white/80' : 'text-gray-600'}`}>
+                <div className={`text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto ${light ? 'text-white/80' : 'text-gray-600'}`}>
                     {description}
-                </p>
+                </div>
             )}
 
             <div className={`w-[1px] h-12 mt-8 ${centered ? 'mx-auto' : ''} ${light ? 'bg-white/20' : 'bg-stone-300'}`} />

@@ -4,23 +4,51 @@ import PageFooter from '@/components/PageFooter';
 import Button from '@/components/ui/Button';
 import ImageSlideshow from '@/components/ui/ImageSlideshow';
 import { motion } from 'framer-motion';
-
-const RETREAT_ROOMS = [
-  { id: 'zimmer5', category: 'Schlafzimmer', title: 'Schlafzimmer', subtitle: 'Gemütlich & Ruhig', images: [
-      "/pictures/hideaways/alpine/Zimmer5/804CEFBC-C6C4-45D1-98C6-CFB0DEE667B2.JPG",
-      "/pictures/hideaways/alpine/Zimmer5/IMG_1470.jpeg",
-      "/pictures/hideaways/alpine/Zimmer5/IMG_1473.jpeg",
-      "/pictures/hideaways/alpine/Zimmer5/IMG_1501.jpeg",
-      "/pictures/hideaways/alpine/Zimmer5/IMG_1504.jpeg"
-  ] },
-  { id: 'aussen', category: 'Natur', title: 'Außenbereich', subtitle: 'Privater Rückzugsort', images: [
-      "/pictures/hideaways/alpine/HausAußen/haus sommer.png",
-      "/pictures/hideaways/alpine/HausAußen/haus winter 2.jpeg",
-      "/pictures/hideaways/alpine/HausAußen/haus winter.jpeg"
-  ] }
-];
+import { useTranslations, useLocale } from 'next-intl';
 
 export default function TheRetreatPage() {
+
+  const t = useTranslations('Rooms.Retreat');
+  const tList = useTranslations('Rooms.RoomsList.Retreat');
+  const tBtn = useTranslations('Rooms.Buttons');
+  const localActive = useLocale();
+
+  const loc = (path: string) => `/${localActive}${path}`;
+
+  const richOptions = {
+    bold: (chunks: React.ReactNode) => <strong>{chunks}</strong>,
+    br: () => <br />
+  };
+
+  const bullets = [
+    t.rich('bullets.0', richOptions),
+    t.rich('bullets.1', richOptions),
+    t.rich('bullets.2', richOptions),
+    t.rich('bullets.3', richOptions),
+    t.rich('bullets.4', richOptions),
+    t.rich('bullets.5', richOptions),
+    t.rich('bullets.6', richOptions),
+    t.rich('bullets.7', richOptions),
+    t.rich('bullets.8', richOptions),
+    t.rich('bullets.9', richOptions),
+    t.rich('bullets.10', richOptions)
+  ];
+
+  const RETREAT_ROOMS = [
+    { id: 'room5', category: tList('room5.category'), title: tList('room5.title'), subtitle: tList('room5.subtitle'), images: [
+        "/pictures/hideaways/alpine/Zimmer5/804CEFBC-C6C4-45D1-98C6-CFB0DEE667B2.JPG",
+        "/pictures/hideaways/alpine/Zimmer5/IMG_1470.jpeg",
+        "/pictures/hideaways/alpine/Zimmer5/IMG_1473.jpeg",
+        "/pictures/hideaways/alpine/Zimmer5/IMG_1501.jpeg",
+        "/pictures/hideaways/alpine/Zimmer5/IMG_1504.jpeg"
+    ] },
+    { id: 'aussen', category: tList('aussen.category'), title: tList('aussen.title'), subtitle: tList('aussen.subtitle'), images: [
+        "/pictures/hideaways/alpine/HausAußen/haus sommer.png",
+        "/pictures/hideaways/alpine/HausAußen/haus winter 2.jpeg",
+        "/pictures/hideaways/alpine/HausAußen/haus winter.jpeg"
+    ] }
+  ];
+
   return (
     <main className="min-h-screen bg-[#faf9f8] flex flex-col pt-32">
       {/* Intro Section */}
@@ -28,46 +56,30 @@ export default function TheRetreatPage() {
          
          {/* Left Column: Text & Info */}
          <div className="space-y-8 text-stone-800">
-            <h1 className="text-3xl font-serif uppercase tracking-widest">THE RETREAT</h1>
+             <h1 className="text-3xl font-serif uppercase tracking-widest">{t('title')}</h1>
             
             <div className="space-y-4 text-[15px] font-light leading-relaxed text-stone-700">
-              <p>
-                The Retreat ist unser offenes Studio-Apartment für zwei – hell, ruhig und bewusst reduziert.
-              </p>
-              <p>
-                Wohnen, Schlafen und Kochen fließen hier nahtlos ineinander. Das lichtdurchflutete Milchglas-Bad mit Regendusche bringt Spa-Feeling in den Alltag.
-              </p>
-              <p>
-                Auf der privaten Terrasse wartet frische Bergluft und das Gefühl von völliger Ruhe.
-              </p>
-              <p>
-                Ein Hideaway für alle, die Nähe, Stille und Calm Luxury suchen.
-              </p>
+              <p>{t.rich('p1', richOptions)}</p>
+              <p>{t.rich('p2', richOptions)}</p>
+              <p>{t.rich('p3', richOptions)}</p>
+              <p>{t.rich('p4', richOptions)}</p>
             </div>
 
             <ul className="space-y-3 font-light text-[14px] text-stone-700 list-disc pl-5 marker:text-stone-400">
-              <li><strong>Offenes Studio-Apartment für 2 Personen</strong></li>
-              <li><strong>Halboffener Schlafbereich</strong> mit Komfortbett</li>
-              <li><strong>Gemütlicher Wohnraum</strong> mit Couch, Tisch & Smart-TV</li>
-              <li><strong>Voll ausgestattete offene Küche</strong></li>
-              <li><strong>Lichtdurchflutetes Milchglas-Bad</strong> mit Regendusche</li>
-              <li><strong>Private Terrasse</strong></li>
-              <li><strong>Fußbodenheizung</strong></li>
-              <li><strong>Ski- & Abstellraum</strong> mit Skischuhtrockner</li>
-              <li><strong>High-Speed Glasfaser WLAN</strong></li>
-              <li><strong>Kostenlose, überdachte Parkplätze</strong> direkt am Haus</li>
-              <li><strong>Naturmaterialien & Calm-Luxury-Design</strong></li>
+              {bullets.map((item, idx) => (
+                  <li key={idx}>{item}</li>
+              ))}
             </ul>
 
             <div className="pt-6 space-y-1 text-sm tracking-[0.2em] uppercase text-stone-500">
-              <p>ab € 45</p>
-              <p>2 Personen</p>
-              <p>40 qm</p>
+              <p>{t('price')}</p>
+              <p>{t('persons')}</p>
+              <p>{t('sqm')}</p>
             </div>
 
             <div className="flex gap-4 pt-4">
-              <Button href="/inquiry" variant="outline" className="border-stone-400 text-stone-700 hover:bg-stone-100 px-8">Anfragen</Button>
-              <Button href="/booking" variant="primary" className="px-8">Buchen</Button>
+              <Button href={loc("/inquiry")} variant="outline" className="border-stone-400 text-stone-700 hover:bg-stone-100 px-8">{tBtn('inquiry')}</Button>
+              <Button href={loc("/booking")} variant="primary" className="px-8">{tBtn('book')}</Button>
             </div>
          </div>
 
@@ -89,7 +101,7 @@ export default function TheRetreatPage() {
                 </div>
                 
                 <p className="uppercase tracking-[0.4em] text-xs font-light text-stone-500 [writing-mode:vertical-rl] rotate-180">
-                   Scrollen, um die Zimmer zu erleben
+                   {t('scroll')}
                 </p>
                 
                 <motion.div

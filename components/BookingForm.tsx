@@ -8,8 +8,10 @@ import { DateRange } from "react-day-picker";
 import { Loader2 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { SUITES } from "@/lib/data";
+import { useTranslations } from "next-intl";
 
 export default function BookingForm() {
+  const t = useTranslations('BookingForm');
   const [date, setDate] = useState<DateRange | undefined>({
     from: undefined,
     to: undefined,
@@ -173,10 +175,13 @@ export default function BookingForm() {
   };
 
   const modifiers = {
+    booked: blockedDates,
     noCheckout: (d: Date) => noCheckoutDays.includes(d.getDay())
   };
 
   const modifiersStyles: any = {
+    // @ts-ignore
+    booked: { textDecoration: 'line-through', color: '#991b1b', backgroundColor: '#fef2f2', borderRadius: '100%', opacity: 0.8 },
     // @ts-ignore
     noCheckout: { textDecoration: 'underline', textDecorationColor: '#f87171', textDecorationStyle: 'dotted', textUnderlineOffset: '4px' }
   };
@@ -194,7 +199,7 @@ export default function BookingForm() {
         body: JSON.stringify({ code: voucherCode, cartTotal: subtotal }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Gutschein ungültig");
+      if (!res.ok) throw new Error(data.error || t('voucher_error_invalid'));
       
       setVoucherData({
         id: data.voucherId,
@@ -236,11 +241,11 @@ export default function BookingForm() {
       if (res.ok && data.url) {
         window.location.href = data.url; // Redirect to Stripe
       } else {
-        alert("Fehler bei der Buchung: " + data.error);
+        alert(t('alert_error') + data.error);
       }
     } catch (err) {
       console.error(err);
-      alert("Ein unerwarteter Fehler ist aufgetreten.");
+      alert(t('alert_unexpected'));
     } finally {
       setCheckingOut(false);
     }
@@ -253,13 +258,13 @@ export default function BookingForm() {
       <div className="lg:col-span-7 space-y-12">
         <div>
           <div className="mb-8">
-             <span className="text-[10px] uppercase tracking-[0.4em] text-[#7d3a2a] mb-2 block font-bold">Step 1</span>
-             <h2 className="text-3xl md:text-4xl font-serif text-stone-900 tracking-wide uppercase">Wähle deinen Aufenthalt</h2>
+             <span className="text-[10px] uppercase tracking-[0.4em] text-[#7d3a2a] mb-2 block font-bold">{t('step1')}</span>
+             <h2 className="text-3xl md:text-4xl font-serif text-stone-900 tracking-wide uppercase">{t('title1')}</h2>
           </div>
           
           {/* Room Selection */}
           <div className="mb-8 space-y-4">
-            <label className="block text-sm text-stone-600 font-medium">Welches Hideaway?</label>
+            <label className="block text-sm text-stone-600 font-medium">{t('which_hideaway')}</label>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {SUITES.map((suite, idx) => (
                 <div key={idx} className="relative flex flex-col">
@@ -269,14 +274,14 @@ export default function BookingForm() {
                     className={`p-4 border text-left transition-colors flex flex-col justify-between h-24 w-full ${selectedRoomIndex === idx ? 'border-stone-900 bg-stone-50' : 'border-stone-200 hover:border-stone-400'}`}
                   >
                     <span className="font-serif text-sm uppercase tracking-wider pr-14 leading-tight">{suite.title}</span>
-                    <span className="text-xs text-stone-500">{suite.persons} Personen</span>
+                    <span className="text-xs text-stone-500">{suite.persons} {t('persons')}</span>
                   </button>
                   <button
                     type="button"
                     onClick={(e) => { e.preventDefault(); setDetailsRoomIndex(idx); }}
                     className="absolute bottom-4 right-4 text-[10px] uppercase tracking-wider text-stone-400 hover:text-stone-800 hover:font-bold underline transition-all z-10"
                   >
-                    Details
+                    {t('details')}
                   </button>
                 </div>
               ))}
@@ -285,14 +290,14 @@ export default function BookingForm() {
 
           {/* Guest Selection */}
           <div className="mb-10 w-full sm:w-1/2">
-            <label className="block text-sm text-stone-600 font-medium mb-3">Anzahl der Gäste</label>
+            <label className="block text-sm text-stone-600 font-medium mb-3">{t('guest_count')}</label>
             <div className="flex items-center border border-stone-200 rounded-md overflow-hidden bg-white">
                <button 
                  onClick={() => setGuestCount(Math.max(minGuests, guestCount - 1))}
                  disabled={guestCount <= minGuests}
                  className="px-4 py-3 bg-stone-50 hover:bg-stone-100 disabled:opacity-50 text-stone-600 transition-colors w-12 flex justify-center items-center"
                >-</button>
-               <div className="flex-1 text-center font-medium text-stone-900">{guestCount} {guestCount === 1 ? 'Person' : 'Personen'}</div>
+               <div className="flex-1 text-center font-medium text-stone-900">{guestCount} {guestCount === 1 ? t('person') : t('persons')}</div>
                <button 
                  onClick={() => setGuestCount(Math.min(maxGuests, guestCount + 1))}
                  disabled={guestCount >= maxGuests}
@@ -301,7 +306,7 @@ export default function BookingForm() {
             </div>
           </div>
 
-          <label className="block text-sm text-stone-600 font-medium mb-3">Zeitraum auswählen</label>
+          <label className="block text-sm text-stone-600 font-medium mb-3">{t('select_dates')}</label>
           {loadingDates ? (
             <div className="flex items-center justify-center p-12 bg-stone-50 rounded-lg">
               <Loader2 className="animate-spin text-stone-400" size={32} />
@@ -314,7 +319,22 @@ export default function BookingForm() {
                     mode="range"
                     selected={date}
                     // @ts-ignore
-                    onSelect={setDate}
+                    onSelect={(range: DateRange | undefined) => {
+                      if (range?.from && range?.to) {
+                        // Check if any blocked date strictly falls between the selected check-in and check-out
+                        const overlaps = blockedDates.some(d => {
+                          const dt = d.getTime();
+                          return dt > range.from!.getTime() && dt < range.to!.getTime();
+                        });
+                        if (overlaps) {
+                          // Prevent selecting a range that spans across blocked dates!
+                          // Reset the 'to' selection so they have to pick a valid checkout day.
+                          setDate({ from: range.from, to: undefined });
+                          return;
+                        }
+                      }
+                      setDate(range);
+                    }}
                     numberOfMonths={1}
                     disabled={getDisabledDates()}
                     modifiers={modifiers}
@@ -326,7 +346,7 @@ export default function BookingForm() {
               {noCheckoutDays.length > 0 && (
                 <div className="flex justify-center mt-6 text-xs font-medium text-stone-600 items-center gap-3 bg-stone-50 py-2 px-4 rounded-sm border border-stone-100 inline-flex mx-auto">
                    <span className="w-8 border-b-[3px] border-red-400 border-dotted opacity-80"></span>
-                   <span className="tracking-wide">Keine Abreise an diesem Wochentag möglich</span>
+                   <span className="tracking-wide">{t('no_checkout_day')}</span>
                 </div>
               )}
             </>
@@ -335,26 +355,26 @@ export default function BookingForm() {
 
         {date?.from && date?.to && (
           <div className="bg-stone-900 text-white p-6 rounded-lg space-y-4">
-            <h3 className="font-serif text-xl tracking-wider">Dein Aufenthalt</h3>
+            <h3 className="font-serif text-xl tracking-wider">{t('stay_title')}</h3>
             <div className="flex justify-between text-sm font-light">
-              <span>Anreise (ab 15:00 Uhr):</span>
+              <span>{t('checkin')}</span>
               <span>{format(date.from, "dd. MMMM yyyy", { locale: de })}</span>
             </div>
             <div className="flex justify-between text-sm font-light">
-              <span>Abreise (bis 10:00 Uhr):</span>
+              <span>{t('checkout')}</span>
               <span>{format(date.to, "dd. MMMM yyyy", { locale: de })}</span>
             </div>
             <div className="flex justify-between text-sm font-light">
-              <span>Zimmer:</span>
+              <span>{t('room')}</span>
               <span className="uppercase text-xs tracking-wider">{selectedRoom.title}</span>
             </div>
             <div className="flex justify-between text-sm font-light">
-              <span>Gäste:</span>
-              <span>{guestCount} {guestCount === 1 ? 'Person' : 'Personen'}</span>
+              <span>{t('guests')}</span>
+              <span>{guestCount} {guestCount === 1 ? t('person') : t('persons')}</span>
             </div>
             <div className="flex justify-between text-sm font-light">
-              <span>Dauer:</span>
-              <span>{nights} {nights === 1 ? 'Nacht' : 'Nächte'}</span>
+              <span>{t('duration')}</span>
+              <span>{nights} {nights === 1 ? t('night') : t('nights')}</span>
             </div>
             
             <hr className="border-stone-700 my-4" />
@@ -362,30 +382,30 @@ export default function BookingForm() {
             {/* Validation Messages */}
             {date.to && nights < minStay && (
               <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-sm text-sm mb-4">
-                Mindestaufenthalt für dieses Hideaway: <strong>{minStay} {minStay === 1 ? 'Nacht' : 'Nächte'}</strong>.<br/>Bitte wähle einen längeren Zeitraum.
+                {t('min_stay_1')} <strong>{minStay} {minStay === 1 ? t('night') : t('nights')}</strong>.<br/>{t('min_stay_2')}
               </div>
             )}
             
             {date.to && noCheckoutDays.includes(date.to.getDay()) && (
               <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-sm text-sm mb-4">
-                An einem <strong>{format(date.to, "EEEE", { locale: de })}</strong> ist leider keine Abreise möglich.<br/>Bitte passe das Abreisedatum an.
+                {t('checkout_error_1')} <strong>{format(date.to, "EEEE", { locale: de })}</strong> {t('checkout_error_2')}<br/>{t('checkout_error_3')}
               </div>
             )}
 
             <div className="flex justify-between items-center text-lg">
-              <span>Zwischensumme:</span>
+              <span>{t('subtotal')}</span>
               <span>€ {subtotal.toFixed(2)}</span>
             </div>
 
             {voucherData && (
               <div className="flex justify-between items-center text-sm text-green-400">
-                <span>Gutschein eingelöst:</span>
+                <span>{t('voucher_applied')}</span>
                 <span>- € {discountAmount.toFixed(2)}</span>
               </div>
             )}
 
             <div className="flex justify-between items-center text-2xl font-serif mt-2 pt-4 border-t border-stone-700">
-              <span>Gesamt:</span>
+              <span>{t('total')}</span>
               <span>€ {finalTotal.toFixed(2)}</span>
             </div>
 
@@ -395,7 +415,7 @@ export default function BookingForm() {
                 disabled={nights < minStay || (date?.to ? noCheckoutDays.includes(date.to.getDay()) : false)}
                 className="w-full mt-6 py-3 bg-white text-stone-900 font-medium uppercase tracking-widest text-xs hover:bg-stone-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Weiter zu den Daten
+                {t('continue_data')}
               </button>
             )}
           </div>
@@ -405,73 +425,73 @@ export default function BookingForm() {
       {/* Right Column: Form (Step 2) */}
       <div className={`lg:col-span-5 transition-opacity duration-700 mt-12 lg:mt-0 ${step === 2 ? 'opacity-100' : 'opacity-40 pointer-events-none'}`}>
         <div className="mb-8">
-             <span className="text-[10px] uppercase tracking-[0.4em] text-[#7d3a2a] mb-2 block font-bold">Step 2</span>
-             <h2 className="text-3xl md:text-4xl font-serif text-stone-900 tracking-wide uppercase">Deine Daten</h2>
+             <span className="text-[10px] uppercase tracking-[0.4em] text-[#7d3a2a] mb-2 block font-bold">{t('step2')}</span>
+             <h2 className="text-3xl md:text-4xl font-serif text-stone-900 tracking-wide uppercase">{t('title2')}</h2>
         </div>
         <form onSubmit={handleCheckout} className="space-y-5">
           <div>
-            <label className="block text-sm text-stone-600 mb-1">Vollständiger Name *</label>
+            <label className="block text-sm text-stone-600 mb-1">{t('name_label')}</label>
             <input 
               required
               type="text" 
               value={guestName}
               onChange={e => setGuestName(e.target.value)}
               className="w-full border-b border-stone-300 py-2 px-1 focus:border-stone-900 focus:outline-none bg-transparent transition-colors" 
-              placeholder="Max Mustermann"
+              placeholder={t('name_placeholder')}
             />
           </div>
           <div>
-            <label className="block text-sm text-stone-600 mb-1">E-Mail Adresse *</label>
+            <label className="block text-sm text-stone-600 mb-1">{t('email_label')}</label>
             <input 
               required
               type="email" 
               value={guestEmail}
               onChange={e => setGuestEmail(e.target.value)}
               className="w-full border-b border-stone-300 py-2 px-1 focus:border-stone-900 focus:outline-none bg-transparent transition-colors" 
-              placeholder="max@beispiel.de"
+              placeholder={t('email_placeholder')}
             />
           </div>
           <div>
-            <label className="block text-sm text-stone-600 mb-1">Telefonnummer *</label>
+            <label className="block text-sm text-stone-600 mb-1">{t('phone_label')}</label>
             <input 
               required
               type="tel" 
               value={guestPhone}
               onChange={e => setGuestPhone(e.target.value)}
               className="w-full border-b border-stone-300 py-2 px-1 focus:border-stone-900 focus:outline-none bg-transparent transition-colors" 
-              placeholder="+43 123 45678"
+              placeholder={t('phone_placeholder')}
             />
           </div>
           <div>
-            <label className="block text-sm text-stone-600 mb-1">Anschrift (Straße, PLZ, Ort) *</label>
+            <label className="block text-sm text-stone-600 mb-1">{t('address_label')}</label>
             <input 
               required
               type="text" 
               value={guestAddress}
               onChange={e => setGuestAddress(e.target.value)}
               className="w-full border-b border-stone-300 py-2 px-1 focus:border-stone-900 focus:outline-none bg-transparent transition-colors" 
-              placeholder="Musterstraße 1, 1010 Wien"
+              placeholder={t('address_placeholder')}
             />
           </div>
           <div>
-            <label className="block text-sm text-stone-600 mb-1">Sonderwünsche / Notizen</label>
+            <label className="block text-sm text-stone-600 mb-1">{t('notes_label')}</label>
             <textarea 
               value={notes}
               onChange={e => setNotes(e.target.value)}
               className="w-full border-b border-stone-300 py-2 px-1 focus:border-stone-900 focus:outline-none bg-transparent transition-colors resize-none h-20" 
-              placeholder="Früher Check-In, Allergien..."
+              placeholder={t('notes_placeholder')}
             />
           </div>
 
           <div className="bg-stone-50 p-4 border border-stone-200 mt-6 mt-8">
-            <label className="block text-sm text-stone-900 font-medium mb-3">Gutscheincode anwenden</label>
+            <label className="block text-sm text-stone-900 font-medium mb-3">{t('voucher_label')}</label>
             <div className="flex gap-2">
               <input 
                 type="text" 
                 value={voucherCode}
                 onChange={e => setVoucherCode(e.target.value.toUpperCase())}
                 className="flex-1 border border-stone-300 px-3 py-2 text-sm uppercase" 
-                placeholder="PROMO2026"
+                placeholder={t('voucher_placeholder')}
                 disabled={!!voucherData}
               />
               <button 
@@ -480,25 +500,25 @@ export default function BookingForm() {
                 disabled={!voucherCode || validatingVoucher || !!voucherData}
                 className="bg-stone-900 text-white px-4 py-2 text-xs uppercase tracking-widest hover:bg-stone-700 disabled:opacity-50"
               >
-                {validatingVoucher ? <Loader2 className="animate-spin w-4 h-4" /> : (voucherData ? 'Angewendet' : 'Prüfen')}
+                {validatingVoucher ? <Loader2 className="animate-spin w-4 h-4" /> : (voucherData ? t('voucher_button_applied') : t('voucher_button_check'))}
               </button>
             </div>
             {voucherError && <p className="text-red-500 text-xs mt-2">{voucherError}</p>}
             {voucherData && (
               <div className="flex justify-between items-center text-green-600 text-xs mt-2">
-                <span>Code erfolgreich angewendet!</span>
-                <button type="button" onClick={() => {setVoucherData(null); setVoucherCode("")}} className="underline">Entfernen</button>
+                <span>{t('voucher_success')}</span>
+                <button type="button" onClick={() => {setVoucherData(null); setVoucherCode("")}} className="underline">{t('voucher_remove')}</button>
               </div>
             )}
           </div>
 
           <div className="bg-stone-50 border border-stone-200 p-4 text-xs text-stone-600 mt-6 flex flex-col gap-2 leading-relaxed shadow-sm">
-            <p className="font-bold text-stone-800 uppercase tracking-widest text-[10px]">Stornierungsbedingungen</p>
+            <p className="font-bold text-stone-800 uppercase tracking-widest text-[10px]">{t('cancellation_title')}</p>
             <ul className="list-none space-y-1">
-              <li>• Bis zu 60 Tage vor Anreise: <span className="font-medium text-stone-800">Kostenfrei</span></li>
-              <li>• Bis zu 30 Tage vor Anreise: <span className="font-medium text-stone-800">50%</span> Stornokosten</li>
-              <li>• Bis zu 14 Tage vor Anreise: <span className="font-medium text-stone-800">70%</span> Stornokosten</li>
-              <li>• Unter 14 Tagen / No-Show: <span className="font-medium text-stone-800">100%</span> Stornokosten</li>
+              <li>• {t('cancel_60')} <span className="font-medium text-stone-800">{t('cancel_60_val')}</span></li>
+              <li>• {t('cancel_30')} <span className="font-medium text-stone-800">50%</span> {t('cancel_cost')}</li>
+              <li>• {t('cancel_14')} <span className="font-medium text-stone-800">70%</span> {t('cancel_cost')}</li>
+              <li>• {t('cancel_less')} <span className="font-medium text-stone-800">100%</span> {t('cancel_cost')}</li>
             </ul>
           </div>
 
@@ -508,11 +528,11 @@ export default function BookingForm() {
             className="w-full bg-stone-900 text-white py-4 uppercase tracking-[0.2em] font-light text-sm hover:bg-stone-800 transition-colors mt-8 disabled:opacity-50 flex justify-center items-center"
           >
             {checkingOut ? <Loader2 className="animate-spin mr-2" /> : null}
-            Kostenpflichtig buchen ({finalTotal.toFixed(2)} €)
+            {t('book_button')} ({finalTotal.toFixed(2)} €)
           </button>
           
           <p className="text-[10px] text-stone-500 text-center mt-4">
-            Du wirst sicher zu Stripe weitergeleitet, um die Zahlung abzuschließen.
+            {t('book_info')}
           </p>
 
         </form>
@@ -538,9 +558,9 @@ export default function BookingForm() {
             <div className="flex gap-4 text-xs tracking-widest uppercase text-[#7d3a2a] mb-6 font-medium">
               <span>{SUITES[detailsRoomIndex].sqm} m²</span>
               <span>•</span>
-              <span>{SUITES[detailsRoomIndex].persons} Gäste</span>
+              <span>{SUITES[detailsRoomIndex].persons} {t('modal_guests')}</span>
               <span>•</span>
-              <span>Ab € {SUITES[detailsRoomIndex].price}</span>
+              <span>{t('modal_from')} {SUITES[detailsRoomIndex].price}</span>
             </div>
             
             <p className="text-stone-600 text-sm leading-relaxed mb-6 font-light">
@@ -564,7 +584,7 @@ export default function BookingForm() {
               }}
               className="w-full justify-center"
             >
-              Verstanden, weiter zur Buchung
+              {t('modal_button')}
             </Button>
           </div>
         </div>

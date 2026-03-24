@@ -1,17 +1,20 @@
 import React from 'react';
 import SocialLinks from './ui/SocialLinks';
+import { useTranslations } from 'next-intl';
 
 export default function PageFooter() {
+    const t = useTranslations('PageFooter');
+
     return (
         <footer className="bg-[#f8f6f3] pt-24 pb-32 px-6">
             <div className="max-w-7xl mx-auto flex flex-col items-center">
                 <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-16 text-[9px] md:text-[11px] uppercase tracking-[0.25em] text-gray-500 font-sans text-center">
                     {[
-                        { name: "AGB", href: "/agb" },
-                        { name: "Impressum", href: "/impressum" },
-                        { name: "Datenschutz", href: "/datenschutz" }
+                        { name: t('agb'), href: "/agb" },
+                        { name: t('imprint'), href: "/impressum" },
+                        { name: t('privacy'), href: "/datenschutz" }
                     ].map((link) => (
-                        <a key={link.name} href={link.href} className="hover:text-black cursor-pointer transition-colors block">
+                        <a key={link.href} href={link.href} className="hover:text-black cursor-pointer transition-colors block">
                             {link.name}
                         </a>
                     ))}
@@ -23,13 +26,13 @@ export default function PageFooter() {
                         <span className="text-[10px] font-bold cursor-pointer hover:text-black">SPOTIFY</span>
                     </div>
                     <button className="px-10 py-3 border border-gray-400 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-white transition-all shadow-sm">
-                        Sign up for inspiration
+                        {t('newsletter')}
                     </button>
                 </div>
 
                 <div className="text-center text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-gray-400 font-sans leading-loose">
-                    <p>MALIA Alpine Hideaway — Familie Madleine & Julia — Ländbergstraße 6 — 6213 Pertisau</p>
-                    <p className="mt-2 text-gray-500 font-medium">hello@malia-hideaway.at</p>
+                    <p>{t('address')}</p>
+                    <p className="mt-2 text-gray-500 font-medium">[EMAIL_ADDRESS]</p>
                 </div>
             </div>
         </footer>

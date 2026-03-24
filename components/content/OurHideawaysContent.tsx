@@ -6,6 +6,7 @@ import { SUITES } from '@/lib/data';
 import Button from '@/components/ui/Button';
 import SectionHeader from '@/components/ui/SectionHeader';
 import PageFooter from '@/components/PageFooter';
+import { useTranslations, useLocale } from 'next-intl';
 
 // --- HILFS-KOMPONENTE: ACCORDION ---
 function AccordionItem({ title, children }: { title: string, children: React.ReactNode }) {
@@ -42,7 +43,17 @@ function AccordionItem({ title, children }: { title: string, children: React.Rea
 
 // --- HAUPT-KOMPONENTE ---
 export default function OurHideawaysContent() {
+    const t = useTranslations('Hideaways');
+    const localActive = useLocale();
     const [currentIndex, setCurrentIndex] = useState(0);
+
+    const loc = (path: string) => `/${localActive}${path}`;
+
+    const richOptions = {
+        bold: (chunks: React.ReactNode) => <strong className="font-medium text-stone-800">{chunks}</strong>,
+        italic: (chunks: React.ReactNode) => <em>{chunks}</em>,
+        br: () => <br />
+    };
 
     const nextSlide = () => currentIndex < SUITES.length - 1 && setCurrentIndex(currentIndex + 1);
     const prevSlide = () => currentIndex > 0 && setCurrentIndex(currentIndex - 1);
@@ -67,9 +78,9 @@ export default function OurHideawaysContent() {
                             <path d="M50 10L85 60H70L95 90H60L85 110H15L40 90H5L30 60H15L50 10Z" stroke="white" strokeWidth="1.2" />
                         </svg>
                     </motion.div>
-                    <motion.h1 initial={{ opacity: 0, letterSpacing: "0.2em" }} animate={{ opacity: 1, letterSpacing: "0.4em" }} className="text-4xl md:text-7xl font-serif uppercase tracking-[0.4em] font-light px-4">Inspired by Nature, Designed for YOU!</motion.h1>
+                    <motion.h1 initial={{ opacity: 0, letterSpacing: "0.2em" }} animate={{ opacity: 1, letterSpacing: "0.4em" }} className="text-4xl md:text-7xl font-serif uppercase tracking-[0.4em] font-light px-4">{t('hero.title')}</motion.h1>
                     <div className="absolute bottom-24 flex flex-col items-center">
-                        <span className="uppercase tracking-[0.4em] text-[10px] mb-4 font-light opacity-80 italic">scroll for happiness</span>
+                        <span className="uppercase tracking-[0.4em] text-[10px] mb-4 font-light opacity-80 italic">{t('hero.subtitle')}</span>
                         <div className="w-[1px] h-12 bg-white/40" />
                     </div>
                 </div>
@@ -78,15 +89,20 @@ export default function OurHideawaysContent() {
             {/* --- 2. INTRO TEXT --- */}
             <section className="py-24 md:py-40 px-6 bg-white text-center">
                 <SectionHeader
-                    title="Zimmer & Suiten"
-                    description="Im MALIA treffen Naturmaterialien auf alpine luxury. Altholz, strukturierter Stein, feine Leinenstoffe und Farben, die direkt aus der Natur stammen. Die großzügigen Glasfronten holen die Berge direkt ins Haus und lassen die Grenzen zwischen Innen und Außen verschwimmen."
+                    title={t('intro.title')}
+                    description={
+                        <div className="space-y-6">
+                            <p>{t.rich('intro.p1', richOptions)}</p>
+                            <p>{t.rich('intro.p2', richOptions)}</p>
+                        </div>
+                    }
                 />
             </section>
 
             {/* --- 3. SLIDER SECTION --- */}
             <section className="py-24 bg-white overflow-hidden relative">
                 <div className="max-w-[1800px] mx-auto px-6 flex relative">
-                    <div className="hidden md:block w-16 relative"><span className="absolute top-0 left-0 origin-top-left -rotate-90 translate-y-40 whitespace-nowrap text-[10px] uppercase tracking-[0.6em] font-bold text-gray-400">LUXUS-SUITEN</span></div>
+                    <div className="hidden md:block w-16 relative"><span className="absolute top-0 left-0 origin-top-left -rotate-90 translate-y-40 whitespace-nowrap text-[10px] uppercase tracking-[0.6em] font-bold text-gray-400">{t('suites.label')}</span></div>
                     <div className="flex-1 relative">
                         <motion.div animate={{ x: `-${currentIndex * 55}%` }} transition={{ type: "spring", stiffness: 80, damping: 20 }} className="flex gap-12">
                             {SUITES.map((suite, index) => (
@@ -111,22 +127,22 @@ export default function OurHideawaysContent() {
                                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 5l7 7-7 7" /></svg>
                                                     </button>
                                                 </div>
-                                                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">{currentIndex + 1} / {SUITES.length} <span className="ml-2 text-gray-300 font-normal">nächste Suite</span></div>
+                                                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">{currentIndex + 1} / {SUITES.length} <span className="ml-2 text-gray-300 font-normal">{t('suites.next')}</span></div>
                                             </div>
                                         )}
                                     </div>
                                     <div className="max-w-md space-y-6">
                                         <h3 className="text-2xl font-serif uppercase tracking-widest text-stone-800">{suite.title}</h3>
-                                        <div className="text-xs text-gray-500 font-light space-y-1 tracking-[0.2em]"><p>ab € {suite.price},00</p><p>{suite.persons} Personen</p><p>{suite.sqm} m²</p></div>
+                                        <div className="text-xs text-gray-500 font-light space-y-1 tracking-[0.2em]"><p>{t('suites.from')} {suite.price},00</p><p>{suite.persons} {t('suites.persons')}</p><p>{suite.sqm} {t('suites.sqm')}</p></div>
 
                                         {/* BUTTON GROUP */}
                                         <div className="flex flex-col sm:flex-row gap-4 pt-4" onClick={(e) => e.stopPropagation()}>
-                                            <Button href={suite.href} variant="outline">Details</Button>
-                                            <Button href="/inquiry" variant="outline">Jetzt Anfragen</Button>
+                                            <Button href={loc(suite.href || "#")} variant="outline">{t('suites.btn_details')}</Button>
+                                            <Button href={loc("/inquiry")} variant="outline">{t('suites.btn_inquiry')}</Button>
                                         </div>
 
                                         <div className="mt-4 pt-4 border-t border-gray-200 w-full text-center sm:text-left">
-                                            <Button href="/booking" variant="primary" className="text-[10px] w-full sm:w-auto">oder Direkt Buchen</Button>
+                                            <Button href={loc("/booking")} variant="primary" className="text-[10px] w-full sm:w-auto">{t('suites.btn_book')}</Button>
                                         </div>
                                     </div>
                                 </div>
@@ -140,54 +156,61 @@ export default function OurHideawaysContent() {
             <section className="py-24 md:py-40 px-6 bg-stone-50/30">
                 <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
                     <div className="lg:col-span-7 space-y-10">
-                        <h2 className="text-xl md:text-2xl font-serif uppercase tracking-[0.3em] text-stone-800 border-b border-stone-100 pb-6">Gut zu wissen</h2>
+                        <h2 className="text-xl md:text-2xl font-serif uppercase tracking-[0.3em] text-stone-800 border-b border-stone-100 pb-6">{t('faq.title')}</h2>
                         <div className="space-y-1">
-                            <AccordionItem title="Stornobedingungen">
-                                <p>Es gelten folgende Stornokonditionen für Stornierungen / Änderungen:</p>
+                            <AccordionItem title={t('faq.q_cancellation')}>
+                                <p>{t('faq.a_cancellation_intro')}</p>
                                 <ul className="mt-4 space-y-1 list-none">
-                                    <li>• bis zu 60 Tage vor Anreise - kostenfreies Storno möglich</li>
-                                    <li>• bis zu 30 Tage vor Anreise - 50% Stornokosten</li>
-                                    <li>• bis zu 14 Tage vor Anreise - 70% Stornokosten</li>
-                                    <li>• mit weniger als 14 Tagen oder Nichtanreise - 100% Stornokosten</li>
+                                    <li>{t('faq.a_cancellation_1')}</li>
+                                    <li>{t('faq.a_cancellation_2')}</li>
+                                    <li>{t('faq.a_cancellation_3')}</li>
+                                    <li>{t('faq.a_cancellation_4')}</li>
                                 </ul>
-                                <p className="mt-4 italic text-xs">Die Stornokosten werden vom Gesamtpreis berechnet.</p>
+                                <p className="mt-4 italic text-xs whitespace-pre-line">{t('faq.a_cancellation_note')}</p>
                             </AccordionItem>
-                            <AccordionItem title="Lage & Anreise">
-                                <p>Das MALIA-Alpine-Hideaway liegt in Pertisau am Achensee. Die Bergbahn ist nur 2 Gehminuten entfernt. Trotz der ruhigen Lage erreicht ihr den Achensee und Restaurants in wenigen Minuten zu Fuß.</p>
-                                <p className="mt-4 font-bold">Anreise mit der Bahn:</p>
-                                <p>Der nächstgelegene Bahnhof ist Jenbach, nur rund 15 Minuten vom Achensee entfernt.</p>
+                            
+                            <AccordionItem title={t('faq.q_location')}>
+                                <p>{t.rich('faq.a_location_1', richOptions)}</p>
+                                <p className="mt-4">{t('faq.a_location_2')}</p>
+                                <p className="mt-6 font-bold uppercase tracking-widest text-[#7d3a2a] text-[10px]">{t('faq.a_location_train_title')}</p>
+                                <p className="mt-2">{t.rich('faq.a_location_train', richOptions)}</p>
                             </AccordionItem>
-                            <AccordionItem title="Preise">
-                                <p>Die Preise verstehen sich pro Nacht ohne Verpflegung:</p>
-                                <ul className="mt-2 space-y-1">
-                                    <li>The Retreat: 45€</li>
-                                    <li>The Residence: 120€</li>
-                                    <li>The Hideaway: 150€</li>
+                            
+                            <AccordionItem title={t('faq.q_prices')}>
+                                <ul className="space-y-4 list-disc pl-4">
+                                    <li>{t('faq.a_prices_1')}</li>
+                                    <li>{t('faq.a_prices_2')}</li>
+                                    <li>{t('faq.a_prices_3')}</li>
                                 </ul>
-                                <p className="mt-4 text-[10px] uppercase tracking-widest">Kurtaxe: € 3,- pro Person/Nacht (Kinder bis 14 J. befreit).</p>
                             </AccordionItem>
-                            <AccordionItem title="Check-In / Check-Out">
-                                <p>Check-In: ab 15.00 Uhr</p>
-                                <p>Check-Out: bis 10.00 Uhr</p>
+                            
+                            <AccordionItem title={t('faq.q_checkin_out')}>
+                                <p>{t.rich('faq.a_checkin', richOptions)}</p>
+                                <p className="mt-2">{t.rich('faq.a_checkout', richOptions)}</p>
                             </AccordionItem>
-                            <AccordionItem title="Anzahlung">
-                                <p>Wir bitten um eine Anzahlung von 30% der Gesamtsumme auf:</p>
-                                <div className="mt-4 p-4 bg-white border border-stone-100 font-mono text-[10px] md:text-xs">
-                                    <p>Inhaber: Madleine Rieser & Julia Rieser</p>
+                            
+                            <AccordionItem title={t('faq.q_deposit')}>
+                                <p>{t('faq.a_deposit_text')}</p>
+                                <div className="mt-4 p-4 bg-white border border-stone-100 font-mono text-[10px] md:text-xs text-stone-600">
+                                    <p>{t('faq.a_deposit_account')}: Madleine Rieser Julia Rieser</p>
                                     <p>IBAN: AT23 2050 8000 0003 7341</p>
                                     <p>BIC: SPRTAT21XXX</p>
-                                    <p>Bank: Sparkasse Rattenberg</p>
+                                    <p>{t('faq.a_deposit_bank')}: Sparkasse Rattenberg</p>
                                 </div>
                             </AccordionItem>
-                            <AccordionItem title="Zahlungsarten">
-                                <p>• Bar (Euro) bei Ankunft</p>
-                                <p>• Vorab Überweisung (muss vor Abreise verbucht sein)</p>
-                                <p>• Paypal: info@malia-alpine-hideaway.at</p>
-                                <p>• EC-Karte (Maestro)</p>
-                                <p>• Kreditkarte (Visa/MC) +2% Zuschlag</p>
+                            
+                            <AccordionItem title={t('faq.q_payment')}>
+                                <ul className="space-y-2 list-none">
+                                    <li>{t('faq.a_payment_1')}</li>
+                                    <li>{t('faq.a_payment_2')}</li>
+                                    <li>{t('faq.a_payment_3')} <a href="mailto:info@malia-alpine-hideaway.at" className="hover:text-stone-900 transition-colors">info@malia-alpine-hideaway.at</a></li>
+                                    <li className="text-[#7d3a2a]">{t.rich('faq.a_payment_4', richOptions)}</li>
+                                    <li className="text-[#7d3a2a]">{t.rich('faq.a_payment_5', richOptions)}</li>
+                                </ul>
                             </AccordionItem>
-                            <AccordionItem title="Haustiere">
-                                <p>Hunde auf Anfrage im "The Retreat" willkommen (nur nicht haarende Rassen). Eine zusätzliche Endreinigung wird berechnet.</p>
+                            
+                            <AccordionItem title={t('faq.q_pets')}>
+                                <p>{t.rich('faq.a_pets', richOptions)}</p>
                             </AccordionItem>
                         </div>
                     </div>
@@ -205,7 +228,7 @@ export default function OurHideawaysContent() {
                     </div>
 
                     <div className="lg:col-span-2 sticky top-32 self-start flex flex-col justify-between space-y-12">
-                        <p className="text-base md:text-lg font-serif italic text-stone-600 leading-relaxed text-center lg:text-left">„Einfach ankommen & glücklich sein.“</p>
+                        <p className="text-base md:text-lg font-serif italic text-stone-600 leading-relaxed text-center lg:text-left">{t('quote')}</p>
                         <div className="aspect-square overflow-hidden shadow-sm relative bg-stone-100">
                             <Image
                                 src="/pictures/hideaways/_DSC2878.JPG"

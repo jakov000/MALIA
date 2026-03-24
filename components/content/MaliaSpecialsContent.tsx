@@ -6,9 +6,19 @@ import Image from 'next/image';
 import { SPECIALS } from '@/lib/data';
 import Button from '@/components/ui/Button';
 import PageFooter from '@/components/PageFooter';
+import { useTranslations, useLocale } from 'next-intl';
 
 export default function MaliaSpecialsContent() {
+    const t = useTranslations('Specials');
+    const localActive = useLocale();
+    const loc = (path: string) => `/${localActive}${path}`;
+
     const [selectedSpecial, setSelectedSpecial] = useState<number | null>(null);
+
+    const richOptions = {
+        bold: (chunks: React.ReactNode) => <strong className="font-medium text-stone-800">{chunks}</strong>,
+        br: () => <br />
+    };
 
     const currentSpecial = SPECIALS.find(s => s.id === selectedSpecial);
 
@@ -42,32 +52,35 @@ export default function MaliaSpecialsContent() {
                             {/* --- MODAL INHALT --- */}
                             <div className="p-10 md:p-16 space-y-10">
                                 <div className="space-y-6 text-center">
-                                    <span className="text-[10px] uppercase tracking-[0.4em] text-[#7d3a2a] font-bold">Special Offer</span>
+                                    <span className="text-[10px] uppercase tracking-[0.4em] text-[#7d3a2a] font-bold">{t('modal.label')}</span>
                                     <h2 className="text-3xl md:text-4xl font-serif text-stone-800 uppercase tracking-wide leading-tight">
-                                        {currentSpecial.title}
+                                        {t(`offers.${selectedSpecial}.title`)}
                                     </h2>
-                                    <p className="text-gray-600 font-light leading-relaxed max-w-xl mx-auto">
-                                        {currentSpecial.description}
-                                    </p>
+                                    <div className="text-gray-600 font-light leading-relaxed max-w-xl mx-auto space-y-4">
+                                        <p>{t.rich(`offers.${selectedSpecial}.description`, richOptions)}</p>
+                                        {t(`offers.${selectedSpecial}.intro_bullets`) && (
+                                            <p className="font-bold pt-2">{t(`offers.${selectedSpecial}.intro_bullets`)}</p>
+                                        )}
+                                    </div>
                                 </div>
 
                                 <div className="bg-stone-50/80 p-8 border-y border-stone-100">
                                     <p className="text-sm font-bold uppercase tracking-widest text-stone-800 mb-6 text-center">
-                                        {currentSpecial.highlight}
+                                        {t.rich(`offers.${selectedSpecial}.highlight`, richOptions)}
                                     </p>
                                     <ul className="space-y-3 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
-                                        {currentSpecial.features.map((feature, i) => (
+                                        {Array.from({ length: 11 }).map((_, i) => (
                                             <li key={i} className="flex items-start gap-3 text-xs text-gray-600 font-light">
                                                 <Check size={14} className="text-[#7d3a2a] mt-0.5 flex-shrink-0" />
-                                                <span>{feature}</span>
+                                                <span>{t.rich(`offers.${selectedSpecial}.features.${i}`, richOptions)}</span>
                                             </li>
                                         ))}
                                     </ul>
                                 </div>
 
                                 <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
-                                    <Button href="/booking" variant="primary" className="w-full sm:w-auto min-w-[200px]">Jetzt Buchen</Button>
-                                    <Button href="/inquiry" variant="outline" className="w-full sm:w-auto min-w-[200px]">Unverbindlich Anfragen</Button>
+                                    <Button href={loc("/booking")} variant="primary" className="w-full sm:w-auto min-w-[200px]">{t('buttons.book')}</Button>
+                                    <Button href={loc("/inquiry")} variant="outline" className="w-full sm:w-auto min-w-[200px]">{t('buttons.inquiry')}</Button>
                                 </div>
                             </div>
                         </motion.div>
@@ -97,11 +110,11 @@ export default function MaliaSpecialsContent() {
                         animate={{ opacity: 1, letterSpacing: "0.3em" }}
                         className="text-4xl md:text-7xl font-serif uppercase tracking-[0.3em] font-light leading-tight"
                     >
-                        MALIA Specials <br />
-                        <span className="text-xl md:text-3xl tracking-[0.5em] block mt-4 opacity-80 italic normal-case">Unsere Angebote</span>
+                        {t.rich('hero.title', richOptions)} <br />
+                        <span className="text-xl md:text-3xl tracking-[0.5em] block mt-4 opacity-80 italic normal-case">{t('hero.subtitle')}</span>
                     </motion.h1>
                     <div className="absolute bottom-24 flex flex-col items-center">
-                        <span className="uppercase tracking-[0.4em] text-[10px] mb-4 font-light opacity-80">scroll for specials</span>
+                        <span className="uppercase tracking-[0.4em] text-[10px] mb-4 font-light opacity-80">{t('hero.scroll')}</span>
                         <div className="w-[1px] h-12 bg-white/40" />
                     </div>
                 </div>
@@ -132,18 +145,18 @@ export default function MaliaSpecialsContent() {
                                 {/* Center Content */}
                                 <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-8">
                                     <span className="text-[10px] uppercase tracking-[0.4em] mb-4 opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0">
-                                        Exklusives Paket
+                                        {t('card.exclusive')}
                                     </span>
                                     <h3 className="text-3xl md:text-5xl font-serif uppercase tracking-widest mb-2">
-                                        {special.shortTitle}
+                                        {t(`offers.${special.id}.shortTitle`)}
                                     </h3>
                                     <p className="text-sm md:text-lg italic font-serif opacity-90">
-                                        {special.subtitle}
+                                        {t(`offers.${special.id}.subtitle`)}
                                     </p>
 
                                     <div className="mt-12">
-                                        <Button href="/booking" variant="white" className="bg-transparent border border-white/50 backdrop-blur-sm hover:bg-white hover:text-stone-900">
-                                            Jetzt buchen
+                                        <Button href={loc("/booking")} variant="white" className="bg-transparent border border-white/50 backdrop-blur-sm hover:bg-white hover:text-stone-900 pointer-events-auto">
+                                            {t('card.book')}
                                         </Button>
                                     </div>
                                 </div>

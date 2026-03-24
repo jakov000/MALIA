@@ -4,26 +4,53 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, User, MapPin, Gift, Phone, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { useRouter, usePathname } from 'next/navigation';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState('DE');
-  const pathname = usePathname();
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
+  const pathname = usePathname() || '';
+  const router = useRouter();
+  const t = useTranslations('Navigation');
 
-  // Bestimmte Seiten haben kein Hero-Bild und brauchen sofort den "Scrolled" Style (dunkler Text)
+  // Erkennen der aktuellen Sprache aus dem Pfad (/de/... oder /en/...)
+  const currentLocale = pathname.startsWith('/en') ? 'en' : 'de';
+  const currentLang = currentLocale === 'en' ? 'ENG' : 'DE';
+
+  const switchLanguage = (newLocale: string) => {
+    setLangMenuOpen(false);
+    if (pathname.startsWith(`/${newLocale}`)) return;
+    
+    // Set the cookie so next-intl middleware remembers the choice and doesn't redirect back to Accept-Language
+    document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000`;
+    
+    // Build the new path safely
+    let newPath = pathname;
+    if (pathname === '/') {
+      newPath = `/${newLocale}`;
+    } else if (pathname.startsWith('/de') || pathname.startsWith('/en')) {
+      newPath = pathname.replace(/^\/(de|en)/, `/${newLocale}`);
+    } else {
+      newPath = `/${newLocale}${pathname}`;
+    }
+    
+    // Force a full server hit to clear any Next.js client-side caches of the previous language layout
+    window.location.href = newPath;
+  };
+
   const isLightPage =
-    (pathname.startsWith("/our-hideaways/") && pathname !== "/our-hideaways") ||
-    pathname === "/booking" ||
-    pathname === "/admin/login" ||
-    pathname === "/admin" ||
-    pathname === '/agb' ||
-    pathname === '/impressum' ||
-    pathname === '/datenschutz' ||
-    pathname === '/success' ||
-    pathname === '/inquiry' ||
-    pathname === '/vouchers';
+    (pathname.includes("/our-hideaways/") && !pathname.endsWith("/our-hideaways")) ||
+    pathname.includes("/booking") ||
+    pathname.includes("/admin/login") ||
+    pathname.includes("/admin") ||
+    pathname.includes("/agb") ||
+    pathname.includes("/impressum") ||
+    pathname.includes("/datenschutz") ||
+    pathname.includes("/success") ||
+    pathname.includes("/inquiry") ||
+    pathname.includes("/vouchers");
   const showScrolledStyle = isScrolled || isLightPage;
 
   useEffect(() => {
@@ -34,12 +61,14 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const loc = (path: string) => `/${currentLocale}${path === '/' ? '' : path}`;
+
   const navLinks = [
-    { name: 'MALIA - Alpine Hideaway', href: '/' },
-    { name: 'Our Hideaways', href: '/our-hideaways' },
-    { name: 'MALIA Specials', href: '/malia-specials' },
-    { name: 'The Feeling', href: '/the-feeling' },
-    { name: 'The Setting', href: '/the-setting' },
+    { name: t('home'), href: loc('/') },
+    { name: t('hideaways'), href: loc('/our-hideaways') },
+    { name: t('specials'), href: loc('/malia-specials') },
+    { name: t('feeling'), href: loc('/the-feeling') },
+    { name: t('setting'), href: loc('/the-setting') },
   ];
 
   const topIcons = [
@@ -71,7 +100,7 @@ export default function Navbar() {
         </div>
 
         {/* MITTE: Logo zentral */}
-        <Link href="/" className={`text-3xl font-serif tracking-[0.3em] transition-colors px-4 ${showScrolledStyle ? 'text-gray-900' : 'text-white'
+        <Link href={loc('/')} className={`text-3xl font-serif tracking-[0.3em] transition-colors px-4 ${showScrolledStyle ? 'text-gray-900' : 'text-white'
           }`}>
           <span className="font-light">MALIA</span>
         </Link>
@@ -94,9 +123,9 @@ export default function Navbar() {
             {topIcons.map((item, idx) => {
               let href = '#';
               switch (item.label) {
-                case 'Account': href = '/admin/login'; break;
-                case 'Kontakt': href = '/inquiry'; break;
-                case 'Gutscheine': href = '/vouchers'; break;
+                case 'Account': href = loc('/admin/login'); break;
+                case 'Kontakt': href = loc('/inquiry'); break;
+                case 'Gutscheine': href = loc('/vouchers'); break;
               }
               return (
                 <Link
@@ -113,17 +142,30 @@ export default function Navbar() {
           </div>
 
           {/* Sprachschalter */}
-          <div className="relative group cursor-pointer">
-            <div className={`flex items-center space-x-1 pb-1 border-b-[1px] transition-colors ${showScrolledStyle ? 'text-gray-900 border-gray-900' : 'text-white border-white'
-              }`}>
+          <div className="relative cursor-pointer">
+            <div 
+              onClick={() => setLangMenuOpen(!langMenuOpen)}
+              className={`flex items-center space-x-1 pb-1 border-b-[1px] transition-colors ${showScrolledStyle ? 'text-gray-900 border-gray-900' : 'text-white border-white'
+              }`}
+            >
               <span className="text-xs font-light tracking-widest">{currentLang}</span>
-              <ChevronDown size={14} />
+              <ChevronDown size={14} className={`transition-transform duration-300 ${langMenuOpen ? 'rotate-180' : ''}`} />
             </div>
 
-            <div className="absolute top-full right-0 mt-2 bg-white text-gray-900 hidden group-hover:block shadow-xl py-2 px-4 min-w-[80px]">
-              <div className="cursor-pointer hover:font-bold py-1 text-xs" onClick={() => setCurrentLang('DE')}>DE</div>
-              <div className="cursor-pointer hover:font-bold py-1 text-xs" onClick={() => setCurrentLang('ENG')}>ENG</div>
-            </div>
+            <AnimatePresence>
+              {langMenuOpen && (
+                <motion.div 
+                  initial={{ opacity: 0, y: -5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -5 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute top-full right-0 mt-2 bg-white text-gray-900 shadow-xl py-2 px-4 min-w-[80px]"
+                >
+                  <div className="cursor-pointer hover:font-bold py-1 text-xs" onClick={() => switchLanguage('de')}>DE</div>
+                  <div className="cursor-pointer hover:font-bold py-1 text-xs" onClick={() => switchLanguage('en')}>ENG</div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 

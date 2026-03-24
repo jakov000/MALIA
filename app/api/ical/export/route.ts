@@ -1,17 +1,34 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import ical from 'ical-generator';
 import { db } from '@/lib/db';
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const room = req.nextUrl.searchParams.get("room");
+
+    let bookingWhere: any = { status: 'PAID' };
+    let blockWhere: any = {};
+
+    if (room) {
+      const relatedRooms = room === "THE ALPINE HIDEAWAY" 
+        ? ["THE ALPINE HIDEAWAY", "THE RESIDENCE", "THE RETREAT"]
+        : (room === "THE RESIDENCE" 
+            ? ["THE RESIDENCE", "THE ALPINE HIDEAWAY"] 
+            : ["THE RETREAT", "THE ALPINE HIDEAWAY"]);
+      
+      bookingWhere.room = { in: relatedRooms };
+      blockWhere.room = { in: ["ALL", ...relatedRooms] };
+    }
+
     // Fetch all PAID bookings and manually blocked dates
     const bookings = await db.booking.findMany({
-      where: { status: 'PAID' },
-      select: { id: true, startDate: true, endDate: true, guestName: true }
+      where: bookingWhere,
+      select: { id: true, startDate: true, endDate: true, guestName: true, room: true }
     });
 
     const blockedDates = await db.blockedDate.findMany({
-      select: { id: true, startDate: true, endDate: true, reason: true }
+      where: blockWhere,
+      select: { id: true, startDate: true, endDate: true, reason: true, room: true }
     });
 
     // Create the calendar feed

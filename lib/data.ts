@@ -83,7 +83,7 @@ export const SPECIALS: Special[] = [
         subtitle: "1 Nacht geschenkt",
         img: "/pictures/malia-specials/IMG_1393.jpeg",
         title: "7 = 6 --> 1 Nacht geschenkt",
-        description: "Bleib 7 Nächte im MALIA Alpine Hideaway und zahle nur 6. Ein Geschenk an alle, die wissen, dass echte Erholung Zeit braucht.",
+        description: "Bleib 7 Nächte im MALIA Alpine Hideaway und zahle nur 6.\n\nMehr Zeit für Ruhe, Natur und echte Erholung. Ein exklusives Luxus-Escape mit privater Wellness Area, liebevollen Details und einem Geschenk an alle, die wissen:\n\nEchte Erholung braucht Zeit.",
         highlight: "Inklusive im 7=6 Calm Escape",
         features: [
             "7 Nächte im alpinen Luxus-Chalet (1 Nacht geschenkt)",

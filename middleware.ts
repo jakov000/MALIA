@@ -1,22 +1,25 @@
-import NextAuth from 'next-auth';
-import { authConfig } from '@/auth.config';
+import createMiddleware from 'next-intl/middleware';
 
-const { auth } = NextAuth(authConfig);
+export default createMiddleware({
+  // A list of all locales that are supported
+  locales: ['de', 'en'],
 
-export default auth((req) => {
-  const isLoggedIn = !!req.auth;
-  const isOnAdmin = req.nextUrl.pathname.startsWith('/admin');
-  const isLoginPage = req.nextUrl.pathname.startsWith('/admin/login');
-
-  if (isOnAdmin && !isLoginPage) {
-    if (!isLoggedIn) {
-      return Response.redirect(new URL('/admin/login', req.nextUrl));
-    }
-  }
-
-  return undefined; // return undefined to pass through
+  // Used when no locale matches
+  defaultLocale: 'de',
+  
+  // Create locale prefix only for non-default locale or always
+  localePrefix: 'always',
+  
+  // Disable automatic locale detection to always force DE as default
+  localeDetection: false
 });
 
 export const config = {
-  matcher: ['/admin/:path*'],
+  // Match only internationalized pathnames
+  matcher: [
+    '/',
+    '/(de|en)/:path*',
+    // Match everything else skipping /api, /admin, /_next, files with dot
+    '/((?!api|admin|_next|_vercel|.*\\..*).*)'
+  ]
 };

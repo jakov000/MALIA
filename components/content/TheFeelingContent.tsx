@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { FEELING_AREAS } from '@/lib/data';
 import PageFooter from '@/components/PageFooter';
+import { useTranslations } from 'next-intl';
 
 // Slideshow Komponente
 const ImageSlideshow = ({ images, title }: { images: string[], title: string }) => {
@@ -52,6 +53,9 @@ const ImageSlideshow = ({ images, title }: { images: string[], title: string }) 
 };
 
 export default function TheFeelingContent() {
+    const t = useTranslations('TheFeeling');
+    const tAreas = useTranslations('TheFeeling.areas');
+
     return (
         <div className="bg-white">
             {/* --- 1. HERO SECTION --- */}
@@ -77,11 +81,11 @@ export default function TheFeelingContent() {
                         animate={{ opacity: 1, letterSpacing: "0.4em" }}
                         className="text-5xl md:text-7xl font-serif uppercase tracking-[0.4em] font-light"
                     >
-                        The Feeling
+                        {t('hero.title')}
                     </motion.h1>
 
                     <div className="absolute bottom-24 flex flex-col items-center">
-                        <span className="uppercase tracking-[0.4em] text-[10px] mb-4 font-light opacity-80 italic">explore the soul of malia</span>
+                        <span className="uppercase tracking-[0.4em] text-[10px] mb-4 font-light opacity-80 italic">{t('hero.subtitle')}</span>
                         <div className="w-[1px] h-12 bg-white/40" />
                     </div>
                 </div>
@@ -91,48 +95,54 @@ export default function TheFeelingContent() {
             <section className="py-24 md:py-40 bg-white">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="space-y-32 md:space-y-64">
-                        {FEELING_AREAS.map((area, idx) => (
-                            <motion.div
-                                key={area.id}
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-10%" }}
-                                transition={{ duration: 1 }}
-                                className={`flex flex-col ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-12 md:gap-24`}
-                            >
-                                {/* Bild-Container (Slideshow) */}
-                                <div className="w-full md:w-3/5">
-                                    <div className="relative aspect-[4/5] md:aspect-[16/10] overflow-hidden bg-stone-100 shadow-sm">
-                                        {area.images && area.images.length > 0 ? (
-                                            <ImageSlideshow images={area.images} title={area.title} />
-                                        ) : (
-                                            <Image
-                                                src={`/pictures/the-feeling/${area.id}.jpg`}
-                                                fill
-                                                className="object-cover"
-                                                alt={area.title}
-                                            />
-                                        )}
-                                    </div>
-                                </div>
+                        {FEELING_AREAS.map((area, idx) => {
+                            const category = tAreas(`${area.id}.category`);
+                            const title = tAreas(`${area.id}.title`);
+                            const subtitle = tAreas(`${area.id}.subtitle`);
 
-                                {/* Text-Container */}
-                                <div className="w-full md:w-2/5 space-y-6">
-                                    <span className="text-[10px] uppercase tracking-[0.5em] text-[#7d3a2a] font-bold">
-                                        {area.category}
-                                    </span>
-                                    <h2 className="text-4xl md:text-6xl font-serif text-stone-800 uppercase tracking-widest leading-tight">
-                                        {area.title}
-                                    </h2>
-                                    <p className="text-xl md:text-2xl font-serif text-stone-500 italic">
-                                        {area.subtitle}
-                                    </p>
-                                    <div className="pt-6">
-                                        <div className="w-12 h-[1px] bg-stone-300" />
+                            return (
+                                <motion.div
+                                    key={area.id}
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-10%" }}
+                                    transition={{ duration: 1 }}
+                                    className={`flex flex-col ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-12 md:gap-24`}
+                                >
+                                    {/* Bild-Container (Slideshow) */}
+                                    <div className="w-full md:w-3/5">
+                                        <div className="relative aspect-[4/5] md:aspect-[16/10] overflow-hidden bg-stone-100 shadow-sm">
+                                            {area.images && area.images.length > 0 ? (
+                                                <ImageSlideshow images={area.images} title={title} />
+                                            ) : (
+                                                <Image
+                                                    src={`/pictures/the-feeling/${area.id}.jpg`}
+                                                    fill
+                                                    className="object-cover"
+                                                    alt={title}
+                                                />
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
-                            </motion.div>
-                        ))}
+
+                                    {/* Text-Container */}
+                                    <div className="w-full md:w-2/5 space-y-6">
+                                        <span className="text-[10px] uppercase tracking-[0.5em] text-[#7d3a2a] font-bold">
+                                            {category}
+                                        </span>
+                                        <h2 className="text-4xl md:text-6xl font-serif text-stone-800 uppercase tracking-widest leading-tight">
+                                            {title}
+                                        </h2>
+                                        <p className="text-xl md:text-2xl font-serif text-stone-500 italic">
+                                            {subtitle}
+                                        </p>
+                                        <div className="pt-6">
+                                            <div className="w-12 h-[1px] bg-stone-300" />
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            );
+                        })}
                     </div>
                 </div>
             </section>

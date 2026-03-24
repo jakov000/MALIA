@@ -123,7 +123,33 @@ export default function AdminCalendar() {
       </div>
 
       <div className="pt-4">
-        <h3 className="text-xl font-serif text-stone-800 mb-4">Malia Blockierte Zeiträume</h3>
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-xl font-serif text-stone-800">Malia Blockierte Zeiträume</h3>
+          <button 
+            onClick={async () => {
+              setCreating(true);
+              try {
+                const res = await fetch("/api/ical/import", { method: "POST" });
+                if (res.ok) {
+                  const data = await res.json();
+                  alert(`Synchronisation erfolgreich! ${data.importedCount} Sperrungen importiert.`);
+                  fetchBlockedDates();
+                } else {
+                  alert("Fehler bei der Synchronisation.");
+                }
+              } catch (err) {
+                console.error(err);
+                alert("Fehler bei der Synchronisation.");
+              } finally {
+                setCreating(false);
+              }
+            }}
+            disabled={creating}
+            className="text-xs uppercase tracking-widest bg-stone-100 hover:bg-stone-200 text-stone-700 py-2 px-4 rounded-md transition-colors flex items-center space-x-2"
+          >
+            {creating ? <Loader2 className="animate-spin" size={14} /> : <span>Jetzt synchronisieren</span>}
+          </button>
+        </div>
         <div className="bg-white border rounded-lg overflow-hidden shadow-sm">
           <table className="w-full text-left text-sm whitespace-nowrap">
             <thead className="bg-stone-50 border-b text-stone-600 font-medium">
