@@ -102,10 +102,11 @@ export default function ImageSlideshow({ images, title }: { images: string[], ti
                         onClick={() => setLightboxOpen(false)}
                     >
                         <button 
-                            className="absolute top-8 right-8 text-white/70 hover:text-white transition-colors z-50 p-2"
+                            className="absolute top-4 right-4 md:top-8 md:right-8 bg-black/50 hover:bg-black/80 text-white rounded-full p-3 transition-colors z-50 flex items-center justify-center backdrop-blur-sm shadow-xl"
+                            aria-label="Schließen"
                             onClick={(e) => { e.stopPropagation(); setLightboxOpen(false); }}
                         >
-                            <X size={36} strokeWidth={1} />
+                            <X size={28} strokeWidth={1.5} />
                         </button>
 
                         <div className="relative w-full max-w-6xl h-[80vh] flex items-center justify-center px-4 md:px-16" onClick={(e) => e.stopPropagation()}>
