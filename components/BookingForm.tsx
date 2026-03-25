@@ -9,6 +9,7 @@ import { Loader2 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { SUITES } from "@/lib/data";
 import { useTranslations } from "next-intl";
+import { calculateStayPrice } from "@/lib/pricing";
 
 export default function BookingForm() {
   const t = useTranslations('BookingForm');
@@ -130,13 +131,26 @@ export default function BookingForm() {
   }, [rawBookings, rawBlockedDates, selectedRoom.title]);
 
   // Compute Prices
-  const nights = date?.from && date?.to ? differenceInDays(date.to, date.from) : 0;
   const basePricePerNight = activeConfig ? activeConfig.pricePerNight : parseInt(selectedRoom.price);
-  const subtotal = Math.max(0, nights * basePricePerNight);
-  const discountAmount = voucherData 
-    ? (voucherData.type === "PERCENTAGE" ? subtotal * (voucherData.discount / 100) : Math.min(voucherData.discount, subtotal)) 
-    : 0;
-  const finalTotal = Math.max(0, subtotal - discountAmount);
+
+  const pricing = useMemo(() => {
+    if (!date?.from || !date?.to) return null;
+    return calculateStayPrice(date.from, date.to, basePricePerNight);
+  }, [date, basePricePerNight]);
+
+  const nights = pricing?.nights || 0;
+  const subtotal = pricing?.basePrice || 0;
+  const specialDiscount = pricing?.discount || 0;
+  
+  const discountAmount = useMemo(() => {
+    if (!pricing) return 0;
+    const afterSpecial = pricing.total;
+    return voucherData 
+      ? (voucherData.type === "PERCENTAGE" ? afterSpecial * (voucherData.discount / 100) : Math.min(voucherData.discount, afterSpecial)) 
+      : 0;
+  }, [pricing, voucherData]);
+
+  const finalTotal = pricing ? Math.max(0, pricing.total - discountAmount) : 0;
 
   // Dynamic Calendar Constraints
   const getDisabledDates = () => {
@@ -261,6 +275,20 @@ export default function BookingForm() {
           <div className="mb-8">
              <span className="text-[10px] uppercase tracking-[0.4em] text-[#7d3a2a] mb-2 block font-bold">{t('step1')}</span>
              <h2 className="text-3xl md:text-4xl font-serif text-stone-900 tracking-wide uppercase">{t('title1')}</h2>
+          </div>
+          
+          <div className="mb-10 p-6 bg-[#fdfaf8] border border-[#f3e8e2] rounded-sm">
+            <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#7d3a2a] mb-4">{t('specials_title')}</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <p className="text-xs font-bold text-stone-800 uppercase tracking-wider mb-1">{t('special_76_title')}</p>
+                <p className="text-xs text-stone-600 font-light leading-relaxed">{t('special_76_desc')}</p>
+              </div>
+              <div>
+                <p className="text-xs font-bold text-stone-800 uppercase tracking-wider mb-1">{t('special_midweek_title')}</p>
+                <p className="text-xs text-stone-600 font-light leading-relaxed">{t('special_midweek_desc')}</p>
+              </div>
+            </div>
           </div>
           
           {/* Room Selection */}
@@ -395,8 +423,22 @@ export default function BookingForm() {
 
             <div className="flex justify-between items-center text-lg">
               <span>{t('subtotal')}</span>
-              <span>€ {subtotal.toFixed(2)}</span>
+              <span className={specialDiscount > 0 ? "line-through opacity-50 text-sm" : ""}>
+                € {subtotal.toFixed(2)}
+              </span>
             </div>
+
+            {specialDiscount > 0 && (
+              <div className="flex justify-between items-start text-sm text-green-400">
+                <div className="flex flex-col">
+                  <span className="font-medium uppercase tracking-wider text-[10px] bg-green-500/20 px-2 py-0.5 rounded-sm self-start mb-1">
+                    {t('applied_special_label')}
+                  </span>
+                  <span>{pricing?.appliedSpecial === "7=6" ? t('special_76_name') : t('special_midweek_name')}</span>
+                </div>
+                <span>- € {specialDiscount.toFixed(2)}</span>
+              </div>
+            )}
 
             {voucherData && (
               <div className="flex justify-between items-center text-sm text-green-400">

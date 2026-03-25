@@ -612,7 +612,15 @@
     "modal_button": "Understood, continue to booking",
     "voucher_error_invalid": "Invalid voucher",
     "alert_error": "Booking error: ",
-    "alert_unexpected": "An unexpected error occurred."
+    "alert_unexpected": "An unexpected error occurred.",
+    "specials_title": "Malia Specials",
+    "special_76_title": "7 = 6 Special",
+    "special_76_desc": "Stay 7 nights and get one night for free. Time for real recovery.",
+    "special_midweek_title": "20% Midweek",
+    "special_midweek_desc": "20% discount for 5 nights from Sunday to Friday. Perfect for quiet days.",
+    "applied_special_label": "Special applied:",
+    "special_76_name": "7=6 Offer",
+    "special_midweek_name": "Midweek Special (20%)"
   },
   "Inquiry": {
     "contact": "Contact",

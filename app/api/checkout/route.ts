@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { db } from "@/lib/db";
 import { z } from "zod";
+import { calculateStayPrice } from "@/lib/pricing";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_dummy123", {
   apiVersion: "2026-02-25.clover", // Use latest API version
@@ -88,7 +89,9 @@ export async function POST(req: Request) {
     // ----------------------------------------------------------------------
 
     // Server-side price calculation override (never trust client)
-    let finalTotal = nights * roomConfig.pricePerNight;
+    const pricing = calculateStayPrice(start, end, roomConfig.pricePerNight);
+    let finalTotal = pricing.total;
+    let specialDiscount = pricing.discount;
 
     // Optional: Validate Voucher again server-side before creating checkout
     if (parsed.voucherCode) {
@@ -160,7 +163,8 @@ export async function POST(req: Request) {
       metadata: {
         bookingId: booking.id, // Important for webhook to link payment to DB
         voucherId: voucherId || "",
-        discountApplied: discountApplied.toString(),
+        discountApplied: (discountApplied + specialDiscount).toString(),
+        specialApplied: pricing.appliedSpecial || "",
       },
     });
 
