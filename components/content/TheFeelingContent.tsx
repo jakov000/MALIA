@@ -52,7 +52,6 @@ export default function TheFeelingContent() {
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="space-y-32 md:space-y-64">
                         {FEELING_AREAS.map((area, idx) => {
-                            const category = tAreas(`${area.id}.category`);
                             const title = tAreas(`${area.id}.title`);
                             const subtitle = tAreas(`${area.id}.subtitle`);
 
@@ -83,12 +82,6 @@ export default function TheFeelingContent() {
 
                                     {/* Text-Container */}
                                     <div className="w-full md:w-2/5 space-y-6">
-                                        <span className="text-[10px] uppercase tracking-[0.5em] text-[#7d3a2a] font-bold">
-                                            {category}
-                                        </span>
-                                        <h2 className="text-4xl md:text-6xl font-serif text-stone-800 uppercase tracking-widest leading-tight">
-                                            {title}
-                                        </h2>
                                         <p className="text-xl md:text-2xl font-serif text-stone-500 italic">
                                             {subtitle}
                                         </p>
