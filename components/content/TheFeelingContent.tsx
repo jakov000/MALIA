@@ -82,6 +82,9 @@ export default function TheFeelingContent() {
 
                                     {/* Text-Container */}
                                     <div className="w-full md:w-2/5 space-y-6">
+                                        <h2 className="text-4xl md:text-6xl font-serif text-stone-800 uppercase tracking-widest leading-tight">
+                                            {title}
+                                        </h2>
                                         <p className="text-xl md:text-2xl font-serif text-stone-500 italic">
                                             {subtitle}
                                         </p>
