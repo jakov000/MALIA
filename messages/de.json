@@ -14,7 +14,7 @@
       "p1": "Ein Ort für Menschen, die das Besondere suchen – nicht im Überfluss, sondern im Wesentlichen. Das MALIA Alpine Hideaway ist kein Ort für großen Luxus, sondern für echten. Klare Architektur, natürliche Materialien und ein Gefühl von Zeitlosigkeit."
     },
     "wellness": {
-      "title": "Wellness Area – Raum für Regeneration",
+      "title": "Wellness Area",
       "p1": "Die Wellness Area im MALIA ist ein privater Rückzugsort. Ein Ort, an dem Wärme, Ruhe und bewusstes Design zusammenkommen.",
       "p2": "Sauna und Infrarot bringen den Körper zur Ruhe, die freistehende Badewanne lädt dazu ein, den Tag langsam ausklingen zu lassen.",
       "p3": "Natürliche Materialien, sanftes Licht und der Blick in die Natur schaffen eine Atmosphäre, in der Entspannung ganz von selbst entsteht. Kein Zeitplan. Kein Trubel.",
@@ -22,7 +22,7 @@
       "button": "Jetzt Urlaub buchen"
     },
     "special": {
-      "title": "Bleib 7 Nächte im MALIA Alpine Hideaway und zahle nur 6.",
+      "title": "Bleib 7 Nächte und zahle nur 6.",
       "p1": "Mehr Zeit für Ruhe, Natur und echte Erholung. Ein exklusives Luxus-Escape mit privater Wellness Area, liebevollen Details und einem Geschenk an alle, die wissen:",
       "p2": "Echte Erholung braucht Zeit.",
       "button": "Details anzeigen"
@@ -662,7 +662,7 @@
     "hero": {
       "title": "Gutschein Schenken",
       "subtitle": "Eine Freude bereiten",
-      "description": "Verschenke Zeit im MALIA. Ob für einen Aufenthalt, ein Frühstück oder einfach als Wertgutschein – wir erstellen dir gerne einen persönlichen Gutschein."
+      "description": "Verschenke Zeit im MALIA. Zeit zum Durchatmen, Abschalten und Ankommen - Wir helfen dir gerne bei deinem persönlichen Geschenk."
     },
     "form_personal": {
       "title": "Deine Daten",

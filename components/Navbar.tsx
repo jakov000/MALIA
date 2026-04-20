@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Gift, Phone, ChevronDown } from 'lucide-react';
+import { Menu, X, Gift, Phone, ChevronDown, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useRouter, usePathname } from 'next/navigation';
@@ -22,10 +22,10 @@ export default function Navbar() {
   const switchLanguage = (newLocale: string) => {
     setLangMenuOpen(false);
     if (pathname.startsWith(`/${newLocale}`)) return;
-    
+
     // Set the cookie so next-intl middleware remembers the choice and doesn't redirect back to Accept-Language
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000`;
-    
+
     // Build the new path safely
     let newPath = pathname;
     if (pathname === '/') {
@@ -35,7 +35,7 @@ export default function Navbar() {
     } else {
       newPath = `/${newLocale}${pathname}`;
     }
-    
+
     // Force a full server hit to clear any Next.js client-side caches of the previous language layout
     window.location.href = newPath;
   };
@@ -64,7 +64,6 @@ export default function Navbar() {
   const loc = (path: string) => `/${currentLocale}${path === '/' ? '' : path}`;
 
   const navLinks = [
-    { name: t('home'), href: loc('/') },
     { name: t('hideaways'), href: loc('/our-hideaways') },
     { name: t('specials'), href: loc('/malia-specials') },
     { name: t('feeling'), href: loc('/the-feeling') },
@@ -73,43 +72,42 @@ export default function Navbar() {
 
   const topIcons = [
     { icon: <Gift size={20} strokeWidth={1.5} />, label: 'Gutscheine' },
-    { icon: <Phone size={20} strokeWidth={1.5} />, label: 'Kontakt' },
+    { icon: <Mail size={20} strokeWidth={1.5} />, label: 'Anfrage' },
+    { icon: <Phone size={20} strokeWidth={1.5} />, label: 'Telefon' },
   ];
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-500 ease-in-out px-4 md:px-12 py-4 ${
-        showScrolledStyle 
-          ? 'bg-white py-3 shadow-sm' 
+      className={`fixed w-full z-50 transition-all duration-500 ease-in-out px-4 md:px-12 py-4 ${showScrolledStyle
+          ? 'bg-white py-3 shadow-sm'
           : 'bg-white shadow-sm lg:bg-transparent lg:shadow-none py-3 lg:py-6'
-      }`}
+        }`}
     >
       <div className="max-w-[1800px] mx-auto flex justify-between items-center">
 
-        {/* LINKS: Erste zwei Links */}
-        <div className="hidden lg:flex space-x-8 flex-1">
-          {navLinks.slice(0, 2).map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className={`uppercase tracking-[0.2em] text-[10px] transition-colors ${showScrolledStyle ? 'text-gray-900 hover:text-gray-500' : 'text-white hover:text-gray-300'
-                }`}
-            >
-              {link.name}
-            </Link>
-          ))}
+        {/* LINKS: Logo + First Link */}
+        <div className="flex items-center space-x-6 md:space-x-8 flex-1">
+          <Link href={loc('/')} className={`text-2xl md:text-3xl font-serif tracking-[0.3em] transition-colors ${showScrolledStyle ? 'text-gray-900' : 'text-gray-900 lg:text-white'
+            }`}>
+            <span className="font-light uppercase">MALIA</span>
+          </Link>
+          <div className="hidden lg:flex space-x-8">
+            {navLinks.slice(0, 1).map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`uppercase tracking-[0.2em] text-[10px] transition-colors ${showScrolledStyle ? 'text-gray-900 hover:text-gray-500' : 'text-white hover:text-gray-300'
+                  }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
         </div>
-
-        {/* MITTE: Logo zentral */}
-        <Link href={loc('/')} className={`text-3xl font-serif tracking-[0.3em] transition-colors px-4 ${
-          showScrolledStyle ? 'text-gray-900' : 'text-gray-900 lg:text-white'
-          }`}>
-          <span className="font-light">MALIA</span>
-        </Link>
 
         {/* RECHTS: Icons und Sprachschalter */}
         <div className="hidden lg:flex items-center justify-end space-x-8 flex-1">
-          {navLinks.slice(2).map((link) => (
+          {navLinks.slice(1).map((link) => (
             <Link
               key={link.name}
               href={link.href}
@@ -126,8 +124,9 @@ export default function Navbar() {
               let href = '#';
               switch (item.label) {
                 case 'Account': href = loc('/admin/login'); break;
-                case 'Kontakt': href = loc('/inquiry'); break;
+                case 'Anfrage': href = loc('/inquiry'); break;
                 case 'Gutscheine': href = loc('/vouchers'); break;
+                case 'Telefon': href = 'tel:+436765925596'; break;
               }
               return (
                 <Link
@@ -145,10 +144,10 @@ export default function Navbar() {
 
           {/* Sprachschalter */}
           <div className="relative cursor-pointer">
-            <div 
+            <div
               onClick={() => setLangMenuOpen(!langMenuOpen)}
               className={`flex items-center space-x-1 pb-1 border-b-[1px] transition-colors ${showScrolledStyle ? 'text-gray-900 border-gray-900' : 'text-white border-white'
-              }`}
+                }`}
             >
               <span className="text-xs font-light tracking-widest">{currentLang}</span>
               <ChevronDown size={14} className={`transition-transform duration-300 ${langMenuOpen ? 'rotate-180' : ''}`} />
@@ -156,7 +155,7 @@ export default function Navbar() {
 
             <AnimatePresence>
               {langMenuOpen && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: -5 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -5 }}
@@ -214,40 +213,41 @@ export default function Navbar() {
             {/* Mobile Icons and Lang Switcher */}
             <div className="mt-12 flex flex-col space-y-6 border-t border-stone-200 pt-8">
               {topIcons.map((item, idx) => {
-                 let href = '#';
-                 let translatedLabel = item.label;
-                 switch (item.label) {
-                    case 'Account': href = loc('/admin/login'); break;
-                    case 'Kontakt': href = loc('/inquiry'); translatedLabel = t('contact'); break;
-                    case 'Gutscheine': href = loc('/vouchers'); translatedLabel = t('vouchers'); break;
-                 }
-                 return (
-                   <Link
-                     key={idx}
-                     href={href}
-                     className="flex items-center space-x-4 text-gray-900 text-xl font-light uppercase tracking-widest hover:text-gray-500 transition-colors"
-                     onClick={() => setMobileMenuOpen(false)}
-                   >
-                     {item.icon}
-                     <span>{translatedLabel}</span>
-                   </Link>
-                 )
+                let href = '#';
+                let translatedLabel = item.label;
+                switch (item.label) {
+                  case 'Account': href = loc('/admin/login'); break;
+                  case 'Anfrage': href = loc('/inquiry'); translatedLabel = t('contact'); break;
+                  case 'Gutscheine': href = loc('/vouchers'); translatedLabel = t('vouchers'); break;
+                  case 'Telefon': href = 'tel:+436765925596'; break;
+                }
+                return (
+                  <Link
+                    key={idx}
+                    href={href}
+                    className="flex items-center space-x-4 text-gray-900 text-xl font-light uppercase tracking-widest hover:text-gray-500 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.icon}
+                    <span>{translatedLabel}</span>
+                  </Link>
+                )
               })}
 
               {/* Mobile Lang Switcher */}
               <div className="flex space-x-6 pt-4">
-                 <button 
-                   onClick={() => switchLanguage('de')} 
-                   className={`text-lg uppercase tracking-widest hover:text-gray-500 transition-colors ${currentLocale === 'de' ? 'font-bold' : 'font-light'}`}
-                 >
-                   DE
-                 </button>
-                 <button 
-                   onClick={() => switchLanguage('en')} 
-                   className={`text-lg uppercase tracking-widest hover:text-gray-500 transition-colors ${currentLocale === 'en' ? 'font-bold' : 'font-light'}`}
-                 >
-                   ENG
-                 </button>
+                <button
+                  onClick={() => switchLanguage('de')}
+                  className={`text-lg uppercase tracking-widest hover:text-gray-500 transition-colors ${currentLocale === 'de' ? 'font-bold' : 'font-light'}`}
+                >
+                  DE
+                </button>
+                <button
+                  onClick={() => switchLanguage('en')}
+                  className={`text-lg uppercase tracking-widest hover:text-gray-500 transition-colors ${currentLocale === 'en' ? 'font-bold' : 'font-light'}`}
+                >
+                  ENG
+                </button>
               </div>
             </div>
           </motion.div>

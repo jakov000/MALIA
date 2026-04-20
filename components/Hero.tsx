@@ -69,23 +69,21 @@ export default function Hero() {
 
         {/* Text-Content (bleibt fixiert) */}
         <div className="relative z-10 h-full flex flex-col justify-center items-center text-white px-6 text-center">
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="tracking-[0.4em] uppercase text-[10px] md:text-xs mb-4 font-sans font-light"
-          >
-            Luxury Estate & Spa
-          </motion.span>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="text-4xl md:text-7xl lg:text-8xl font-serif leading-tight mb-8"
+            className="w-full max-w-[180px] sm:max-w-[260px] md:max-w-[350px] lg:max-w-[480px] mb-8"
           >
-            Malia <br className="md:hidden" /> Alpine Hideaway
-          </motion.h1>
+            <Image 
+              src="/pictures/MaliaMainLogo.svg" 
+              alt="MALIA Alpine Hideaway" 
+              width={900} 
+              height={300} 
+              className="w-full h-auto brightness-0 invert"
+              priority
+            />
+          </motion.div>
 
           <div className="md:hidden">
             <Button
@@ -115,13 +113,14 @@ export default function Hero() {
           <SectionHeader
             title={t('intro.title')}
             description={t('intro.p1')}
+            uppercaseTitle={false}
           />
         </motion.div>
       </section>
 
       {/* --- SECTION 3: EXPERIENCE GRID --- */}
-      <section className="pb-24 md:pb-40 px-6 md:px-12 bg-white text-stone-800">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-start border-b border-gray-100 pb-24 md:pb-40">
+      <section className="pb-12 md:pb-20 px-6 md:px-12 bg-white text-stone-800">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-start border-b border-gray-100 pb-16 md:pb-24">
 
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <div className="relative aspect-[3/4] overflow-hidden mb-10 group bg-stone-100">
@@ -157,7 +156,7 @@ export default function Hero() {
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
-            <h3 className="font-serif text-xl md:text-2xl mb-4 tracking-widest uppercase">{t('special.title')}</h3>
+            <h3 className="font-serif text-xl md:text-2xl mb-4 tracking-widest uppercase lining-nums">{t('special.title')}</h3>
             <div className="text-stone-600 font-sans font-light text-sm md:text-base leading-relaxed mb-8 space-y-4 pr-4">
               <p>{t.rich('special.p1', richOptions)}</p>
               <p className="italic font-serif text-[#7d3a2a]">{t('special.p2')}</p>
@@ -170,7 +169,7 @@ export default function Hero() {
       </section>
 
       {/* --- SECTION 4: HOSTS --- */}
-      <section className="py-24 md:py-40 px-6 md:px-12 bg-white">
+      <section className="py-16 md:py-24 px-6 md:px-12 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           <div className="order-2 lg:order-1">
             <h2 className="text-3xl font-serif text-stone-800 mb-10 uppercase tracking-widest">{t('hosts.title')}</h2>
@@ -197,14 +196,7 @@ export default function Hero() {
         </div>
       </section>
 
-      {/* --- SECTION 5: VOUCHER --- */}
-      <section className="relative h-auto py-32 md:py-48 w-full flex items-center overflow-hidden bg-stone-900">
-        <Image
-          src="/pictures/hero/hero4/Küche.jpg"
-          fill
-          className="object-cover opacity-40"
-          alt="Voucher"
-        />
+      <section className="relative h-auto py-32 md:py-48 w-full flex items-center overflow-hidden" style={{ backgroundColor: '#3d3d29' }}>
         <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 text-white text-center flex flex-col items-center">
           <span className="text-[10px] uppercase tracking-[0.4em] mb-4 font-bold text-stone-300">
             {t('voucher.subtitle')}

@@ -6,6 +6,7 @@ interface SectionHeaderProps {
     description?: React.ReactNode;
     centered?: boolean;
     light?: boolean;
+    uppercaseTitle?: boolean;
 }
 
 export default function SectionHeader({
@@ -13,7 +14,8 @@ export default function SectionHeader({
     subtitle,
     description,
     centered = true,
-    light = false
+    light = false,
+    uppercaseTitle = true
 }: SectionHeaderProps) {
     return (
         <div className={`max-w-4xl mx-auto ${centered ? 'text-center' : 'text-left'} mb-16 md:mb-24`}>
@@ -23,7 +25,7 @@ export default function SectionHeader({
                 </span>
             )}
 
-            <h2 className={`text-3xl md:text-5xl font-serif uppercase tracking-widest mb-8 leading-tight ${light ? 'text-white' : 'text-stone-800'}`}>
+            <h2 className={`text-3xl md:text-5xl font-serif ${uppercaseTitle ? 'uppercase' : ''} lining-nums tracking-widest mb-8 leading-tight ${light ? 'text-white' : 'text-stone-800'}`}>
                 {title}
             </h2>
 
