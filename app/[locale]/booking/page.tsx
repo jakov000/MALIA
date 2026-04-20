@@ -36,7 +36,7 @@ export default function BookingPage() {
 
       <main className="flex-1 max-w-[1800px] mx-auto w-full px-4 md:px-12 py-12 md:py-20">
         <div className="text-center mb-12 md:mb-20">
-          <span className="text-[10px] uppercase tracking-[0.4em] text-[#7d3a2a] font-bold">{t('subtitle')}</span>
+          <span className="text-[10px] uppercase tracking-[0.4em] text-[#3d3d29] font-bold">{t('subtitle')}</span>
           <h1 className="text-4xl md:text-5xl font-serif text-stone-800 uppercase tracking-widest mt-4">
             {t('title')}
           </h1>

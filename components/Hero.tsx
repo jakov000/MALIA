@@ -75,11 +75,11 @@ export default function Hero() {
             transition={{ duration: 1.2, ease: "easeOut" }}
             className="w-full max-w-[180px] sm:max-w-[260px] md:max-w-[350px] lg:max-w-[480px] mb-8"
           >
-            <Image 
-              src="/pictures/MaliaMainLogo.svg" 
-              alt="MALIA Alpine Hideaway" 
-              width={900} 
-              height={300} 
+            <Image
+              src="/pictures/MaliaMainLogo.svg"
+              alt="MALIA Alpine Hideaway"
+              width={900}
+              height={300}
               className="w-full h-auto brightness-0 invert"
               priority
             />
@@ -139,7 +139,7 @@ export default function Hero() {
               <p>{t.rich('wellness.p1', richOptions)}</p>
               <p>{t.rich('wellness.p2', richOptions)}</p>
               <p>{t('wellness.p3')}</p>
-              <p className="italic font-serif text-[#7d3a2a]">{t('wellness.p4')}</p>
+              <p className="italic font-serif text-[#3d3d29]">{t('wellness.p4')}</p>
             </div>
             <Button href={loc("/booking")} variant="outline" className="border-stone-800 hover:bg-stone-800 hover:text-white">
               {t('wellness.button')}
@@ -159,7 +159,7 @@ export default function Hero() {
             <h3 className="font-serif text-xl md:text-2xl mb-4 tracking-widest uppercase lining-nums">{t('special.title')}</h3>
             <div className="text-stone-600 font-sans font-light text-sm md:text-base leading-relaxed mb-8 space-y-4 pr-4">
               <p>{t.rich('special.p1', richOptions)}</p>
-              <p className="italic font-serif text-[#7d3a2a]">{t('special.p2')}</p>
+              <p className="italic font-serif text-[#3d3d29]">{t('special.p2')}</p>
             </div>
             <Button href="/malia-specials" variant="outline" className="border-stone-800 hover:bg-stone-50">
               {t('special.button')}
@@ -204,7 +204,7 @@ export default function Hero() {
           <h2 className="text-3xl md:text-5xl font-serif mb-10 uppercase tracking-widest leading-snug">
             {t.rich('voucher.title', richOptions)}
           </h2>
-          
+
           <div className="font-sans font-light text-stone-200 text-sm md:text-base leading-relaxed max-w-3xl space-y-6 mb-12 [&_strong]:font-medium [&_strong]:text-white">
             <p>{t.rich('voucher.p1', richOptions)}</p>
             <p>{t.rich('voucher.p2', richOptions)}</p>
@@ -255,28 +255,37 @@ export default function Hero() {
                   <p>{t.rich('location.p3', richOptions)}</p>
                 </div>
               </div>
-              <div className="space-y-4 bg-stone-50 p-6 border-l-2 border-[#7d3a2a]/20">
+              <div className="space-y-4 bg-stone-50 p-6 border-l-2 border-[#3d3d29]/20">
                 <h3 className="text-[11px] uppercase tracking-[0.3em] font-bold text-stone-800">{t('location.contact_title')}</h3>
                 <div className="text-gray-600 font-sans font-light text-xs md:text-sm leading-loose tracking-widest">
                   <p className="font-medium text-stone-800 uppercase tracking-tighter">MALIA - Alpine Hideaway</p>
                   <p>Madleine & Julia Rieser</p>
                   <p>Ländbergstraße 6 | A-6213 Pertisau</p>
                   <div className="mt-4 pt-4 border-t border-gray-200/50 space-y-1 text-[11px]">
-                    <p>Phone: <a href="tel:+43123456789" className="hover:text-stone-900 transition-colors">+43 123 456 789</a></p>
+                    <p>Julia: <a href="tel:+436765925596" className="hover:text-stone-900 transition-colors">+43 676 5925596</a></p>
+                    <p>Madleine: <a href="tel:+436766207866" className="hover:text-stone-900 transition-colors">+43 676 6207866</a></p>
                     <p><a href="mailto:info@malia-alpine-hideaway.at" className="hover:text-stone-900 transition-colors">info@malia-alpine-hideaway.at</a></p>
                     <p><a href="https://www.malia-alpine-hideaway.at" className="hover:text-stone-900 transition-colors">www.malia-alpine-hideaway.at</a></p>
                   </div>
                 </div>
               </div>
-              <p className="italic font-serif text-[#7d3a2a] text-base md:text-lg text-center lg:text-left">{t('location.closing')}</p>
+              <p className="italic font-serif text-[#3d3d29] text-base md:text-lg text-center lg:text-left">{t('location.closing')}</p>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* --- SECTION 7: MAP --- */}
-      <section className="relative w-full h-[500px] grayscale opacity-80 hover:opacity-100 transition-opacity duration-700">
-        <iframe width="100%" height="100%" style={{ border: 0 }} src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2689.47!2d11.68!3d47.47!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479d63!2sPertisau!5e0!3m2!1sde!2sat!4v123456789" allowFullScreen loading="lazy"></iframe>
+      <section className="relative w-full h-[500px]">
+        <iframe
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2703.6235471676!2d11.6917196!3d47.4373089!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479d7f006c9f353f%3A0x6ce7b5df7a210758!2sMALIA%20-%20Alpine%20Hideaway!5e0!3m2!1sde!2sat!4v1715800000000!5m2!1sde!2sat"
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade">
+        </iframe>
       </section>
 
       {/* --- SECTION 8: IN-PAGE FOOTER --- */}

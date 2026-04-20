@@ -7,6 +7,7 @@ import Button from '@/components/ui/Button';
 import SectionHeader from '@/components/ui/SectionHeader';
 import PageFooter from '@/components/PageFooter';
 import { useTranslations, useLocale } from 'next-intl';
+import ImageSlideshow from '@/components/ui/ImageSlideshow';
 
 export default function TheSettingContent() {
     const t = useTranslations('TheSetting');
@@ -31,101 +32,259 @@ export default function TheSettingContent() {
                 <div className="absolute inset-0 bg-black/20" />
 
                 <div className="relative z-10 h-full flex flex-col items-center justify-center text-white text-center">
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2 }} className="mb-6">
-                        <svg width="60" height="80" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M50 10L85 60H70L95 90H60L85 110H15L40 90H5L30 60H15L50 10Z" stroke="white" strokeWidth="1.2" />
-                        </svg>
-                    </motion.div>
-                    <motion.h1 initial={{ opacity: 0, letterSpacing: "0.2em" }} animate={{ opacity: 1, letterSpacing: "0.4em" }} className="text-5xl md:text-7xl font-serif uppercase tracking-[0.4em] font-light">
+                    <motion.h1 
+                        initial={{ opacity: 0, y: 20 }} 
+                        animate={{ opacity: 1, y: 0 }} 
+                        className="text-5xl md:text-7xl font-serif font-light px-4"
+                    >
                         {t('hero.title')}
                     </motion.h1>
+                    <motion.span 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="uppercase tracking-[0.4em] text-[10px] mt-6 font-light opacity-80 italic"
+                    >
+                        {t('hero.subtitle')}
+                    </motion.span>
                 </div>
             </section>
 
-            {/* --- 2. WINTER AM ACHENSEE --- */}
-            <section className="py-24 md:py-40 px-6 max-w-7xl mx-auto">
-                <div className="text-center mb-20">
-                    <h2 className="text-sm uppercase tracking-[0.5em] text-gray-400 mb-6 font-bold flex justify-center items-center gap-4">
-                        <Snowflake size={16} /> {t('winter.title')}
-                    </h2>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-20">
-                    <div className="space-y-8 text-gray-800 font-light leading-relaxed tracking-wide italic">
-                        <p className="text-xl md:text-2xl font-serif">
-                            {t.rich('winter.p1', richOptions)}
-                        </p>
-                        <p className="text-lg font-serif pt-8 border-t border-stone-100">
-                            {t.rich('winter.p2', richOptions)}
-                        </p>
-                    </div>
-                    <div className="aspect-[4/5] overflow-hidden relative shadow-sm bg-stone-100">
-                        <Image
-                            src="https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?auto=format&fit=crop&q=80"
-                            fill
-                            className="object-cover"
-                            alt="Winter"
-                            sizes="(max-width: 1024px) 100vw, 50vw"
-                        />
-                    </div>
-                </div>
-
-                {/* Winter Details Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-16 text-sm text-gray-600 leading-relaxed tracking-wide">
-                    {Array.from({ length: 4 }).map((_, i) => (
-                        <div key={i} className="space-y-4">
-                            <h4 className="font-bold uppercase tracking-widest text-stone-800">{t(`winter.grid.${i}.title`)}</h4>
-                            <p>{t(`winter.grid.${i}.desc`)}</p>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Der See im Winter */}
-                <div className="mt-20 pt-20 border-t border-stone-100 text-center">
-                    <SectionHeader
-                        title={t('winter.lake.title')}
-                        subtitle=""
-                        description="" // Using custom description below
-                        centered={true}
-                    />
-                    <p className="max-w-3xl mx-auto text-gray-600 font-light leading-relaxed mb-12 -mt-10">
-                        {t.rich('winter.lake.desc', richOptions)}
-                    </p>
-                    <Button href={loc("/inquiry")} variant="primary">
-                        {t('winter.lake.btn')}
-                    </Button>
-                </div>
-            </section>
-
-            {/* --- 3. SOMMER AM ACHENSEE --- */}
-            <section className="py-24 md:py-40 px-6 bg-stone-50/50">
-                <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-24">
-                        <h2 className="text-sm uppercase tracking-[0.5em] text-gray-400 mb-6 font-bold flex justify-center items-center gap-4">
-                            <Sun size={16} /> {t('summer.title')}
-                        </h2>
-                        <p className="text-xl md:text-3xl font-serif text-stone-800 italic leading-relaxed max-w-4xl mx-auto">
-                            {t.rich('summer.p1', richOptions)}
-                        </p>
-                    </div>
-
-                    {/* Sommer Details */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-16 text-sm text-gray-600 font-light leading-relaxed">
-                        {Array.from({ length: 7 }).map((_, i) => (
-                            <div key={i} className={i === 6 ? "md:col-span-2 space-y-4 pt-10 border-t border-stone-200 text-center" : "space-y-6"}>
-                                <h4 className={`font-bold text-stone-800 uppercase tracking-widest ${i === 6 ? "text-center" : ""}`}>{t(`summer.grid.${i}.title`)}</h4>
-                                <p className={i === 6 ? "max-w-3xl mx-auto italic" : ""}>{t(`summer.grid.${i}.desc`)}</p>
-                                {i < 2 && (
-                                    <a href="#" className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest border-b border-stone-300 pb-1 hover:text-stone-900 hover:border-stone-900 transition-colors">{t(`summer.grid.${i}.link`)}</a>
-                                )}
-                            </div>
+            {/* --- 2. QUICK NAVIGATION (SHORTCUTS) --- */}
+            <section className="py-12 bg-white border-b border-stone-100">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                        {[
+                            { id: 'tips', label: t('shortcuts.tips'), img: '/pictures/the-feeling/IMG_1151.jpeg' },
+                            { id: 'winter', label: t('shortcuts.winter'), img: 'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?auto=format&fit=crop&q=80' },
+                            { id: 'summer', label: t('shortcuts.summer'), img: '/pictures/malia-specials/ausblicksommer.jpeg' },
+                            { id: 'map', label: t('shortcuts.map'), img: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&q=80' },
+                            { id: 'atoll', label: t('shortcuts.atoll'), img: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80' }
+                        ].map((item) => (
+                            <motion.a
+                                key={item.id}
+                                href={`#${item.id}`}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
+                                }}
+                                className="relative aspect-[4/5] group overflow-hidden bg-stone-100 shadow-sm"
+                            >
+                                <Image
+                                    src={item.img}
+                                    fill
+                                    className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-80"
+                                    alt={item.label}
+                                    sizes="(max-width: 768px) 50vw, 20vw"
+                                />
+                                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
+                                <div className="absolute inset-0 flex items-center justify-center p-4 text-center">
+                                    <span className="text-white text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold drop-shadow-md">
+                                        {item.label}
+                                    </span>
+                                </div>
+                            </motion.a>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* --- 4. INTERAKTIVE KARTE --- */}
-            <section className="py-24 md:py-40 px-6 text-center">
+             {/* --- 3. WINTER AM ACHENSEE --- */}
+            <section id="winter" className="py-24 md:py-40 bg-white">
+                <div className="max-w-7xl mx-auto px-6">
+                    {/* Big Banner Image with Overlay Title */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="relative aspect-[16/9] md:aspect-[21/9] overflow-hidden mb-20 shadow-sm bg-stone-100 group"
+                    >
+                        <Image
+                            src="/pictures/the setting/DJI_0546.jpg"
+                            fill
+                            className="object-cover transition-transform duration-[5s] group-hover:scale-105"
+                            alt="Achensee Winter Panorama"
+                            priority
+                        />
+                        <div className="absolute inset-0 bg-black/20" />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <h2 className="text-white text-3xl md:text-6xl font-serif font-light tracking-widest uppercase text-center px-4 drop-shadow-lg">
+                                {t('winter.title')}
+                            </h2>
+                        </div>
+                    </motion.div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-20 items-center">
+                        <div className="space-y-8 text-gray-800 font-light leading-relaxed tracking-wide italic">
+                            <p className="text-xl md:text-2xl font-serif">
+                                {t.rich('winter.p1', richOptions)}
+                            </p>
+                            <p className="text-lg font-serif pt-8 border-t border-stone-100">
+                                {t.rich('winter.p2', richOptions)}
+                            </p>
+                        </div>
+                        <div className="relative aspect-[4/5] overflow-hidden bg-stone-100 shadow-sm">
+                            <ImageSlideshow 
+                                images={[
+                                    "/pictures/the setting/slidersetting1/1.png",
+                                    "/pictures/the setting/slidersetting1/2.jpg",
+                                    "/pictures/the setting/slidersetting1/3.JPG",
+                                    "/pictures/the setting/slidersetting1/4.jpg",
+                                    "/pictures/the setting/slidersetting1/5.jpg",
+                                    "/pictures/the setting/slidersetting1/6.png",
+                                    "/pictures/the setting/slidersetting1/7.jpeg"
+                                ]} 
+                                title={t('winter.title')} 
+                            />
+                        </div>
+                    </div>
+
+                {/* Winter Details Alternating */}
+                <div className="space-y-24 md:space-y-32 pt-10">
+                    {['a.png', 'b.png', 'c.png', 'd.png'].map((img, i) => (
+                        <motion.div 
+                            key={i}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className={`flex flex-col ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-8 md:gap-16`}
+                        >
+                            <div className="w-full md:w-1/2">
+                                <div className="relative aspect-[16/10] overflow-hidden shadow-sm bg-stone-100">
+                                    <Image
+                                        src={`/pictures/the setting/${img}`}
+                                        fill
+                                        className="object-cover transition-transform duration-[2s] hover:scale-105"
+                                        alt={t(`winter.grid.${i}.title`)}
+                                        sizes="(max-width: 768px) 100vw, 50vw"
+                                    />
+                                </div>
+                            </div>
+                            <div className="w-full md:w-1/2 flex justify-center">
+                                <div className="bg-white p-6 md:p-12 max-w-lg space-y-4 shadow-[0_0_40px_rgba(0,0,0,0.03)] border border-stone-50">
+                                    <h4 className="font-bold uppercase tracking-widest text-stone-800 text-xs md:text-sm">
+                                        {t(`winter.grid.${i}.title`)}
+                                    </h4>
+                                    <p className="text-gray-600 font-light leading-relaxed text-xs md:text-sm">
+                                        {t(`winter.grid.${i}.desc`)}
+                                    </p>
+                                </div>
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+
+                <div className="mt-20 pt-16 border-t border-stone-100 flex justify-center">
+                    <Button href={loc("/inquiry")} variant="sage" className="uppercase tracking-widest px-8 py-4">
+                        {t('winter.lake.btn')}
+                    </Button>
+                </div>
+            </div>
+            </section>
+
+            {/* --- 4. SOMMER AM ACHENSEE --- */}
+            <section id="summer" className="py-24 md:py-40 bg-stone-50/50">
+                <div className="max-w-7xl mx-auto px-6">
+                    {/* Big Banner Image with Overlay Title */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="relative aspect-[16/9] md:aspect-[21/9] overflow-hidden mb-20 shadow-sm bg-stone-100 group"
+                    >
+                        <Image
+                            src="/pictures/the setting/Sommersee.jpg"
+                            fill
+                            className="object-cover transition-transform duration-[5s] group-hover:scale-105"
+                            alt="Achensee Sommer Panorama"
+                            priority
+                        />
+                        <div className="absolute inset-0 bg-black/20" />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <h2 className="text-white text-3xl md:text-6xl font-serif font-light tracking-widest uppercase text-center px-4 drop-shadow-lg">
+                                {t('summer.title')}
+                            </h2>
+                        </div>
+                    </motion.div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-20 items-center">
+                        <div className="space-y-8 text-gray-800 font-light leading-relaxed tracking-wide italic">
+                            <p className="text-xl md:text-2xl font-serif">
+                                {t.rich('summer.p1', richOptions)}
+                            </p>
+                        </div>
+                        <div className="relative aspect-[4/5] overflow-hidden bg-stone-100 shadow-sm">
+                            <ImageSlideshow 
+                                images={[
+                                    "/pictures/the setting/slidersetting1/1.png",
+                                    "/pictures/the setting/slidersetting1/2.jpg",
+                                    "/pictures/the setting/slidersetting1/3.JPG",
+                                    "/pictures/the setting/slidersetting1/4.jpg",
+                                    "/pictures/the setting/slidersetting1/5.jpg",
+                                    "/pictures/the setting/slidersetting1/6.png",
+                                    "/pictures/the setting/slidersetting1/7.jpeg"
+                                ]} 
+                                title={t('summer.title')} 
+                            />
+                        </div>
+                    </div>
+
+                    {/* Sommer Details Alternating */}
+                    <div className="space-y-24 md:space-y-32 pt-10">
+                        {['s1.jpg', 's2.png', 's3.png', 's4.png', 's5.png', 's6.jpg', 's7.jpg', 's8.jpg'].map((img, i) => (
+                            <motion.div 
+                                key={i}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                className={`flex flex-col ${i % 2 === 0 ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 md:gap-16`}
+                            >
+                                <div className="w-full md:w-1/2">
+                                    <div className="relative aspect-[16/10] overflow-hidden shadow-sm bg-stone-100">
+                                        <Image
+                                            src={`/pictures/the setting/${img}`}
+                                            fill
+                                            className="object-cover transition-transform duration-[2s] hover:scale-105"
+                                            alt={t(`summer.grid.${i}.title`)}
+                                            sizes="(max-width: 768px) 100vw, 50vw"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="w-full md:w-1/2 flex justify-center">
+                                    <div className="bg-white p-6 md:p-12 max-w-lg space-y-4 shadow-[0_0_40px_rgba(0,0,0,0.03)] border border-stone-50">
+                                        <h4 className="font-bold uppercase tracking-widest text-stone-800 text-xs md:text-sm">
+                                            {t(`summer.grid.${i}.title`)}
+                                        </h4>
+                                        <p className="text-gray-600 font-light leading-relaxed text-xs md:text-sm">
+                                            {t(`summer.grid.${i}.desc`)}
+                                        </p>
+                                        <a 
+                                            href={t(`summer.grid.${i}.url`)} 
+                                            target={t(`summer.grid.${i}.url`).startsWith('http') ? "_blank" : "_self"}
+                                            rel={t(`summer.grid.${i}.url`).startsWith('http') ? "noopener noreferrer" : ""}
+                                            className="inline-block mt-4 text-[10px] uppercase tracking-widest text-blue-500 hover:text-blue-700 transition-colors border-b border-transparent hover:border-blue-700"
+                                        >
+                                            {t(`summer.grid.${i}.link`)}
+                                        </a>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    <div className="mt-24 pt-16 border-t border-stone-100 flex justify-center">
+                        <Button href={loc("/inquiry")} variant="sage" className="uppercase tracking-widest px-8 py-4">
+                            {t('summer.btn')}
+                        </Button>
+                    </div>
+                </div>
+            </section>
+
+            {/* --- 5. INTERAKTIVE KARTE --- */}
+            <section id="map" className="py-24 md:py-40 px-6 text-center">
                 <div className="max-w-4xl mx-auto flex flex-col items-center">
                     <Map className="text-stone-300 mb-8" size={40} strokeWidth={1} />
                     <SectionHeader
@@ -147,8 +306,8 @@ export default function TheSettingContent() {
                 </div>
             </section>
 
-            {/* --- 5. ATOLL ACHENSEE --- */}
-            <section className="py-24 md:py-40 px-6 bg-stone-50/30">
+            {/* --- 6. ATOLL ACHENSEE --- */}
+            <section id="atoll" className="py-24 md:py-40 px-6 bg-stone-50/30">
                 <div className="max-w-4xl mx-auto text-center space-y-10">
                     <SectionHeader title={t('atoll.title')} />
                     <div className="text-gray-600 font-light leading-relaxed space-y-4 -mt-10">

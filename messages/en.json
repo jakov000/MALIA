@@ -58,7 +58,7 @@
   },
   "Hideaways": {
     "hero": {
-      "title": "Inspired by Nature, Designed for YOU!",
+      "title": "Inspired by Nature, designed for You!",
       "subtitle": "scroll for happiness"
     },
     "intro": {
@@ -92,7 +92,7 @@
       "a_location_train": "Travelling without a car is also easy. The nearest railway station is <bold>Jenbach</bold>, approximately 15 minutes from Lake Achensee.",
       "q_prices": "Prices",
       "a_prices_1": "All prices are per night and exclude meals.",
-      "a_prices_2": "Final cleaning Fees: The Retreat 45€, The Residence 120€, The Hideaway 150€,-",
+      "a_prices_2": "<bold>Final cleaning fees:</bold> The Retreat 45€, The Residence 120€, The Hideaway 150€",
       "a_prices_3": "Local tax: 3€ per person per night (children up to 14 years are exempt)",
       "q_checkin_out": "Check-In / Check-Out",
       "a_checkin": "<bold>Check-In:</bold> from 3:00 pm on the day of arrival",
@@ -105,10 +105,8 @@
       "a_payment_1": "• Cash (Euro) upon arrival",
       "a_payment_2": "• Advance bank transfer (free of charge) to the above-mentioned account, (must be credited to our account before departure)",
       "a_payment_3": "• Paypal:",
-      "a_payment_4": "• EC Card (Maestro)",
-      "a_payment_5": "• +2% surcharge for payments by credit card (Visa + Mastercard), also applicable to debit cards & V-Pay (Visa + MC)",
       "q_pets": "Pets",
-      "a_pets": "Dogs are welcome on request in <bold>\"The Retreat\"</bold> only (non-shedding breeds). Please contact us in advance. An additional final cleaning fee applies for stays with dogs."
+      "a_pets": "Pets are welcome on request. Please contact us in advance so that your four-legged friends can also enjoy a pleasant stay with us."
     },
     "quote": "„Simply arrive & be happy.“"
   },
@@ -131,7 +129,7 @@
         "<bold>Ski & storage room</bold> with ski boot dryer",
         "<bold>Free covered parking</bold> directly at the Chalet"
       ],
-      "price": "from € 1100",
+      "price": "from € 800",
       "persons": "2-10 Persons",
       "sqm": "400 sqm",
       "scroll": "Scroll to discover the rooms"
@@ -157,7 +155,7 @@
         "<bold>Smart TV</bold>",
         "<bold>Free covered parking</bold> directly at the property"
       ],
-      "price": "from € 1200",
+      "price": "from € 650",
       "persons": "2-8 Persons",
       "sqm": "360 sqm",
       "scroll": "Scroll to discover the rooms"
@@ -181,7 +179,7 @@
         "<bold>Free covered parking</bold> directly at the property",
         "<bold>Natural materials & calm luxury design</bold> throughout"
       ],
-      "price": "from € 45",
+      "price": "from € 160",
       "persons": "2 Persons",
       "sqm": "40 sqm",
       "scroll": "Scroll to discover the rooms"
@@ -296,54 +294,54 @@
   },
   "TheFeeling": {
     "hero": {
-      "title": "THE FEELING",
+      "title": "The Feeling",
       "subtitle": "explore the soul of malia"
     },
     "areas": {
       "room-1": {
         "category": "The Hideaway",
-        "title": "Room 1",
-        "subtitle": "Private Retreat"
+        "title": "The Meadowside",
+        "subtitle": ""
       },
       "room-2": {
         "category": "The Residence",
-        "title": "Room 2",
-        "subtitle": "Alpine Comfort"
+        "title": "The Lakeside",
+        "subtitle": ""
       },
       "room-3": {
         "category": "The Retreat",
-        "title": "Room 3",
-        "subtitle": "Modern Stillness"
+        "title": "The Sunside",
+        "subtitle": ""
       },
       "room-4": {
         "category": "Alpine Loft",
-        "title": "Room 4",
-        "subtitle": "Nature View"
+        "title": "The Mountainside",
+        "subtitle": ""
       },
       "room-5": {
         "category": "Summit Loft",
-        "title": "Room 5",
-        "subtitle": "Skyline Suite"
+        "title": "The Retreat",
+        "subtitle": ""
       },
       "wellness": {
         "category": "Relax",
         "title": "Wellness Area",
-        "subtitle": "Sauna & Infrared"
+        "subtitle": "Sauna & Infrared & Freestanding Bathtub"
       },
       "kitchen": {
         "category": "Living",
         "title": "Kitchen",
-        "subtitle": "Honest Materials"
+        "subtitle": "Wine Fridge & Steamer"
       },
       "living": {
         "category": "Community",
         "title": "Living Room",
-        "subtitle": "Fire & Stone"
+        "subtitle": "Fireplace, Flat TV, Record Player"
       },
       "outdoor": {
         "category": "Nature",
         "title": "Outdoors",
-        "subtitle": "Karwendel View"
+        "subtitle": "270° Panorama View"
       }
     }
   },
@@ -376,14 +374,13 @@
           "0": "<bold>5 nights</bold> in your alpine luxury chalet",
           "1": "<bold>1 bottle of sparkling wine</bold> as a welcome gift",
           "2": "<bold>Private wellness area</bold> (sauna, infrared cabin & freestanding bathtub)",
-          "3": "<bold>High-quality natural cosmetics</bold> (e.g. Swiss stone pine, mountain pine, lavender)",
-          "4": "<bold>Covered parking directly at the property</bold>",
-          "5": "<bold>Complimentary firewood</bold> for cosy evenings",
-          "6": "<bold>Welcome selection</bold>: small regional products (e.g. tea, herbs, honey)",
-          "7": "<bold>1 complimentary sled</bold> (winter, subject to availability)",
-          "8": "<bold>2 complimentary e-bikes and bicycles</bold> (summer, subject to availability)",
-          "9": "<bold>Free loan</bold> of backpacks and thermal flasks",
-          "10": "Pure relaxation in the luxurious MALIA-atmosphere"
+          "3": "<bold>Covered parking directly at the property</bold>",
+          "4": "<bold>Complimentary firewood</bold> for cosy evenings",
+          "5": "<bold>Welcome selection</bold>: small regional products (e.g. tea, herbs)",
+          "6": "<bold>1 complimentary sled</bold> (winter, subject to availability)",
+          "7": "<bold>2 complimentary e-bikes and bicycles</bold> (summer, subject to availability)",
+          "8": "<bold>Free loan</bold> of backpacks",
+          "9": "Pure relaxation in the luxurious MALIA-atmosphere"
         }
       },
       "2": {
@@ -397,21 +394,28 @@
           "0": "<bold>7 nights</bold> in an alpine luxury chalet (1 night complimentary)",
           "1": "<bold>1 bottle of sparkling wine</bold> as a welcome gift",
           "2": "<bold>Private wellness area</bold> with sauna, infrared cabin & freestanding bathtub",
-          "3": "<bold>High-quality natural cosmetics</bold> (e.g. Swiss stone pine, mountain pine, lavender)",
-          "4": "<bold>Complimentary firewood</bold> for cosy evenings",
-          "5": "<bold>Welcome selection</bold> with small regional products (e.g. tea, herbs, honey)",
-          "6": "<bold>Covered parking</bold> directly at the property",
-          "7": "<bold>1 complimentary sled</bold> (winter, subject to availability)",
-          "8": "<bold>2 complimentary e-bikes and bicycles</bold> (summer, subject to availability)",
-          "9": "<bold>Free loan</bold> of backpacks & thermal flasks",
-          "10": "Pure relaxation in the luxurious MALIA-atmosphere"
+          "3": "<bold>Complimentary firewood</bold> for cosy evenings",
+          "4": "<bold>Welcome selection</bold> with small regional products (e.g. tea, herbs)",
+          "5": "<bold>Covered parking</bold> directly at the property",
+          "6": "<bold>1 complimentary sled</bold> (winter, subject to availability)",
+          "7": "<bold>2 complimentary e-bikes and bicycles</bold> (summer, subject to availability)",
+          "8": "<bold>Free loan</bold> of backpacks",
+          "9": "Pure relaxation in the luxurious MALIA-atmosphere"
         }
       }
     }
   },
   "TheSetting": {
     "hero": {
-      "title": "The Setting"
+      "title": "The Setting",
+      "subtitle": "Experience Achensee"
+    },
+    "shortcuts": {
+      "tips": "Our Tips",
+      "winter": "Winter",
+      "summer": "Summer",
+      "map": "Interactive Map",
+      "atoll": "Atoll - Gym & Leisure"
     },
     "winter": {
       "title": "Winter at Lake Achensee",
@@ -438,7 +442,7 @@
       "lake": {
         "title": "The Lake during winter",
         "desc": "Even in winter, Lake Achensee is there. Still, vast, and clear.<br></br>Winter walks along the shore, crisp air, sparkling snow – a place to breathe deeply and pause, right between mountain and water.",
-        "btn": "Get your offer for alpine luxury in winter"
+        "btn": "GET YOUR OFFER FOR QUIET LUXURY IN WINTER"
       }
     },
     "summer": {
@@ -448,34 +452,53 @@
         "0": {
           "title": "Time for the Outdoors",
           "desc": "Around MALIA, summer begins right outside your door. In the Karwendel and Rofan mountains, hiking trails lead through forests, across alpine pastures, and up to quiet viewpoints. With every step, your mind feels lighter, your rhythm calmer. You set off, pause, and take it in. Cool your feet in a mountain stream, breathe in the clear air — and realize how little it takes to be fully present.",
-          "link": "→ Discover the Achensee hiking guide"
+          "link": "→ Discover the Achensee hiking guide",
+          "url": "#"
         },
         "1": {
-          "title": "Golf with a View",
-          "desc": "Just a few steps from MALIA lies the Golf & Landclub Achensee — the oldest golf course in Tyrol, nestled between the Karwendel mountains and the lake. The 18-hole course in Pertisau combines tranquility with playful challenge. Gentle terrain, clean lines, and views that accompany every swing.",
-          "link": "→ Discover Golfclub Achensee"
+          "title": "Biking Between Mountains & Lake",
+          "desc": "Lake Achensee is a quiet favorite for mountain bikers and e-bikers. Over 250 kilometers of marked trails lead through the Karwendel, Rofan, and the Vorkarwendel — from relaxed lakeside routes to demanding climbs. Whether sporty or leisurely with an e-bike: you move through a landscape that offers space without ever being loud.",
+          "link": "Mountainbiking & Cycling at Lake Achensee | Summer Holiday Tyrol",
+          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668428927374&cot=14"
         },
         "2": {
-          "title": "Biking Between Mountains & Lake",
-          "desc": "Lake Achensee is a quiet favorite for mountain bikers and e-bikers. Over 250 kilometers of marked trails lead through the Karwendel, Rofan, and the Vorkarwendel — from relaxed lakeside routes to demanding climbs. Whether sporty or leisurely with an e-bike: you move through a landscape that offers space without ever being loud."
+          "title": "Golf with a View",
+          "desc": "Just a few steps from MALIA lies the Golf & Landclub Achensee — the oldest golf course in Tyrol, nestled between the Karwendel mountains and the lake. The 18-hole course in Pertisau combines tranquility with playful challenge. Gentle terrain, clean lines, and views that accompany every swing.",
+          "link": "→ Discover Golfclub Achensee",
+          "url": "#"
         },
         "3": {
           "title": "Running & Walking",
-          "desc": "Around the lake, you'll find routes for running, jogging, and Nordic walking. Sometimes flat along the water, sometimes more challenging towards the mountains. You move through open landscapes, hear the water, feel the ground beneath your feet — and run not against time, but with it."
+          "desc": "Around the lake, you'll find routes for running, jogging, and Nordic walking. Sometimes flat along the water, sometimes more challenging towards the mountains. You move through open landscapes, hear the water, feel the ground beneath your feet — and run not against time, but with it.",
+          "link": "Running at Achensee | Running holiday Tyrol",
+          "url": "https://www.achensee.com/de/sommerurlaub/laufsport-tirol-oesterreich/"
         },
         "4": {
           "title": "On the Rocks",
-          "desc": "The Rofan and Karwendel ranges are among Tyrol's most diverse climbing areas. Sport climbing, via ferratas, or alpine routes — all set within a landscape that demands respect and rewards it. For beginners and experienced climbers alike, there are routes, courses, and guided tours. The view from above: vast. The moment: clear."
+          "desc": "The Rofan and Karwendel ranges are among Tyrol's most diverse climbing areas. Sport climbing, via ferratas, or alpine routes — all set within a landscape that demands respect and rewards it. For beginners and experienced climbers alike, there are routes, courses, and guided tours. The view from above: vast. The moment: clear.",
+          "link": "Climbing at Lake Achensee | Holiday in Tyrol, Austria",
+          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668428639876&cot=14"
         },
         "5": {
           "title": "Encounters that Slow You Down",
-          "desc": "For those seeking something even calmer, experience the landscape on an alpaca hike. Slow steps, gentle animals, open paths. You walk through nature, accompany — or are accompanied — and take home a lasting sense of calm."
+          "desc": "For those seeking something even calmer, experience the landscape on an alpaca hike. Slow steps, gentle animals, open paths. You walk through nature, accompany — or are accompanied — and take home a lasting sense of calm.",
+          "link": "Alpaca walk in Tyrol at beautiful Lake Achensee - Achensee-Alpaca",
+          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668428483451&cot=14"
         },
         "6": {
-          "title": "More Than Just Peaceful",
-          "desc": "Sometimes, a little more excitement is welcome. Rafting, canyoning, paragliding, or a flight with the AirRofan bring movement into your summer — always well-guided and tailored to your ability. You decide how high, how fast, how intense. Or whether you simply return to the lake afterwards."
+          "title": "Cattle Drive at Lake Achensee",
+          "desc": "When autumn arrives, it is time for the return to Lake Achensee: The cows move from the alpine pasture back to their stalls. The cattle drives take place here from mid-September to early October. More detailed information can be found here:",
+          "link": "Cattle drives at Lake Achensee | Tyrol Austria",
+          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668428639162&cot=14"
+        },
+        "7": {
+          "title": "Water Sports",
+          "desc": "Water lovers take note, Lake Achensee has a lot to offer: from sailing, kite or windsurfing, to stand-up paddling, kayaking and diving. All information can be found here:",
+          "link": "Water sports in Tyrol | Summer holiday at Lake Achensee",
+          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668430207748&cot=14"
         }
-      }
+      },
+      "btn": "BOOK YOUR SUMMER HOLIDAY NOW"
     },
     "map": {
       "title": "Interactive Map",
@@ -527,7 +550,7 @@
     "company_title": "MALIA Alpine Hideaway",
     "company_owner": "Family Madleine & Julia Rieser<br></br>Ländbergstraße 6<br></br>6213 Pertisau am Achensee<br></br>Austria",
     "contact_title": "Contact",
-    "contact_info": "Phone: +43 123 456 789<br></br>Email: info@malia-alpine-hideaway.at<br></br>Web: www.malia-alpine-hideaway.at",
+    "contact_info": "Julia: +43 676 5925596<br></br>Email: info@malia-alpine-hideaway.at<br></br>Web: www.malia-alpine-hideaway.at",
     "info_title": "Information",
     "info_details": "VAT Number: ATU12345678<br></br>Competent Chamber: Tyrol Chamber of Commerce<br></br>Place of Jurisdiction: Schwaz",
     "dispute": "Consumers have the option to submit complaints to the EU Online Dispute Resolution platform: <link>http://ec.europa.eu/odr</link>. You can also send any complaints to the email address given above."
@@ -549,7 +572,7 @@
     "canceled": "Booking cancelled. You have not been charged and no reservation has been made.",
     "subtitle": "Reservation",
     "title": "Your Stay",
-    "description": "Choose your desired travel dates and secure your alpine hideaway in the Villa Tirol.",
+    "description": "Choose your desired travel dates and secure your alpine hideaway.",
     "loading": "Loading..."
   },
   "BookingForm": {
@@ -587,7 +610,7 @@
     "email_label": "Email Address *",
     "email_placeholder": "john@example.com",
     "phone_label": "Phone Number *",
-    "phone_placeholder": "+44 123 45678",
+    "phone_placeholder": "+43 676 5925596",
     "address_label": "Address (Street, ZIP, City) *",
     "address_placeholder": "Sample Street 1, London",
     "notes_label": "Special Requests / Notes",

@@ -81,12 +81,7 @@ export default function OurHideawaysContent() {
                 <div className="absolute inset-0 bg-black/10" />
 
                 <div className="relative z-10 h-full flex flex-col items-center justify-center text-white text-center">
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="mb-6">
-                        <svg width="60" height="80" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M50 10L85 60H70L95 90H60L85 110H15L40 90H5L30 60H15L50 10Z" stroke="white" strokeWidth="1.2" />
-                        </svg>
-                    </motion.div>
-                    <motion.h1 initial={{ opacity: 0, letterSpacing: "0.2em" }} animate={{ opacity: 1, letterSpacing: "0.4em" }} className="text-4xl md:text-7xl font-serif uppercase tracking-[0.4em] font-light px-4">{t('hero.title')}</motion.h1>
+                    <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-6xl font-serif font-light px-4">{t('hero.title')}</motion.h1>
                     <div className="absolute bottom-24 flex flex-col items-center">
                         <span className="uppercase tracking-[0.4em] text-[10px] mb-4 font-light opacity-80 italic">{t('hero.subtitle')}</span>
                         <div className="w-[1px] h-12 bg-white/40" />
@@ -95,7 +90,7 @@ export default function OurHideawaysContent() {
             </section>
 
             {/* --- 2. INTRO TEXT --- */}
-            <section className="py-24 md:py-40 px-6 bg-white text-center">
+            <section className="pt-24 pb-0 md:pt-32 md:pb-0 px-6 bg-white text-center">
                 <SectionHeader
                     title={t('intro.title')}
                     description={
@@ -108,14 +103,14 @@ export default function OurHideawaysContent() {
             </section>
 
             {/* --- 3. SLIDER SECTION --- */}
-            <section className="py-24 bg-white overflow-hidden relative">
+            <section className="pt-0 pb-24 md:pt-0 md:pb-32 bg-white overflow-hidden relative">
                 <div className="max-w-[1800px] mx-auto px-6 flex relative">
                     <div className="hidden md:block w-16 relative"><span className="absolute top-0 left-0 origin-top-left -rotate-90 translate-y-40 whitespace-nowrap text-[10px] uppercase tracking-[0.6em] font-bold text-gray-400">{t('suites.label')}</span></div>
                     <div className="flex-1 relative">
                         <motion.div animate={{ x: isMobile ? 0 : `-${currentIndex * 55}%` }} transition={{ type: "spring", stiffness: 80, damping: 20 }} className="flex flex-col md:flex-row gap-16 md:gap-12">
                             {SUITES.map((suite, index) => (
                                 <div key={index} onClick={() => handleSuiteClick(index)} className={`w-full md:w-auto md:min-w-[50%] flex-shrink-0 transition-opacity duration-700 cursor-pointer ${currentIndex === index ? 'opacity-100' : 'opacity-100 md:opacity-30 md:hover:opacity-50'}`}>
-                                    <div className="aspect-[4/3] overflow-hidden shadow-sm relative bg-stone-100">
+                                    <div className="aspect-[4/5] overflow-hidden shadow-sm relative bg-stone-100">
                                         <Image
                                             src={suite.img}
                                             fill
@@ -150,7 +145,7 @@ export default function OurHideawaysContent() {
                                         </div>
 
                                         <div className="mt-4 pt-4 border-t border-gray-200 w-full text-center sm:text-left">
-                                            <Button href={loc("/booking")} variant="primary" className="text-[10px] w-full sm:w-auto">{t('suites.btn_book')}</Button>
+                                            <Button href={loc("/booking")} variant="sage" className="text-[10px] w-full sm:w-auto">{t('suites.btn_book')}</Button>
                                         </div>
                                     </div>
                                 </div>
@@ -180,15 +175,15 @@ export default function OurHideawaysContent() {
                             <AccordionItem title={t('faq.q_location')}>
                                 <p>{t.rich('faq.a_location_1', richOptions)}</p>
                                 <p className="mt-4">{t('faq.a_location_2')}</p>
-                                <p className="mt-6 font-bold uppercase tracking-widest text-[#7d3a2a] text-[10px]">{t('faq.a_location_train_title')}</p>
+                                <p className="mt-6 font-bold uppercase tracking-widest text-[#3d3d29] text-[10px]">{t('faq.a_location_train_title')}</p>
                                 <p className="mt-2">{t.rich('faq.a_location_train', richOptions)}</p>
                             </AccordionItem>
                             
                             <AccordionItem title={t('faq.q_prices')}>
                                 <ul className="space-y-4 list-disc pl-4">
-                                    <li>{t('faq.a_prices_1')}</li>
-                                    <li>{t('faq.a_prices_2')}</li>
-                                    <li>{t('faq.a_prices_3')}</li>
+                                    <li>{t.rich('faq.a_prices_1', richOptions)}</li>
+                                    <li>{t.rich('faq.a_prices_2', richOptions)}</li>
+                                    <li>{t.rich('faq.a_prices_3', richOptions)}</li>
                                 </ul>
                             </AccordionItem>
                             
@@ -212,8 +207,6 @@ export default function OurHideawaysContent() {
                                     <li>{t('faq.a_payment_1')}</li>
                                     <li>{t('faq.a_payment_2')}</li>
                                     <li>{t('faq.a_payment_3')} <a href="mailto:info@malia-alpine-hideaway.at" className="hover:text-stone-900 transition-colors">info@malia-alpine-hideaway.at</a></li>
-                                    <li className="text-[#7d3a2a]">{t.rich('faq.a_payment_4', richOptions)}</li>
-                                    <li className="text-[#7d3a2a]">{t.rich('faq.a_payment_5', richOptions)}</li>
                                 </ul>
                             </AccordionItem>
                             

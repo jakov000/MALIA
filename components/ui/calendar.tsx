@@ -18,7 +18,7 @@ function Calendar({
       showOutsideDays={showOutsideDays}
       className={cn("p-4 bg-white font-sans", className)}
       style={{
-        "--rdp-accent-color": "#7d3a2a",
+        "--rdp-accent-color": "#3d3d29",
         "--rdp-accent-background-color": "#f8f3f2",
         "--rdp-day-height": "42px",
         "--rdp-day-width": "42px",
@@ -28,7 +28,7 @@ function Calendar({
         caption_label: "text-lg font-serif tracking-wider uppercase",
         nav_button: "bg-stone-50 hover:bg-stone-100 transition-colors rounded-full p-2 border border-stone-200",
         weekday: "text-stone-400 capitalize font-medium text-[0.7rem] pb-4 tracking-widest",
-        today: "font-bold text-[#7d3a2a]",
+        today: "font-bold text-[#3d3d29]",
         ...classNames,
       }}
       {...props}

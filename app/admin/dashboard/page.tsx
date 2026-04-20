@@ -17,7 +17,7 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-stone-50 flex flex-col md:flex-row font-sans">
       
       {/* Sidebar */}
-      <aside className="w-full md:w-64 bg-stone-900 text-white flex flex-col">
+      <aside className="w-full md:w-64 bg-[#3d3d29] text-white flex flex-col">
         <div className="p-6">
           <h2 className="text-xl font-serif tracking-widest uppercase">Malia - Alpine Hideaway</h2>
           <span className="text-xs text-stone-400 uppercase tracking-widest font-bold block mt-1">Admin Portal</span>

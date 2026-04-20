@@ -110,7 +110,7 @@ export default function BookingsTable() {
                   <div className="text-xs text-stone-500">{b.guestEmail}</div>
                 </td>
                 <td className="px-6 py-4">
-                  <span className="inline-block px-2 py-0.5 bg-stone-100 text-[#7d3a2a] text-[10px] uppercase tracking-wider rounded-sm font-bold mb-1.5">{b.room}</span>
+                  <span className="inline-block px-2 py-0.5 bg-stone-100 text-[#3d3d29] text-[10px] uppercase tracking-wider rounded-sm font-bold mb-1.5">{b.room}</span>
                   <div className="text-stone-900 block">{format(new Date(b.startDate), "dd.MM.yyyy")}</div>
                   <div className="text-stone-500 text-xs mt-0.5">bis {format(new Date(b.endDate), "dd.MM.yyyy")}</div>
                 </td>

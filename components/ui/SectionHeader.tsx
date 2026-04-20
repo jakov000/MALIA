@@ -18,9 +18,9 @@ export default function SectionHeader({
     uppercaseTitle = true
 }: SectionHeaderProps) {
     return (
-        <div className={`max-w-4xl mx-auto ${centered ? 'text-center' : 'text-left'} mb-16 md:mb-24`}>
+        <div className={`max-w-4xl mx-auto ${centered ? 'text-center' : 'text-left'} mb-8 md:mb-12`}>
             {subtitle && (
-                <span className={`text-[10px] uppercase tracking-[0.4em] font-bold block mb-4 ${light ? 'text-white/70' : 'text-[#7d3a2a]'}`}>
+                <span className={`text-[10px] uppercase tracking-[0.4em] font-bold block mb-4 ${light ? 'text-white/70' : 'text-[#3d3d29]'}`}>
                     {subtitle}
                 </span>
             )}

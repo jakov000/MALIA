@@ -114,7 +114,7 @@ export default function AdminCalendar() {
             <input type="text" value={reason} onChange={e => setReason(e.target.value)} placeholder="z.B. Reparatur" className="w-full border-b border-stone-300 py-2 focus:border-stone-900 focus:outline-none bg-transparent" />
           </div>
           <div className="md:col-span-1">
-            <button type="submit" disabled={creating || !startDate || !endDate} className="w-full bg-stone-900 text-white flex items-center justify-center space-x-2 py-3 rounded-md hover:bg-stone-800 transition-colors uppercase tracking-widest text-xs disabled:opacity-50">
+            <button type="submit" disabled={creating || !startDate || !endDate} className="w-full bg-[#bcc2b2] text-stone-800 font-bold flex items-center justify-center space-x-2 py-3 rounded-md hover:bg-[#b0b8a5] transition-colors uppercase tracking-widest text-xs disabled:opacity-50">
               {creating ? <Loader2 className="animate-spin" size={16} /> : <Plus size={16} />}
               <span>Sperren</span>
             </button>

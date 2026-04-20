@@ -25,7 +25,7 @@ export default function ImageSlideshow({ images, title }: { images: string[], ti
 
     if (!images || images.length === 0) {
         return (
-             <div className="relative w-full h-full min-h-[600px] bg-stone-200 flex flex-col items-center justify-center border border-stone-300">
+             <div className="relative w-full h-full bg-stone-200 flex flex-col items-center justify-center border border-stone-300">
                 <span className="text-stone-400 uppercase tracking-widest text-xs font-bold mb-2">Bilder Position</span>
              </div>
         );
@@ -44,7 +44,7 @@ export default function ImageSlideshow({ images, title }: { images: string[], ti
     return (
         <>
             <div 
-                className="relative w-full h-full min-h-[600px] overflow-hidden bg-stone-100 shadow-sm cursor-pointer group"
+                className="relative w-full h-full overflow-hidden bg-stone-100 shadow-sm cursor-pointer group"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 onClick={() => setLightboxOpen(true)}

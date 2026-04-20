@@ -88,7 +88,7 @@ export default function SettingsPanel() {
         {configs.map(config => (
           <div key={config.id} className="bg-white border border-stone-200 p-6 rounded-sm shadow-sm">
             <div className="flex justify-between items-start mb-6">
-              <h2 className="text-xl font-serif uppercase tracking-widest text-[#7d3a2a]">{config.roomName}</h2>
+              <h2 className="text-xl font-serif uppercase tracking-widest text-[#3d3d29]">{config.roomName}</h2>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -150,7 +150,7 @@ export default function SettingsPanel() {
               <button 
                 onClick={() => saveConfig(config)}
                 disabled={savingId === config.id}
-                className="bg-stone-900 text-white px-8 py-3 uppercase tracking-widest text-xs font-bold hover:bg-stone-700 transition-colors flex items-center gap-2 disabled:opacity-50"
+                className="bg-[#bcc2b2] text-stone-800 px-8 py-3 uppercase tracking-widest text-xs font-bold hover:bg-[#b0b8a5] transition-colors flex items-center gap-2 disabled:opacity-50"
               >
                 {savingId === config.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                 Speichern

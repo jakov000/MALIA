@@ -58,7 +58,7 @@
   },
   "Hideaways": {
     "hero": {
-      "title": "Inspired by Nature, Designed for YOU!",
+      "title": "Inspired by Nature, designed for You!",
       "subtitle": "scroll for happiness"
     },
     "intro": {
@@ -92,7 +92,7 @@
       "a_location_train": "Auch ohne Auto ist die Anreise kein Problem. Der nächstgelegene Bahnhof ist <bold>Jenbach</bold>, nur rund 15 Minuten vom Achensee entfernt.",
       "q_prices": "Preise",
       "a_prices_1": "Die Preise verstehen sich pro Nacht. Sie verstehen sich ohne Verpflegung.",
-      "a_prices_2": "The Retreat 45€, The Residence 120€, The Hideaway 150€,-",
+      "a_prices_2": "<bold>Endreinigung:</bold> The Retreat 45€, The Residence 120€, The Hideaway 150€",
       "a_prices_3": "Kurtaxe: € 3,- pro Person und Nacht - Kinder bis 14 Jahre sind von der Kurtaxe befreit.",
       "q_checkin_out": "Check-In / Check-Out",
       "a_checkin": "<bold>Check-In:</bold> am Anreisetag ab 15.00 Uhr",
@@ -105,10 +105,8 @@
       "a_payment_1": "• Bar (Euro) bei Ankunft",
       "a_payment_2": "• vorab Überweisung (Spesenfrei) auf oben genanntes Konto - muss vor Abreise auf unserem Konto verbucht sein",
       "a_payment_3": "• Paypal:",
-      "a_payment_4": "• EC-Karte (Maestro)",
-      "a_payment_5": "• +2% Zuschlag bei Zahlung mit Kreditkarte (Visa + Mastercard), auch bei Debit-Card & V-Pay (Visa + MC)",
       "q_pets": "Haustiere",
-      "a_pets": "Hunde sind auf Anfrage im <bold>\"The Retreat\"</bold> willkommen (nur nicht haarende Rassen). Bitte kontaktiere uns vorab. Eine zusätzliche Endreinigung für Hunde wird berechnet."
+      "a_pets": "Haustiere sind auf Anfrage willkommen. Bitte kontaktiert uns vorab, sodass auch eure vierbeiner Freunde einen angenehmen Aufenthalt bei uns genießen."
     },
     "quote": "„Einfach ankommen & glücklich sein.“"
   },
@@ -131,7 +129,7 @@
         "<bold>Ski- & Abstellraum</bold> mit Skischuhtrockner",
         "<bold>Kostenlose, überdachte Parkplätze</bold> direkt am Haus"
       ],
-      "price": "ab € 1100",
+      "price": "ab € 800",
       "persons": "2-10 Personen",
       "sqm": "400 qm",
       "scroll": "Scrollen, um die Zimmer zu erleben"
@@ -157,7 +155,7 @@
         "<bold>Smart-TV</bold>",
         "<bold>Kostenlose, überdachte Parkplätze</bold> direkt am Haus"
       ],
-      "price": "ab € 1200",
+      "price": "ab € 650",
       "persons": "2-8 Personen",
       "sqm": "360 qm",
       "scroll": "Scrollen, um die Zimmer zu erleben"
@@ -181,7 +179,7 @@
         "<bold>Kostenlose, überdachte Parkplätze</bold> direkt am Haus",
         "<bold>Naturmaterialien & Calm-Luxury-Design</bold>"
       ],
-      "price": "ab € 45",
+      "price": "ab € 160",
       "persons": "2 Personen",
       "sqm": "40 qm",
       "scroll": "Scrollen, um die Zimmer zu erleben"
@@ -296,54 +294,54 @@
   },
   "TheFeeling": {
     "hero": {
-      "title": "THE FEELING",
+      "title": "The Feeling",
       "subtitle": "explore the soul of malia"
     },
     "areas": {
       "room-1": {
         "category": "The Hideaway",
-        "title": "Zimmer 1",
-        "subtitle": "Private Retreat"
+        "title": "The Meadowside",
+        "subtitle": ""
       },
       "room-2": {
         "category": "The Residence",
-        "title": "Zimmer 2",
-        "subtitle": "Alpine Comfort"
+        "title": "The Lakeside",
+        "subtitle": ""
       },
       "room-3": {
         "category": "The Retreat",
-        "title": "Zimmer 3",
-        "subtitle": "Modern Stillness"
+        "title": "The Sunside",
+        "subtitle": ""
       },
       "room-4": {
         "category": "Alpine Loft",
-        "title": "Zimmer 4",
-        "subtitle": "Nature View"
+        "title": "The Mountainside",
+        "subtitle": ""
       },
       "room-5": {
         "category": "Summit Loft",
-        "title": "Zimmer 5",
-        "subtitle": "Skyline Suite"
+        "title": "The Retreat",
+        "subtitle": ""
       },
       "wellness": {
         "category": "Relax",
         "title": "Wellnessbereich",
-        "subtitle": "Sauna & Infrarot"
+        "subtitle": "Sauna & Infrarot & freistehende Badewanne"
       },
       "kitchen": {
         "category": "Living",
         "title": "Küche",
-        "subtitle": "Ehrliche Materialien"
+        "subtitle": "Weinkühlschrank & Dampfgarer"
       },
       "living": {
         "category": "Community",
         "title": "Wohnzimmer",
-        "subtitle": "Feuer & Stein"
+        "subtitle": "Ofen, Flat TV, Plattenspieler"
       },
       "outdoor": {
         "category": "Nature",
         "title": "Außenbereich",
-        "subtitle": "Karwendel-Blick"
+        "subtitle": "270° Panorama View"
       }
     }
   },
@@ -376,14 +374,13 @@
           "0": "<bold>5 Nächte</bold> in Deinem alpinen Luxus-Chalet",
           "1": "<bold>1 Flasche Sekt</bold> zur Begrüßung",
           "2": "<bold>Privater Wellnessbereich</bold> (Sauna, Infrarot, freistehende Badewanne)",
-          "3": "<bold>Hochwertige Naturkosmetik</bold> (z. B. Zirbe, Latschenkiefer, Lavendel)",
-          "4": "<bold>Überdachte Parkplätze</bold> direkt am Haus",
-          "5": "<bold>Kostenloses Kaminholz</bold> für gemütliche Abende",
-          "6": "<bold>Welcome Selection</bold>: kleine regionale Produkte (z. B. Tee, Kräuter, Honig)",
-          "7": "<bold>1 Gratis Leih-Rodel</bold> (im Winter nach Verfügbarkeit)",
-          "8": "<bold>2 Gratis Leih-E-Bikes und Räder</bold> (nach Verfügbarkeit; im Sommer)",
-          "9": "<bold>Kostenloser Verleih</bold> von Rucksäcken und Thermoskannen",
-          "10": "Herrliches Erholen im luxuriösen MALIA-Ambiente"
+          "3": "<bold>Überdachte Parkplätze</bold> direkt am Haus",
+          "4": "<bold>Kostenloses Kaminholz</bold> für gemütliche Abende",
+          "5": "<bold>Welcome Selection</bold>: kleine regionale Produkte (z. B. Tee, Kräuter)",
+          "6": "<bold>1 Gratis Leih-Rodel</bold> (im Winter nach Verfügbarkeit)",
+          "7": "<bold>2 Gratis Leih-E-Bikes und Räder</bold> (nach Verfügbarkeit; im Sommer)",
+          "8": "<bold>Kostenloser Verleih</bold> von Rucksäcken",
+          "9": "Herrliches Erholen im luxuriösen MALIA-Ambiente"
         }
       },
       "2": {
@@ -397,21 +394,28 @@
           "0": "<bold>7 Nächte</bold> in Deinem alpinen Luxus-Chalet (1 Nacht geschenkt)",
           "1": "<bold>1 Flasche Sekt</bold> zur Begrüßung",
           "2": "<bold>Privater Wellnessbereich</bold> mit Sauna, Infrarot & freistehender Badewanne",
-          "3": "<bold>Hochwertige Naturkosmetik</bold> (z. B. Zirbe, Latschenkiefer, Lavendel)",
-          "4": "<bold>Kostenloses Kaminholz</bold> für gemütliche Abende",
-          "5": "<bold>Welcome Selection</bold> mit kleinen regionalen Produkten (z. B. Tee, Kräuter, Honig)",
-          "6": "<bold>Überdachte Parkplätze</bold> direkt am Haus",
-          "7": "<bold>1 Gratis Leih-Rodel</bold> (Winter, nach Verfügbarkeit)",
-          "8": "<bold>2 Gratis Leih-E-Bikes und Fahrräder</bold> (Sommer, nach Verfügbarkeit)",
-          "9": "<bold>Kostenloser Verleih</bold> von Rucksäcken & Thermoskannen",
-          "10": "Herrliches Erholen im luxuriösen MALIA-Ambiente"
+          "3": "<bold>Kostenloses Kaminholz</bold> für gemütliche Abende",
+          "4": "<bold>Welcome Selection</bold> mit kleinen regionalen Produkten (z. B. Tee, Kräuter)",
+          "5": "<bold>Überdachte Parkplätze</bold> direkt am Haus",
+          "6": "<bold>1 Gratis Leih-Rodel</bold> (Winter, nach Verfügbarkeit)",
+          "7": "<bold>2 Gratis Leih-E-Bikes und Fahrräder</bold> (Sommer, nach Verfügbarkeit)",
+          "8": "<bold>Kostenloser Verleih</bold> von Rucksäcken",
+          "9": "Herrliches Erholen im luxuriösen MALIA-Ambiente"
         }
       }
     }
   },
   "TheSetting": {
     "hero": {
-      "title": "The Setting"
+      "title": "The Setting",
+      "subtitle": "Achensee erleben"
+    },
+    "shortcuts": {
+      "tips": "Unsere Tipps",
+      "winter": "Winter",
+      "summer": "Sommer",
+      "map": "interaktive Karte",
+      "atoll": "Atoll - Gym & Freizeit"
     },
     "winter": {
       "title": "Winter am Achensee",
@@ -438,7 +442,7 @@
       "lake": {
         "title": "Der See im Winter",
         "desc": "Auch im Winter ist der Achensee da. Still, weit und klar.<br></br>Winterspaziergänge am Ufer, kalte Luft, glitzernder Schnee – ein Ort zum Durchatmen und Innehalten, mitten zwischen Berg und Wasser.",
-        "btn": "Hol dir dein Angebot für ruhigen Luxus im Winter"
+        "btn": "HOL DIR DEIN ANGEBOT FÜR RUHIGEN LUXUS IM WINTER"
       }
     },
     "summer": {
@@ -448,34 +452,53 @@
         "0": {
           "title": "Zeit fürs Draußensein",
           "desc": "Rund um das MALIA beginnt der Sommer direkt vor der Tür. Im Karwendel und im Rofangebirge führen Wanderwege durch Wälder, über Almen und hinauf zu stillen Aussichtspunkten. Mit jedem Schritt wird der Kopf freier, der Rhythmus ruhiger. Du gehst los, bleibst stehen, schaust. Kühlst die Füße im Bergbach, atmest die klare Luft – und merkst, wie wenig es braucht, um ganz im Moment zu sein.",
-          "link": "→ Wanderführer Achensee entdecken"
+          "link": "→ Wanderführer Achensee entdecken",
+          "url": "#"
         },
         "1": {
-          "title": "Golfen mit Weitblick",
-          "desc": "Nur wenige Schritte vom MALIA entfernt liegt der Golf- & Landclub Achensee – der älteste Golfplatz Tirols, eingebettet zwischen Karwendel und See. Der 18-Loch-Platz in Pertisau verbindet Ruhe mit spielerischer Herausforderung. Sanftes Gelände, klare Linien und ein Ausblick, der jeden Abschlag begleitet.",
-          "link": "→ Golfclub Achensee entdecken"
+          "title": "Biken zwischen Berg & See",
+          "desc": "Der Achensee gilt als stiller Favorit für Mountainbiker und E-Biker. Über 250 Kilometer beschilderte Strecken führen durch Karwendel, Rofan und das Vorkarwendel – von entspannten Seerunden bis zu anspruchsvollen Höhenmetern. Ob sportlich oder gemütlich mit E-Bike: Du bist unterwegs in einer Landschaft, die Weite schenkt, ohne laut zu sein.",
+          "link": "Mountainbiken & Radfahren am Achensee | Sommerurlaub Tirol",
+          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668428927374&cot=14"
         },
         "2": {
-          "title": "Biken zwischen Berg & See",
-          "desc": "Der Achensee gilt als stiller Favorit für Mountainbiker und E-Biker. Über 250 Kilometer beschilderte Strecken führen durch Karwendel, Rofan und das Vorkarwendel – von entspannten Seerunden bis zu anspruchsvollen Höhenmetern. Ob sportlich oder gemütlich mit E-Bike: Du bist unterwegs in einer Landschaft, die Weite schenkt, ohne laut zu sein."
+          "title": "Golfen mit Weitblick",
+          "desc": "Nur wenige Schritte vom MALIA entfernt liegt der Golf- & Landclub Achensee – der älteste Golfplatz Tirols, eingebettet zwischen Karwendel und See. Der 18-Loch-Platz in Pertisau verbindet Ruhe mit spielerischer Herausforderung. Sanftes Gelände, klare Linien und ein Ausblick, der jeden Abschlag begleitet.",
+          "link": "→ Golfclub Achensee entdecken",
+          "url": "#"
         },
         "3": {
           "title": "Laufen & Gehen",
-          "desc": "Rund um den See findest du Wege fürs Laufen, Joggen und Nordic Walking. Mal flach am Wasser, mal fordernder Richtung Berge. Du bewegst dich durch offene Landschaften, hörst das Wasser, spürst den Untergrund – und läufst nicht gegen die Zeit, sondern mit ihr."
+          "desc": "Rund um den See findest du Wege fürs Laufen, Joggen und Nordic Walking. Mal flach am Wasser, mal fordernder Richtung Berge. Du bewegst dich durch offene Landschaften, hörst das Wasser, spürst den Untergrund – und läufst nicht gegen die Zeit, sondern mit ihr.",
+          "link": "Laufsport Achensee | Laufurlaub Tirol",
+          "url": "https://www.achensee.com/de/sommerurlaub/laufsport-tirol-oesterreich/"
         },
         "4": {
           "title": "Am Fels",
-          "desc": "Rofan und Karwendel gehören zu den vielseitigsten Klettergebieten Tirols. Sportklettern, Klettersteige oder alpine Routen – alles eingebettet in eine Landschaft, die Respekt verlangt und belohnt. Für Einsteiger wie Geübte gibt es Routen, Kurse und geführte Touren. Der Blick von oben: weit. Der Moment: klar."
+          "desc": "Rofan und Karwendel gehören zu den vielseitigsten Klettergebieten Tirols. Sportklettern, Klettersteige oder alpine Routen – alles eingebettet in eine Landschaft, die Respekt verlangt und belohnt. Für Einsteiger wie Geübte gibt es Routen, Kurse und geführte Touren. Der Blick von oben: weit. Der Moment: klar.",
+          "link": "Klettern am Achensee | Österreich Urlaub in Tirol",
+          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668428639876&cot=14"
         },
         "5": {
           "title": "Begegnungen, die entschleunigen",
-          "desc": "Wer es noch ruhiger mag, erlebt die Landschaft bei einer Alpaka-Wanderung. Langsame Schritte, sanfte Tiere, offene Wege. Du gehst durch die Natur, begleitest – oder wirst begleitet – und nimmst eine Gelassenheit mit, die bleibt."
+          "desc": "Wer es noch ruhiger mag, erlebt die Landschaft bei einer Alpaka-Wanderung. Langsame Schritte, sanfte Tiere, offene Wege. Du gehst durch die Natur, begleitest – oder wirst begleitet – und nimmst eine Gelassenheit mit, die bleibt.",
+          "link": "Alpakaspaziergang in Tirol am schönen Achensee - Achensee-Alpaka",
+          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668428483451&cot=14"
         },
         "6": {
-          "title": "Mehr als nur ruhig",
-          "desc": "Manchmal darf es auch etwas mehr sein. Rafting, Canyoning, Paragleiten oder ein Flug mit dem AirRofan bringen Bewegung in den Sommer – immer gut begleitet und abgestimmt auf dein Können. Du entscheidest, wie hoch, wie schnell, wie intensiv. Oder ob du danach einfach wieder an den See gehst."
+          "title": "Almabtrieb am Achensee",
+          "desc": "Wenn der Herbst kommt, ist es am Achensee Zeit für die Rückkehr: Die Kühe ziehen von der Alm zurück in ihre Ställe. Die Almabtriebe finden hier von Mitte September bis Anfang Oktober statt. Genauere Infos findet ihr hier:",
+          "link": "Almabtriebe am Achensee | Tirol Österreich",
+          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668428639162&cot=14"
+        },
+        "7": {
+          "title": "Wassersport",
+          "desc": "Wasserratten aufgepasst, der Achensee hat einiges zu bieten: von Segeln, Kite- oder Windsurfen, bis zu Stand-Up paddeln, Kajakfahren und Tauchen. Alle Infos dazu findet ihr hier:",
+          "link": "Wassersport in Tirol | Sommerurlaub am Achensee",
+          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668430207748&cot=14"
         }
-      }
+      },
+      "btn": "JETZT DEINEN SOMMERURLAUB BUCHEN"
     },
     "map": {
       "title": "Interaktive Karte",
@@ -527,7 +550,7 @@
     "company_title": "MALIA Alpine Hideaway",
     "company_owner": "Familie Madleine & Julia Rieser<br></br>Ländbergstraße 6<br></br>6213 Pertisau am Achensee<br></br>Österreich",
     "contact_title": "Kontakt",
-    "contact_info": "Telefon: +43 123 456 789<br></br>E-Mail: info@malia-alpine-hideaway.at<br></br>Web: www.malia-alpine-hideaway.at",
+    "contact_info": "Julia: +43 676 5925596<br></br>Madleine: +43 676 6207866<br></br>E-Mail: info@malia-alpine-hideaway.at<br></br>Web: www.malia-alpine-hideaway.at",
     "info_title": "Informationen",
     "info_details": "UID-Nummer: ATU12345678<br></br>Zuständige Kammer: Wirtschaftskammer Tirol<br></br>Gerichtsstand: Schwaz",
     "dispute": "Verbraucher haben die Möglichkeit, Beschwerden an die Online-Streitbeilegungsplattform der EU zu richten: <link>http://ec.europa.eu/odr</link>. Sie können allfällige Beschwerde auch an die oben angegebene E-Mail-Adresse richten."
@@ -549,7 +572,7 @@
     "canceled": "Buchung abgebrochen. Du hast nichts bezahlt und es wurde keine Reservierung getätigt.",
     "subtitle": "Reservierung",
     "title": "Dein Aufenthalt",
-    "description": "Wähle deine gewünschten Reisedaten und sichere dir dein alpines Hideaway in der Villa Tirol.",
+    "description": "Wähle deine gewünschten Reisedaten und sichere dir dein alpines Hideaway.",
     "loading": "Lade..."
   },
   "BookingForm": {
@@ -587,7 +610,7 @@
     "email_label": "E-Mail Adresse *",
     "email_placeholder": "max@beispiel.de",
     "phone_label": "Telefonnummer *",
-    "phone_placeholder": "+43 123 45678",
+    "phone_placeholder": "+43 676 5925596",
     "address_label": "Anschrift (Straße, PLZ, Ort) *",
     "address_placeholder": "Musterstraße 1, 1010 Wien",
     "notes_label": "Sonderwünsche / Notizen",

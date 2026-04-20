@@ -52,7 +52,7 @@ export default function MaliaSpecialsContent() {
                             {/* --- MODAL INHALT --- */}
                             <div className="p-10 md:p-16 space-y-10">
                                 <div className="space-y-6 text-center">
-                                    <span className="text-[10px] uppercase tracking-[0.4em] text-[#7d3a2a] font-bold">{t('modal.label')}</span>
+                                    <span className="text-[10px] uppercase tracking-[0.4em] text-[#3d3d29] font-bold">{t('modal.label')}</span>
                                     <h2 className="text-3xl md:text-4xl font-serif text-stone-800 uppercase tracking-wide leading-tight">
                                         {t(`offers.${selectedSpecial}.title`)}
                                     </h2>
@@ -65,13 +65,13 @@ export default function MaliaSpecialsContent() {
                                 </div>
 
                                 <div className="bg-stone-50/80 p-8 border-y border-stone-100">
-                                    <p className="text-sm font-bold uppercase tracking-widest text-stone-800 mb-6 text-center">
+                                    <p className="text-sm font-bold uppercase tracking-widest text-[#3d3d29] mb-6 text-center">
                                         {t.rich(`offers.${selectedSpecial}.highlight`, richOptions)}
                                     </p>
                                     <ul className="space-y-3 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
-                                        {Array.from({ length: 11 }).map((_, i) => (
+                                        {Array.from({ length: 10 }).map((_, i) => (
                                             <li key={i} className="flex items-start gap-3 text-xs text-gray-600 font-light">
-                                                <Check size={14} className="text-[#7d3a2a] mt-0.5 flex-shrink-0" />
+                                                <Check size={14} className="text-[#3d3d29] mt-0.5 flex-shrink-0" />
                                                 <span>{t.rich(`offers.${selectedSpecial}.features.${i}`, richOptions)}</span>
                                             </li>
                                         ))}
@@ -79,7 +79,7 @@ export default function MaliaSpecialsContent() {
                                 </div>
 
                                 <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
-                                    <Button href={loc("/booking")} variant="primary" className="w-full sm:w-auto min-w-[200px]">{t('buttons.book')}</Button>
+                                    <Button href={loc("/booking")} variant="sage" className="w-full sm:w-auto min-w-[200px]">{t('buttons.book')}</Button>
                                     <Button href={loc("/inquiry")} variant="outline" className="w-full sm:w-auto min-w-[200px]">{t('buttons.inquiry')}</Button>
                                 </div>
                             </div>
@@ -100,15 +100,10 @@ export default function MaliaSpecialsContent() {
                 <div className="absolute inset-0 bg-black/10" />
 
                 <div className="relative z-10 h-full flex flex-col items-center justify-center text-white text-center px-6">
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="mb-6">
-                        <svg width="60" height="80" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M50 10L85 60H70L95 90H60L85 110H15L40 90H5L30 60H15L50 10Z" stroke="white" strokeWidth="1.2" />
-                        </svg>
-                    </motion.div>
                     <motion.h1
-                        initial={{ opacity: 0, letterSpacing: "0.2em" }}
-                        animate={{ opacity: 1, letterSpacing: "0.3em" }}
-                        className="text-4xl md:text-7xl font-serif uppercase tracking-[0.3em] font-light leading-tight"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-4xl md:text-7xl font-serif font-light leading-tight"
                     >
                         {t.rich('hero.title', richOptions)} <br />
                         <span className="text-xl md:text-3xl tracking-[0.5em] block mt-4 opacity-80 italic normal-case">{t('hero.subtitle')}</span>
@@ -121,7 +116,7 @@ export default function MaliaSpecialsContent() {
             </section>
 
             {/* --- 2. SPECIALS GRID SECTION --- */}
-            <section className="py-24 md:py-40 px-6 max-w-7xl mx-auto">
+            <section className="py-24 md:py-40 px-6 max-w-5xl mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
                     {SPECIALS.map((special) => (
                         <motion.div

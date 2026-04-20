@@ -26,16 +26,11 @@ export default function TheFeelingContent() {
                 <div className="absolute inset-0 bg-black/15" />
 
                 <div className="relative z-10 h-full flex flex-col items-center justify-center text-white text-center">
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2 }} className="mb-6">
-                        <svg width="60" height="80" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M50 10L85 60H70L95 90H60L85 110H15L40 90H5L30 60H15L50 10Z" stroke="white" strokeWidth="1.2" />
-                        </svg>
-                    </motion.div>
 
                     <motion.h1
-                        initial={{ opacity: 0, letterSpacing: "0.2em" }}
-                        animate={{ opacity: 1, letterSpacing: "0.4em" }}
-                        className="text-5xl md:text-7xl font-serif uppercase tracking-[0.4em] font-light"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-5xl md:text-7xl font-serif font-light px-4"
                     >
                         {t('hero.title')}
                     </motion.h1>
@@ -66,7 +61,7 @@ export default function TheFeelingContent() {
                                 >
                                     {/* Bild-Container (Slideshow) */}
                                     <div className="w-full md:w-3/5">
-                                        <div className="relative aspect-[4/5] md:aspect-[16/10] overflow-hidden bg-stone-100 shadow-sm">
+                                        <div className="relative aspect-[4/5] overflow-hidden bg-stone-100 shadow-sm">
                                             {area.images && area.images.length > 0 ? (
                                                 <ImageSlideshow images={area.images} title={title} />
                                             ) : (
@@ -85,9 +80,11 @@ export default function TheFeelingContent() {
                                         <h2 className="text-3xl md:text-5xl font-serif text-stone-800 uppercase tracking-wider leading-tight">
                                             {title}
                                         </h2>
-                                        <p className="text-xl md:text-2xl font-serif text-stone-500 italic">
-                                            {subtitle}
-                                        </p>
+                                        {subtitle && (
+                                            <p className="text-xl md:text-2xl font-serif text-stone-500 italic">
+                                                {subtitle}
+                                            </p>
+                                        )}
                                         <div className="pt-6">
                                             <div className="w-12 h-[1px] bg-stone-300" />
                                         </div>

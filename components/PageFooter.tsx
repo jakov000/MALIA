@@ -23,11 +23,7 @@ export default function PageFooter() {
                 <div className="flex flex-col md:flex-row items-center gap-10 mb-16">
                     <div className="flex items-center gap-8 text-gray-800">
                         <SocialLinks className="text-gray-800" iconSize={18} />
-                        <span className="text-[10px] font-bold cursor-pointer hover:text-black">SPOTIFY</span>
                     </div>
-                    <button className="px-10 py-3 border border-gray-400 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-white transition-all shadow-sm">
-                        {t('newsletter')}
-                    </button>
                 </div>
 
                 <div className="text-center text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-gray-400 font-sans leading-loose">

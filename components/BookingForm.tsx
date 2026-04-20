@@ -14,6 +14,11 @@ import { calculateStayPrice } from "@/lib/pricing";
 export default function BookingForm() {
   const t = useTranslations('BookingForm');
   const tRooms = useTranslations('Rooms');
+  
+  const richOptions = {
+    bold: (chunks: React.ReactNode) => <strong className="font-bold">{chunks}</strong>,
+    br: () => <br />,
+  };
   const [date, setDate] = useState<DateRange | undefined>({
     from: undefined,
     to: undefined,
@@ -273,12 +278,12 @@ export default function BookingForm() {
       <div className="lg:col-span-7 space-y-12">
         <div>
           <div className="mb-8">
-             <span className="text-[10px] uppercase tracking-[0.4em] text-[#7d3a2a] mb-2 block font-bold">{t('step1')}</span>
+             <span className="text-[10px] uppercase tracking-[0.4em] text-[#3d3d29] mb-2 block font-bold">{t('step1')}</span>
              <h2 className="text-3xl md:text-4xl font-serif text-stone-900 tracking-wide uppercase">{t('title1')}</h2>
           </div>
           
           <div className="mb-10 p-6 bg-[#fdfaf8] border border-[#f3e8e2] rounded-sm">
-            <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#7d3a2a] mb-4">{t('specials_title')}</h4>
+            <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#3d3d29] mb-4">{t('specials_title')}</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
                 <p className="text-xs font-bold text-stone-800 uppercase tracking-wider mb-1">{t('special_76_title')}</p>
@@ -383,7 +388,7 @@ export default function BookingForm() {
         </div>
 
         {date?.from && date?.to && (
-          <div className="bg-stone-900 text-white p-6 rounded-lg space-y-4">
+          <div className="bg-[#3d3d29] text-white p-6 rounded-lg space-y-4">
             <h3 className="font-serif text-xl tracking-wider">{t('stay_title')}</h3>
             <div className="flex justify-between text-sm font-light">
               <span>{t('checkin')}</span>
@@ -468,7 +473,7 @@ export default function BookingForm() {
       {/* Right Column: Form (Step 2) */}
       <div className={`lg:col-span-5 transition-opacity duration-700 mt-12 lg:mt-0 ${step === 2 ? 'opacity-100' : 'opacity-40 pointer-events-none'}`}>
         <div className="mb-8">
-             <span className="text-[10px] uppercase tracking-[0.4em] text-[#7d3a2a] mb-2 block font-bold">{t('step2')}</span>
+             <span className="text-[10px] uppercase tracking-[0.4em] text-[#3d3d29] mb-2 block font-bold">{t('step2')}</span>
              <h2 className="text-3xl md:text-4xl font-serif text-stone-900 tracking-wide uppercase">{t('title2')}</h2>
         </div>
         <form onSubmit={handleCheckout} className="space-y-5">
@@ -541,7 +546,7 @@ export default function BookingForm() {
                 type="button"
                 onClick={handleValidateVoucher}
                 disabled={!voucherCode || validatingVoucher || !!voucherData}
-                className="bg-stone-900 text-white px-4 py-2 text-xs uppercase tracking-widest hover:bg-stone-700 disabled:opacity-50"
+                className="bg-[#bcc2b2] text-stone-800 px-4 py-2 text-xs uppercase tracking-widest hover:bg-[#b0b8a5] disabled:opacity-50"
               >
                 {validatingVoucher ? <Loader2 className="animate-spin w-4 h-4" /> : (voucherData ? t('voucher_button_applied') : t('voucher_button_check'))}
               </button>
@@ -568,7 +573,7 @@ export default function BookingForm() {
           <button 
             type="submit" 
             disabled={checkingOut || !date?.from || !date?.to || !guestName || !guestEmail || !guestPhone || !guestAddress}
-            className="w-full bg-stone-900 text-white py-4 uppercase tracking-[0.2em] font-light text-sm hover:bg-stone-800 transition-colors mt-8 disabled:opacity-50 flex justify-center items-center"
+            className="w-full bg-[#bcc2b2] text-stone-800 py-4 uppercase tracking-[0.2em] font-bold text-sm hover:bg-[#b0b8a5] transition-colors mt-8 disabled:opacity-50 flex justify-center items-center"
           >
             {checkingOut ? <Loader2 className="animate-spin mr-2" /> : null}
             {t('book_button')} ({finalTotal.toFixed(2)} €)
@@ -586,7 +591,7 @@ export default function BookingForm() {
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-sm"
              onClick={() => setDetailsRoomIndex(null)}>
           <div 
-            className="bg-white max-w-lg w-full p-8 rounded-sm shadow-2xl relative"
+            className="bg-white max-w-lg w-full p-8 rounded-sm shadow-2xl relative max-h-[90vh] overflow-y-auto"
             onClick={e => e.stopPropagation()} // Prevent close when clicking inside modal
           >
             <button 
@@ -598,7 +603,7 @@ export default function BookingForm() {
             </button>
             
             <h3 className="font-serif text-2xl text-stone-900 mb-2 tracking-wide">{SUITES[detailsRoomIndex].title}</h3>
-            <div className="flex gap-4 text-xs tracking-widest uppercase text-[#7d3a2a] mb-6 font-medium">
+            <div className="flex gap-4 text-xs tracking-widest uppercase text-[#3d3d29] mb-6 font-medium">
               <span>{SUITES[detailsRoomIndex].sqm} m²</span>
               <span>•</span>
               <span>{SUITES[detailsRoomIndex].persons} {t('modal_guests')}</span>
@@ -609,45 +614,59 @@ export default function BookingForm() {
             <div className="text-stone-600 text-sm leading-relaxed mb-6 font-light space-y-4">
               {SUITES[detailsRoomIndex].title === "THE ALPINE HIDEAWAY" && (
                 <>
-                  <p dangerouslySetInnerHTML={{ __html: tRooms('Hideaway.p1') }} />
-                  <p dangerouslySetInnerHTML={{ __html: tRooms('Hideaway.p2') }} />
+                  <p>{tRooms.rich('Hideaway.p1', richOptions)}</p>
+                  <p>{tRooms.rich('Hideaway.p2', richOptions)}</p>
                 </>
               )}
               {SUITES[detailsRoomIndex].title === "THE RESIDENCE" && (
                 <>
-                  <p dangerouslySetInnerHTML={{ __html: tRooms('Residence.p1') }} />
-                  <p dangerouslySetInnerHTML={{ __html: tRooms('Residence.p2') }} />
+                  <p>{tRooms.rich('Residence.p1', richOptions)}</p>
+                  <p>{tRooms.rich('Residence.p2', richOptions)}</p>
                 </>
               )}
               {SUITES[detailsRoomIndex].title === "THE RETREAT" && (
                 <>
-                  <p dangerouslySetInnerHTML={{ __html: tRooms('Retreat.p1') }} />
-                  <p dangerouslySetInnerHTML={{ __html: tRooms('Retreat.p2') }} />
-                  <p dangerouslySetInnerHTML={{ __html: tRooms('Retreat.p3') }} />
-                  <p dangerouslySetInnerHTML={{ __html: tRooms('Retreat.p4') }} />
+                  <p>{tRooms.rich('Retreat.p1', richOptions)}</p>
+                  <p>{tRooms.rich('Retreat.p2', richOptions)}</p>
+                  <p>{tRooms.rich('Retreat.p3', richOptions)}</p>
+                  <p>{tRooms.rich('Retreat.p4', richOptions)}</p>
                 </>
               )}
             </div>
             
             <ul className="space-y-2 mb-8 border-t border-stone-100 pt-6">
-              {SUITES[detailsRoomIndex].title === "THE ALPINE HIDEAWAY" && tRooms.raw('Hideaway.bullets').map((feat: string, i: number) => (
-                <li key={i} className="flex gap-3 text-sm text-stone-700 font-light items-start">
-                  <span className="text-[#7d3a2a] mt-0.5">•</span>
-                  <span dangerouslySetInnerHTML={{ __html: feat }} />
-                </li>
-              ))}
-              {SUITES[detailsRoomIndex].title === "THE RESIDENCE" && tRooms.raw('Residence.bullets').map((feat: string, i: number) => (
-                <li key={i} className="flex gap-3 text-sm text-stone-700 font-light items-start">
-                  <span className="text-[#7d3a2a] mt-0.5">•</span>
-                  <span dangerouslySetInnerHTML={{ __html: feat }} />
-                </li>
-              ))}
-              {SUITES[detailsRoomIndex].title === "THE RETREAT" && tRooms.raw('Retreat.bullets').map((feat: string, i: number) => (
-                <li key={i} className="flex gap-3 text-sm text-stone-700 font-light items-start">
-                  <span className="text-[#7d3a2a] mt-0.5">•</span>
-                  <span dangerouslySetInnerHTML={{ __html: feat }} />
-                </li>
-              ))}
+              {SUITES[detailsRoomIndex].title === "THE ALPINE HIDEAWAY" && Array.from({ length: 15 }).map((_, i) => {
+                const key = `Hideaway.bullets.${i}`;
+                // Since raw data is an array in JSON but next-intl works better with keys for rich
+                // and we don't know the exact length easily without raw, 
+                // but we can check if it exists or use index-based keys if we restructure.
+                // However, the current JSON structure for bullets is an array: "bullets": ["...", "..."]
+                // next-intl 3 access array via index.
+                return tRooms.has(`${key}`) ? (
+                  <li key={i} className="flex gap-3 text-sm text-stone-700 font-light items-start">
+                    <span className="text-[#3d3d29] mt-0.5">•</span>
+                    <span>{tRooms.rich(key, richOptions)}</span>
+                  </li>
+                ) : null;
+              })}
+              {SUITES[detailsRoomIndex].title === "THE RESIDENCE" && Array.from({ length: 15 }).map((_, i) => {
+                const key = `Residence.bullets.${i}`;
+                return tRooms.has(`${key}`) ? (
+                  <li key={i} className="flex gap-3 text-sm text-stone-700 font-light items-start">
+                    <span className="text-[#3d3d29] mt-0.5">•</span>
+                    <span>{tRooms.rich(key, richOptions)}</span>
+                  </li>
+                ) : null;
+              })}
+              {SUITES[detailsRoomIndex].title === "THE RETREAT" && Array.from({ length: 15 }).map((_, i) => {
+                const key = `Retreat.bullets.${i}`;
+                return tRooms.has(`${key}`) ? (
+                  <li key={i} className="flex gap-3 text-sm text-stone-700 font-light items-start">
+                    <span className="text-[#3d3d29] mt-0.5">•</span>
+                    <span>{tRooms.rich(key, richOptions)}</span>
+                  </li>
+                ) : null;
+              })}
             </ul>
             
             <Button 

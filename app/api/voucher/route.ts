@@ -45,7 +45,7 @@ export async function POST(request: Request) {
       `,
             html: `
         <div style="font-family: sans-serif; color: #333;">
-          <h2 style="color: #7d3a2a; border-bottom: 2px solid #eee; padding-bottom: 10px;">Neue Gutschein-Anfrage</h2>
+          <h2 style="color: #3d3d29; border-bottom: 2px solid #eee; padding-bottom: 10px;">Neue Gutschein-Anfrage</h2>
           
           <h3 style="margin-top: 20px;">Kontaktdaten:</h3>
           <p><strong>Name:</strong> ${firstName} ${lastName}</p>
@@ -56,7 +56,7 @@ export async function POST(request: Request) {
           <p><strong>Betrag:</strong> <b>${amount} €</b></p>
           
           <h3 style="margin-top: 20px;">Persönliche Nachricht / Widmung:</h3>
-          <blockquote style="background: #f0f0f0; border-left: 4px solid #7d3a2a; margin: 0; padding: 10px 20px;">
+          <blockquote style="background: #f0f0f0; border-left: 4px solid #3d3d29; margin: 0; padding: 10px 20px;">
             ${message ? message.replace(/\n/g, '<br>') : '<i>Keine Nachricht</i>'}
           </blockquote>
         </div>

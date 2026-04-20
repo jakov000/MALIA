@@ -117,7 +117,7 @@ export default function VoucherManager() {
             <input type="date" value={expires} onChange={e => setExpires(e.target.value)} className="w-full border-b border-stone-300 py-2 focus:border-stone-900 focus:outline-none bg-transparent text-sm" />
           </div>
           <div className="md:col-span-1">
-            <button type="submit" disabled={creating || !code || !amount} className="w-full bg-stone-900 text-white flex items-center justify-center space-x-2 py-3 rounded-md hover:bg-stone-800 transition-colors uppercase tracking-widest text-xs disabled:opacity-50">
+            <button type="submit" disabled={creating || !code || !amount} className="w-full bg-[#bcc2b2] text-stone-800 font-bold flex items-center justify-center space-x-2 py-3 rounded-md hover:bg-[#b0b8a5] transition-colors uppercase tracking-widest text-xs disabled:opacity-50">
               {creating ? <Loader2 className="animate-spin" size={16} /> : <Plus size={16} />}
               <span>Erstellen</span>
             </button>
@@ -135,7 +135,7 @@ export default function VoucherManager() {
                 <Trash2 size={16} />
               </button>
               
-              <div className="text-[10px] uppercase font-bold tracking-widest text-[#7d3a2a] mb-2">
+              <div className="text-[10px] uppercase font-bold tracking-widest text-[#3d3d29] mb-2">
                 {v.isActive ? "Aktiv" : "Inaktiv"}
               </div>
               

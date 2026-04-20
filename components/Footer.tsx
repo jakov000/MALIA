@@ -31,20 +31,20 @@ export default function Footer() {
       </a>
 
       {/* Main Booking Bar */}
-      <div className="fixed bottom-0 left-0 w-full z-40 bg-white/95 backdrop-blur-sm border-t border-gray-100 py-3 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto flex items-center justify-between md:justify-end gap-4 md:gap-8">
+      <div className="fixed bottom-0 left-0 w-full z-40 py-4 px-6 md:px-12 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]" style={{ backgroundColor: '#3d3d29' }}>
+        <div className="max-w-7xl mx-auto flex items-center justify-center">
   
           {/* Booking Buttons */}
-          <div className="flex gap-2 w-full md:w-auto">
+          <div className="flex gap-4 w-full md:w-auto justify-center">
             <a
               href={loc("/booking")}
-              className="flex-1 md:flex-none px-8 py-3 bg-stone-900 text-center text-white text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-black transition-all"
+              className="px-10 py-3 bg-white text-stone-900 text-center text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-stone-100 transition-all shadow-md"
             >
               {t('book')}
             </a>
             <a
               href={loc("/inquiry")}
-              className="flex-1 md:flex-none px-8 py-3 border border-stone-300 text-center text-stone-600 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-stone-50 transition-all"
+              className="px-10 py-3 border border-white/30 text-white text-center text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-white/10 transition-all"
             >
               {t('inquiry')}
             </a>
