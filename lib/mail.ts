@@ -108,7 +108,7 @@ export async function sendBookingConfirmation(email: string, name: string, start
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log(\`Booking confirmation sent to \${email}\`);
+    console.log(`Booking confirmation sent to ${email}`);
   } catch (error) {
     console.error("Error sending booking confirmation email:", error);
   }
