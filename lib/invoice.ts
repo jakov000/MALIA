@@ -1,6 +1,6 @@
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 
-export async function generateInvoicePdf(booking: any): Promise<Buffer> {
+export async function generateInvoicePdf(booking: any, invoiceNumber: string): Promise<Buffer> {
   const pdfDoc = await PDFDocument.create();
   const page = pdfDoc.addPage([595.28, 841.89]); // A4
   const { width, height } = page.getSize();
@@ -36,7 +36,6 @@ export async function generateInvoicePdf(booking: any): Promise<Buffer> {
   // --- Invoice Details (Right) ---
   drawRightText('RECHNUNG', 545, 50, 20, true);
   
-  const invoiceNumber = `RE-${(booking.id || 'XXXXXX').substring(0, 6).toUpperCase()}`;
   const invoiceDate = new Date().toLocaleDateString('de-DE');
   const dueDate = new Date();
   dueDate.setDate(dueDate.getDate() + 7);

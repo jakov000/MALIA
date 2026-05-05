@@ -20,6 +20,9 @@ const sans = Inter({
 export const metadata: Metadata = {
   title: "MALIA Alpine Hideaway - Luxus in den Alpen",
   description: "Erleben Sie Luxus pur in unserer Villa.",
+  icons: {
+    icon: '/logotabs.png',
+  },
 };
 
 export function generateStaticParams() {

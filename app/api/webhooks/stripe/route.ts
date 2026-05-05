@@ -57,7 +57,16 @@ export async function POST(req: Request) {
         // 3. Send Confirmation Emails
         let invoicePdfBuffer = undefined;
         try {
-          invoicePdfBuffer = await generateInvoicePdf(booking);
+          // Calculate sequential invoice number based on PAID bookings up to this one
+          const paidCount = await db.booking.count({
+            where: {
+              status: "PAID",
+              createdAt: { lte: booking.createdAt }
+            }
+          });
+          const invoiceNumberStr = `RE-${new Date().getFullYear()}-${String(paidCount).padStart(3, "0")}`;
+          
+          invoicePdfBuffer = await generateInvoicePdf(booking, invoiceNumberStr);
         } catch (e) {
           console.error("Failed to generate custom invoice PDF:", e);
         }
