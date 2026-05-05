@@ -1,104 +1,114 @@
-import PDFDocument from 'pdfkit';
+import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 
 export async function generateInvoicePdf(booking: any): Promise<Buffer> {
-  return new Promise((resolve, reject) => {
-    try {
-      const doc = new PDFDocument({ margin: 50, size: 'A4' });
-      const buffers: Buffer[] = [];
-      doc.on('data', buffers.push.bind(buffers));
-      doc.on('end', () => resolve(Buffer.concat(buffers)));
-      doc.on('error', reject);
+  const pdfDoc = await PDFDocument.create();
+  const page = pdfDoc.addPage([595.28, 841.89]); // A4
+  const { width, height } = page.getSize();
+  
+  const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+  const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+  
+  const drawText = (text: string, x: number, y: number, size = 10, isBold = false) => {
+    page.drawText(text, { x, y: height - y, size, font: isBold ? boldFont : font });
+  };
 
-      // --- Header Left: Company Info ---
-      doc.fontSize(16).text('MALIA - Alpine Hideaway', 50, 50);
-      doc.fontSize(10).text('Madleine und Julia Rieser', 50, 70);
-      doc.text('Ländbergstraße 6', 50, 85);
-      doc.text('6213 Pertisau', 50, 100);
-      doc.text('Österreich', 50, 115);
+  const drawRightText = (text: string, rightX: number, y: number, size = 10, isBold = false) => {
+    const textWidth = (isBold ? boldFont : font).widthOfTextAtSize(text, size);
+    page.drawText(text, { x: rightX - textWidth, y: height - y, size, font: isBold ? boldFont : font });
+  };
 
-      // --- Billing Address ---
-      doc.fontSize(10).text('MALIA - Alpine Hideaway | Ländbergstraße 6 | 6213 Pertisau', 50, 160, { underline: true });
-      doc.moveDown(1);
-      doc.fontSize(12).text(booking.guestName);
-      
-      const lines = booking.guestAddress.split(',').map((l: string) => l.trim());
-      lines.forEach((line: string) => doc.text(line));
+  // --- Header Left: Company Info ---
+  drawText('MALIA - Alpine Hideaway', 50, 50, 16, true);
+  drawText('Madleine und Julia Rieser', 50, 70);
+  drawText('Ländbergstraße 6', 50, 85);
+  drawText('6213 Pertisau', 50, 100);
+  drawText('Österreich', 50, 115);
 
-      // --- Invoice Details (Right) ---
-      doc.fontSize(20).text('RECHNUNG', 300, 50, { align: 'right' });
-      doc.fontSize(10);
-      
-      const invoiceNumber = `RE-${booking.id.substring(0, 6).toUpperCase()}`;
-      const invoiceDate = new Date().toLocaleDateString('de-DE');
-      const dueDate = new Date();
-      dueDate.setDate(dueDate.getDate() + 7);
-      const dueDateStr = dueDate.toLocaleDateString('de-DE');
-      
-      doc.text(`Rechnungsnummer: ${invoiceNumber}`, 300, 85, { align: 'right' });
-      doc.text(`Rechnungsdatum: ${invoiceDate}`, 300, 100, { align: 'right' });
-      doc.text(`Fälligkeitsdatum: ${dueDateStr}`, 300, 115, { align: 'right' });
-      doc.moveDown(2);
-      
-      doc.fontSize(12).text(`OFFENER BETRAG: € ${booking.totalPrice.toFixed(2)}`, 300, doc.y, { align: 'right', stroke: true });
-      
-      // --- Table Header ---
-      doc.moveDown(4);
-      let tableTop = doc.y;
-      doc.font('Helvetica-Bold');
-      doc.text('Pos', 50, tableTop);
-      doc.text('Leistung', 100, tableTop);
-      doc.text('Preis in €', 400, tableTop, { align: 'right' });
-      
-      doc.moveTo(50, tableTop + 15).lineTo(550, tableTop + 15).stroke();
+  // --- Billing Address ---
+  drawText('MALIA - Alpine Hideaway | Ländbergstraße 6 | 6213 Pertisau', 50, 160, 10);
+  // Underline
+  page.drawLine({ start: { x: 50, y: height - 162 }, end: { x: 300, y: height - 162 }, thickness: 1 });
+  
+  drawText(booking.guestName, 50, 185, 12);
+  const lines = (booking.guestAddress || '').split(',').map((l: string) => l.trim());
+  lines.forEach((line: string, i: number) => drawText(line, 50, 205 + i * 15, 12));
 
-      // --- Table Row ---
-      doc.font('Helvetica');
-      doc.moveDown(1);
-      let rowTop = doc.y;
-      
-      const startStr = new Date(booking.startDate).toLocaleDateString('de-DE');
-      const endStr = new Date(booking.endDate).toLocaleDateString('de-DE');
-      
-      doc.text('1', 50, rowTop);
-      doc.text(`Übernachtung ${booking.room} (${startStr} - ${endStr})`, 100, rowTop, { width: 300 });
-      doc.text(booking.totalPrice.toFixed(2), 400, rowTop, { align: 'right' });
-      
-      doc.moveTo(50, rowTop + 25).lineTo(550, rowTop + 25).stroke();
+  // --- Invoice Details (Right) ---
+  drawRightText('RECHNUNG', 545, 50, 20, true);
+  
+  const invoiceNumber = `RE-${(booking.id || 'XXXXXX').substring(0, 6).toUpperCase()}`;
+  const invoiceDate = new Date().toLocaleDateString('de-DE');
+  const dueDate = new Date();
+  dueDate.setDate(dueDate.getDate() + 7);
+  const dueDateStr = dueDate.toLocaleDateString('de-DE');
+  
+  drawRightText(`Rechnungsnummer: ${invoiceNumber}`, 545, 85);
+  drawRightText(`Rechnungsdatum: ${invoiceDate}`, 545, 100);
+  drawRightText(`Fälligkeitsdatum: ${dueDateStr}`, 545, 115);
+  
+  drawRightText(`OFFENER BETRAG: € ${booking.totalPrice.toFixed(2)}`, 545, 145, 12, true);
+  
+  // --- Table Header ---
+  const tableTop = 250;
+  drawText('Pos', 50, tableTop, 10, true);
+  drawText('Leistung', 100, tableTop, 10, true);
+  drawRightText('Preis in €', 545, tableTop, 10, true);
+  
+  page.drawLine({ start: { x: 50, y: height - tableTop - 10 }, end: { x: 545, y: height - tableTop - 10 }, thickness: 1 });
 
-      // --- Totals ---
-      doc.moveDown(2);
-      let totalTop = doc.y;
-      
-      const netto = booking.totalPrice / 1.1;
-      const ust = booking.totalPrice - netto;
+  // --- Table Row ---
+  const rowTop = 280;
+  const startStr = new Date(booking.startDate).toLocaleDateString('de-DE');
+  const endStr = new Date(booking.endDate).toLocaleDateString('de-DE');
+  
+  drawText('1', 50, rowTop);
+  drawText(`Übernachtung ${booking.room} (${startStr} - ${endStr})`, 100, rowTop);
+  drawRightText(booking.totalPrice.toFixed(2), 545, rowTop);
+  
+  page.drawLine({ start: { x: 50, y: height - rowTop - 15 }, end: { x: 545, y: height - rowTop - 15 }, thickness: 1 });
 
-      doc.text('Summe netto', 300, totalTop);
-      doc.text(netto.toFixed(2), 400, totalTop, { align: 'right' });
-      
-      doc.text('Umsatzsteuer 10%', 300, totalTop + 15);
-      doc.text(ust.toFixed(2), 400, totalTop + 15, { align: 'right' });
-      
-      doc.font('Helvetica-Bold');
-      doc.text('Summe brutto', 300, totalTop + 35);
-      doc.text(booking.totalPrice.toFixed(2), 400, totalTop + 35, { align: 'right' });
+  // --- Totals ---
+  const totalTop = 330;
+  const netto = booking.totalPrice / 1.1;
+  const ust = booking.totalPrice - netto;
 
-      doc.text('OFFENER BETRAG', 300, totalTop + 55);
-      doc.text(booking.totalPrice.toFixed(2), 400, totalTop + 55, { align: 'right' });
+  drawText('Summe netto', 300, totalTop);
+  drawRightText(netto.toFixed(2), 545, totalTop);
+  
+  drawText('Umsatzsteuer 10%', 300, totalTop + 20);
+  drawRightText(ust.toFixed(2), 545, totalTop + 20);
+  
+  drawText('Summe brutto', 300, totalTop + 40, 10, true);
+  drawRightText(booking.totalPrice.toFixed(2), 545, totalTop + 40, 10, true);
 
-      // --- Footer ---
-      doc.font('Helvetica');
-      doc.fontSize(10);
-      doc.text(`Bitte überweisen Sie den Rechnungsbetrag innerhalb von 7 Tagen nach Erhalt der Rechnung unter Angabe Ihrer Rechnungsnummer und Ihrem Nachnamen.`, 50, 600, { width: 500 });
-      doc.moveDown(2);
-      doc.text('Mit freundlichen Grüßen,\nMALIA - Alpine Hideaway\nMadleine und Julia Rieser');
+  drawText('OFFENER BETRAG', 300, totalTop + 60, 10, true);
+  drawRightText(booking.totalPrice.toFixed(2), 545, totalTop + 60, 10, true);
 
-      doc.fontSize(8).fillColor('gray');
-      doc.text('MALIA - Alpine Hideaway | Ländbergstraße 6, 6213 Pertisau, Österreich | E-Mail: info@malia-alpine-hideaway.at', 50, 720, { align: 'center' });
-      doc.text('Bankverbindung: Sparkasse Rattenberg | Konto Inhaber: Madleine Rieser Julia Rieser | IBAN: AT23 2050 8000 0003 7341 | BIC: SPRTAT21XXX', 50, 735, { align: 'center' });
+  // --- Footer ---
+  const footerY = 650;
+  drawText(`Bitte überweisen Sie den Rechnungsbetrag innerhalb von 7 Tagen nach Erhalt der Rechnung unter Angabe`, 50, footerY);
+  drawText(`Ihrer Rechnungsnummer und Ihrem Nachnamen.`, 50, footerY + 15);
+  
+  drawText('Mit freundlichen Grüßen,', 50, footerY + 45);
+  drawText('MALIA - Alpine Hideaway', 50, footerY + 60);
+  drawText('Madleine und Julia Rieser', 50, footerY + 75);
 
-      doc.end();
-    } catch (err) {
-      reject(err);
-    }
+  const grayColor = rgb(0.5, 0.5, 0.5);
+  page.drawText('MALIA - Alpine Hideaway | Ländbergstraße 6, 6213 Pertisau, Österreich | E-Mail: info@malia-alpine-hideaway.at', {
+    x: width / 2 - font.widthOfTextAtSize('MALIA - Alpine Hideaway | Ländbergstraße 6, 6213 Pertisau, Österreich | E-Mail: info@malia-alpine-hideaway.at', 8) / 2,
+    y: height - 760,
+    size: 8,
+    font,
+    color: grayColor
   });
+  page.drawText('Bankverbindung: Sparkasse Rattenberg | Konto Inhaber: Madleine Rieser Julia Rieser | IBAN: AT23 2050 8000 0003 7341 | BIC: SPRTAT21XXX', {
+    x: width / 2 - font.widthOfTextAtSize('Bankverbindung: Sparkasse Rattenberg | Konto Inhaber: Madleine Rieser Julia Rieser | IBAN: AT23 2050 8000 0003 7341 | BIC: SPRTAT21XXX', 8) / 2,
+    y: height - 775,
+    size: 8,
+    font,
+    color: grayColor
+  });
+
+  const pdfBytes = await pdfDoc.save();
+  return Buffer.from(pdfBytes);
 }
