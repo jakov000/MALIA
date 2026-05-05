@@ -60,3 +60,17 @@ model RoomConfig {
   noCheckoutDays   String   @default("[]") // JSON array of numbers e.g. [0,6]
   updatedAt        DateTime @updatedAt
 }
+
+model CalendarRule {
+  id          String   @id @default(cuid())
+  startDate   DateTime
+  endDate     DateTime
+  room        String
+  status      String   @default("AVAILABLE") // AVAILABLE, UNAVAILABLE, OWN_USE, CLOSED, EXTERNAL_SYNC
+  price       Float?   // Override price per night
+  minStay     Int?     // Override min stay days
+  source      String   @default("MANUAL") // MANUAL, AIRBNB, BOOKING, FERATEL
+  reason      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

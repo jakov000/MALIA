@@ -99,16 +99,15 @@ export default function MaliaSpecialsContent() {
                 />
                 <div className="absolute inset-0 bg-black/10" />
 
-                <div className="relative z-10 h-full flex flex-col items-center justify-center text-white text-center px-6">
+                <div className="relative z-10 h-full flex flex-col items-center justify-end text-white text-center px-6 pb-12">
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-4xl md:text-7xl font-serif font-light leading-tight"
+                        className="text-2xl md:text-5xl font-serif font-light tracking-widest mb-12"
                     >
-                        {t.rich('hero.title', richOptions)} <br />
-                        <span className="text-xl md:text-3xl tracking-[0.5em] block mt-4 opacity-80 italic normal-case">{t('hero.subtitle')}</span>
+                        {t('hero.title')} {t('hero.subtitle')}
                     </motion.h1>
-                    <div className="absolute bottom-24 flex flex-col items-center">
+                    <div className="flex flex-col items-center">
                         <span className="uppercase tracking-[0.4em] text-[10px] mb-4 font-light opacity-80">{t('hero.scroll')}</span>
                         <div className="w-[1px] h-12 bg-white/40" />
                     </div>

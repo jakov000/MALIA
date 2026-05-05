@@ -27,6 +27,7 @@ export default function BookingForm() {
   const [loadingDates, setLoadingDates] = useState(true);
   const [rawBookings, setRawBookings] = useState<any[]>([]);
   const [rawBlockedDates, setRawBlockedDates] = useState<any[]>([]);
+  const [rawRules, setRawRules] = useState<any[]>([]);
   const [roomConfigs, setRoomConfigs] = useState<any[]>([]);
   
   const [step, setStep] = useState<1 | 2>(1); // 1 = Calendar & Suite, 2 = Form Details
@@ -72,6 +73,7 @@ export default function BookingForm() {
           const data = await res.json();
           setRawBookings(data.bookings || []);
           setRawBlockedDates(data.blockedDates || []);
+          setRawRules(data.rules || []);
         }
         
         // Fetch specific room configurations
@@ -96,6 +98,28 @@ export default function BookingForm() {
   const noCheckoutDays: number[] = activeConfig && typeof activeConfig.noCheckoutDays === "string" 
     ? JSON.parse(activeConfig.noCheckoutDays) 
     : [];
+
+  const roomRules = useMemo(() => {
+    return rawRules.filter(r => r.room === selectedRoom.title || r.room === "ALL");
+  }, [rawRules, selectedRoom.title]);
+
+  const activeMinStay = useMemo(() => {
+    let stay = activeConfig?.minStayDays || 1;
+    if (date?.from) {
+      const target = date.from.getTime();
+      const checkInRules = roomRules.filter(r => {
+        const ruleStart = new Date(r.startDate);
+        ruleStart.setHours(0,0,0,0);
+        const ruleEnd = new Date(r.endDate);
+        ruleEnd.setHours(23,59,59,999);
+        return target >= ruleStart.getTime() && target <= ruleEnd.getTime();
+      });
+      for (const rule of checkInRules) {
+        if (rule.minStay !== null) stay = rule.minStay;
+      }
+    }
+    return stay;
+  }, [date?.from, roomRules, activeConfig]);
 
   const blockedDates = useMemo(() => {
     const allBlocked: Date[] = [];
@@ -132,6 +156,44 @@ export default function BookingForm() {
       }
     });
 
+    // Resolve CalendarRules night-by-night exactly like the Admin Matrix does
+    const startObj = new Date(); startObj.setHours(0,0,0,0);
+    const endObj = addDays(startObj, 365);
+    
+    let d = new Date(startObj);
+    while (d <= endObj) {
+      const currentTarget = d.getTime();
+      let isBlockedByRule = false;
+      
+      for (const reqRoom of relatedRooms) {
+        let dayStatus = "AVAILABLE";
+        const rulesForRoom = rawRules.filter(r => r.room === reqRoom || r.room === "ALL");
+        const activeRules = rulesForRoom.filter(r => {
+           const ruleStart = new Date(r.startDate);
+           ruleStart.setHours(0,0,0,0);
+           const ruleEnd = new Date(r.endDate);
+           ruleEnd.setHours(23,59,59,999);
+           return currentTarget >= ruleStart.getTime() && currentTarget <= ruleEnd.getTime();
+        });
+        
+        // stack resolves from oldest to newest
+        for (const rule of activeRules) {
+           dayStatus = rule.status;
+        }
+
+        if (dayStatus === "UNAVAILABLE" || dayStatus === "OWN_USE" || dayStatus === "CLOSED") {
+           isBlockedByRule = true;
+           break; 
+        }
+      }
+
+      if (isBlockedByRule) {
+        // Only block if it hasn't been added yet (pure optimization, Date objects won't strictly deduplicate with `.includes()` but our DatePicker consumes arrays nicely)
+        allBlocked.push(new Date(d));
+      }
+      d.setDate(d.getDate() + 1);
+    }
+
     return allBlocked;
   }, [rawBookings, rawBlockedDates, selectedRoom.title]);
 
@@ -140,8 +202,8 @@ export default function BookingForm() {
 
   const pricing = useMemo(() => {
     if (!date?.from || !date?.to) return null;
-    return calculateStayPrice(date.from, date.to, basePricePerNight);
-  }, [date, basePricePerNight]);
+    return calculateStayPrice(date.from, date.to, basePricePerNight, roomRules);
+  }, [date, basePricePerNight, roomRules]);
 
   const nights = pricing?.nights || 0;
   const subtotal = pricing?.basePrice || 0;
@@ -166,10 +228,10 @@ export default function BookingForm() {
 
     if (date?.from && !date?.to) {
       // 1. Minimum Stay restriction
-      if (minStay > 1) {
+      if (activeMinStay > 1) {
         disabled.push({
           after: date.from,
-          before: addDays(date.from, minStay)
+          before: addDays(date.from, activeMinStay)
         });
       }
 
@@ -414,9 +476,9 @@ export default function BookingForm() {
             <hr className="border-stone-700 my-4" />
             
             {/* Validation Messages */}
-            {date.to && nights < minStay && (
+            {date.to && nights < activeMinStay && (
               <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-sm text-sm mb-4">
-                {t('min_stay_1')} <strong>{minStay} {minStay === 1 ? t('night') : t('nights')}</strong>.<br/>{t('min_stay_2')}
+                {t('min_stay_1')} <strong>{activeMinStay} {activeMinStay === 1 ? t('night') : t('nights')}</strong>.<br/>{t('min_stay_2')}
               </div>
             )}
             
@@ -460,7 +522,7 @@ export default function BookingForm() {
             {step === 1 && (
               <button 
                 onClick={() => setStep(2)}
-                disabled={nights < minStay || (date?.to ? noCheckoutDays.includes(date.to.getDay()) : false)}
+                disabled={nights < activeMinStay || (date?.to ? noCheckoutDays.includes(date.to.getDay()) : false)}
                 className="w-full mt-6 py-3 bg-white text-stone-900 font-medium uppercase tracking-widest text-xs hover:bg-stone-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {t('continue_data')}

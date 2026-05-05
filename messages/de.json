@@ -453,19 +453,21 @@
           "title": "Zeit fürs Draußensein",
           "desc": "Rund um das MALIA beginnt der Sommer direkt vor der Tür. Im Karwendel und im Rofangebirge führen Wanderwege durch Wälder, über Almen und hinauf zu stillen Aussichtspunkten. Mit jedem Schritt wird der Kopf freier, der Rhythmus ruhiger. Du gehst los, bleibst stehen, schaust. Kühlst die Füße im Bergbach, atmest die klare Luft – und merkst, wie wenig es braucht, um ganz im Moment zu sein.",
           "link": "→ Wanderführer Achensee entdecken",
-          "url": "#"
+          "url": "https://www.achensee.com/de/sommerurlaub/wandern-tirol-oesterreich/"
         },
         "1": {
           "title": "Biken zwischen Berg & See",
           "desc": "Der Achensee gilt als stiller Favorit für Mountainbiker und E-Biker. Über 250 Kilometer beschilderte Strecken führen durch Karwendel, Rofan und das Vorkarwendel – von entspannten Seerunden bis zu anspruchsvollen Höhenmetern. Ob sportlich oder gemütlich mit E-Bike: Du bist unterwegs in einer Landschaft, die Weite schenkt, ohne laut zu sein.",
           "link": "Mountainbiken & Radfahren am Achensee | Sommerurlaub Tirol",
-          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668428927374&cot=14"
+          "url": "https://www.achensee.com/de/sommerurlaub/radfahren-mountainbiken-tirol-oesterreich/",
+          "link2": "Anmeldung zum Halbmarathon: Achenseelauf | Tirols Panoramalauf erleben",
+          "url2": "https://www.achenseelauf.at/"
         },
         "2": {
           "title": "Golfen mit Weitblick",
           "desc": "Nur wenige Schritte vom MALIA entfernt liegt der Golf- & Landclub Achensee – der älteste Golfplatz Tirols, eingebettet zwischen Karwendel und See. Der 18-Loch-Platz in Pertisau verbindet Ruhe mit spielerischer Herausforderung. Sanftes Gelände, klare Linien und ein Ausblick, der jeden Abschlag begleitet.",
           "link": "→ Golfclub Achensee entdecken",
-          "url": "#"
+          "url": "https://www.golfclub-achensee.at/"
         },
         "3": {
           "title": "Laufen & Gehen",
@@ -477,25 +479,25 @@
           "title": "Am Fels",
           "desc": "Rofan und Karwendel gehören zu den vielseitigsten Klettergebieten Tirols. Sportklettern, Klettersteige oder alpine Routen – alles eingebettet in eine Landschaft, die Respekt verlangt und belohnt. Für Einsteiger wie Geübte gibt es Routen, Kurse und geführte Touren. Der Blick von oben: weit. Der Moment: klar.",
           "link": "Klettern am Achensee | Österreich Urlaub in Tirol",
-          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668428639876&cot=14"
+          "url": "https://www.achensee.com/de/sommerurlaub/klettern-tirol-oesterreich/"
         },
         "5": {
           "title": "Begegnungen, die entschleunigen",
           "desc": "Wer es noch ruhiger mag, erlebt die Landschaft bei einer Alpaka-Wanderung. Langsame Schritte, sanfte Tiere, offene Wege. Du gehst durch die Natur, begleitest – oder wirst begleitet – und nimmst eine Gelassenheit mit, die bleibt.",
           "link": "Alpakaspaziergang in Tirol am schönen Achensee - Achensee-Alpaka",
-          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668428483451&cot=14"
+          "url": "https://www.achensee-alpaka.at/alpakawanderung/"
         },
         "6": {
           "title": "Almabtrieb am Achensee",
           "desc": "Wenn der Herbst kommt, ist es am Achensee Zeit für die Rückkehr: Die Kühe ziehen von der Alm zurück in ihre Ställe. Die Almabtriebe finden hier von Mitte September bis Anfang Oktober statt. Genauere Infos findet ihr hier:",
           "link": "Almabtriebe am Achensee | Tirol Österreich",
-          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668428639162&cot=14"
+          "url": "https://www.achensee.com/de/kunst-kultur-tradition/almabtriebe/"
         },
         "7": {
           "title": "Wassersport",
           "desc": "Wasserratten aufgepasst, der Achensee hat einiges zu bieten: von Segeln, Kite- oder Windsurfen, bis zu Stand-Up paddeln, Kajakfahren und Tauchen. Alle Infos dazu findet ihr hier:",
           "link": "Wassersport in Tirol | Sommerurlaub am Achensee",
-          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668430207748&cot=14"
+          "url": "https://www.achensee.com/de/sommerurlaub/wassersport-tirol-oesterreich/"
         }
       },
       "btn": "JETZT DEINEN SOMMERURLAUB BUCHEN"
@@ -715,5 +717,10 @@
       "error_send": "Fehler beim Senden der Anfrage. Bitte versuche es später erneut.",
       "error_unexpected": "Ein Fehler ist aufgetreten."
     }
+  },
+  "SuccessPage": {
+    "title": "Buchung Erfolgreich",
+    "description": "Vielen Dank für Ihre Reservierung MALIA Alpine Hideaway. Wir haben Ihre Zahlung erhalten und eine Bestätigung an Ihre E-Mail-Adresse gesendet.",
+    "button": "Zurück zur Startseite"
   }
 }

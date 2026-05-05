@@ -43,9 +43,31 @@ export async function POST(req: Request) {
     const start = new Date(parsed.startDate);
     const end = new Date(parsed.endDate);
     const nights = Math.round((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
-    
-    if (nights < roomConfig.minStayDays) {
-      return NextResponse.json({ error: `Mindestaufenthalt nicht erreicht. Minimum: ${roomConfig.minStayDays} Nächte.` }, { status: 400 });
+    // Add CalendarRule fetching
+    const calendarRules = await db.calendarRule.findMany({
+      where: {
+        room: parsed.room,
+        startDate: { lte: end },
+        endDate: { gte: start }
+      },
+      orderBy: { createdAt: 'asc' }
+    });
+
+    // Determine the active minimum stay for the check-in night
+    let activeMinStay = roomConfig.minStayDays;
+    const checkInNightRules = calendarRules.filter(r => {
+      const ruleStart = new Date(r.startDate);
+      ruleStart.setHours(0,0,0,0);
+      const ruleEnd = new Date(r.endDate);
+      ruleEnd.setHours(23,59,59,999);
+      return start.getTime() >= ruleStart.getTime() && start.getTime() <= ruleEnd.getTime();
+    });
+    for (const rule of checkInNightRules) {
+      if (rule.minStay !== null) activeMinStay = rule.minStay;
+    }
+
+    if (nights < activeMinStay) {
+      return NextResponse.json({ error: `Mindestaufenthalt nicht erreicht. Minimum am Anreisetag: ${activeMinStay} Nächte.` }, { status: 400 });
     }
 
     const noCheckoutDays = JSON.parse(roomConfig.noCheckoutDays);
@@ -89,7 +111,7 @@ export async function POST(req: Request) {
     // ----------------------------------------------------------------------
 
     // Server-side price calculation override (never trust client)
-    const pricing = calculateStayPrice(start, end, roomConfig.pricePerNight);
+    const pricing = calculateStayPrice(start, end, roomConfig.pricePerNight, calendarRules);
     let finalTotal = pricing.total;
     let specialDiscount = pricing.discount;
 

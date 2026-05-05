@@ -61,10 +61,32 @@ export async function GET(req: Request) {
       },
     });
 
+    // Get ALL manual calendar rules for pricing and minStay
+    const calendarRules = await db.calendarRule.findMany({
+      where: {
+        OR: [
+          {
+            startDate: { lte: endDate },
+            endDate: { gte: startDate },
+          },
+        ],
+      },
+      select: {
+        startDate: true,
+        endDate: true,
+        status: true,
+        room: true,
+        price: true,
+        minStay: true,
+      },
+      orderBy: { createdAt: 'asc' }
+    });
+
     return NextResponse.json({
       bookings,
       blockedDates,
-      isAvailable: bookings.length === 0 && blockedDates.length === 0,
+      rules: calendarRules, // Expose rules for pricing and availability engine
+      isAvailable: bookings.length === 0 && blockedDates.length === 0, // IsAvailable is mostly unused on frontend for Datepicker, it uses the arrays directly.
     });
   } catch (error) {
     if (error instanceof z.ZodError) {

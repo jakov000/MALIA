@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
-
+import fs from "fs";
+import path from "path";
 // Reuse the existing Next.js transporter or create a new one
 // Assuming SMTP settings are provided in .env
 const transporter = nodemailer.createTransport({
@@ -14,29 +15,100 @@ const transporter = nodemailer.createTransport({
 
 const FROM_EMAIL = process.env.SMTP_FROM || '"Malia Villa Tirol" <info@villatirol.at>';
 
-export async function sendBookingConfirmation(email: string, name: string, startDate: Date, endDate: Date) {
+export async function sendBookingConfirmation(email: string, name: string, startDate: Date, endDate: Date, invoicePdfBuffer?: Buffer) {
+  const attachments = [];
+  
+  // Static PDFs - assuming they are placed in public/
+  const rulesPath = path.join(process.cwd(), "public", "hausregeln.pdf");
+  const restaurantPath = path.join(process.cwd(), "public", "restaurantempfehlung.pdf");
+  
+  if (fs.existsSync(rulesPath)) {
+    attachments.push({
+      filename: "Hausregeln_und_Stornobedingungen.pdf",
+      path: rulesPath
+    });
+  } else {
+    console.warn("hausregeln.pdf not found in public folder");
+  }
+
+  if (fs.existsSync(restaurantPath)) {
+    attachments.push({
+      filename: "Restaurantempfehlung.pdf",
+      path: restaurantPath
+    });
+  } else {
+    console.warn("restaurantempfehlung.pdf not found in public folder");
+  }
+
+  if (invoicePdfBuffer) {
+    attachments.push({
+      filename: "Rechnung.pdf",
+      content: invoicePdfBuffer,
+    });
+  }
+
   const mailOptions = {
     from: FROM_EMAIL,
     to: email,
-    subject: "Buchungsbestätigung - Malia Alpine Hideaway",
+    subject: "MALIA - Reservierungsbestätigung",
     html: `
-      <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
-        <h2>Vielen Dank für deine Buchung, ${name}!</h2>
-        <p>Wir freuen uns sehr, dich bald im Malia Alpine Hideaway begrüßen zu dürfen.</p>
-        <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin: 20px 0;">
-          <strong>Dein Aufenthalt:</strong><br/>
-          Anreise: ${startDate.toLocaleDateString('de-DE')} (ab 15:00 Uhr)<br/>
-          Abreise: ${endDate.toLocaleDateString('de-DE')} (bis 10:00 Uhr)
-        </div>
-        <p>Wir haben deine Zahlung erhalten. Solltest du noch Fragen haben, antworte einfach auf diese E-Mail.</p>
-        <p>Herzliche Grüße,<br/>Dein Malia Team</p>
+      <div style="font-family: Arial, sans-serif; padding: 20px; color: #333; max-width: 600px; line-height: 1.6;">
+        <p>Herzlichen Glückwunsch – Ihr Aufenthalt im MALIA – Alpine Hideaway ist bestätigt.</p>
+        <p>Wir freuen uns sehr, Sie bald bei uns begrüßen zu dürfen und Ihnen eine besondere Zeit in den Tiroler Alpen zu ermöglichen.</p>
+        <p>Damit Ihr Aufenthalt von Anfang an entspannt und reibungslos verläuft, haben wir hier die wichtigsten Informationen für Sie zusammengestellt:</p>
+        
+        <hr style="border: 0; border-top: 1px solid #ccc; margin: 20px 0;">
+        
+        <p><strong>An- & Abreise</strong><br/>
+        Check-in: ab 15:00 Uhr<br/>
+        Check-out: bis 10:00 Uhr</p>
+
+        <p><strong>WLAN & Technik</strong><br/>
+        WLAN-Name: Home<br/>
+        Passwort: Timi125!</p>
+
+        <p><strong>Parken</strong><br/>
+        Überdachte Parkmöglichkeiten befinden sich direkt hinter dem Haus.</p>
+
+        <p><strong>Rauchen & Haustiere</strong><br/>
+        Rauchen ist ausschließlich im Außenbereich erlaubt.<br/>
+        Hunde sind auf Anfrage herzlich willkommen.<br/>
+        Bitte kontaktieren Sie uns vorab, damit auch Ihre vierbeinigen Begleiter einen angenehmen Aufenthalt bei uns genießen können.</p>
+
+        <hr style="border: 0; border-top: 1px solid #ccc; margin: 20px 0;">
+
+        <p><strong>Kontakt</strong><br/>
+        Wir wollen Ihren Aufenthalt so entspannt wie möglich gestalten und freuen uns, wenn wir Ihnen helfen können. Bitte kontaktieren Sie uns bei Fragen, Anliegen oder im Fall von Schäden jederzeit.<br/>
+        Julia: +43 676 5925596<br/>
+        Madleine: +43 676 6207866</p>
+
+        <p><strong>Restaurant-Empfehlungen</strong><br/>
+        Im Anhang finden Sie unsere persönlich kuratierten Restaurantempfehlungen –<br/>
+        für besondere Abende rund um Ihren Aufenthalt.</p>
+        
+        <hr style="border: 0; border-top: 1px solid #ccc; margin: 20px 0;">
+
+        <p>Mit der Reservierungsbestätigung Ihres Aufenthaltes stimmen sie unseren Haus- sowie unseren Storno-Regelungen zu, diese finden Sie im Anhang.</p>
+
+        <p>Wir freuen uns sehr darauf, Sie bald im MALIA willkommen zu heißen und Ihnen einen angenehmen Aufenthalt zu bereiten.</p>
+
+        <p>Herzliche Grüße<br/>
+        vom MALIA – Alpine Hideaway<br/>
+        Julia und Madleine</p>
+
+        <p style="margin-top: 30px;">
+          <a href="https://www.instagram.com/malia.alpine.hideaway?utm_source=qr" target="_blank" style="text-decoration: none; color: #333; display: flex; align-items: center; gap: 8px;">
+            📲 Folge uns auf Instagram
+          </a>
+        </p>
       </div>
     `,
+    attachments,
   };
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log(`Booking confirmation sent to ${email}`);
+    console.log(\`Booking confirmation sent to \${email}\`);
   } catch (error) {
     console.error("Error sending booking confirmation email:", error);
   }

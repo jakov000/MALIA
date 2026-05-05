@@ -453,19 +453,21 @@
           "title": "Time for the Outdoors",
           "desc": "Around MALIA, summer begins right outside your door. In the Karwendel and Rofan mountains, hiking trails lead through forests, across alpine pastures, and up to quiet viewpoints. With every step, your mind feels lighter, your rhythm calmer. You set off, pause, and take it in. Cool your feet in a mountain stream, breathe in the clear air — and realize how little it takes to be fully present.",
           "link": "→ Discover the Achensee hiking guide",
-          "url": "#"
+          "url": "https://www.achensee.com/de/sommerurlaub/wandern-tirol-oesterreich/"
         },
         "1": {
           "title": "Biking Between Mountains & Lake",
           "desc": "Lake Achensee is a quiet favorite for mountain bikers and e-bikers. Over 250 kilometers of marked trails lead through the Karwendel, Rofan, and the Vorkarwendel — from relaxed lakeside routes to demanding climbs. Whether sporty or leisurely with an e-bike: you move through a landscape that offers space without ever being loud.",
           "link": "Mountainbiking & Cycling at Lake Achensee | Summer Holiday Tyrol",
-          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668428927374&cot=14"
+          "url": "https://www.achensee.com/de/sommerurlaub/radfahren-mountainbiken-tirol-oesterreich/",
+          "link2": "Anmeldung zum Halbmarathon: Achenseelauf | Tirols Panoramalauf erleben",
+          "url2": "https://www.achenseelauf.at/"
         },
         "2": {
           "title": "Golf with a View",
           "desc": "Just a few steps from MALIA lies the Golf & Landclub Achensee — the oldest golf course in Tyrol, nestled between the Karwendel mountains and the lake. The 18-hole course in Pertisau combines tranquility with playful challenge. Gentle terrain, clean lines, and views that accompany every swing.",
           "link": "→ Discover Golfclub Achensee",
-          "url": "#"
+          "url": "https://www.golfclub-achensee.at/"
         },
         "3": {
           "title": "Running & Walking",
@@ -477,25 +479,25 @@
           "title": "On the Rocks",
           "desc": "The Rofan and Karwendel ranges are among Tyrol's most diverse climbing areas. Sport climbing, via ferratas, or alpine routes — all set within a landscape that demands respect and rewards it. For beginners and experienced climbers alike, there are routes, courses, and guided tours. The view from above: vast. The moment: clear.",
           "link": "Climbing at Lake Achensee | Holiday in Tyrol, Austria",
-          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668428639876&cot=14"
+          "url": "https://www.achensee.com/de/sommerurlaub/klettern-tirol-oesterreich/"
         },
         "5": {
           "title": "Encounters that Slow You Down",
           "desc": "For those seeking something even calmer, experience the landscape on an alpaca hike. Slow steps, gentle animals, open paths. You walk through nature, accompany — or are accompanied — and take home a lasting sense of calm.",
           "link": "Alpaca walk in Tyrol at beautiful Lake Achensee - Achensee-Alpaca",
-          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668428483451&cot=14"
+          "url": "https://www.achensee-alpaka.at/alpakawanderung/"
         },
         "6": {
           "title": "Cattle Drive at Lake Achensee",
           "desc": "When autumn arrives, it is time for the return to Lake Achensee: The cows move from the alpine pasture back to their stalls. The cattle drives take place here from mid-September to early October. More detailed information can be found here:",
           "link": "Cattle drives at Lake Achensee | Tyrol Austria",
-          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668428639162&cot=14"
+          "url": "https://www.achensee.com/de/kunst-kultur-tradition/almabtriebe/"
         },
         "7": {
           "title": "Water Sports",
           "desc": "Water lovers take note, Lake Achensee has a lot to offer: from sailing, kite or windsurfing, to stand-up paddling, kayaking and diving. All information can be found here:",
           "link": "Water sports in Tyrol | Summer holiday at Lake Achensee",
-          "url": "https://miro.com/app/board/uXjVJ-bL4GY=/?moveToWidget=3458764668430207748&cot=14"
+          "url": "https://www.achensee.com/de/sommerurlaub/wassersport-tirol-oesterreich/"
         }
       },
       "btn": "BOOK YOUR SUMMER HOLIDAY NOW"
@@ -715,5 +717,10 @@
       "error_send": "Error sending the request. Please try again later.",
       "error_unexpected": "An unexpected error occurred."
     }
+  },
+  "SuccessPage": {
+    "title": "Booking Successful",
+    "description": "Thank you for your reservation at MALIA Alpine Hideaway. We have received your payment and a confirmation has been sent to your email address.",
+    "button": "Back to Home"
   }
 }

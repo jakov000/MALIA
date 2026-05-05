@@ -261,14 +261,27 @@ export default function TheSettingContent() {
                                         <p className="text-gray-600 font-light leading-relaxed text-xs md:text-sm">
                                             {t(`summer.grid.${i}.desc`)}
                                         </p>
-                                        <a 
-                                            href={t(`summer.grid.${i}.url`)} 
-                                            target={t(`summer.grid.${i}.url`).startsWith('http') ? "_blank" : "_self"}
-                                            rel={t(`summer.grid.${i}.url`).startsWith('http') ? "noopener noreferrer" : ""}
-                                            className="inline-block mt-4 text-[10px] uppercase tracking-widest text-blue-500 hover:text-blue-700 transition-colors border-b border-transparent hover:border-blue-700"
-                                        >
-                                            {t(`summer.grid.${i}.link`)}
-                                        </a>
+                                        <div className="flex flex-col gap-3 mt-4">
+                                            <a 
+                                                href={t(`summer.grid.${i}.url`)} 
+                                                target={t(`summer.grid.${i}.url`).startsWith('http') ? "_blank" : "_self"}
+                                                rel={t(`summer.grid.${i}.url`).startsWith('http') ? "noopener noreferrer" : ""}
+                                                className="inline-block text-[10px] uppercase tracking-widest text-blue-500 hover:text-blue-700 transition-colors border-b border-transparent hover:border-blue-700 w-fit"
+                                            >
+                                                {t(`summer.grid.${i}.link`)}
+                                            </a>
+                                            {/* Second Link only for Biken (Index 1) */}
+                                            {i === 1 && (
+                                                <a 
+                                                    href={t(`summer.grid.${i}.url2`)} 
+                                                    target={t(`summer.grid.${i}.url2`).startsWith('http') ? "_blank" : "_self"}
+                                                    rel={t(`summer.grid.${i}.url2`).startsWith('http') ? "noopener noreferrer" : ""}
+                                                    className="inline-block text-[10px] uppercase tracking-widest text-blue-500 hover:text-blue-700 transition-colors border-b border-transparent hover:border-blue-700 w-fit"
+                                                >
+                                                    {t(`summer.grid.${i}.link2`)}
+                                                </a>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             </motion.div>

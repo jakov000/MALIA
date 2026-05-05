@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import { db } from "@/lib/db";
 import { headers } from "next/headers";
 import { sendBookingConfirmation, sendAdminNotification } from "@/lib/mail";
+import { generateInvoicePdf } from "@/lib/invoice";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_dummy123", {
   apiVersion: "2026-02-25.clover",
@@ -54,7 +55,14 @@ export async function POST(req: Request) {
         }
 
         // 3. Send Confirmation Emails
-        await sendBookingConfirmation(booking.guestEmail, booking.guestName, booking.startDate, booking.endDate);
+        let invoicePdfBuffer = undefined;
+        try {
+          invoicePdfBuffer = await generateInvoicePdf(booking);
+        } catch (e) {
+          console.error("Failed to generate custom invoice PDF:", e);
+        }
+
+        await sendBookingConfirmation(booking.guestEmail, booking.guestName, booking.startDate, booking.endDate, invoicePdfBuffer);
         await sendAdminNotification(booking);
         
         console.log(`Payment successful for booking ${bookingId}. Emails dispatched.`);
