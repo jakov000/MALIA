@@ -16,18 +16,17 @@ export default function Hero() {
     italic: (chunks: React.ReactNode) => <em>{chunks}</em>,
     br: () => <br />
   };
-  // --- 1. BILDER-KONFIGURATION ---
-  // Basierend auf deiner Ordnerstruktur in der Screenshot-Grafik
   const heroImages = [
-    "/pictures/hero/hero/_DSC4122.JPG",
-    "/pictures/hero/hero/Bad The Lakeside__.jpg",
-    "/pictures/hero/hero/BildKueche_.jpg",
-    "/pictures/hero/hero/Haus ausblick.jpg",
-    "/pictures/hero/hero/IMG_1289.jpeg",
-    "/pictures/hero/hero/IMG_1402.png",
-    "/pictures/hero/hero/Küche 2.JPG",
-    "/pictures/hero/hero/madleine_ausblick Sommer.jpeg",
-    "/pictures/hero/hero/NEU Haus Winter.png"
+    "/pictures/heroneu/ChatGPT Image 24. Mai 2026, 22_03_42.png",
+    "/pictures/heroneu/ChatGPT Image 25. Mai 2026, 01_03_46.png",
+    "/pictures/heroneu/ChatGPT Image 25. Mai 2026, 01_22_01.png",
+    "/pictures/heroneu/ChatGPT Image 25. Mai 2026, 01_24_52.png",
+    "/pictures/heroneu/ChatGPT Image 25. Mai 2026, 01_44_08.png",
+    "/pictures/heroneu/ChatGPT Image 26. Mai 2026, 00_24_01.png",
+    "/pictures/heroneu/ChatGPT Image 26. Mai 2026, 00_26_13.png",
+    "/pictures/heroneu/ChatGPT Image 26. Mai 2026, 00_34_42.png",
+    "/pictures/heroneu/IMG_1289.jpeg",
+    "/pictures/heroneu/madleine_ausblick Sommer (1).jpeg"
   ];
 
   const [currentImg, setCurrentImg] = useState(0);

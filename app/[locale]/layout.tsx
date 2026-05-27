@@ -18,7 +18,7 @@ const sans = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "MALIA Alpine Hideaway - Luxus in den Alpen",
+  title: "MALIA Alpine Hideaway - Chalet in Tirol",
   description: "Erleben Sie Luxus pur in unserer Villa.",
   icons: {
     icon: '/logotabs.png',
