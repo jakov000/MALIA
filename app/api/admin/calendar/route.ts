@@ -63,7 +63,20 @@ export async function GET(req: Request) {
       }
     });
 
-    return NextResponse.json({ rules, blocks, bookings, allBlocks });
+    // 4. Fetch ALL manually maintained CalendarRules across every room.
+    // These are our OWN entries (Eigenbelegung, Sperren, Preis-/Mindestaufenthalt-Overrides).
+    // They are listed globally - not just for the selected room - because a rule on
+    // THE ALPINE HIDEAWAY also blocks THE RESIDENCE and THE RETREAT on the website.
+    const allRules = await db.calendarRule.findMany({
+      where: {
+        NOT: { source: { in: ["AIRBNB", "BOOKING", "FERATEL"] } },
+        startDate: { lte: endDate },
+        endDate: { gte: startDate }
+      },
+      orderBy: { createdAt: 'asc' }
+    });
+
+    return NextResponse.json({ rules, blocks, bookings, allBlocks, allRules });
   } catch (error) {
     console.error("Calendar GET error:", error);
     return new NextResponse("Internal Error", { status: 500 });
