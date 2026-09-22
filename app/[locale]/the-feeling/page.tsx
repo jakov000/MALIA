@@ -1,11 +1,8 @@
-import { Metadata } from 'next';
 import TheFeelingContent from '@/components/content/TheFeelingContent';
 import { setRequestLocale } from 'next-intl/server';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
-  title: 'The Feeling | MALIA',
-  description: 'Erleben Sie die Atmosphäre des MALIA Alpine Hideaway. Architektur, Design und Natur im Einklang.',
-};
+export const generateMetadata = pageMetadata('feeling', '/the-feeling');
 
 export default async function TheFeelingPage({
   params

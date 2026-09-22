@@ -1,4 +1,70 @@
 {
+  "Seo": {
+    "home": {
+      "title": "Luxury Chalet on Lake Achensee | MALIA Alpine Hideaway",
+      "description": "Private luxury chalet in Pertisau on Lake Achensee, Austria: up to 400 m², 2–10 guests, sauna, fireplace, mountain views. Book direct with the hosts."
+    },
+    "hideaways": {
+      "title": "Our Hideaways – 3 Suites on Lake Achensee | MALIA",
+      "description": "The Hideaway (400 m², up to 10 guests), The Residence (360 m², up to 8) and The Retreat (40 m², 2): amenities, rates and availability at a glance."
+    },
+    "alpineHideaway": {
+      "title": "The Alpine Hideaway – Entire Chalet, 400 m² | MALIA",
+      "description": "The entire chalet for 2–10 guests: 5 bedrooms, 4 bathrooms, 2 designer kitchens, private spa with sauna and a 270° panoramic terrace. From €800 per night."
+    },
+    "residence": {
+      "title": "The Residence – 360 m² for up to 8 Guests | MALIA",
+      "description": "4 bedrooms, 3 ensuite bathrooms, private sauna with mountain views, fireplace and panoramic terrace in Pertisau, Tyrol. From €650 per night."
+    },
+    "retreat": {
+      "title": "The Retreat – Studio for Two on Lake Achensee | MALIA",
+      "description": "Open-plan studio for two: 40 m², frosted-glass bathroom with rain shower, private terrace. From €160 per night in Pertisau, Austria."
+    },
+    "specials": {
+      "title": "MALIA Specials – Offers & Packages on Lake Achensee",
+      "description": "Seasonal packages at MALIA Alpine Hideaway: private spa moments, winter on the slopes and summer by the lake in Pertisau, Tyrol."
+    },
+    "feeling": {
+      "title": "The Feeling – Alpine Luxury at MALIA, Lake Achensee",
+      "description": "Reclaimed wood, natural stone, linen and floor-to-ceiling glass: how calm luxury feels at MALIA Alpine Hideaway in Pertisau, Tyrol."
+    },
+    "setting": {
+      "title": "The Setting – Lake Achensee in Winter & Summer | MALIA",
+      "description": "Pertisau on Lake Achensee: cable car 2 minutes on foot, lake and restaurants within walking distance, Jenbach station 15 minutes away."
+    },
+    "booking": {
+      "title": "Book Direct – Availability & Rates | MALIA Achensee",
+      "description": "Check availability and book MALIA Alpine Hideaway in Pertisau on Lake Achensee directly with the hosts – no booking fees."
+    },
+    "inquiry": {
+      "title": "Make an Enquiry | MALIA Alpine Hideaway, Achensee",
+      "description": "Send a non-binding enquiry: dates, suite and number of guests. We reply personally – MALIA Alpine Hideaway in Pertisau, Tyrol."
+    },
+    "vouchers": {
+      "title": "Gift Vouchers | MALIA Alpine Hideaway",
+      "description": "Give a stay at MALIA Alpine Hideaway on Lake Achensee – choose any value, delivered instantly by email."
+    },
+    "agb": {
+      "title": "Terms & Conditions | MALIA Alpine Hideaway",
+      "description": "Terms and conditions for bookings at MALIA Alpine Hideaway in Pertisau on Lake Achensee, Austria."
+    },
+    "privacy": {
+      "title": "Privacy Policy | MALIA Alpine Hideaway",
+      "description": "How we process personal data – enquiries, bookings and payment handling at MALIA Alpine Hideaway."
+    },
+    "imprint": {
+      "title": "Legal Notice | MALIA Alpine Hideaway",
+      "description": "Legal notice for MALIA Alpine Hideaway, Ländbergstraße 6, 6213 Pertisau on Lake Achensee, Austria."
+    },
+    "privacySettings": {
+      "title": "Privacy Settings | MALIA Alpine Hideaway",
+      "description": "Adjust your privacy settings for malia-alpine-hideaway.at."
+    },
+    "success": {
+      "title": "Booking Confirmed | MALIA Alpine Hideaway",
+      "description": "Your booking at MALIA Alpine Hideaway has been confirmed."
+    }
+  },
   "Navigation": {
     "home": "MALIA - Alpine Hideaway",
     "hideaways": "Our Hideaways",

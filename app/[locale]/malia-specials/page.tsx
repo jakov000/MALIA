@@ -1,11 +1,8 @@
-import { Metadata } from 'next';
 import MaliaSpecialsContent from '@/components/content/MaliaSpecialsContent';
 import { setRequestLocale } from 'next-intl/server';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
-  title: 'Specials & Angebote | MALIA',
-  description: 'Entdecken Sie unsere exklusiven Angebote für Ihren Traumurlaub in Tirol.',
-};
+export const generateMetadata = pageMetadata('specials', '/malia-specials');
 
 export default async function MaliaSpecialsPage({
   params

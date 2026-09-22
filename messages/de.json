@@ -1,4 +1,70 @@
 {
+  "Seo": {
+    "home": {
+      "title": "Luxus-Chalet am Achensee mieten | MALIA Alpine Hideaway",
+      "description": "Privates Luxus-Chalet in Pertisau am Achensee: bis 400 m², 2–10 Personen, Sauna, Kamin, Bergblick. Bergbahn in 2 Gehminuten. Direkt beim Gastgeber buchen."
+    },
+    "hideaways": {
+      "title": "Unsere Hideaways – 3 Suiten am Achensee | MALIA Pertisau",
+      "description": "The Hideaway (400 m², bis 10 Personen), The Residence (360 m², bis 8) und The Retreat (40 m², 2): Ausstattung, Preise und Verfügbarkeit im Überblick."
+    },
+    "alpineHideaway": {
+      "title": "The Alpine Hideaway – ganzes Chalet, 400 m² | MALIA",
+      "description": "Das ganze Chalet für 2–10 Personen: 5 Schlafzimmer, 4 Bäder, 2 Designerküchen, Wellnessbereich mit Sauna, 270°-Panoramaterrasse. Ab 800 € pro Nacht."
+    },
+    "residence": {
+      "title": "The Residence – 360 m² für bis zu 8 Personen | MALIA",
+      "description": "4 Schlafzimmer, 3 Ensuite-Bäder, private Sauna mit Bergblick, Kamin und Panoramaterrasse in Pertisau am Achensee. Ab 650 € pro Nacht."
+    },
+    "retreat": {
+      "title": "The Retreat – Studio für 2 am Achensee | MALIA",
+      "description": "Offenes Studio-Apartment für zwei: 40 m², Milchglas-Bad mit Regendusche, private Terrasse. Ab 160 € pro Nacht in Pertisau am Achensee."
+    },
+    "specials": {
+      "title": "MALIA Specials – Angebote & Arrangements am Achensee",
+      "description": "Saisonale Arrangements im MALIA Alpine Hideaway: private Wellness-Momente, Winter am Berg und Sommer am See in Pertisau am Achensee."
+    },
+    "feeling": {
+      "title": "The Feeling – Alpine Luxury erleben | MALIA Achensee",
+      "description": "Altholz, Naturstein, Leinen und raumhohe Glasfronten: Wie sich Calm Luxury im MALIA Alpine Hideaway in Pertisau am Achensee anfühlt."
+    },
+    "setting": {
+      "title": "Lage am Achensee – Winter & Sommer | MALIA Pertisau",
+      "description": "Pertisau am Achensee: Bergbahn in 2 Gehminuten, See und Restaurants fußläufig, Bahnhof Jenbach in 15 Minuten. Tipps für Winter und Sommer."
+    },
+    "booking": {
+      "title": "Direkt buchen – Verfügbarkeit & Preise | MALIA Achensee",
+      "description": "Verfügbarkeit prüfen und das MALIA Alpine Hideaway in Pertisau am Achensee ohne Vermittlungsgebühr direkt beim Gastgeber buchen."
+    },
+    "inquiry": {
+      "title": "Anfrage stellen | MALIA Alpine Hideaway Achensee",
+      "description": "Unverbindlich anfragen: Wunschtermin, Suite und Personenzahl. Wir melden uns persönlich – MALIA Alpine Hideaway in Pertisau am Achensee."
+    },
+    "vouchers": {
+      "title": "Gutscheine verschenken | MALIA Alpine Hideaway",
+      "description": "Gutschein für einen Aufenthalt im MALIA Alpine Hideaway am Achensee – frei wählbarer Wert, sofort per E-Mail versendet."
+    },
+    "agb": {
+      "title": "AGB | MALIA Alpine Hideaway",
+      "description": "Allgemeine Geschäftsbedingungen für Buchungen im MALIA Alpine Hideaway in Pertisau am Achensee."
+    },
+    "privacy": {
+      "title": "Datenschutzerklärung | MALIA Alpine Hideaway",
+      "description": "Wie wir personenbezogene Daten verarbeiten – Kontaktaufnahme, Buchung und Zahlungsabwicklung im MALIA Alpine Hideaway."
+    },
+    "imprint": {
+      "title": "Impressum | MALIA Alpine Hideaway",
+      "description": "Anbieterkennzeichnung des MALIA Alpine Hideaway, Ländbergstraße 6, 6213 Pertisau am Achensee, Österreich."
+    },
+    "privacySettings": {
+      "title": "Datenschutzeinstellungen | MALIA Alpine Hideaway",
+      "description": "Datenschutzeinstellungen für malia-alpine-hideaway.at anpassen."
+    },
+    "success": {
+      "title": "Buchung bestätigt | MALIA Alpine Hideaway",
+      "description": "Ihre Buchung im MALIA Alpine Hideaway wurde bestätigt."
+    }
+  },
   "Navigation": {
     "home": "MALIA - Alpine Hideaway",
     "hideaways": "Our Hideaways",

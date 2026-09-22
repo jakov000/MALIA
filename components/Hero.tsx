@@ -160,7 +160,7 @@ export default function Hero() {
               <p>{t.rich('special.p1', richOptions)}</p>
               <p className="italic font-serif text-[#3d3d29]">{t('special.p2')}</p>
             </div>
-            <Button href="/malia-specials" variant="outline" className="border-stone-800 hover:bg-stone-50">
+            <Button href={loc('/malia-specials')} variant="outline" className="border-stone-800 hover:bg-stone-50">
               {t('special.button')}
             </Button>
           </motion.div>
@@ -210,7 +210,7 @@ export default function Hero() {
             <p>{t.rich('voucher.p3', richOptions)}</p>
           </div>
 
-          <Button href="/vouchers" variant="outline" className="border-white text-white hover:bg-white hover:text-stone-900 hover:border-white bg-transparent tracking-widest uppercase text-xs px-8 py-4">
+          <Button href={loc('/vouchers')} variant="outline" className="border-white text-white hover:bg-white hover:text-stone-900 hover:border-white bg-transparent tracking-widest uppercase text-xs px-8 py-4">
             {t('voucher.button')}
           </Button>
         </div>

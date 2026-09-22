@@ -2,6 +2,9 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import PageFooter from "@/components/PageFooter";
 
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { pageMetadata } from '@/lib/page-metadata';
+
+export const generateMetadata = pageMetadata('agb', '/agb');
 
 export default async function AGB({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;

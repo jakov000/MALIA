@@ -1,11 +1,8 @@
-import { Metadata } from 'next';
 import TheSettingContent from '@/components/content/TheSettingContent';
 import { setRequestLocale } from 'next-intl/server';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
-  title: 'The Setting | MALIA',
-  description: 'Winter und Sommer am Achensee. Erleben Sie die Natur rund um das MALIA Alpine Hideaway.',
-};
+export const generateMetadata = pageMetadata('setting', '/the-setting');
 
 export default async function TheSettingPage({
   params

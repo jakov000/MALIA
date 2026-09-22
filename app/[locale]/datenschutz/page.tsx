@@ -2,6 +2,9 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import PageFooter from "@/components/PageFooter";
 
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { pageMetadata } from '@/lib/page-metadata';
+
+export const generateMetadata = pageMetadata('privacy', '/datenschutz');
 
 export default async function Datenschutz({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;

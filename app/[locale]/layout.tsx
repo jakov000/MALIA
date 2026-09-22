@@ -5,7 +5,8 @@ import "react-day-picker/dist/style.css";
 // Pfade auf relative Pfade angepasst, da dein components-Ordner im app-Ordner liegt
 import ClientLayoutWrapper from '@/components/ClientLayoutWrapper';
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, setRequestLocale } from 'next-intl/server';
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
+import { SITE_URL, SITE_NAME, DEFAULT_LOCALE, isLocale } from '@/lib/seo';
 
 // Die Schriftarten für den Forsthofgut-Look
 const serif = Playfair_Display({ 
@@ -17,13 +18,27 @@ const sans = Inter({
   variable: "--font-sans" 
 });
 
-export const metadata: Metadata = {
-  title: "MALIA Alpine Hideaway - Chalet in Tirol",
-  description: "Erleben Sie Luxus pur in unserer Villa.",
-  icons: {
-    icon: '/logotabs.png',
-  },
-};
+// Basis-Metadata für alle Seiten. Jede Seite überschreibt Titel, Description,
+// Canonical und hreflang über ihre eigene generateMetadata-Funktion.
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
+  const t = await getTranslations({ locale, namespace: 'Seo.home' });
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    applicationName: SITE_NAME,
+    title: t('title'),
+    description: t('description'),
+    icons: {
+      icon: '/logotabs.png',
+    },
+  };
+}
 
 export function generateStaticParams() {
   return [{ locale: 'de' }, { locale: 'en' }];
