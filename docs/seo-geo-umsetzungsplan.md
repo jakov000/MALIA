@@ -1,0 +1,150 @@
+# SEO- & GEO-Umsetzungsplan — MALIA Alpine Hideaway
+
+**Grundlage:** Aufwandsschätzung [AS-2026-007](AS-2026-007-1.pdf) vom 07.08.2026 (SolveTrail GbR), basierend auf dem SEO- & GEO-Audit vom 06.08.2026 · Gesamtscore **38/100**
+**Umsetzungsstart:** 22.09.2026
+**Umfang:** 9 Arbeitspakete · 43,333 Std. · SEO 1–4 kostenfrei (900 € netto), GEO 1–5 berechnet (750 € netto)
+**Canonical-Host:** `https://malia-alpine-hideaway.at` (Apex — live verifiziert, 307 → `/de`; `www` ist aktuell **nicht erreichbar**)
+
+---
+
+## Ist-Zustand (verifiziert am 22.09.2026)
+
+| Befund | Status |
+|---|---|
+| `robots.txt` / `app/robots.ts` | fehlt |
+| `sitemap.xml` / `app/sitemap.ts` | fehlt |
+| Canonical-Tags | fehlen auf allen Seiten |
+| hreflang (DE/EN/x-default) | fehlt vollständig |
+| Strukturierte Daten (JSON-LD) | 0 Vorkommen im Projekt |
+| Seiten-Metadata | nur 4 von 16 Seiten; alle statisch **deutsch**, auch auf den EN-Routen |
+| Open Graph / Twitter Cards / `metadataBase` | fehlen |
+| `www`-Domain | nicht erreichbar (DNS/Zertifikat) |
+| Bilder | 118 Dateien, **382 MB**; größte Einzeldatei 13,7 MB; über 40 Dateien > 500 KB |
+| `llms.txt` | fehlt |
+| FAQ-Markup | fehlt (Inhalte vorhanden, aber nur als Fließtext auf `/our-hideaways`) |
+
+**Seiteninventar:** 15 indexierbare Routen × 2 Sprachen = **30 URLs**, plus die neue FAQ-Seite aus GEO 4 → **32 URLs**. `/success` wird bewusst auf `noindex` gesetzt.
+
+---
+
+## SEO 1 — Technisches Fundament & Indexierung (5 Std.) · Pos. 02 — ✅ Code fertig
+
+Ziel: Die Seite wird überhaupt erst sauber crawl- und indexierbar. Alles Weitere baut darauf auf.
+
+- [x] Zentrales SEO-Modul `lib/seo.ts`: Canonical-Host, Routen-Registry, Canonical-/hreflang-Builder
+- [x] `app/robots.ts`: Sitemap-Verweis, `/admin`, `/api`, `/success` ausschließen, explizite Freigaben für 13 KI-Crawler (GPTBot, OAI-SearchBot, ChatGPT-User, PerplexityBot, ClaudeBot, Google-Extended u. a.)
+- [x] `app/sitemap.ts`: **30 URLs** mit `alternates.languages` (de/en/x-default) — verifiziert im Build
+- [x] `metadataBase` + selbstreferenzierende Canonicals auf allen Seiten
+- [x] hreflang-Paare DE ↔ EN inkl. `x-default` → DE
+- [x] `www` → Apex per 301 (`next.config.ts`-Redirect als Code-Absicherung)
+- [x] Interne Redirect-Links behoben (4 Stück: `Hero.tsx` ×2, `SuccessContent.tsx`, `InquiryContent.tsx`)
+- [ ] ⚠️ **Zugang nötig:** Domain `www` im Vercel-Projekt hinterlegen + DNS-Eintrag; Sitemap in der Google Search Console einreichen; Indexabdeckung prüfen
+
+## SEO 2 — Meta-Daten, Überschriften & Snippets (4 Std.) · Pos. 03 — ✅ weitgehend fertig
+
+- [x] Alle 16 Seiten auf `generateMetadata()` umgestellt (sprachabhängig, über `lib/page-metadata.ts`)
+- [x] 8 `"use client"`-Seiten in Server-Wrapper + `components/content/*Content.tsx` aufgeteilt — Voraussetzung dafür, dass sie überhaupt Metadata tragen können
+- [x] Titel + Descriptions für alle 16 Seiten in DE **und** EN als `Seo`-Namespace in `messages/*.json` (Titel ≤ 60, Descriptions ≤ 160 Zeichen)
+- [x] Open-Graph- und Twitter-Tags mit Hero-Visual, absolute Bild-URLs
+- [x] `/success` auf `noindex, nofollow`
+- [ ] Durchgängige H1-Struktur je Seite prüfen (aktuell 7× h1 über alle Seiten — offen)
+
+## SEO 3 — Content-Ausbau der Kernseiten (4 Std.) · Pos. 04
+
+- [ ] `/our-hideaways` zur vollwertigen Produktseite ausbauen (Ausstattung im Detail, Wellness, Raumaufteilung)
+- [ ] `/malia-specials` und `/the-feeling` um saisonale Angebote erweitern
+- [ ] Jeweils vollständig in DE und EN
+- [ ] Interne Verlinkung mit sprechenden Ankertexten zwischen Kern- und Detailseiten
+
+## SEO 4 — Bildoptimierung & Basis-Schema.org (2 Std.) · Pos. 05 — 🟡 Schema fertig, Bilder offen
+
+- [x] Basis-Schema.org: `LodgingBusiness` + `Organization` auf der Startseite, `Accommodation` (House/Apartment) + `BreadcrumbList` auf jeder Hideaway-Seite, DE und EN
+- [x] Ausstattung **je Einheit** korrekt ausgezeichnet — The Retreat trägt bewusst keine Sauna/Kamin/Panoramaterrasse
+- [x] `numberOfRooms` = 5 (Schlafzimmer des Hauses), keine Doppelzählung über die Einheiten
+- [ ] ⚠️ **Geo-Daten offen:** exakte Hauskoordinaten fehlen. Recherche liefert nur die Ortsmitte Pertisau — approximierte Werte als Hausadresse auszuzeichnen wäre falsch. `PROPERTY.geo` ist als TODO markiert.
+- [ ] ⚠️ **Bewertung 5,0 offen:** `aggregateRating` benötigt eine belegbare Bewertungsanzahl. Eine erfundene Zahl riskiert eine manuelle Maßnahme durch Google — nachtragen, sobald Anzahl und Quelle feststehen.
+- [ ] Alle übergroßen Bilder neu komprimieren (Ziel: < 300 KB, WebP) — betrifft 40+ Dateien, aktuell bis 13,7 MB, gesamt 382 MB. **Benötigt `npm i -D sharp`** (aktuell nicht installiert).
+- [ ] Sprechende Dateinamen statt `IMG_3217.jpeg`, `_DSC4122.JPG`
+- [ ] Dediziertes OG-Bild 1200×630 erzeugen (aktuell 1170×780, Maße im Code ehrlich deklariert)
+- [ ] Hero-Bild mit `priority`, restliche Bilder `loading="lazy"` + korrekte `sizes`
+- [ ] Fehlende `alt`-Texte ergänzen, generische ersetzen
+- [ ] Verifikation per Google Rich-Results-Test (nach Deploy)
+
+## GEO 1 — KI-Baseline-Messung (1,5 Std.) · Pos. 06
+
+- [ ] Fragenkatalog festlegen (Marken- + Empfehlungsfragen, z. B. „bestes Chalet Achensee", „Luxus-Chalet Tirol 10 Personen")
+- [ ] Stichproben in ChatGPT, Perplexity und Gemini dokumentieren: Wird MALIA genannt? Korrekt beschrieben? Welche Quellen werden zitiert?
+- [ ] Ergebnis als Vergleichsbasis in `docs/geo-baseline-2026-09.md` festhalten
+- [ ] ⚠️ **Manuell:** erfordert Sitzungen in den jeweiligen KI-Tools
+
+## GEO 2 — `llms.txt` erstellen (1,5 Std.) · Pos. 07 — ✅ fertig
+
+- [x] `app/llms.txt/route.ts`: Kernfakten (Lage, Ausstattung, Kapazität, Preise, Check-in, Kurtaxe, Anzahlung, Storno, Buchungsweg) maschinenlesbar, zweisprachig
+- [x] Je Einheit ein eigener Faktenblock mit korrekter, einheitsspezifischer Ausstattung
+- [x] Kuratiertes Verzeichnis aller 11 Kernseiten in DE und EN
+- [x] Wird aus `lib/property-facts.ts` erzeugt — bleibt damit automatisch synchron zu Website und Schema.org
+
+## GEO 3 — Strukturierter Faktenblock (3 Std.) · Pos. 08
+
+Ziel: `malia-alpine-hideaway.at` wird die faktenreichste MALIA-Quelle im Netz — statt achensee.com und Booking.
+
+- [ ] Fakten-Komponente (Text **und** Schema-Markup) auf den Hideaway-Seiten
+- [ ] Inhalte je Einheit — Datenbasis liegt bereits in `messages/de.json` vor:
+
+| | The Hideaway | The Residence | The Retreat |
+|---|---|---|---|
+| Fläche | 400 m² | 360 m² | 40 m² |
+| Personen | 2–10 | 2–8 | 2 |
+| Schlafzimmer | 5 | 4 | Studio (halboffen) |
+| Bäder | 4 | 3 (ensuite) | 1 |
+| Preis ab | 800 € | 650 € | 160 € |
+| Endreinigung | 150 € | 120 € | 45 € |
+
+- [ ] Gemeinsame Fakten: Check-in ab 15:00, Check-out bis 10:00, Kurtaxe 3 €/Person/Nacht (Kinder bis 14 frei), Haustiere auf Anfrage, kostenlose überdachte Parkplätze, Glasfaser-WLAN
+- [ ] Entfernungen: Bergbahn 2 Gehminuten, Achensee wenige Gehminuten, Bahnhof Jenbach ca. 15 Min.
+
+## GEO 4 — FAQ-Bereich mit FAQPage-Schema (5 Std.) · Pos. 09
+
+- [ ] Eigene FAQ-Route `/faq` (DE + EN) mit 10–15 echten Gästefragen
+- [ ] Bestandsinhalte aus `Hideaways.faq` übernehmen und ausbauen: Stornobedingungen, Lage & Anreise, Bahnanreise, Preise, Check-in/-out, Anzahlung, Zahlungsarten, Haustiere
+- [ ] Ergänzen: Mindestaufenthalt, Kinderbetten, Skiraum, Wellness-Nutzung, Selbstverpflegung, Belegung/Zusatzbetten
+- [ ] `FAQPage`-Markup, per Rich-Results-Test verifiziert
+- [ ] Verlinkung aus Footer und Hideaway-Seiten
+
+## GEO 5 — Entitäts-Bereinigung über alle Plattformen (1,5 Std.) · Pos. 10
+
+- [ ] Einheitlicher Name („MALIA Alpine Hideaway"), Kategorie „Luxus-Chalet", **eine** Hauptrufnummer
+- [ ] ⚠️ **Klärungsbedarf:** Impressum nennt zwei gleichrangige Nummern (Julia +43 676 5925596, Madleine +43 676 6207866) — für Entitätskonsistenz ist eine Hauptnummer festzulegen
+- [ ] ⚠️ **Klärungsbedarf:** PLZ-Abweichung — Website nennt 6213 Pertisau, die Aufwandsschätzung 6216
+- [ ] Durchsetzen auf: Website, Google Business Profile, achensee.com, alle OTA-Profile
+- [ ] Korrektur-Anstoß beim Aggregator (Falschangabe „6-Zimmer-Villa mit einem Bad")
+- [ ] Abschluss-Konsistenzprüfung über alle Plattformen
+- [ ] ⚠️ **Zugänge nötig:** Google Business Profile, achensee.com-Partnerzugang, OTA-Accounts
+
+---
+
+## Umsetzungsreihenfolge
+
+1. **SEO 1** — Fundament, ohne das nichts anderes wirkt
+2. **SEO 2** — Metadata DE/EN
+3. **SEO 4 (Schema-Teil)** — Basis-Schema.org, Voraussetzung für GEO 3
+4. **GEO 2 + GEO 3** — llms.txt und Faktenblock
+5. **GEO 4** — FAQ mit Markup
+6. **SEO 3** — Content-Ausbau
+7. **SEO 4 (Bild-Teil)** — Komprimierung, umfangreichste Einzelaufgabe
+8. **GEO 1 + GEO 5** — Baseline-Messung und Entitäts-Bereinigung (extern)
+
+## Nicht im Code umsetzbar — braucht Zugänge oder Kundenentscheidung
+
+| Aufgabe | Paket | Benötigt |
+|---|---|---|
+| `www`-Domain reparieren | SEO 1 | Vercel-Projekt + DNS |
+| Sitemap einreichen, Indexabdeckung prüfen | SEO 1 | Google Search Console |
+| KI-Baseline-Messung | GEO 1 | ChatGPT/Perplexity/Gemini-Sitzungen |
+| Hauptrufnummer festlegen | GEO 5 | Kundenentscheidung |
+| PLZ 6213 vs. 6216 klären | GEO 5 | Kundenentscheidung |
+| Profile korrigieren | GEO 5 | Google Business Profile, achensee.com, OTA-Logins |
+
+## Nicht Teil dieser Umsetzung
+
+Laufendes KI-Monitoring und fortlaufende SEO/GEO-Pflege sind Bestandteil des monatlichen Pflegemoduls (125 €/Monat, Erweiterung des bestehenden Supportvertrags).
