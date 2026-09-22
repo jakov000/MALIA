@@ -27,8 +27,8 @@ const IMAGES = [
 ];
 
 const DESCRIPTIONS: Record<Locale, string> = {
-  de: `Privates Luxus-Chalet in Pertisau am Achensee: bis 400 m², 2–10 Personen, privater Wellnessbereich mit Sauna, Kamin und Panoramaterrasse. Bergbahn in 2 Gehminuten, Bahnhof Jenbach in rund 15 Minuten.`,
-  en: `Private luxury chalet in Pertisau on Lake Achensee, Tyrol: up to 400 m², 2–10 guests, private spa with sauna, fireplace and panoramic terrace. Cable car 2 minutes on foot, Jenbach station approx. 15 minutes.`,
+  de: `Privates Luxus-Chalet in Pertisau am Achensee: bis 400 m², 2–12 Personen, privater Wellnessbereich mit Sauna, Kamin und Panoramaterrasse. Bergbahn in 2 Gehminuten, Bahnhof Jenbach in rund 15 Minuten.`,
+  en: `Private luxury chalet in Pertisau on Lake Achensee, Tyrol: up to 400 m², 2–12 guests, private spa with sauna, fireplace and panoramic terrace. Cable car 2 minutes on foot, Jenbach station approx. 15 minutes.`,
 };
 
 function absolute(path: string): string {

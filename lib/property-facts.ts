@@ -57,6 +57,8 @@ export type Unit = {
   path: string;
   sqm: number;
   maxGuests: number;
+  /** Belegung ohne Zustellbetten/Schlafcouch, falls abweichend von maxGuests. */
+  maxGuestsInBedrooms?: number;
   minGuests: number;
   bedrooms: number;
   bathrooms: number;
@@ -79,10 +81,14 @@ export const UNITS: Unit[] = [
     name: 'The Alpine Hideaway',
     path: '/our-hideaways/the-alpine-hideaway',
     sqm: 400,
-    maxGuests: 10,
+    // 10 Personen in den 5 Schlafzimmern, 2 weitere auf Zustellbett oder
+    // Schlafcouch. Vom Kunden bestätigt (22.09.2026).
+    maxGuests: 12,
+    maxGuestsInBedrooms: 10,
     minGuests: 2,
     bedrooms: 5,
-    bathrooms: 4,
+    // Je Schlafzimmer ein eigenes Bad (Infoblatt und FAQ-Vorlage des Kunden).
+    bathrooms: 5,
     priceFrom: 800,
     cleaningFee: 150,
     schemaType: 'House',

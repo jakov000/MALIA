@@ -2,23 +2,23 @@
   "Seo": {
     "home": {
       "title": "Luxus-Chalet am Achensee mieten | MALIA Alpine Hideaway",
-      "description": "Privates Luxus-Chalet in Pertisau am Achensee: bis 400 m², 2–10 Personen, Sauna, Kamin, Bergblick. Bergbahn in 2 Gehminuten. Direkt beim Gastgeber buchen."
+      "description": "Privates Luxus-Chalet in Pertisau am Achensee: bis 400 m², 2–12 Personen, Sauna, Kamin, Bergblick. Bergbahn in 2 Gehminuten. Direkt beim Gastgeber buchen."
     },
     "hideaways": {
       "title": "Unsere Hideaways – 3 Suiten am Achensee | MALIA Pertisau",
-      "description": "The Hideaway (400 m², bis 10 Personen), The Residence (360 m², bis 8) und The Retreat (40 m², 2): Ausstattung, Preise und Verfügbarkeit im Überblick."
+      "description": "The Hideaway (400 m², bis 12 Personen), The Residence (360 m², bis 8) und The Retreat (40 m², 2): Ausstattung, Lage und Verfügbarkeit im Überblick."
     },
     "alpineHideaway": {
       "title": "The Alpine Hideaway – ganzes Chalet, 400 m² | MALIA",
-      "description": "Das ganze Chalet für 2–10 Personen: 5 Schlafzimmer, 4 Bäder, 2 Designerküchen, Wellnessbereich mit Sauna, 270°-Panoramaterrasse. Ab 800 € pro Nacht."
+      "description": "Das ganze Chalet für 2–12 Personen: 5 Schlafzimmer mit eigenem Bad, 2 Designerküchen, Wellnessbereich mit Sauna, 270°-Panoramaterrasse. Pertisau am Achensee."
     },
     "residence": {
       "title": "The Residence – 360 m² für bis zu 8 Personen | MALIA",
-      "description": "4 Schlafzimmer, 3 Ensuite-Bäder, private Sauna mit Bergblick, Kamin und Panoramaterrasse in Pertisau am Achensee. Ab 650 € pro Nacht."
+      "description": "4 Schlafzimmer, 3 Ensuite-Bäder, private Sauna mit Bergblick, Kamin und Panoramaterrasse in Pertisau am Achensee. Platz für bis zu 8 Personen."
     },
     "retreat": {
       "title": "The Retreat – Studio für 2 am Achensee | MALIA",
-      "description": "Offenes Studio-Apartment für zwei: 40 m², Milchglas-Bad mit Regendusche, private Terrasse. Ab 160 € pro Nacht in Pertisau am Achensee."
+      "description": "Offenes Studio-Apartment für zwei: 40 m², Milchglas-Bad mit Regendusche und private Terrasse in Pertisau am Achensee."
     },
     "specials": {
       "title": "MALIA Specials – Angebote & Arrangements am Achensee",
@@ -183,7 +183,7 @@
       "p2": "Hier treffen klare Linien, Naturmaterialien und alpine Eleganz auf großzügigen Raum für echte Verbindung – ideal für Familien, Freundesgruppen oder alle, die einen privaten, hochwertigen Ort suchen.",
       "bullets": [
         "<bold>5 Schlafzimmer</bold> mit Komfortbetten",
-        "<bold>4 moderne Bäder</bold> mit eigener Dusche & WC",
+        "<bold>5 moderne Bäder</bold> – je Schlafzimmer ein eigenes Bad",
         "<bold>2 voll ausgestattete Designer-Küchen</bold> – inkl. Dampfgarer & Weinkühlschrank",
         "<bold>Privater Wellnessbereich</bold> mit Sauna, Infrarot & freistehender Badewanne",
         "<bold>270° Panorama-Terrasse & 3 Balkone</bold> mit Bergblick",
@@ -196,7 +196,7 @@
         "<bold>Kostenlose, überdachte Parkplätze</bold> direkt am Haus"
       ],
       "price": "ab € 800",
-      "persons": "2-10 Personen",
+      "persons": "2-12 Personen",
       "sqm": "400 qm",
       "scroll": "Scrollen, um die Zimmer zu erleben"
     },

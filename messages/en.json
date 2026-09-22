@@ -2,23 +2,23 @@
   "Seo": {
     "home": {
       "title": "Luxury Chalet on Lake Achensee | MALIA Alpine Hideaway",
-      "description": "Private luxury chalet in Pertisau on Lake Achensee, Austria: up to 400 m², 2–10 guests, sauna, fireplace, mountain views. Book direct with the hosts."
+      "description": "Private luxury chalet in Pertisau on Lake Achensee, Austria: up to 400 m², 2–12 guests, sauna, fireplace, mountain views. Book direct with the hosts."
     },
     "hideaways": {
       "title": "Our Hideaways – 3 Suites on Lake Achensee | MALIA",
-      "description": "The Hideaway (400 m², up to 10 guests), The Residence (360 m², up to 8) and The Retreat (40 m², 2): amenities, rates and availability at a glance."
+      "description": "The Hideaway (400 m², up to 12 guests), The Residence (360 m², up to 8) and The Retreat (40 m², 2): amenities, location and availability at a glance."
     },
     "alpineHideaway": {
       "title": "The Alpine Hideaway – Entire Chalet, 400 m² | MALIA",
-      "description": "The entire chalet for 2–10 guests: 5 bedrooms, 4 bathrooms, 2 designer kitchens, private spa with sauna and a 270° panoramic terrace. From €800 per night."
+      "description": "The entire chalet for 2–12 guests: 5 bedrooms each with ensuite, 2 designer kitchens, private spa with sauna, 270° panoramic terrace. Pertisau, Tyrol."
     },
     "residence": {
       "title": "The Residence – 360 m² for up to 8 Guests | MALIA",
-      "description": "4 bedrooms, 3 ensuite bathrooms, private sauna with mountain views, fireplace and panoramic terrace in Pertisau, Tyrol. From €650 per night."
+      "description": "4 bedrooms, 3 ensuite bathrooms, private sauna with mountain views, fireplace and panoramic terrace in Pertisau, Tyrol. Sleeps up to 8 guests."
     },
     "retreat": {
       "title": "The Retreat – Studio for Two on Lake Achensee | MALIA",
-      "description": "Open-plan studio for two: 40 m², frosted-glass bathroom with rain shower, private terrace. From €160 per night in Pertisau, Austria."
+      "description": "Open-plan studio for two: 40 m², frosted-glass bathroom with rain shower and a private terrace in Pertisau on Lake Achensee."
     },
     "specials": {
       "title": "MALIA Specials – Offers & Packages on Lake Achensee",
@@ -183,7 +183,7 @@
       "p2": "Here, clean lines, natural materials, and alpine elegance meet generous space for genuine connection. Ideal for families, groups of friends, or anyone seeking a private, high-end hideaway.",
       "bullets": [
         "<bold>5 bedrooms</bold> with comfort beds",
-        "<bold>4 modern bathrooms</bold>, each with shower & WC",
+        "<bold>5 modern bathrooms</bold> – one private bathroom per bedroom",
         "<bold>2 fully equipped designer kitchens</bold>, including steam oven & wine fridge",
         "<bold>Private wellness area</bold> with sauna, infrared cabin & freestanding bathtub",
         "<bold>270° panoramic terrace & 3 balconies</bold> with mountain views",
@@ -196,7 +196,7 @@
         "<bold>Free covered parking</bold> directly at the Chalet"
       ],
       "price": "from € 800",
-      "persons": "2-10 Persons",
+      "persons": "2-12 Persons",
       "sqm": "400 sqm",
       "scroll": "Scroll to discover the rooms"
     },

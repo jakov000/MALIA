@@ -4,7 +4,7 @@ export const SUITES: Suite[] = [
     {
         title: "THE ALPINE HIDEAWAY",
         price: "800",
-        persons: "2-10",
+        persons: "2-12",
         sqm: "400",
         img: "/pictures/hideaways/kitchen2.JPG",
         href: "/our-hideaways/the-alpine-hideaway",
