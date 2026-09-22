@@ -64,6 +64,8 @@ export type Unit = {
   bathrooms: number;
   priceFrom: number;
   cleaningFee: number;
+  /** Mindestaufenthalt in Nächten. In der Nebensaison ist teils 1 Nacht möglich. */
+  minStayNights: number;
   /** Schema.org-Typ: ganzes Haus vs. Apartment. */
   schemaType: 'House' | 'Apartment';
   /** Offenes Studio statt abgetrennter Schlafzimmer. */
@@ -91,6 +93,7 @@ export const UNITS: Unit[] = [
     bathrooms: 5,
     priceFrom: 800,
     cleaningFee: 150,
+    minStayNights: 2,
     schemaType: 'House',
     isWholeProperty: true,
   },
@@ -105,6 +108,7 @@ export const UNITS: Unit[] = [
     bathrooms: 3,
     priceFrom: 650,
     cleaningFee: 120,
+    minStayNights: 2,
     schemaType: 'Apartment',
   },
   {
@@ -118,6 +122,7 @@ export const UNITS: Unit[] = [
     bathrooms: 1,
     priceFrom: 160,
     cleaningFee: 45,
+    minStayNights: 2,
     schemaType: 'Apartment',
     isStudio: true,
   },
@@ -168,10 +173,13 @@ export function amenitiesFor(keys: string[]) {
 
 /** Entfernungen als konkrete Zahlen — genau das, was Antwortmaschinen zitieren. */
 export const DISTANCES: { key: string; de: string; en: string }[] = [
+  { key: 'skislope', de: 'Skipiste: 2 Gehminuten', en: 'Ski slope: 2 minutes on foot' },
   { key: 'cablecar', de: 'Bergbahn: 2 Gehminuten', en: 'Cable car: 2 minutes on foot' },
-  { key: 'lake', de: 'Achensee: wenige Gehminuten', en: 'Lake Achensee: a few minutes on foot' },
+  { key: 'lake', de: 'Achensee: 8 Gehminuten', en: 'Lake Achensee: 8 minutes on foot' },
   { key: 'restaurants', de: 'Cafés & Restaurants: wenige Gehminuten', en: 'Cafés and restaurants: a few minutes on foot' },
   { key: 'station', de: 'Bahnhof Jenbach: ca. 15 Minuten', en: 'Jenbach railway station: approx. 15 minutes' },
+  { key: 'munich', de: 'München: ca. 1,5 Stunden über Tegernsee und Achenpass', en: 'Munich: approx. 1.5 hours via Tegernsee and Achenpass' },
+  { key: 'evcharging', de: 'Öffentliche E-Ladestation: ca. 200 Meter (keine eigene Wallbox)', en: 'Public EV charging point: approx. 200 metres (no on-site wallbox)' },
 ];
 
 /** Stornostaffel, wie in den AGB und auf /our-hideaways ausgewiesen. */
@@ -183,17 +191,20 @@ export const CANCELLATION_POLICY = [
 ];
 
 /**
- * ⚠️ UNGEKLÄRT — daher bewusst nicht im Schema veröffentlicht.
+ * Preisspanne auf Basis der "ab"-Preise der Website — so vom Kunden
+ * entschieden (22.09.2026).
  *
- * Die auf der Website ausgewiesenen "ab"-Preise (800 / 650 / 160 €) decken sich
- * nicht mit der Buchungsmaschine. Live-Stand der Datenbank am 22.09.2026,
- * nur zukünftige Zeiträume:
+ * Hinweis für später: die Buchungsmaschine rechnet mit anderen Werten.
+ * Live-Stand der Datenbank am 22.09.2026, nur zukünftige Zeiträume:
  *
  *   THE ALPINE HIDEAWAY   600 – 2200 €/Nacht   (RoomConfig-Basis: 1300)
  *   THE RESIDENCE         500 – 1800 €/Nacht   (RoomConfig-Basis: 1000)
  *   THE RETREAT           150 –  270 €/Nacht   (RoomConfig-Basis:  220)
  *
- * Solange Website-Text und Buchungsmaschine auseinanderliegen, wäre jede
- * Angabe im Schema nachweisbar falsch. Erst klären, dann wieder aktivieren.
+ * Der tatsächliche Höchstpreis liegt also deutlich über dem hier
+ * ausgewiesenen oberen Ende. Bei der nächsten Preispflege angleichen.
  */
-export const PRICE_RANGE_UNRESOLVED = true;
+export function priceRange(): string {
+  const prices = UNITS.map((u) => u.priceFrom);
+  return `€${Math.min(...prices)}–€${Math.max(...prices)}`;
+}

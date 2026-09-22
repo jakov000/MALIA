@@ -4,6 +4,7 @@ import {
   UNIT_AMENITIES,
   PROPERTY_AMENITY_KEYS,
   amenitiesFor,
+  priceRange,
   type Unit,
 } from '@/lib/property-facts';
 import { SITE_URL, OG_IMAGE, absoluteUrl, type Locale } from '@/lib/seo';
@@ -11,10 +12,6 @@ import { SITE_URL, OG_IMAGE, absoluteUrl, type Locale } from '@/lib/seo';
 /**
  * Schema.org-Bausteine. Alle Werte stammen aus lib/property-facts.ts,
  * damit Website-Text, JSON-LD und llms.txt nicht auseinanderlaufen.
- *
- * Bewusst NICHT enthalten: priceRange. Die auf der Website ausgewiesenen
- * "ab"-Preise weichen von der Buchungsmaschine ab — siehe den Hinweis bei
- * PRICE_RANGE_UNRESOLVED in property-facts.ts. Erst klären, dann ergänzen.
  */
 
 const LODGING_ID = `${SITE_URL}/#lodging`;
@@ -69,6 +66,7 @@ export function lodgingBusinessSchema(locale: Locale) {
     email: PROPERTY.email,
     address: postalAddress(),
     image: IMAGES.map(absolute),
+    priceRange: priceRange(),
     currenciesAccepted: PROPERTY.currency,
     aggregateRating: {
       '@type': 'AggregateRating',
