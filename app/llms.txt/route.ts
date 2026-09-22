@@ -7,7 +7,7 @@ import {
   amenitiesFor,
   DISTANCES,
   CANCELLATION_POLICY,
-  priceRange,
+
 } from '@/lib/property-facts';
 import { PUBLIC_ROUTES, absoluteUrl, SITE_URL, type Locale } from '@/lib/seo';
 
@@ -53,7 +53,6 @@ function buildLlmsTxt(): string {
       `- Fläche / Size: ${u.sqm} m²`,
       `- Personen / Guests: ${guests}`,
       `- Räume / Rooms: ${rooms}, ${baths}`,
-      `- Preis ab / From: €${u.priceFrom} pro Nacht / per night`,
       `- Endreinigung / Cleaning fee: €${u.cleaningFee}`,
       `- Ausstattung / Amenities: ${amenities}`,
       `- URL: ${absoluteUrl('de', u.path)}`,
@@ -76,7 +75,7 @@ function buildLlmsTxt(): string {
 - Telefon / Phone: ${PROPERTY.phoneDisplay}
 - E-Mail: ${PROPERTY.email}
 - Website: ${SITE_URL}
-- Preisspanne / Price range: ${priceRange()} pro Nacht / per night
+- Bewertung / Rating: ${PROPERTY.rating.value} von 5 bei ${PROPERTY.rating.count} ${PROPERTY.rating.source}-Bewertungen / ${PROPERTY.rating.value} out of 5 from ${PROPERTY.rating.count} ${PROPERTY.rating.source} reviews
 - Check-in: ab / from ${PROPERTY.checkIn} · Check-out: bis / until ${PROPERTY.checkOut}
 - Kurtaxe / Tourist tax: €${PROPERTY.touristTaxPerPersonPerNight} pro Person und Nacht; Kinder bis ${PROPERTY.touristTaxExemptUnderAge} Jahre befreit / per person per night; children under ${PROPERTY.touristTaxExemptUnderAge} exempt
 - Anzahlung / Deposit: ${PROPERTY.depositPercent} % bei Reservierung / on reservation

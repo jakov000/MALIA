@@ -8,8 +8,15 @@
 
 export const PROPERTY = {
   name: 'MALIA Alpine Hideaway',
+  /** Schreibweise mit Bindestrich, wie sie im Google-Profil und im Impressum steht. */
+  alternateName: 'MALIA - Alpine Hideaway',
   legalName: 'MALIA Alpine Hideaway — Familie Madleine & Julia Rieser',
   category: 'Luxus-Chalet',
+  /** Belegt Website und Profile als dieselbe Entität. */
+  sameAs: [
+    'https://www.instagram.com/malia.alpine.hideaway',
+    'https://www.facebook.com/people/MALIA-Alpine-Hideaway/61582954802618/',
+  ],
   address: {
     street: 'Ländbergstraße 6',
     postalCode: '6213',
@@ -22,9 +29,15 @@ export const PROPERTY = {
   phone: '+436765925596',
   phoneDisplay: '+43 676 5925596',
   email: 'info@malia-alpine-hideaway.at',
-  // TODO: Exakte Hauskoordinaten aus Google Maps nachtragen.
-  // Bewusst leer gelassen — Ortsmitte-Koordinaten als Hausadresse auszuzeichnen wäre falsch.
-  geo: null as { latitude: number; longitude: number } | null,
+  // Vom Kunden bestätigt (22.09.2026). Das Infoblatt nennt 47.4373053 / 11.6942945
+  // — rund 13 m Abweichung, für die Standortbestimmung ohne Bedeutung.
+  geo: { latitude: 47.4374286, longitude: 11.6942730 } as { latitude: number; longitude: number } | null,
+  /**
+   * Google-Bewertung. MUSS dem Google-Unternehmensprofil entsprechen —
+   * abweichende oder geschätzte Zahlen führen zu einer manuellen Abstrafung.
+   * Stand 22.09.2026: 5,0 bei 10 Bewertungen (Infoblatt nannte im August noch 7).
+   */
+  rating: { value: 5.0, count: 10, source: 'Google' },
   currency: 'EUR',
   checkIn: '15:00',
   checkOut: '10:00',
@@ -163,8 +176,18 @@ export const CANCELLATION_POLICY = [
   { untilDaysBefore: 0, feePercent: 100, de: 'unter 14 Tagen oder Nichtanreise 100 %', en: '100% under 14 days or no-show' },
 ];
 
-/** Günstigster und teuerster Einstiegspreis über alle Einheiten. */
-export function priceRange(): string {
-  const prices = UNITS.map((u) => u.priceFrom);
-  return `€${Math.min(...prices)}–€${Math.max(...prices)}`;
-}
+/**
+ * ⚠️ UNGEKLÄRT — daher bewusst nicht im Schema veröffentlicht.
+ *
+ * Die auf der Website ausgewiesenen "ab"-Preise (800 / 650 / 160 €) decken sich
+ * nicht mit der Buchungsmaschine. Live-Stand der Datenbank am 22.09.2026,
+ * nur zukünftige Zeiträume:
+ *
+ *   THE ALPINE HIDEAWAY   600 – 2200 €/Nacht   (RoomConfig-Basis: 1300)
+ *   THE RESIDENCE         500 – 1800 €/Nacht   (RoomConfig-Basis: 1000)
+ *   THE RETREAT           150 –  270 €/Nacht   (RoomConfig-Basis:  220)
+ *
+ * Solange Website-Text und Buchungsmaschine auseinanderliegen, wäre jede
+ * Angabe im Schema nachweisbar falsch. Erst klären, dann wieder aktivieren.
+ */
+export const PRICE_RANGE_UNRESOLVED = true;

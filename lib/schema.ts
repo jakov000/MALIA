@@ -4,7 +4,6 @@ import {
   UNIT_AMENITIES,
   PROPERTY_AMENITY_KEYS,
   amenitiesFor,
-  priceRange,
   type Unit,
 } from '@/lib/property-facts';
 import { SITE_URL, OG_IMAGE, absoluteUrl, type Locale } from '@/lib/seo';
@@ -13,9 +12,9 @@ import { SITE_URL, OG_IMAGE, absoluteUrl, type Locale } from '@/lib/seo';
  * Schema.org-Bausteine. Alle Werte stammen aus lib/property-facts.ts,
  * damit Website-Text, JSON-LD und llms.txt nicht auseinanderlaufen.
  *
- * Bewusst NICHT enthalten: aggregateRating. Google verlangt dafür eine
- * belegbare Bewertungsanzahl; eine erfundene Zahl riskiert eine manuelle
- * Maßnahme. Nachtragen, sobald Bewertungsanzahl und Quelle feststehen.
+ * Bewusst NICHT enthalten: priceRange. Die auf der Website ausgewiesenen
+ * "ab"-Preise weichen von der Buchungsmaschine ab — siehe den Hinweis bei
+ * PRICE_RANGE_UNRESOLVED in property-facts.ts. Erst klären, dann ergänzen.
  */
 
 const LODGING_ID = `${SITE_URL}/#lodging`;
@@ -62,14 +61,22 @@ export function lodgingBusinessSchema(locale: Locale) {
     '@type': 'LodgingBusiness',
     '@id': LODGING_ID,
     name: PROPERTY.name,
+    alternateName: PROPERTY.alternateName,
     description: DESCRIPTIONS[locale],
     url: absoluteUrl(locale, ''),
+    sameAs: PROPERTY.sameAs,
     telephone: PROPERTY.phone,
     email: PROPERTY.email,
     address: postalAddress(),
     image: IMAGES.map(absolute),
-    priceRange: priceRange(),
     currenciesAccepted: PROPERTY.currency,
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: PROPERTY.rating.value,
+      reviewCount: PROPERTY.rating.count,
+      bestRating: 5,
+      worstRating: 1,
+    },
     checkinTime: PROPERTY.checkIn,
     checkoutTime: PROPERTY.checkOut,
     petsAllowed: locale === 'de' ? 'Auf Anfrage' : 'On request',
@@ -149,8 +156,10 @@ export function organizationSchema(locale: Locale) {
     '@type': 'Organization',
     '@id': ORGANIZATION_ID,
     name: PROPERTY.name,
+    alternateName: PROPERTY.alternateName,
     legalName: PROPERTY.legalName,
     url: absoluteUrl(locale, ''),
+    sameAs: PROPERTY.sameAs,
     logo: absolute('/logotabs.png'),
     telephone: PROPERTY.phone,
     email: PROPERTY.email,
