@@ -12,6 +12,18 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      // www auf die Apex-Domain zusammenführen (Canonical-Host).
+      // Greift erst, sobald www im Vercel-Projekt hinterlegt ist.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.malia-alpine-hideaway.at' }],
+        destination: 'https://malia-alpine-hideaway.at/:path*',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);
