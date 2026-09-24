@@ -49,12 +49,22 @@ Ziel: Die Seite wird überhaupt erst sauber crawl- und indexierbar. Alles Weiter
 - [x] `/success` auf `noindex, nofollow`
 - [ ] Durchgängige H1-Struktur je Seite prüfen (aktuell 7× h1 über alle Seiten — offen)
 
-## SEO 3 — Content-Ausbau der Kernseiten (4 Std.) · Pos. 04
+## SEO 3 — Content-Ausbau der Kernseiten (4 Std.) · Pos. 04 — ✅ fertig
 
-- [ ] `/our-hideaways` zur vollwertigen Produktseite ausbauen (Ausstattung im Detail, Wellness, Raumaufteilung)
-- [ ] `/malia-specials` und `/the-feeling` um saisonale Angebote erweitern
-- [ ] Jeweils vollständig in DE und EN
-- [ ] Interne Verlinkung mit sprechenden Ankertexten zwischen Kern- und Detailseiten
+- [x] `/our-hideaways`: Vergleichstabelle der drei Einheiten als echte HTML-Tabelle plus Faktenbox → **4662 Zeichen** sichtbarer Text
+- [x] `/the-feeling`: hatte **keinen einzigen Fließtext**, nur Bildunterschriften. Neu: Einführung zu Materialien und Raumkonzept, Beschreibungen zu Wellness, Küche, Wohnraum und Außenbereich, Abschluss mit Verweis auf FAQ und Buchung → 841 → **2319 Zeichen**
+- [x] `/malia-specials`: Angebote als regulärer Seiteninhalt → 432 → **2171 Zeichen**
+- [x] Jeweils vollständig in DE und EN
+- [x] Interne Verlinkung zu FAQ und Buchung aus Feeling- und Specials-Seite
+
+### Zwei versteckte Inhalte aufgedeckt und behoben
+
+Beide Befunde erklären Lücken aus der [GEO-Baseline](geo-baseline-2026-09.md):
+
+1. **Das „Gut zu wissen"-Akkordeon** auf `/our-hideaways` hing an `{isOpen && ...}` und renderte seinen Inhalt erst beim Aufklappen. Storno, Kurtaxe, Check-in-Zeiten und Haustierregelung standen damit **gar nicht im DOM**. Genau deshalb meldete Perplexity „keine explizite Haustierregelung auffindbar", obwohl die Angabe auf der Seite steht. Der Inhalt wird jetzt immer gerendert und nur per Höhe ein-/ausgeblendet.
+2. **Die Angebotstexte auf `/malia-specials`** lagen vollständig in einem Modal, das nur bei Klick rendert. Die Seite lieferte 432 Zeichen aus und verbarg rund 2600.
+
+> **Offen — Angaben der Gastgeberinnen nötig:** Die fünf Schlafzimmer auf `/the-feeling` (The Meadowside, The Lakeside, The Sunside, The Mountainside, The Retreat) haben bewusst keine Beschreibung bekommen. Ausblicke und Ausstattungsdetails je Zimmer lassen sich aus den Bestandsinhalten nicht belegen — ein bis zwei Sätze je Zimmer von euch, dann ergänze ich sie.
 
 ## SEO 4 — Bildoptimierung & Basis-Schema.org (2 Std.) · Pos. 05 — 🟡 Schema fertig, Bilder offen
 
