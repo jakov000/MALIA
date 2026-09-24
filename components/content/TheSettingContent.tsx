@@ -25,6 +25,7 @@ export default function TheSettingContent() {
                 <Image
                     src="/pictures/the%20setting/IMG_1406.jpeg"
                     fill
+                    sizes="100vw"
                     className="object-cover opacity-80"
                     alt="Umgebung des MALIA Alpine Hideaway in Pertisau am Achensee"
                     priority
@@ -105,6 +106,7 @@ export default function TheSettingContent() {
                         <Image
                             src="/pictures/the setting/DJI_0546.jpg"
                             fill
+                            sizes="(max-width: 1280px) 100vw, 1280px"
                             className="object-cover transition-transform duration-[5s] group-hover:scale-105"
                             alt="Winterpanorama am Achensee nahe dem MALIA Alpine Hideaway in Pertisau"
                             priority
@@ -198,6 +200,7 @@ export default function TheSettingContent() {
                         <Image
                             src="/pictures/the setting/Sommersee.jpg"
                             fill
+                            sizes="(max-width: 1280px) 100vw, 1280px"
                             className="object-cover transition-transform duration-[5s] group-hover:scale-105"
                             alt="Sommerpanorama am Achensee nahe dem MALIA Alpine Hideaway in Pertisau"
                             priority

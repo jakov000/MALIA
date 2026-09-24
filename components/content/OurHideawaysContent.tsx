@@ -74,6 +74,7 @@ export default function OurHideawaysContent() {
                 <Image
                     src="/pictures/hideaways/IMG-1402.png"
                     fill
+                    sizes="100vw"
                     className="object-cover opacity-90"
                     alt="MALIA Alpine Hideaway in Pertisau am Achensee"
                     priority
@@ -234,6 +235,7 @@ export default function OurHideawaysContent() {
                             <Image
                                 src="/pictures/hideaways/_DSC2878.JPG"
                                 fill
+                                sizes="(max-width: 1024px) 100vw, 220px"
                                 className="object-cover"
                                 alt="Einrichtungsdetail im MALIA Alpine Hideaway in Pertisau am Achensee"
                             />

@@ -58,6 +58,7 @@ export default function Hero() {
             <Image
               src={heroImages[currentImg]}
               fill
+              sizes="100vw"
               className="object-cover opacity-70"
               alt="MALIA Alpine Hideaway in Pertisau am Achensee"
               priority={true}

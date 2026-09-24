@@ -14,11 +14,11 @@ export const DEFAULT_LOCALE: Locale = 'de';
 
 export const SITE_NAME = 'MALIA Alpine Hideaway';
 
-// Standard-Vorschaubild fürs Teilen. Maße entsprechen der tatsächlichen Datei.
-// TODO (SEO 4): durch ein zugeschnittenes 1200x630-Asset ersetzen, dann Maße anpassen.
-export const OG_IMAGE = '/pictures/hero/hero/Haus ausblick.jpg';
-export const OG_IMAGE_WIDTH = 1170;
-export const OG_IMAGE_HEIGHT = 780;
+// Standard-Vorschaubild fürs Teilen, zugeschnitten auf das von Facebook,
+// LinkedIn, WhatsApp und X erwartete Format 1200x630 (1,91:1).
+export const OG_IMAGE = '/og/malia-alpine-hideaway.jpg';
+export const OG_IMAGE_WIDTH = 1200;
+export const OG_IMAGE_HEIGHT = 630;
 
 export type RouteConfig = {
   /** Pfad ohne Locale-Präfix. Leerstring = Startseite. */
