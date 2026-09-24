@@ -1,12 +1,15 @@
 "use client";
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { SUITES } from '@/lib/data';
 import Button from '@/components/ui/Button';
 import SectionHeader from '@/components/ui/SectionHeader';
 import PageFooter from '@/components/PageFooter';
+import UnitComparison from '@/components/UnitComparison';
+import PropertyFactBox from '@/components/PropertyFactBox';
 import { useTranslations, useLocale } from 'next-intl';
+import { isLocale, DEFAULT_LOCALE } from '@/lib/seo';
 
 // --- HILFS-KOMPONENTE: ACCORDION ---
 function AccordionItem({ title, children }: { title: string, children: React.ReactNode }) {
@@ -22,21 +25,25 @@ function AccordionItem({ title, children }: { title: string, children: React.Rea
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6 9l6 6 6-6" /></svg>
                 </span>
             </button>
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="overflow-hidden"
-                    >
-                        <div className="pb-8 px-2 pt-2 text-gray-600 font-light leading-relaxed tracking-wide">
-                            {children}
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            {/*
+              Der Inhalt wird IMMER gerendert und nur per Höhe ein- und
+              ausgeblendet. Zuvor hing er an {isOpen && ...} und stand im
+              eingeklappten Zustand gar nicht im DOM — damit war er für
+              Crawler und KI-Systeme unsichtbar. Genau das hat in der
+              GEO-Baseline dazu geführt, dass Perplexity die Haustier-
+              regelung nicht finden konnte.
+            */}
+            <motion.div
+                initial={false}
+                animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="overflow-hidden"
+                aria-hidden={!isOpen}
+            >
+                <div className="pb-8 px-2 pt-2 text-gray-600 font-light leading-relaxed tracking-wide">
+                    {children}
+                </div>
+            </motion.div>
         </div>
     );
 }
@@ -45,6 +52,7 @@ function AccordionItem({ title, children }: { title: string, children: React.Rea
 export default function OurHideawaysContent() {
     const t = useTranslations('Hideaways');
     const localActive = useLocale();
+    const schemaLocale = isLocale(localActive) ? localActive : DEFAULT_LOCALE;
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
 
@@ -153,6 +161,14 @@ export default function OurHideawaysContent() {
                             ))}
                         </motion.div>
                     </div>
+                </div>
+            </section>
+
+            {/* --- 3b. VERGLEICH & FAKTEN (SEO 3 / GEO 3) --- */}
+            <section className="py-20 md:py-28 px-6 bg-white">
+                <UnitComparison locale={schemaLocale} />
+                <div className="max-w-5xl mx-auto mt-20">
+                    <PropertyFactBox locale={schemaLocale} />
                 </div>
             </section>
 

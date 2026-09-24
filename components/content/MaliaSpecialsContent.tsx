@@ -161,6 +161,67 @@ export default function MaliaSpecialsContent() {
                 </div>
             </section>
 
+            {/*
+              --- 2b. ANGEBOTE IM DETAIL (SEO 3) ---
+              Dieselben Inhalte wie im Modal, aber als regulärer Seiteninhalt.
+              Das Modal wird nur bei Klick gerendert und stand damit nie im
+              DOM — die gesamten Angebotstexte waren für Crawler und
+              KI-Systeme unsichtbar.
+            */}
+            <section className="pb-24 md:pb-32 px-6 bg-white">
+                <div className="max-w-3xl mx-auto border-t border-stone-200 pt-16 space-y-20">
+                    <h2 className="text-xl md:text-2xl font-serif uppercase tracking-[0.3em] text-stone-800">
+                        {t('details.title')}
+                    </h2>
+
+                    {SPECIALS.map((special) => (
+                        <article key={special.id} className="space-y-5">
+                            <h3 className="text-2xl md:text-3xl font-serif text-stone-800 leading-tight">
+                                {t(`offers.${special.id}.title`)}
+                            </h3>
+                            <p className="text-xs uppercase tracking-[0.3em] text-[#3d3d29] font-bold">
+                                {t(`offers.${special.id}.subtitle`)}
+                            </p>
+
+                            <div className="font-light text-gray-600 leading-relaxed">
+                                {t.rich(`offers.${special.id}.description`, richOptions)}
+                            </div>
+
+                            <p className="font-light text-stone-800 border-l-2 border-[#bcc2b2] pl-4">
+                                {t.rich(`offers.${special.id}.highlight`, richOptions)}
+                            </p>
+
+                            <div>
+                                <p className="text-xs uppercase tracking-widest font-bold text-stone-700 mb-3">
+                                    {t('details.included')}
+                                </p>
+                                <ul className="space-y-2">
+                                    {/* Nur Einträge rendern, die auch übersetzt sind — die
+                                        features-Listen in data.ts und in den Sprachdateien
+                                        sind unterschiedlich lang. */}
+                                    {special.features
+                                        .map((_, i) => i)
+                                        .filter((i) => t.has(`offers.${special.id}.features.${i}`))
+                                        .map((i) => (
+                                            <li key={i} className="flex gap-3 font-light text-gray-600 text-sm leading-relaxed">
+                                                <Check className="w-4 h-4 mt-1 shrink-0 text-[#bcc2b2]" strokeWidth={2} />
+                                                <span>{t.rich(`offers.${special.id}.features.${i}`, richOptions)}</span>
+                                            </li>
+                                        ))}
+                                </ul>
+                            </div>
+                        </article>
+                    ))}
+
+                    <div className="flex flex-wrap gap-4 pt-4">
+                        <Button href={loc('/booking')} variant="primary">{t('buttons.book')}</Button>
+                        <Button href={loc('/inquiry')} variant="outline" className="border-stone-800 hover:bg-stone-50">
+                            {t('buttons.inquiry')}
+                        </Button>
+                    </div>
+                </div>
+            </section>
+
             {/* --- 3. FOOTER SECTION --- */}
             <PageFooter />
         </div>

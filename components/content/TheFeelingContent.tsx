@@ -3,14 +3,17 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { FEELING_AREAS } from '@/lib/data';
+import Link from 'next/link';
 import PageFooter from '@/components/PageFooter';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 import ImageSlideshow from '@/components/ui/ImageSlideshow';
 
 export default function TheFeelingContent() {
     const t = useTranslations('TheFeeling');
     const tAreas = useTranslations('TheFeeling.areas');
+    const locale = useLocale();
+    const loc = (path: string) => `/${locale}${path}`;
 
     return (
         <div className="bg-white">
@@ -40,6 +43,27 @@ export default function TheFeelingContent() {
                         <span className="uppercase tracking-[0.4em] text-[10px] mb-4 font-light opacity-80 italic">{t('hero.subtitle')}</span>
                         <div className="w-[1px] h-12 bg-white/40" />
                     </div>
+                </div>
+            </section>
+
+            {/* --- 1b. EINFÜHRUNG --- */}
+            <section className="py-24 md:py-32 bg-white">
+                <div className="max-w-3xl mx-auto px-6">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-10%" }}
+                        transition={{ duration: 0.9 }}
+                    >
+                        <h2 className="text-3xl md:text-4xl font-serif text-stone-800 uppercase tracking-widest leading-tight mb-10">
+                            {t('intro.title')}
+                        </h2>
+                        <div className="space-y-6 text-base md:text-lg font-light text-gray-600 leading-relaxed">
+                            <p>{t('intro.p1')}</p>
+                            <p>{t('intro.p2')}</p>
+                            <p>{t('intro.p3')}</p>
+                        </div>
+                    </motion.div>
                 </div>
             </section>
 
@@ -87,6 +111,11 @@ export default function TheFeelingContent() {
                                                 {subtitle}
                                             </p>
                                         )}
+                                        {tAreas.has(`${area.id}.description`) && (
+                                            <p className="text-base font-light text-gray-600 leading-relaxed">
+                                                {tAreas(`${area.id}.description`)}
+                                            </p>
+                                        )}
                                         <div className="pt-6">
                                             <div className="w-12 h-[1px] bg-stone-300" />
                                         </div>
@@ -94,6 +123,30 @@ export default function TheFeelingContent() {
                                 </motion.div>
                             );
                         })}
+                    </div>
+                </div>
+            </section>
+
+            {/* --- 2b. ABSCHLUSS MIT WEITERFÜHRENDEN LINKS --- */}
+            <section className="pb-24 md:pb-32 bg-white">
+                <div className="max-w-3xl mx-auto px-6 text-center border-t border-stone-200 pt-16">
+                    <h2 className="text-2xl md:text-3xl font-serif text-stone-800 uppercase tracking-widest mb-6">
+                        {t('outro.title')}
+                    </h2>
+                    <p className="font-light text-gray-600 leading-relaxed mb-10">{t('outro.text')}</p>
+                    <div className="flex flex-wrap gap-4 justify-center">
+                        <Link
+                            href={loc('/faq')}
+                            className="inline-block border border-stone-800 text-stone-800 px-8 py-3 uppercase tracking-widest text-xs hover:bg-stone-50 transition-colors"
+                        >
+                            {t('outro.cta_faq')}
+                        </Link>
+                        <Link
+                            href={loc('/booking')}
+                            className="inline-block bg-[#bcc2b2] text-stone-800 px-8 py-3 uppercase tracking-widest text-xs font-bold hover:bg-[#b0b8a5] transition-colors"
+                        >
+                            {t('outro.cta_booking')}
+                        </Link>
                     </div>
                 </div>
             </section>

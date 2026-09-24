@@ -367,6 +367,12 @@
       "title": "The Feeling",
       "subtitle": "explore the soul of malia"
     },
+    "intro": {
+      "title": "Naturmaterialien statt Dekoration",
+      "p1": "Das MALIA Alpine Hideaway in Pertisau am Achensee ist durchgehend mit Naturmaterialien gestaltet: Altholz, strukturierter Naturstein, Leinen und Wolle. Die Farben greifen auf, was vor den Fenstern liegt — Fels, Wald und das Wasser des Achensees.",
+      "p2": "Raumhohe Glasfronten holen das Karwendelgebirge in den Wohnraum. Fußbodenheizung in allen Räumen, ein Kamin mit Holzvorrat und warmes, indirektes Licht sorgen dafür, dass sich 400 m² auch im Winter nie zu groß anfühlen.",
+      "p3": "Jedes der 5 Schlafzimmer hat ein eigenes Bad. Das ist der Unterschied zu Chalets, in denen Gruppen sich Bäder teilen: Im MALIA Alpine Hideaway behält jeder seinen Rückzugsort, ohne dass das gemeinsame Wohnen darunter leidet."
+    },
     "areas": {
       "room-1": {
         "category": "The Hideaway",
@@ -396,23 +402,33 @@
       "wellness": {
         "category": "Relax",
         "title": "Wellnessbereich",
-        "subtitle": "Sauna & Infrarot & freistehende Badewanne"
+        "subtitle": "Sauna & Infrarot & freistehende Badewanne",
+        "description": "Der private Wellnessbereich steht ausschließlich den Gästen des MALIA Alpine Hideaway zur Verfügung — finnische Sauna, Infrarotkabine und eine freistehende Badewanne. Ein Whirlpool folgt im Winter 2026/27."
       },
       "kitchen": {
         "category": "Living",
         "title": "Küche",
-        "subtitle": "Weinkühlschrank & Dampfgarer"
+        "subtitle": "Weinkühlschrank & Dampfgarer",
+        "description": "Die Designer-Küche im MALIA Alpine Hideaway ist voll ausgestattet, inklusive Dampfgarer, Weinkühlschrank, Espressomaschine und Teebar. Im gesamten Haus gibt es zwei Küchen, sodass auch größere Gruppen parallel kochen können."
       },
       "living": {
         "category": "Community",
         "title": "Wohnzimmer",
-        "subtitle": "Ofen, Flat TV, Plattenspieler"
+        "subtitle": "Ofen, Flat TV, Plattenspieler",
+        "description": "Der Wohn- und Essbereich im MALIA Alpine Hideaway hat einen Kamin inklusive Holzvorrat, Smart-TV, Plattenspieler und raumhohe Glasfronten zum Bergpanorama. Die Couch lässt sich als zusätzliche Schlafgelegenheit nutzen."
       },
       "outdoor": {
         "category": "Nature",
         "title": "Außenbereich",
-        "subtitle": "270° Panorama View"
+        "subtitle": "270° Panorama View",
+        "description": "Die 270°-Panoramaterrasse und drei Balkone öffnen den Blick über Pertisau am Achensee bis ins Karwendel. Zum Seeufer sind es 8 Gehminuten, zur Bergbahn und zur nächsten Skipiste jeweils 2 Gehminuten."
       }
+    },
+    "outro": {
+      "title": "Selbst erleben",
+      "text": "Alle Eckdaten zu Kapazität, Ausstattung, Preisen und Anreise stehen gesammelt in den häufigen Fragen zum MALIA Alpine Hideaway in Pertisau am Achensee.",
+      "cta_faq": "Häufige Fragen",
+      "cta_booking": "Direkt buchen"
     }
   },
   "Specials": {
@@ -473,6 +489,10 @@
           "9": "Herrliches Erholen im luxuriösen MALIA-Ambiente"
         }
       }
+    },
+    "details": {
+      "title": "Die Angebote im Detail",
+      "included": "Im Angebot enthalten"
     }
   },
   "TheSetting": {
