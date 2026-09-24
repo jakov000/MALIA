@@ -66,7 +66,7 @@ Beide Befunde erklären Lücken aus der [GEO-Baseline](geo-baseline-2026-09.md):
 
 > **Offen — Angaben der Gastgeberinnen nötig:** Die fünf Schlafzimmer auf `/the-feeling` (The Meadowside, The Lakeside, The Sunside, The Mountainside, The Retreat) haben bewusst keine Beschreibung bekommen. Ausblicke und Ausstattungsdetails je Zimmer lassen sich aus den Bestandsinhalten nicht belegen — ein bis zwei Sätze je Zimmer von euch, dann ergänze ich sie.
 
-## SEO 4 — Bildoptimierung & Basis-Schema.org (2 Std.) · Pos. 05 — 🟡 Schema fertig, Bilder offen
+## SEO 4 — Bildoptimierung & Basis-Schema.org (2 Std.) · Pos. 05 — ✅ fertig
 
 - [x] Basis-Schema.org: `LodgingBusiness` + `Organization` auf der Startseite, `Accommodation` (House/Apartment) + `BreadcrumbList` auf jeder Hideaway-Seite, DE und EN
 - [x] Ausstattung **je Einheit** korrekt ausgezeichnet — The Retreat trägt bewusst keine Sauna/Kamin/Panoramaterrasse
@@ -85,7 +85,7 @@ Beide Befunde erklären Lücken aus der [GEO-Baseline](geo-baseline-2026-09.md):
 >
 > **Verwaiste Bilder:** 7 Dateien (ursprünglich 57 MB) werden im Code nirgends referenziert — Überbleibsel aus `hero/hero` und `hero/hero4`, seit der Hero auf `pictures/heroneu/` umgestellt wurde. Können gelöscht werden, sobald du bestätigst.
 
-## GEO 1 — KI-Baseline-Messung (1,5 Std.) · Pos. 06
+## GEO 1 — KI-Baseline-Messung (1,5 Std.) · Pos. 06 — ✅ gemessen am 22.09.2026
 
 - [ ] Fragenkatalog festlegen (Marken- + Empfehlungsfragen, z. B. „bestes Chalet Achensee", „Luxus-Chalet Tirol 10 Personen")
 - [ ] Stichproben in ChatGPT, Perplexity und Gemini dokumentieren: Wird MALIA genannt? Korrekt beschrieben? Welche Quellen werden zitiert?
@@ -99,7 +99,7 @@ Beide Befunde erklären Lücken aus der [GEO-Baseline](geo-baseline-2026-09.md):
 - [x] Kuratiertes Verzeichnis aller 11 Kernseiten in DE und EN
 - [x] Wird aus `lib/property-facts.ts` erzeugt — bleibt damit automatisch synchron zu Website und Schema.org
 
-## GEO 3 — Strukturierter Faktenblock (3 Std.) · Pos. 08
+## GEO 3 — Strukturierter Faktenblock (3 Std.) · Pos. 08 — ✅ fertig
 
 Ziel: `malia-alpine-hideaway.at` wird die faktenreichste MALIA-Quelle im Netz — statt achensee.com und Booking.
 
@@ -118,7 +118,7 @@ Ziel: `malia-alpine-hideaway.at` wird die faktenreichste MALIA-Quelle im Netz �
 - [ ] Gemeinsame Fakten: Check-in ab 15:00, Check-out bis 10:00, Kurtaxe 3 €/Person/Nacht (Kinder bis 14 frei), Haustiere auf Anfrage, kostenlose überdachte Parkplätze, Glasfaser-WLAN
 - [ ] Entfernungen: Bergbahn 2 Gehminuten, Achensee wenige Gehminuten, Bahnhof Jenbach ca. 15 Min.
 
-## GEO 4 — FAQ-Bereich mit FAQPage-Schema (5 Std.) · Pos. 09
+## GEO 4 — FAQ-Bereich mit FAQPage-Schema (5 Std.) · Pos. 09 — ✅ fertig
 
 - [ ] Eigene FAQ-Route `/faq` (DE + EN) mit 10–15 echten Gästefragen
 - [ ] Bestandsinhalte aus `Hideaways.faq` übernehmen und ausbauen: Stornobedingungen, Lage & Anreise, Bahnanreise, Preise, Check-in/-out, Anzahlung, Zahlungsarten, Haustiere
@@ -126,7 +126,7 @@ Ziel: `malia-alpine-hideaway.at` wird die faktenreichste MALIA-Quelle im Netz �
 - [ ] `FAQPage`-Markup, per Rich-Results-Test verifiziert
 - [ ] Verlinkung aus Footer und Hideaway-Seiten
 
-## GEO 5 — Entitäts-Bereinigung über alle Plattformen (1,5 Std.) · Pos. 10
+## GEO 5 — Entitäts-Bereinigung über alle Plattformen (1,5 Std.) · Pos. 10 — 🟡 Website fertig, Profile offen
 
 - [x] **Hauptrufnummer festgelegt:** +43 676 6207866 (Madleine), bestätigt am 24.09.2026. Auf der Website durchgezogen in Schema, llms.txt, Faktenbox, Navigations-Telefonlink und Formular-Platzhalter.
 - [x] **Offizieller Name festgelegt:** „MALIA Alpine Hideaway" ohne Bindestrich. Die Bindestrich-Variante liegt als `alternateName` im Schema, damit beide Schreibweisen derselben Entität zugeordnet werden.
