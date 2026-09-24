@@ -103,8 +103,8 @@ Beide Befunde erklären Lücken aus der [GEO-Baseline](geo-baseline-2026-09.md):
 
 Ziel: `malia-alpine-hideaway.at` wird die faktenreichste MALIA-Quelle im Netz — statt achensee.com und Booking.
 
-- [ ] Fakten-Komponente (Text **und** Schema-Markup) auf den Hideaway-Seiten
-- [ ] Inhalte je Einheit — Datenbasis liegt bereits in `messages/de.json` vor:
+- [x] `components/PropertyFactBox.tsx` als Definitionsliste — eingebunden auf `/faq` und `/our-hideaways`, gespeist aus derselben Quelle wie Schema.org und llms.txt
+- [x] Inhalte je Einheit, zusätzlich als Vergleichstabelle (`components/UnitComparison.tsx`):
 
 | | The Hideaway | The Residence | The Retreat |
 |---|---|---|---|
@@ -115,16 +115,17 @@ Ziel: `malia-alpine-hideaway.at` wird die faktenreichste MALIA-Quelle im Netz �
 | Preis ab | 800 € | 650 € | 160 € |
 | Endreinigung | 150 € | 120 € | 45 € |
 
-- [ ] Gemeinsame Fakten: Check-in ab 15:00, Check-out bis 10:00, Kurtaxe 3 €/Person/Nacht (Kinder bis 14 frei), Haustiere auf Anfrage, kostenlose überdachte Parkplätze, Glasfaser-WLAN
-- [ ] Entfernungen: Bergbahn 2 Gehminuten, Achensee wenige Gehminuten, Bahnhof Jenbach ca. 15 Min.
+- [x] Gemeinsame Fakten: Check-in ab 15:00, Check-out bis 10:00, Kurtaxe 3 €/Person/Nacht (Kinder bis 14 frei), Haustiere auf Anfrage, kostenlose überdachte Parkplätze, Glasfaser-WLAN
+- [x] Entfernungen mit konkreten Zahlen: Skipiste 2, Bergbahn 2, Achensee 8 Gehminuten, Bahnhof Jenbach ca. 15 Min., München ca. 1,5 Std., E-Ladestation ca. 200 m
 
 ## GEO 4 — FAQ-Bereich mit FAQPage-Schema (5 Std.) · Pos. 09 — ✅ fertig
 
-- [ ] Eigene FAQ-Route `/faq` (DE + EN) mit 10–15 echten Gästefragen
-- [ ] Bestandsinhalte aus `Hideaways.faq` übernehmen und ausbauen: Stornobedingungen, Lage & Anreise, Bahnanreise, Preise, Check-in/-out, Anzahlung, Zahlungsarten, Haustiere
-- [ ] Ergänzen: Mindestaufenthalt, Kinderbetten, Skiraum, Wellness-Nutzung, Selbstverpflegung, Belegung/Zusatzbetten
-- [ ] `FAQPage`-Markup, per Rich-Results-Test verifiziert
-- [ ] Verlinkung aus Footer und Hideaway-Seiten
+- [x] Eigene FAQ-Route `/faq` (DE + EN) mit **20** Frage-Antwort-Paaren. Bewusst über den Rahmen von 10–15 hinaus, weil mehrere Fragen gezielt die in der Baseline belegten Falschangaben korrigieren.
+- [x] Bestandsinhalte und die FAQ-Vorlage des Kunden übernommen und ausgebaut
+- [x] Ergänzt: Einheitenstruktur, Mindestaufenthalt, Kinderbetten, Wellness-Zuordnung, Selbstverpflegung, E-Auto-Laden, Anreise ohne Auto, Sommer- und Winteraktivitäten
+- [x] `FAQPage`-Markup mit allen 20 Paaren im ausgelieferten HTML verifiziert
+- [ ] Gegenprüfung per Google Rich-Results-Test (erst nach dem Deploy möglich)
+- [x] Verlinkt aus dem Footer sowie von `/the-feeling` und `/malia-specials`
 
 ## GEO 5 — Entitäts-Bereinigung über alle Plattformen (1,5 Std.) · Pos. 10 — 🟡 Website fertig, Profile offen
 
