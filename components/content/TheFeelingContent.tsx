@@ -20,7 +20,7 @@ export default function TheFeelingContent() {
                     src="/pictures/the-feeling/IMG_1151.jpeg"
                     fill
                     className="object-cover opacity-85"
-                    alt="MALIA Architektur"
+                    alt="Alpine Architektur im MALIA Alpine Hideaway in Pertisau am Achensee"
                     priority
                 />
                 <div className="absolute inset-0 bg-black/15" />
@@ -69,7 +69,7 @@ export default function TheFeelingContent() {
                                                     src={`/pictures/the-feeling/${area.id}.jpg`}
                                                     fill
                                                     className="object-cover"
-                                                    alt={title}
+                                                    alt={`${title} im MALIA Alpine Hideaway in Pertisau am Achensee`}
                                                 />
                                             )}
                                         </div>

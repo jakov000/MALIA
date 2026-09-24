@@ -62,7 +62,7 @@ export default function ImageSlideshow({ images, title }: { images: string[], ti
                             src={images[currentIndex]}
                             fill
                             className="object-cover transition-transform duration-[10000ms] ease-linear scale-105 group-hover:scale-110"
-                            alt={`${title} - Bild ${currentIndex + 1}`}
+                            alt={`${title} im MALIA Alpine Hideaway in Pertisau am Achensee`}
                             sizes="(max-width: 1024px) 100vw, 50vw"
                             priority={currentIndex === 0}
                         />
@@ -130,7 +130,7 @@ export default function ImageSlideshow({ images, title }: { images: string[], ti
                                             src={images[currentIndex]}
                                             fill
                                             className="object-contain"
-                                            alt={`${title} - Lightbox Bild ${currentIndex + 1}`}
+                                            alt={`${title} im MALIA Alpine Hideaway in Pertisau am Achensee – Großansicht`}
                                             sizes="100vw"
                                             priority
                                         />

@@ -59,7 +59,7 @@ export default function Hero() {
               src={heroImages[currentImg]}
               fill
               className="object-cover opacity-70"
-              alt="MALIA Alpine Hideaway Impression"
+              alt="MALIA Alpine Hideaway in Pertisau am Achensee"
               priority={true}
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/50" />
@@ -127,7 +127,7 @@ export default function Hero() {
                 src="/pictures/hero/hero2/IMG_1115.jpeg"
                 fill
                 className="object-cover transition-transform duration-1000 group-hover:scale-105"
-                alt="Wellness"
+                alt="Privater Wellnessbereich mit Sauna im MALIA Alpine Hideaway in Pertisau am Achensee"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
@@ -151,7 +151,7 @@ export default function Hero() {
                 src="/pictures/hero/hero2/füllbild.jpg"
                 fill
                 className="object-cover transition-transform duration-1000 group-hover:scale-105"
-                alt="Special"
+                alt="Saisonale Angebote im MALIA Alpine Hideaway in Pertisau am Achensee"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
@@ -187,7 +187,7 @@ export default function Hero() {
                 src="/pictures/hero/hero3/IMG_1041.jpg"
                 fill
                 className="object-cover"
-                alt="Hosts"
+                alt="Die Gastgeberinnen Madleine und Julia Rieser vom MALIA Alpine Hideaway in Pertisau am Achensee"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
@@ -234,7 +234,7 @@ export default function Hero() {
                   src="/pictures/hero/hero5/haus sommer.png"
                   fill
                   className="object-cover transition-transform duration-[3000ms] hover:scale-105"
-                  alt="Lage"
+                  alt="Lage des MALIA Alpine Hideaway in Pertisau am Achensee"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>

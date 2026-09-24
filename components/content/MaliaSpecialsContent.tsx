@@ -94,7 +94,7 @@ export default function MaliaSpecialsContent() {
                     src="/pictures/malia-specials/ausblicksommer.jpeg"
                     fill
                     className="object-cover opacity-70"
-                    alt="MALIA Angebote"
+                    alt="Saisonale Angebote im MALIA Alpine Hideaway in Pertisau am Achensee"
                     priority
                 />
                 <div className="absolute inset-0 bg-black/10" />
@@ -131,7 +131,7 @@ export default function MaliaSpecialsContent() {
                                     src={special.img}
                                     fill
                                     className="object-cover transition-transform duration-[2000ms] group-hover:scale-110"
-                                    alt={special.shortTitle}
+                                    alt={`${special.shortTitle} – MALIA Alpine Hideaway in Pertisau am Achensee`}
                                     sizes="(max-width: 768px) 100vw, 50vw"
                                 />
                                 <div className="absolute inset-0 bg-stone-900/20 group-hover:bg-stone-900/40 transition-colors duration-500" />

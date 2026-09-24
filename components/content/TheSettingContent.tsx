@@ -26,7 +26,7 @@ export default function TheSettingContent() {
                     src="/pictures/the%20setting/IMG_1406.jpeg"
                     fill
                     className="object-cover opacity-80"
-                    alt="MALIA Setting"
+                    alt="Umgebung des MALIA Alpine Hideaway in Pertisau am Achensee"
                     priority
                 />
                 <div className="absolute inset-0 bg-black/20" />
@@ -77,7 +77,7 @@ export default function TheSettingContent() {
                                     src={item.img}
                                     fill
                                     className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-80"
-                                    alt={item.label}
+                                    alt={`${item.label} – MALIA Alpine Hideaway in Pertisau am Achensee`}
                                     sizes="(max-width: 768px) 50vw, 20vw"
                                 />
                                 <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
@@ -106,7 +106,7 @@ export default function TheSettingContent() {
                             src="/pictures/the setting/DJI_0546.jpg"
                             fill
                             className="object-cover transition-transform duration-[5s] group-hover:scale-105"
-                            alt="Achensee Winter Panorama"
+                            alt="Winterpanorama am Achensee nahe dem MALIA Alpine Hideaway in Pertisau"
                             priority
                         />
                         <div className="absolute inset-0 bg-black/20" />
@@ -158,7 +158,7 @@ export default function TheSettingContent() {
                                         src={`/pictures/the setting/${img}`}
                                         fill
                                         className="object-cover transition-transform duration-[2s] hover:scale-105"
-                                        alt={t(`winter.grid.${i}.title`)}
+                                        alt={`${t(`winter.grid.${i}.title`)} – Winter am Achensee nahe dem MALIA Alpine Hideaway in Pertisau`}
                                         sizes="(max-width: 768px) 100vw, 50vw"
                                     />
                                 </div>
@@ -199,7 +199,7 @@ export default function TheSettingContent() {
                             src="/pictures/the setting/Sommersee.jpg"
                             fill
                             className="object-cover transition-transform duration-[5s] group-hover:scale-105"
-                            alt="Achensee Sommer Panorama"
+                            alt="Sommerpanorama am Achensee nahe dem MALIA Alpine Hideaway in Pertisau"
                             priority
                         />
                         <div className="absolute inset-0 bg-black/20" />
@@ -248,7 +248,7 @@ export default function TheSettingContent() {
                                             src={`/pictures/the setting/${img}`}
                                             fill
                                             className="object-cover transition-transform duration-[2s] hover:scale-105"
-                                            alt={t(`summer.grid.${i}.title`)}
+                                            alt={`${t(`summer.grid.${i}.title`)} – Sommer am Achensee nahe dem MALIA Alpine Hideaway in Pertisau`}
                                             sizes="(max-width: 768px) 100vw, 50vw"
                                         />
                                     </div>
