@@ -257,12 +257,12 @@ export default function Hero() {
               <div className="space-y-4 bg-stone-50 p-6 border-l-2 border-[#3d3d29]/20">
                 <h3 className="text-[11px] uppercase tracking-[0.3em] font-bold text-stone-800">{t('location.contact_title')}</h3>
                 <div className="text-gray-600 font-sans font-light text-xs md:text-sm leading-loose tracking-widest">
-                  <p className="font-medium text-stone-800 uppercase tracking-tighter">MALIA - Alpine Hideaway</p>
+                  <p className="font-medium text-stone-800 uppercase tracking-tighter">MALIA Alpine Hideaway</p>
                   <p>Madleine & Julia Rieser</p>
                   <p>Ländbergstraße 6 | A-6213 Pertisau</p>
                   <div className="mt-4 pt-4 border-t border-gray-200/50 space-y-1 text-[11px]">
-                    <p>Julia: <a href="tel:+436765925596" className="hover:text-stone-900 transition-colors">+43 676 5925596</a></p>
                     <p>Madleine: <a href="tel:+436766207866" className="hover:text-stone-900 transition-colors">+43 676 6207866</a></p>
+                    <p>Julia: <a href="tel:+436765925596" className="hover:text-stone-900 transition-colors">+43 676 5925596</a></p>
                     <p><a href="mailto:info@malia-alpine-hideaway.at" className="hover:text-stone-900 transition-colors">info@malia-alpine-hideaway.at</a></p>
                     <p><a href="https://www.malia-alpine-hideaway.at" className="hover:text-stone-900 transition-colors">www.malia-alpine-hideaway.at</a></p>
                   </div>

@@ -113,10 +113,12 @@ Ziel: `malia-alpine-hideaway.at` wird die faktenreichste MALIA-Quelle im Netz �
 
 ## GEO 5 — Entitäts-Bereinigung über alle Plattformen (1,5 Std.) · Pos. 10
 
-- [ ] Einheitlicher Name („MALIA Alpine Hideaway"), Kategorie „Luxus-Chalet", **eine** Hauptrufnummer
-- [ ] ⚠️ **Klärungsbedarf:** Impressum nennt zwei gleichrangige Nummern (Julia +43 676 5925596, Madleine +43 676 6207866) — für Entitätskonsistenz ist eine Hauptnummer festzulegen
-- [ ] ⚠️ **Klärungsbedarf:** PLZ-Abweichung — Website nennt 6213 Pertisau, die Aufwandsschätzung 6216
-- [ ] Durchsetzen auf: Website, Google Business Profile, achensee.com, alle OTA-Profile
+- [x] **Hauptrufnummer festgelegt:** +43 676 6207866 (Madleine), bestätigt am 24.09.2026. Auf der Website durchgezogen in Schema, llms.txt, Faktenbox, Navigations-Telefonlink und Formular-Platzhalter.
+- [x] **Offizieller Name festgelegt:** „MALIA Alpine Hideaway" ohne Bindestrich. Die Bindestrich-Variante liegt als `alternateName` im Schema, damit beide Schreibweisen derselben Entität zugeordnet werden.
+- [x] **PLZ bestätigt:** 6213 Pertisau. Die Angabe 6216 in der Aufwandsschätzung ist ein Tippfehler.
+- [ ] Kategorie „Luxus-Chalet" auf allen Profilen
+- [ ] Durchsetzen auf: Google Business Profile, achensee.com, alle OTA-Profile — **Website ist fertig**
+- [ ] ⚠️ Im Google-Profil steht noch die Bindestrich-Schreibweise. Die Baseline zeigt, dass Gemini und Perplexity sie von dort übernehmen — daher dort angleichen.
 - [ ] Korrektur-Anstoß beim Aggregator (Falschangabe „6-Zimmer-Villa mit einem Bad")
 - [ ] Abschluss-Konsistenzprüfung über alle Plattformen
 - [ ] ⚠️ **Zugänge nötig:** Google Business Profile, achensee.com-Partnerzugang, OTA-Accounts

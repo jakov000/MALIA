@@ -79,8 +79,8 @@ export async function sendBookingConfirmation(email: string, name: string, start
 
         <p><strong>Kontakt</strong><br/>
         Wir wollen Ihren Aufenthalt so entspannt wie möglich gestalten und freuen uns, wenn wir Ihnen helfen können. Bitte kontaktieren Sie uns bei Fragen, Anliegen oder im Fall von Schäden jederzeit.<br/>
-        Julia: +43 676 5925596<br/>
-        Madleine: +43 676 6207866</p>
+        Madleine: +43 676 6207866<br/>
+        Julia: +43 676 5925596</p>
 
         <p><strong>Restaurant-Empfehlungen</strong><br/>
         Im Anhang finden Sie unsere persönlich kuratierten Restaurantempfehlungen –<br/>

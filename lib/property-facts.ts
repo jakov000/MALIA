@@ -25,9 +25,10 @@ export const PROPERTY = {
     country: 'AT',
     countryName: 'Österreich',
   },
-  // Hauptrufnummer (Julia). Referenz für alle Plattformprofile — siehe GEO 5.
-  phone: '+436765925596',
-  phoneDisplay: '+43 676 5925596',
+  // Hauptrufnummer (Madleine). Vom Kunden bestätigt am 24.09.2026 und
+  // Referenz für alle Plattformprofile — siehe GEO 5.
+  phone: '+436766207866',
+  phoneDisplay: '+43 676 6207866',
   email: 'info@malia-alpine-hideaway.at',
   // Vom Kunden bestätigt (22.09.2026). Das Infoblatt nennt 47.4373053 / 11.6942945
   // — rund 13 m Abweichung, für die Standortbestimmung ohne Bedeutung.

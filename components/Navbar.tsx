@@ -126,7 +126,7 @@ export default function Navbar() {
                 case 'Account': href = loc('/admin/login'); break;
                 case 'Anfrage': href = loc('/inquiry'); break;
                 case 'Gutscheine': href = loc('/vouchers'); break;
-                case 'Telefon': href = 'tel:+436765925596'; break;
+                case 'Telefon': href = 'tel:+436766207866'; break;
               }
               return (
                 <Link
@@ -219,7 +219,7 @@ export default function Navbar() {
                   case 'Account': href = loc('/admin/login'); break;
                   case 'Anfrage': href = loc('/inquiry'); translatedLabel = t('contact'); break;
                   case 'Gutscheine': href = loc('/vouchers'); translatedLabel = t('vouchers'); break;
-                  case 'Telefon': href = 'tel:+436765925596'; break;
+                  case 'Telefon': href = 'tel:+436766207866'; break;
                 }
                 return (
                   <Link

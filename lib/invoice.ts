@@ -18,14 +18,14 @@ export async function generateInvoicePdf(booking: any, invoiceNumber: string): P
   };
 
   // --- Header Left: Company Info ---
-  drawText('MALIA - Alpine Hideaway', 50, 50, 16, true);
+  drawText('MALIA Alpine Hideaway', 50, 50, 16, true);
   drawText('Madleine und Julia Rieser', 50, 70);
   drawText('Ländbergstraße 6', 50, 85);
   drawText('6213 Pertisau', 50, 100);
   drawText('Österreich', 50, 115);
 
   // --- Billing Address ---
-  drawText('MALIA - Alpine Hideaway | Ländbergstraße 6 | 6213 Pertisau', 50, 160, 10);
+  drawText('MALIA Alpine Hideaway | Ländbergstraße 6 | 6213 Pertisau', 50, 160, 10);
   // Underline
   page.drawLine({ start: { x: 50, y: height - 162 }, end: { x: 300, y: height - 162 }, thickness: 1 });
   
@@ -89,12 +89,12 @@ export async function generateInvoicePdf(booking: any, invoiceNumber: string): P
   drawText(`Ihrer Rechnungsnummer und Ihrem Nachnamen.`, 50, footerY + 15);
   
   drawText('Mit freundlichen Grüßen,', 50, footerY + 45);
-  drawText('MALIA - Alpine Hideaway', 50, footerY + 60);
+  drawText('MALIA Alpine Hideaway', 50, footerY + 60);
   drawText('Madleine und Julia Rieser', 50, footerY + 75);
 
   const grayColor = rgb(0.5, 0.5, 0.5);
-  page.drawText('MALIA - Alpine Hideaway | Ländbergstraße 6, 6213 Pertisau, Österreich | E-Mail: info@malia-alpine-hideaway.at', {
-    x: width / 2 - font.widthOfTextAtSize('MALIA - Alpine Hideaway | Ländbergstraße 6, 6213 Pertisau, Österreich | E-Mail: info@malia-alpine-hideaway.at', 8) / 2,
+  page.drawText('MALIA Alpine Hideaway | Ländbergstraße 6, 6213 Pertisau, Österreich | E-Mail: info@malia-alpine-hideaway.at', {
+    x: width / 2 - font.widthOfTextAtSize('MALIA Alpine Hideaway | Ländbergstraße 6, 6213 Pertisau, Österreich | E-Mail: info@malia-alpine-hideaway.at', 8) / 2,
     y: height - 760,
     size: 8,
     font,

@@ -70,7 +70,7 @@
     }
   },
   "Navigation": {
-    "home": "MALIA - Alpine Hideaway",
+    "home": "MALIA Alpine Hideaway",
     "hideaways": "Our Hideaways",
     "setting": "The Setting",
     "feeling": "The Feeling",
@@ -80,7 +80,7 @@
   },
   "Hero": {
     "intro": {
-      "title": "Your Private Escape to Alpine Bliss: MALIA - Alpine Hideaway",
+      "title": "Your Private Escape to Alpine Bliss: MALIA Alpine Hideaway",
       "p1": "Between mountain and lake, a place emerges for those who seek something special – not in excess, but in essence. MALIA Alpine Hideaway is not a destination for ostentatious luxury, but for something genuine. Clear architecture, natural materials, and a sense of timelessness define the experience. Everything follows one simple idea: less, but better. Here, relaxation happens quietly. In uncluttered spaces, in the vastness of nature, in moments that linger – without haste, without staging."
     },
     "wellness": {
@@ -118,7 +118,7 @@
       "title": "Location & Arrival",
       "subtitle": "Your journey to MALIA Alpine Hideaway",
       "section1_title": "Location & Arrival",
-      "p1": "<bold>MALIA - Alpine Hideaway</bold> is located in Pertisau at Achensee, in the heart of one of Tyrol’s most beautiful regions – surrounded by mountains, forests, and crisp alpine air. The mountain cable car is just a two-minute walk away - perfect for those who want to head straight to the slopes in winter or ascend into the alpine heights with the Karwendelbahn in summer. Despite the peaceful setting, the Achensee as well as charming cafés and restaurants can be reached by foot within just a few minutes. Our hideaway combines the best of both worlds: natural tranquillity and close proximity to local life.",
+      "p1": "<bold>MALIA Alpine Hideaway</bold> is located in Pertisau at Achensee, in the heart of one of Tyrol’s most beautiful regions – surrounded by mountains, forests, and crisp alpine air. The mountain cable car is just a two-minute walk away - perfect for those who want to head straight to the slopes in winter or ascend into the alpine heights with the Karwendelbahn in summer. Despite the peaceful setting, the Achensee as well as charming cafés and restaurants can be reached by foot within just a few minutes. Our hideaway combines the best of both worlds: natural tranquillity and close proximity to local life.",
       "p2": "Arriving with multiple cars is no problem – we provide ample covered parking spaces free of charge.",
       "section2_title": "Arrival by Train",
       "p3": "Travelling without a car is also easy. The nearest railway station is <bold>Jenbach</bold>, only about 15 minutes from Lake Achensee.",
@@ -156,7 +156,7 @@
       "a_cancellation_4": "• Less than 14 days before arrival or no-show – 100% cancellation fee",
       "a_cancellation_note": "Cancellation Fees: Cancellation fees are calculated based on the total booking amount.",
       "q_location": "Location & Arrival",
-      "a_location_1": "<bold>MALIA - Alpine Hideaway</bold> is located in Pertisau by Achensee, in one of Tyrol's most beautiful regions – surrounded by mountains, forests, and crisp alpine air. The mountain cable car is just a two-minute walk away, ideal for guests who want to head straight to the slopes in winter or take the Karwendelbahn up into the alpine heights in summer. Despite the peaceful setting, Lake Achensee as well as charming cafés and restaurants can be reached by foot within just a few minutes. MALIA combines the best of both worlds: natural tranquillity and close proximity to local life.",
+      "a_location_1": "<bold>MALIA Alpine Hideaway</bold> is located in Pertisau by Achensee, in one of Tyrol's most beautiful regions – surrounded by mountains, forests, and crisp alpine air. The mountain cable car is just a two-minute walk away, ideal for guests who want to head straight to the slopes in winter or take the Karwendelbahn up into the alpine heights in summer. Despite the peaceful setting, Lake Achensee as well as charming cafés and restaurants can be reached by foot within just a few minutes. MALIA combines the best of both worlds: natural tranquillity and close proximity to local life.",
       "a_location_2": "Arriving with multiple cars is no problem – ample covered parking spaces are available free of charge.",
       "a_location_train_title": "Arrival by Train",
       "a_location_train": "Travelling without a car is also easy. The nearest railway station is <bold>Jenbach</bold>, approximately 15 minutes from Lake Achensee.",
@@ -622,7 +622,7 @@
     "company_title": "MALIA Alpine Hideaway",
     "company_owner": "Family Madleine & Julia Rieser<br></br>Ländbergstraße 6<br></br>6213 Pertisau am Achensee<br></br>Austria",
     "contact_title": "Contact",
-    "contact_info": "Julia: +43 676 5925596<br></br>Email: info@malia-alpine-hideaway.at<br></br>Web: www.malia-alpine-hideaway.at",
+    "contact_info": "Madleine: +43 676 6207866<br></br>Julia: +43 676 5925596<br></br>Email: info@malia-alpine-hideaway.at<br></br>Web: www.malia-alpine-hideaway.at",
     "info_title": "Information",
     "info_details": "VAT Number: ATU12345678<br></br>Competent Chamber: Tyrol Chamber of Commerce<br></br>Place of Jurisdiction: Schwaz",
     "dispute": "Consumers have the option to submit complaints to the EU Online Dispute Resolution platform: <link>http://ec.europa.eu/odr</link>. You can also send any complaints to the email address given above."
@@ -683,7 +683,7 @@
     "email_label": "Email Address *",
     "email_placeholder": "john@example.com",
     "phone_label": "Phone Number *",
-    "phone_placeholder": "+43 676 5925596",
+    "phone_placeholder": "+43 676 6207866",
     "address_label": "Address (Street, ZIP, City) *",
     "address_placeholder": "Sample Street 1, London",
     "notes_label": "Special Requests / Notes",

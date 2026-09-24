@@ -22,7 +22,7 @@ Bei allem mit ❌ sage ich dir exakt, was wo zu klicken ist — machen musst du 
 
 ---
 
-## A — GEO 1: KI-Baseline messen
+## A — GEO 1: KI-Baseline messen ✅ ERLEDIGT (22.09.2026)
 
 **Zeitaufwand:** 45–60 Minuten · **Muss vor dem Deploy passieren**
 
@@ -67,11 +67,11 @@ Das sind 22 statt 57 Durchläufe, ca. 20 Minuten, und deckt das Wesentliche ab.
 
 ### Ablage
 
-Ergebnisse als `docs/geo-baseline-2026-09.md`, Screenshots nach `docs/baseline-screenshots/`. Schick mir die Tabelle, ich werte sie aus.
+Ergebnis liegt in [geo-baseline-2026-09.md](geo-baseline-2026-09.md). Die Wiederholungsmessung erfolgt 4–6 Wochen nach dem Deploy mit demselben Katalog.
 
 ---
 
-## B — Vercel: www-Domain reparieren
+## B — Vercel: www-Domain reparieren ✅ ERLEDIGT (22.09.2026)
 
 **Problem:** `www.malia-alpine-hideaway.at` löst aktuell gar nicht auf — kein DNS, kein Zertifikat. Wer www eintippt, landet auf einer Fehlerseite. Die Apex-Domain `malia-alpine-hideaway.at` läuft normal.
 
@@ -108,7 +108,7 @@ Danach sage mir Bescheid — den Rest (Domain hinzufügen, Redirect setzen, Stat
 
 ---
 
-## C — Google Search Console
+## C — Google Search Console ✅ Property verifiziert (24.09.2026), Sitemap offen
 
 **Jetzt schon machen:** Property anlegen und verifizieren.
 **Erst nach dem Deploy:** Sitemap einreichen (vorher liefert sie noch 404).
@@ -120,7 +120,7 @@ Danach sage mir Bescheid — den Rest (Domain hinzufügen, Redirect setzen, Stat
 4. Google zeigt einen **TXT-Eintrag** an → beim Domain-Anbieter hinterlegen (gleiche Stelle wie der CNAME aus Schritt B)
 5. In der Search Console auf **Verifizieren** klicken
 6. **Nach dem Deploy:** links **Sitemaps** → `sitemap.xml` eintragen → **Senden**
-7. Ein paar Tage später unter **Seiten** prüfen, wie viele der 30 URLs indexiert sind
+7. Ein paar Tage später unter **Seiten** prüfen, wie viele der 32 URLs indexiert sind
 
 ---
 
@@ -134,14 +134,14 @@ Für GEO 5. Ziel: Was Google über MALIA weiß, muss exakt dem entsprechen, was 
 
 | Feld | Sollwert |
 |---|---|
-| Name | **Einheitlich festlegen** — siehe offene Frage unten |
+| Name | **MALIA Alpine Hideaway** (ohne Bindestrich) |
 | Kategorie | Ferienunterkunft / Ferienhaus (Google-Kategorien sind vorgegeben, die nächstliegende wählen) |
-| Telefon | **+43 676 5925596** — nur diese eine |
+| Telefon | **+43 676 6207866** (Madleine) — nur diese eine |
 | Adresse | Ländbergstraße 6, 6213 Pertisau |
 | Website | `https://malia-alpine-hideaway.at/de` |
 | Ausstattung | Sauna, WLAN, Parkplätze, Haustiere auf Anfrage |
 
-> ⚠️ **Offene Frage zum Namen:** Laut Infoblatt steht bei Google aktuell „MALIA - Alpine Hideaway" (mit Bindestrich), die Website nutzt „MALIA Alpine Hideaway" (ohne). Sag mir, welche Schreibweise die offizielle sein soll — die andere hinterlege ich im Schema als `alternateName`.
+> **Name:** Die offizielle Schreibweise ist **MALIA Alpine Hideaway** (ohne Bindestrich, vom Kunden bestätigt am 24.09.2026). Im Google-Profil steht aktuell noch die Bindestrich-Variante — bitte dort angleichen. Im Schema ist sie als alternateName hinterlegt, damit beide Schreibweisen derselben Entität zugeordnet werden.
 
 4. Außerdem: aktuelle **Bewertungsanzahl** notieren und mir durchgeben, sobald sie sich ändert. Sie steht im Schema und muss dem Google-Profil entsprechen.
 
@@ -155,7 +155,7 @@ Hier steht laut Audit die Falschangabe „6-Zimmer-Villa mit einem Bad". Richtig
    *(Falls kein Zugang vorhanden: Achensee Tourismus direkt kontaktieren und Korrektur anfordern.)*
 2. Eintrag suchen und korrigieren:
    - Zimmer/Bäder: 5 Schlafzimmer, 5 Bäder
-   - Kapazität: **siehe offene Frage unten**
+   - Kapazität: bis 12 Personen (10 in Schlafzimmern, 2 auf Zustellbett/Schlafcouch)
    - Name und Telefonnummer wie oben
 3. Screenshot vom korrigierten Eintrag für die Dokumentation
 
