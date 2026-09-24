@@ -87,7 +87,7 @@ Beide Befunde erklären Lücken aus der [GEO-Baseline](geo-baseline-2026-09.md):
 
 ## GEO 1 — KI-Baseline-Messung (1,5 Std.) · Pos. 06 — ✅ gemessen am 22.09.2026
 
-- [ ] Fragenkatalog festlegen (Marken- + Empfehlungsfragen, z. B. „bestes Chalet Achensee", „Luxus-Chalet Tirol 10 Personen")
+- [x] Fragenkatalog mit 19 Fragen in drei Blöcken: [geo-baseline-fragenkatalog.md](geo-baseline-fragenkatalog.md)
 - [x] Stichproben in ChatGPT, Perplexity und Gemini durchgeführt
 - [x] Ergebnis dokumentiert: [geo-baseline-2026-09.md](geo-baseline-2026-09.md) — MALIA wird in allen 8 Empfehlungsfragen genannt, aber mit 7 belegten Falschangaben
 - [ ] Wiederholungsmessung 4–6 Wochen nach dem Deploy mit demselben Katalog
