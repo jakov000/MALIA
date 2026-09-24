@@ -3,7 +3,7 @@
 **Grundlage:** Aufwandsschätzung [AS-2026-007](AS-2026-007-1.pdf) vom 07.08.2026 (SolveTrail GbR), basierend auf dem SEO- & GEO-Audit vom 06.08.2026 · Gesamtscore **38/100**
 **Umsetzungsstart:** 22.09.2026
 **Umfang:** 9 Arbeitspakete · 43,333 Std. · SEO 1–4 kostenfrei (900 € netto), GEO 1–5 berechnet (750 € netto)
-**Canonical-Host:** `https://malia-alpine-hideaway.at` (Apex — live verifiziert, 307 → `/de`; `www` ist aktuell **nicht erreichbar**)
+**Canonical-Host:** `https://malia-alpine-hideaway.at` (Apex, liefert die Seite aus). `www` leitet seit 22.09.2026 per 308 dorthin weiter — zuvor war die Domain gar nicht erreichbar.
 
 ---
 
@@ -71,8 +71,8 @@ Beide Befunde erklären Lücken aus der [GEO-Baseline](geo-baseline-2026-09.md):
 - [x] Basis-Schema.org: `LodgingBusiness` + `Organization` auf der Startseite, `Accommodation` (House/Apartment) + `BreadcrumbList` auf jeder Hideaway-Seite, DE und EN
 - [x] Ausstattung **je Einheit** korrekt ausgezeichnet — The Retreat trägt bewusst keine Sauna/Kamin/Panoramaterrasse
 - [x] `numberOfRooms` = 5 (Schlafzimmer des Hauses), keine Doppelzählung über die Einheiten
-- [ ] ⚠️ **Geo-Daten offen:** exakte Hauskoordinaten fehlen. Recherche liefert nur die Ortsmitte Pertisau — approximierte Werte als Hausadresse auszuzeichnen wäre falsch. `PROPERTY.geo` ist als TODO markiert.
-- [ ] ⚠️ **Bewertung 5,0 offen:** `aggregateRating` benötigt eine belegbare Bewertungsanzahl. Eine erfundene Zahl riskiert eine manuelle Maßnahme durch Google — nachtragen, sobald Anzahl und Quelle feststehen.
+- [x] **Geo-Daten:** exakte Hauskoordinaten vom Kunden bestätigt und im Schema hinterlegt
+- [x] **Bewertung:** `aggregateRating` mit 5,0 bei 10 Google-Bewertungen (Stand 22.09.2026). ⚠️ Muss dem Google-Profil entsprechen — bei neuen Bewertungen in `PROPERTY.rating` nachziehen.
 - [x] **Bilder komprimiert: 382 MB → 57 MB (−85 %)**, alle 118 Dateien auf max. 2560 px längste Kante. Größte Einzeldatei von 13,1 MB auf 1,7 MB. Bei 25 Bildern war eine EXIF-Drehung hinterlegt, die jetzt fest eingerechnet ist.
 - [x] `alt`-Texte: 21 Stück auf das Muster „Motiv + MALIA Alpine Hideaway + Pertisau am Achensee" umgestellt, inklusive der dynamischen in den Raum-Slideshows
 - [x] Dediziertes OG-Bild 1200×630 (`/og/malia-alpine-hideaway.jpg`, 98 KB)
@@ -88,9 +88,9 @@ Beide Befunde erklären Lücken aus der [GEO-Baseline](geo-baseline-2026-09.md):
 ## GEO 1 — KI-Baseline-Messung (1,5 Std.) · Pos. 06 — ✅ gemessen am 22.09.2026
 
 - [ ] Fragenkatalog festlegen (Marken- + Empfehlungsfragen, z. B. „bestes Chalet Achensee", „Luxus-Chalet Tirol 10 Personen")
-- [ ] Stichproben in ChatGPT, Perplexity und Gemini dokumentieren: Wird MALIA genannt? Korrekt beschrieben? Welche Quellen werden zitiert?
-- [ ] Ergebnis als Vergleichsbasis in `docs/geo-baseline-2026-09.md` festhalten
-- [ ] ⚠️ **Manuell:** erfordert Sitzungen in den jeweiligen KI-Tools
+- [x] Stichproben in ChatGPT, Perplexity und Gemini durchgeführt
+- [x] Ergebnis dokumentiert: [geo-baseline-2026-09.md](geo-baseline-2026-09.md) — MALIA wird in allen 8 Empfehlungsfragen genannt, aber mit 7 belegten Falschangaben
+- [ ] Wiederholungsmessung 4–6 Wochen nach dem Deploy mit demselben Katalog
 
 ## GEO 2 — `llms.txt` erstellen (1,5 Std.) · Pos. 07 — ✅ fertig
 
