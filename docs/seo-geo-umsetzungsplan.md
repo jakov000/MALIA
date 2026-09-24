@@ -63,12 +63,17 @@ Ziel: Die Seite wird überhaupt erst sauber crawl- und indexierbar. Alles Weiter
 - [x] `numberOfRooms` = 5 (Schlafzimmer des Hauses), keine Doppelzählung über die Einheiten
 - [ ] ⚠️ **Geo-Daten offen:** exakte Hauskoordinaten fehlen. Recherche liefert nur die Ortsmitte Pertisau — approximierte Werte als Hausadresse auszuzeichnen wäre falsch. `PROPERTY.geo` ist als TODO markiert.
 - [ ] ⚠️ **Bewertung 5,0 offen:** `aggregateRating` benötigt eine belegbare Bewertungsanzahl. Eine erfundene Zahl riskiert eine manuelle Maßnahme durch Google — nachtragen, sobald Anzahl und Quelle feststehen.
-- [ ] Alle übergroßen Bilder neu komprimieren (Ziel: < 300 KB, WebP) — betrifft 40+ Dateien, aktuell bis 13,7 MB, gesamt 382 MB. **Benötigt `npm i -D sharp`** (aktuell nicht installiert).
-- [ ] Sprechende Dateinamen statt `IMG_3217.jpeg`, `_DSC4122.JPG`
-- [ ] Dediziertes OG-Bild 1200×630 erzeugen (aktuell 1170×780, Maße im Code ehrlich deklariert)
-- [ ] Hero-Bild mit `priority`, restliche Bilder `loading="lazy"` + korrekte `sizes`
-- [ ] Fehlende `alt`-Texte ergänzen, generische ersetzen
+- [x] **Bilder komprimiert: 382 MB → 57 MB (−85 %)**, alle 118 Dateien auf max. 2560 px längste Kante. Größte Einzeldatei von 13,1 MB auf 1,7 MB. Bei 25 Bildern war eine EXIF-Drehung hinterlegt, die jetzt fest eingerechnet ist.
+- [x] `alt`-Texte: 21 Stück auf das Muster „Motiv + MALIA Alpine Hideaway + Pertisau am Achensee" umgestellt, inklusive der dynamischen in den Raum-Slideshows
+- [x] Dediziertes OG-Bild 1200×630 (`/og/malia-alpine-hideaway.jpg`, 98 KB)
+- [x] `sizes` bei neun `<Image fill>` ergänzt — ohne das lieferte Next.js auch für einen 220-px-Slot die volle Viewport-Breite
+- [x] Favicon von 1600×1600 / 142 KB auf 64×64 / 2,4 KB
+- [ ] Sprechende Dateinamen statt `IMG_3217.jpeg`, `_DSC4122.JPG` — **bewusst zurückgestellt**, siehe unten
 - [ ] Verifikation per Google Rich-Results-Test (nach Deploy)
+
+> **Zu den Dateinamen:** Das Infoblatt fordert sprechende Namen für „die 8 Hauptbilder". Umbenennen bedeutet, über 100 Referenzen im Code nachzuziehen — bei überschaubarem Ranking-Effekt, da Next.js die Dateien ohnehin über `/_next/image?url=…` ausliefert und der Originalname nach außen kaum sichtbar wird. Vorschlag: gemeinsam festlegen, welche acht Bilder das sind, dann gezielt umbenennen statt pauschal.
+>
+> **Verwaiste Bilder:** 7 Dateien (ursprünglich 57 MB) werden im Code nirgends referenziert — Überbleibsel aus `hero/hero` und `hero/hero4`, seit der Hero auf `pictures/heroneu/` umgestellt wurde. Können gelöscht werden, sobald du bestätigst.
 
 ## GEO 1 — KI-Baseline-Messung (1,5 Std.) · Pos. 06
 
