@@ -38,6 +38,7 @@ export const PUBLIC_ROUTES: RouteConfig[] = [
   { path: '/our-hideaways/the-alpine-hideaway', seoKey: 'alpineHideaway', priority: 0.9, changeFrequency: 'monthly', inLlmsTxt: true },
   { path: '/our-hideaways/the-residence', seoKey: 'residence', priority: 0.9, changeFrequency: 'monthly', inLlmsTxt: true },
   { path: '/our-hideaways/the-retreat', seoKey: 'retreat', priority: 0.9, changeFrequency: 'monthly', inLlmsTxt: true },
+  { path: '/faq', seoKey: 'faq', priority: 0.8, changeFrequency: 'monthly', inLlmsTxt: true },
   { path: '/malia-specials', seoKey: 'specials', priority: 0.8, changeFrequency: 'monthly', inLlmsTxt: true },
   { path: '/booking', seoKey: 'booking', priority: 0.8, changeFrequency: 'weekly', inLlmsTxt: true },
   { path: '/the-feeling', seoKey: 'feeling', priority: 0.7, changeFrequency: 'monthly', inLlmsTxt: true },

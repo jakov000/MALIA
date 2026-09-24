@@ -8,6 +8,10 @@
       "title": "Our Hideaways – 3 Suites on Lake Achensee | MALIA",
       "description": "The Hideaway (400 m², up to 12 guests), The Residence (360 m², up to 8) and The Retreat (40 m², 2): amenities, location and availability at a glance."
     },
+    "faq": {
+      "title": "FAQ | MALIA Alpine Hideaway, Lake Achensee",
+      "description": "Answers on booking, capacity, amenities, rates and getting to MALIA Alpine Hideaway in Pertisau on Lake Achensee. Up to 12 guests, 5 bedrooms, private sauna."
+    },
     "alpineHideaway": {
       "title": "The Alpine Hideaway – Entire Chalet, 400 m² | MALIA",
       "description": "The entire chalet for 2–12 guests: 5 bedrooms each with ensuite, 2 designer kitchens, private spa with sauna, 270° panoramic terrace. Pertisau, Tyrol."
@@ -624,6 +628,7 @@
     "dispute": "Consumers have the option to submit complaints to the EU Online Dispute Resolution platform: <link>http://ec.europa.eu/odr</link>. You can also send any complaints to the email address given above."
   },
   "PageFooter": {
+    "faq": "FAQ",
     "agb": "Terms & Conditions",
     "imprint": "Imprint",
     "privacy": "Privacy Policy",

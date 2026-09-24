@@ -1,18 +1,21 @@
 import React from 'react';
 import SocialLinks from './ui/SocialLinks';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 export default function PageFooter() {
     const t = useTranslations('PageFooter');
+    const locale = useLocale();
+    const loc = (path: string) => `/${locale}${path}`;
 
     return (
         <footer className="bg-[#f8f6f3] pt-24 pb-32 px-6">
             <div className="max-w-7xl mx-auto flex flex-col items-center">
                 <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-16 text-[9px] md:text-[11px] uppercase tracking-[0.25em] text-gray-500 font-sans text-center">
                     {[
-                        { name: t('agb'), href: "/agb" },
-                        { name: t('imprint'), href: "/impressum" },
-                        { name: t('privacy'), href: "/datenschutz" }
+                        { name: t('faq'), href: loc("/faq") },
+                        { name: t('agb'), href: loc("/agb") },
+                        { name: t('imprint'), href: loc("/impressum") },
+                        { name: t('privacy'), href: loc("/datenschutz") }
                     ].map((link) => (
                         <a key={link.href} href={link.href} className="hover:text-black cursor-pointer transition-colors block">
                             {link.name}

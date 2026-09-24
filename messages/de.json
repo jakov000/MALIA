@@ -8,6 +8,10 @@
       "title": "Unsere Hideaways – 3 Suiten am Achensee | MALIA Pertisau",
       "description": "The Hideaway (400 m², bis 12 Personen), The Residence (360 m², bis 8) und The Retreat (40 m², 2): Ausstattung, Lage und Verfügbarkeit im Überblick."
     },
+    "faq": {
+      "title": "Häufige Fragen | MALIA Alpine Hideaway Achensee",
+      "description": "Antworten zu Buchung, Kapazität, Ausstattung und Anreise im MALIA Alpine Hideaway in Pertisau am Achensee. Bis 12 Personen, 5 Schlafzimmer, private Sauna."
+    },
     "alpineHideaway": {
       "title": "The Alpine Hideaway – ganzes Chalet, 400 m² | MALIA",
       "description": "Das ganze Chalet für 2–12 Personen: 5 Schlafzimmer mit eigenem Bad, 2 Designerküchen, Wellnessbereich mit Sauna, 270°-Panoramaterrasse. Pertisau am Achensee."
@@ -624,6 +628,7 @@
     "dispute": "Verbraucher haben die Möglichkeit, Beschwerden an die Online-Streitbeilegungsplattform der EU zu richten: <link>http://ec.europa.eu/odr</link>. Sie können allfällige Beschwerde auch an die oben angegebene E-Mail-Adresse richten."
   },
   "PageFooter": {
+    "faq": "Häufige Fragen",
     "agb": "AGB",
     "imprint": "Impressum",
     "privacy": "Datenschutz",
