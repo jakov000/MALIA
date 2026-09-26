@@ -262,8 +262,8 @@ export default function Hero() {
                   <p>Madleine & Julia Rieser</p>
                   <p>Ländbergstraße 6 | A-6213 Pertisau</p>
                   <div className="mt-4 pt-4 border-t border-gray-200/50 space-y-1 text-[11px]">
-                    <p>Madleine: <a href="tel:+436766207866" className="hover:text-stone-900 transition-colors">+43 676 6207866</a></p>
                     <p>Julia: <a href="tel:+436765925596" className="hover:text-stone-900 transition-colors">+43 676 5925596</a></p>
+                    <p>Madleine: <a href="tel:+436766207866" className="hover:text-stone-900 transition-colors">+43 676 6207866</a></p>
                     <p><a href="mailto:info@malia-alpine-hideaway.at" className="hover:text-stone-900 transition-colors">info@malia-alpine-hideaway.at</a></p>
                     <p><a href="https://www.malia-alpine-hideaway.at" className="hover:text-stone-900 transition-colors">www.malia-alpine-hideaway.at</a></p>
                   </div>

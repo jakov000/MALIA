@@ -129,7 +129,7 @@ Ziel: `malia-alpine-hideaway.at` wird die faktenreichste MALIA-Quelle im Netz �
 
 ## GEO 5 — Entitäts-Bereinigung über alle Plattformen (1,5 Std.) · Pos. 10 — 🟡 Website fertig, Profile offen
 
-- [x] **Hauptrufnummer festgelegt:** +43 676 6207866 (Madleine), bestätigt am 24.09.2026. Auf der Website durchgezogen in Schema, llms.txt, Faktenbox, Navigations-Telefonlink und Formular-Platzhalter.
+- [x] **Hauptrufnummer festgelegt:** +43 676 5925596 (Julia), im Kunden-Review am 26.09.2026 festgelegt. Auf der Website durchgezogen in Schema, llms.txt, Faktenbox, Navigations-Telefonlink und Formular-Platzhalter.
 - [x] **Offizieller Name festgelegt:** „MALIA Alpine Hideaway" ohne Bindestrich. Die Bindestrich-Variante liegt als `alternateName` im Schema, damit beide Schreibweisen derselben Entität zugeordnet werden.
 - [x] **PLZ bestätigt:** 6213 Pertisau. Die Angabe 6216 in der Aufwandsschätzung ist ein Tippfehler.
 - [ ] Kategorie „Luxus-Chalet" auf allen Profilen

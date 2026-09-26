@@ -57,7 +57,7 @@ const DE: FaqSection[] = [
       {
         question: 'Was kostet ein Aufenthalt im MALIA Alpine Hideaway?',
         answer:
-          'Das gesamte Haus ist im MALIA Alpine Hideaway in Pertisau am Achensee ab 800 € pro Nacht buchbar, The Residence ab 650 € und The Retreat ab 160 €. Bei Vollbelegung entspricht das rund 100 € pro Person und Nacht. Hinzu kommen die Endreinigung mit 150 €, 120 € beziehungsweise 45 € sowie die Kurtaxe von 3 € pro Person und Nacht.',
+          'Das gesamte Haus ist im MALIA Alpine Hideaway in Pertisau am Achensee ab 800 € pro Nacht buchbar, The Residence ab 650 € und The Retreat ab 160 €. Bei Vollbelegung entspricht das rund 100 € pro Person und Nacht. Hinzu kommen die Endreinigung mit 160 €, 120 € beziehungsweise 45 € sowie die Kurtaxe von 3 € pro Person und Nacht.',
       },
       {
         question: 'Wie läuft die Buchung ab und wie hoch ist die Anzahlung?',
@@ -180,7 +180,7 @@ const EN: FaqSection[] = [
       {
         question: 'What does a stay at MALIA Alpine Hideaway cost?',
         answer:
-          'The entire house at MALIA Alpine Hideaway in Pertisau on Lake Achensee is available from €800 per night, The Residence from €650 and The Retreat from €160. At full occupancy this works out at around €100 per person per night. A cleaning fee of €150, €120 or €45 applies, plus a tourist tax of €3 per person per night.',
+          'The entire house at MALIA Alpine Hideaway in Pertisau on Lake Achensee is available from €800 per night, The Residence from €650 and The Retreat from €160. At full occupancy this works out at around €100 per person per night. A cleaning fee of €160, €120 or €45 applies, plus a tourist tax of €3 per person per night.',
       },
       {
         question: 'How does booking work and how large is the deposit?',

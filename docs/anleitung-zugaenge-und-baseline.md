@@ -136,7 +136,7 @@ Für GEO 5. Ziel: Was Google über MALIA weiß, muss exakt dem entsprechen, was 
 |---|---|
 | Name | **MALIA Alpine Hideaway** (ohne Bindestrich) |
 | Kategorie | Ferienunterkunft / Ferienhaus (Google-Kategorien sind vorgegeben, die nächstliegende wählen) |
-| Telefon | **+43 676 6207866** (Madleine) — nur diese eine |
+| Telefon | **+43 676 5925596** (Julia) — nur diese eine |
 | Adresse | Ländbergstraße 6, 6213 Pertisau |
 | Website | `https://malia-alpine-hideaway.at/de` |
 | Ausstattung | Sauna, WLAN, Parkplätze, Haustiere auf Anfrage |
