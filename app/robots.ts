@@ -22,6 +22,14 @@ const ANSWER_ENGINE_BOTS = [
 ];
 
 export default function robots(): MetadataRoute.Robots {
+  // Vorschau- und Entwicklungs-Deployments komplett aus dem Index halten.
+  // Vercel setzt für Previews zwar bereits X-Robots-Tag: noindex, aber
+  // eine Vorschau, die dem Kunden geschickt wird, soll unter keinen
+  // Umständen ranken oder die Produktionsseite verwässern.
+  if (process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'production') {
+    return { rules: [{ userAgent: '*', disallow: '/' }] };
+  }
+
   // Admin-Oberfläche, API und die Buchungsbestätigung gehören nicht in den Index.
   const disallow = ['/admin', '/api/', '/de/success', '/en/success'];
 
