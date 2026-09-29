@@ -630,8 +630,14 @@
     "contact_title": "Kontakt mit uns",
     "contact_text": "Wenn Sie per Formular auf der Website oder per E-Mail Kontakt mit uns aufnehmen, werden Ihre angegebenen Daten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.",
     "cookies_title": "Cookies",
-    "cookies_text1": "Unsere Website verwendet ausschließlich technisch notwendige Cookies, die für den Betrieb der Website erforderlich sind. Wir setzen <bold>keine</bold> Analyse- oder Tracking-Tools (wie Google Analytics) und keine Werbe-Cookies ein.",
-    "cookies_text2": "Es werden keine persönlichen Daten an Dritte zu Werbezwecken weitergegeben. Die Nutzung unserer Website ist daher ohne einen Cookie-Consent-Banner möglich.",
+    "cookies_text1": "Unsere Website verwendet technisch notwendige Cookies, die für den Betrieb erforderlich sind — etwa für die Sprachauswahl, den Buchungsvorgang und die Speicherung Ihrer Datenschutzeinstellung. Grundlage ist unser berechtigtes Interesse an einem störungsfreien Betrieb (Art. 6 Abs. 1 lit. f DSGVO).",
+    "cookies_text2": "Darüber hinaus setzen wir Cookies zur Reichweitenmessung ein. Diese werden ausschließlich nach Ihrer ausdrücklichen Einwilligung geladen. Solange Sie nicht zugestimmt haben, findet keine Messung statt.",
+    "analytics_title": "Reichweitenmessung mit Google Analytics",
+    "analytics_text1": "Wir verwenden Google Analytics 4, einen Webanalysedienst der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Google Analytics hilft uns zu verstehen, welche Inhalte unserer Website genutzt werden und über welche Kanäle Gäste zu uns finden.",
+    "analytics_text2": "Die Messung erfolgt ausschließlich auf Grundlage Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO, § 165 Abs. 3 TKG 2021). Solange Sie nicht zugestimmt haben, wird Google Analytics nicht geladen und es werden keine Daten an Google übertragen.",
+    "analytics_text3": "Bei erteilter Einwilligung werden Cookies gesetzt, die eine Analyse Ihrer Nutzung ermöglichen. Erfasst werden unter anderem aufgerufene Seiten, Verweildauer, ungefährer Standort, Gerätetyp und die Herkunftsquelle. Ihre IP-Adresse wird dabei gekürzt verarbeitet. Die Cookies werden nach längstens zwei Jahren gelöscht, die Nutzungsdaten bei Google nach spätestens 14 Monaten.",
+    "analytics_text4": "Eine Übermittlung an Google LLC in die USA lässt sich nicht ausschließen. Google ist unter dem EU-US Data Privacy Framework zertifiziert; ergänzend bestehen Standardvertragsklauseln. Ihre Einwilligung können Sie jederzeit mit Wirkung für die Zukunft widerrufen — die bis dahin erfolgte Verarbeitung bleibt davon unberührt.",
+    "analytics_settings_link": "Datenschutzeinstellungen öffnen",
     "stripe_title": "Zahlungsabwicklung (Stripe)",
     "stripe_text": "Wenn Sie über unsere Website eine Buchung vornehmen oder einen Gutschein erwerben, erfolgt die Zahlungsabwicklung über den Zahlungsdienstleister Stripe. Zu diesem Zweck werden zahlungsrelevante Daten (wie Name, Adresse, Kontodaten/Kreditkartennummer) direkt an Stripe übermittelt. Wir speichern keine sensiblen Kreditkartendaten auf unseren eigenen Servern.",
     "rights_title": "Ihre Rechte",
@@ -652,6 +658,7 @@
     "agb": "AGB",
     "imprint": "Impressum",
     "privacy": "Datenschutz",
+    "privacySettings": "Cookie-Einstellungen",
     "newsletter": "Sign up for inspiration",
     "address": "MALIA Alpine Hideaway — Familie Madleine & Julia — Ländbergstraße 6 — 6213 Pertisau"
   },
@@ -813,5 +820,36 @@
     "title": "Buchung Erfolgreich",
     "description": "Vielen Dank für Ihre Reservierung MALIA Alpine Hideaway. Wir haben Ihre Zahlung erhalten und eine Bestätigung an Ihre E-Mail-Adresse gesendet.",
     "button": "Zurück zur Startseite"
+  },
+  "Consent": {
+    "banner": {
+      "title": "Datenschutz",
+      "text": "Wir verwenden technisch notwendige Cookies für den Betrieb der Website. Zusätzlich möchten wir mit Google Analytics messen, wie unsere Seiten genutzt werden — das geschieht nur mit Ihrer Zustimmung. Näheres in der",
+      "privacyLink": "Datenschutzerklärung",
+      "acceptAll": "Alle akzeptieren",
+      "necessaryOnly": "Nur notwendige",
+      "settings": "Einstellungen"
+    }
+  },
+  "PrivacySettings": {
+    "title": "Datenschutzeinstellungen",
+    "intro": "Hier legen Sie fest, welche Cookies wir verwenden dürfen. Ihre Entscheidung gilt für dieses Gerät und diesen Browser und lässt sich jederzeit ändern.",
+    "necessary": {
+      "title": "Notwendig",
+      "text": "Erforderlich für den Betrieb der Website — etwa für die Sprachauswahl, den Buchungsvorgang und die Speicherung dieser Einstellung. Lässt sich nicht abwählen."
+    },
+    "analytics": {
+      "title": "Analyse",
+      "text": "Google Analytics 4. Hilft uns zu verstehen, welche Seiten genutzt werden und über welche Kanäle Gäste zu uns finden. Ohne Ihre Zustimmung wird Google Analytics nicht geladen."
+    },
+    "marketing": {
+      "title": "Marketing",
+      "text": "Erlaubt es, Werbeanzeigen auf Ihre Interessen zuzuschneiden und deren Erfolg zu messen. Wird derzeit nicht aktiv genutzt."
+    },
+    "save": "Einstellungen speichern",
+    "saved": "Gespeichert",
+    "statusDecided": "Ihre aktuelle Entscheidung wurde am {datum} gespeichert.",
+    "statusUndecided": "Sie haben noch keine Entscheidung getroffen. Bis dahin werden ausschließlich notwendige Cookies gesetzt.",
+    "revokeHint": "Ein Widerruf der Analyse-Einwilligung löscht die von Google gesetzten Cookies und beendet die Messung sofort."
   }
 }

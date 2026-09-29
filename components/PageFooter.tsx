@@ -15,7 +15,10 @@ export default function PageFooter() {
                         { name: t('faq'), href: loc("/faq") },
                         { name: t('agb'), href: loc("/agb") },
                         { name: t('imprint'), href: loc("/impressum") },
-                        { name: t('privacy'), href: loc("/datenschutz") }
+                        { name: t('privacy'), href: loc("/datenschutz") },
+                        // Dauerhaft erreichbar, damit der Widerruf der Einwilligung
+                        // so einfach ist wie die Zustimmung (Art. 7 Abs. 3 DSGVO).
+                        { name: t('privacySettings'), href: loc("/datenschutz-einstellungen") }
                     ].map((link) => (
                         <a key={link.href} href={link.href} className="hover:text-black cursor-pointer transition-colors block">
                             {link.name}

@@ -630,8 +630,14 @@
     "contact_title": "Contacting Us",
     "contact_text": "If you contact us via the form on our website or via email, your provided data will be stored by us for the purpose of processing the request and in case of follow-up questions. We do not pass on this data without your consent.",
     "cookies_title": "Cookies",
-    "cookies_text1": "Our website strictly uses technically necessary cookies that are essential for the operation of the website. We do <bold>not</bold> use any analysis or tracking tools (like Google Analytics) and no advertising cookies.",
-    "cookies_text2": "No personal data is passed on to third parties for advertising purposes. The use of our website is therefore possible without a cookie consent banner.",
+    "cookies_text1": "Our website uses technically necessary cookies required to operate it — for language selection, the booking process and storing your privacy choice. The basis is our legitimate interest in trouble-free operation (Art. 6(1)(f) GDPR).",
+    "cookies_text2": "In addition we use cookies for audience measurement. These are loaded only after your explicit consent. As long as you have not consented, no measurement takes place.",
+    "analytics_title": "Audience measurement with Google Analytics",
+    "analytics_text1": "We use Google Analytics 4, a web analytics service provided by Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland. It helps us understand which content on our website is used and through which channels guests find us.",
+    "analytics_text2": "Measurement takes place solely on the basis of your consent (Art. 6(1)(a) GDPR, section 165(3) Austrian Telecommunications Act 2021). As long as you have not consented, Google Analytics is not loaded and no data is transmitted to Google.",
+    "analytics_text3": "Once consent is given, cookies are set that allow your use to be analysed. This includes pages viewed, time spent, approximate location, device type and referral source. Your IP address is processed in truncated form. The cookies are deleted after two years at the latest, the usage data held by Google after no more than 14 months.",
+    "analytics_text4": "A transfer to Google LLC in the USA cannot be ruled out. Google is certified under the EU-US Data Privacy Framework; standard contractual clauses apply in addition. You may withdraw your consent at any time with effect for the future — processing carried out until then remains lawful.",
+    "analytics_settings_link": "Open privacy settings",
     "stripe_title": "Payment Processing (Stripe)",
     "stripe_text": "If you make a booking or purchase a voucher via our website, payment processing is handled by the payment provider Stripe. For this purpose, payment-relevant data (such as name, address, account info/credit card number) is transmitted directly to Stripe. We do not store any sensitive credit card data on our own servers.",
     "rights_title": "Your Rights",
@@ -652,6 +658,7 @@
     "agb": "Terms & Conditions",
     "imprint": "Imprint",
     "privacy": "Privacy Policy",
+    "privacySettings": "Cookie settings",
     "newsletter": "Sign up for inspiration",
     "address": "MALIA Alpine Hideaway — Family Madleine & Julia — Ländbergstraße 6 — 6213 Pertisau"
   },
@@ -813,5 +820,36 @@
     "title": "Booking Successful",
     "description": "Thank you for your reservation at MALIA Alpine Hideaway. We have received your payment and a confirmation has been sent to your email address.",
     "button": "Back to Home"
+  },
+  "Consent": {
+    "banner": {
+      "title": "Privacy",
+      "text": "We use technically necessary cookies to run this website. In addition we would like to measure how our pages are used with Google Analytics — only with your consent. More in our",
+      "privacyLink": "privacy policy",
+      "acceptAll": "Accept all",
+      "necessaryOnly": "Necessary only",
+      "settings": "Settings"
+    }
+  },
+  "PrivacySettings": {
+    "title": "Privacy settings",
+    "intro": "Here you decide which cookies we may use. Your choice applies to this device and browser and can be changed at any time.",
+    "necessary": {
+      "title": "Necessary",
+      "text": "Required to run the website — for language selection, the booking process and storing this very setting. Cannot be switched off."
+    },
+    "analytics": {
+      "title": "Analytics",
+      "text": "Google Analytics 4. Helps us understand which pages are used and through which channels guests find us. Without your consent Google Analytics is not loaded at all."
+    },
+    "marketing": {
+      "title": "Marketing",
+      "text": "Allows advertising to be tailored to your interests and its success to be measured. Not currently in active use."
+    },
+    "save": "Save settings",
+    "saved": "Saved",
+    "statusDecided": "Your current choice was saved on {datum}.",
+    "statusUndecided": "You have not made a choice yet. Until then only necessary cookies are set.",
+    "revokeHint": "Withdrawing analytics consent deletes the cookies set by Google and stops measurement immediately."
   }
 }

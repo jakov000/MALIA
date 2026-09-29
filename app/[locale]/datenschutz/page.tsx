@@ -1,3 +1,4 @@
+import Link from "next/link";
 import SectionHeader from "@/components/ui/SectionHeader";
 import PageFooter from "@/components/PageFooter";
 
@@ -30,6 +31,22 @@ export default async function Datenschutz({ params }: { params: Promise<{ locale
                         <h3 className="text-lg font-bold text-stone-800 mb-2">{t('cookies_title')}</h3>
                         <p>{t.rich('cookies_text1', richOptions)}</p>
                         <p className="mt-2">{t('cookies_text2')}</p>
+                    </div>
+
+                    <div>
+                        <h3 className="text-lg font-bold text-stone-800 mb-2">{t('analytics_title')}</h3>
+                        <p>{t('analytics_text1')}</p>
+                        <p className="mt-2">{t('analytics_text2')}</p>
+                        <p className="mt-2">{t('analytics_text3')}</p>
+                        <p className="mt-2">{t('analytics_text4')}</p>
+                        <p className="mt-4">
+                            <Link
+                                href={`/${locale}/datenschutz-einstellungen`}
+                                className="underline hover:text-stone-900"
+                            >
+                                {t('analytics_settings_link')}
+                            </Link>
+                        </p>
                     </div>
 
                     <div>
