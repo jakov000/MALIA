@@ -32,9 +32,9 @@
       "title": "The Feeling – Alpine Luxury at MALIA, Lake Achensee",
       "description": "Reclaimed wood, natural stone, linen and floor-to-ceiling glass: how calm luxury feels at MALIA Alpine Hideaway in Pertisau, Tyrol."
     },
-    "setting": {
-      "title": "The Setting – Lake Achensee in Winter & Summer | MALIA",
-      "description": "Pertisau on Lake Achensee: cable car 2 minutes on foot, lake and restaurants within walking distance, Jenbach station 15 minutes away."
+    "tips": {
+      "title": "What to do on Lake Achensee? | MALIA Alpine Hideaway",
+      "description": "Summer, winter, food and culture on Lake Achensee: hiking, cycling, water sports, skiing, tobogganing, restaurants and traditions — insider tips from Pertisau."
     },
     "booking": {
       "title": "Book Direct – Availability & Rates | MALIA Achensee",
@@ -72,7 +72,7 @@
   "Navigation": {
     "home": "MALIA Alpine Hideaway",
     "hideaways": "Our Hideaways",
-    "setting": "The Setting",
+    "tips": "Our Tips",
     "feeling": "The Feeling",
     "specials": "MALIA Specials",
     "vouchers": "Vouchers",
@@ -493,119 +493,6 @@
     "details": {
       "title": "The offers in detail",
       "included": "Included in this offer"
-    }
-  },
-  "TheSetting": {
-    "hero": {
-      "title": "The Setting",
-      "subtitle": "Experience Achensee"
-    },
-    "shortcuts": {
-      "tips": "Our Tips",
-      "winter": "Winter",
-      "summer": "Summer",
-      "map": "Interactive Map",
-      "atoll": "Atoll - Gym & Leisure"
-    },
-    "winter": {
-      "title": "Winter at Lake Achensee",
-      "p1": "In winter, Lake Achensee becomes quiet.<br></br>Not empty - but gently still.<br></br>Snow softens every sound, the mountains feel closer, the days clearer.<br></br>Whether it’s a ski tour, a few turns on the slopes, cross-country skiing through the valleys,<br></br>or simply a walk through fresh snow – nothing is required, everything is possible. After a day outdoors, you return to MALIA.<br></br>Into warmth.",
-      "p2": "You take off your boots, settle in, step into the sauna,<br></br>or simply sit and look outside. The fireplace crackles, darkness slowly falls, and everyday life suddenly feels very far away.",
-      "grid": {
-        "0": {
-          "title": "Relaxed Ski Days",
-          "desc": "Several ski areas nearby offer variety without the crowds. Pertisau is perfect for relaxed family ski days, the Rofan offers longer runs with breathtaking views, and Christlum is ideal for those who prefer a more sporty pace. Skiing as it should be: uncomplicated, close, and unhurried."
-        },
-        "1": {
-          "title": "Cross-Country Skiing at Lake Achensee",
-          "desc": "Around Achensee, cross-country ski trails wind quietly through meadows, forests, and the Karwendel. In and around Pertisau and the Karwendel nature reserve alone, around 80 kilometres of groomed trails await. Across the entire Achensee region, you’ll find more than 200 kilometres of trails - for both classic cross-country skiing and skating. You glide through snow-covered landscapes, hearing only your breath and the soft crunch of snow beneath your skis."
-        },
-        "2": {
-          "title": "Sledding, when it gets dark",
-          "desc": "Several natural toboggan runs await around Lake Achensee – short or long, gentle or a little faster. Many are illuminated and invite you to head out again in the evening. Tobogganing under a star-filled sky – simple, honest, and surprisingly beautiful."
-        },
-        "3": {
-          "title": "Higher Up",
-          "desc": "If you love ski tourings, you'll find ideal conditions in the Rofan and Karwendel mountains. Snow-covered peaks, clear lines in the snow, and wide-open views – whether you go alone or with a guide. At the summit, everything becomes quiet, and that silence makes every step worthwhile."
-        }
-      },
-      "lake": {
-        "title": "The Lake during winter",
-        "desc": "Even in winter, Lake Achensee is there. Still, vast, and clear.<br></br>Winter walks along the shore, crisp air, sparkling snow – a place to breathe deeply and pause, right between mountain and water.",
-        "btn": "GET YOUR OFFER FOR QUIET LUXURY IN WINTER"
-      }
-    },
-    "summer": {
-      "title": "Summer at Lake Achensee",
-      "p1": "In summer, Lake Achensee reveals itself as expansive, clear, and full of life.<br></br>Between mountains and water, you’ll find space for movement, lightness, and days that don’t feel busy — but free.<br></br>You decide how much \"outdoors\" you want. Or how little.",
-      "grid": {
-        "0": {
-          "title": "Time for the Outdoors",
-          "desc": "Around MALIA, summer begins right outside your door. In the Karwendel and Rofan mountains, hiking trails lead through forests, across alpine pastures, and up to quiet viewpoints. With every step, your mind feels lighter, your rhythm calmer. You set off, pause, and take it in. Cool your feet in a mountain stream, breathe in the clear air — and realize how little it takes to be fully present.",
-          "link": "→ Discover the Achensee hiking guide",
-          "url": "https://www.achensee.com/de/sommerurlaub/wandern-tirol-oesterreich/"
-        },
-        "1": {
-          "title": "Biking Between Mountains & Lake",
-          "desc": "Lake Achensee is a quiet favorite for mountain bikers and e-bikers. Over 250 kilometers of marked trails lead through the Karwendel, Rofan, and the Vorkarwendel — from relaxed lakeside routes to demanding climbs. Whether sporty or leisurely with an e-bike: you move through a landscape that offers space without ever being loud.",
-          "link": "Mountainbiking & Cycling at Lake Achensee | Summer Holiday Tyrol",
-          "url": "https://www.achensee.com/de/sommerurlaub/radfahren-mountainbiken-tirol-oesterreich/",
-          "link2": "Anmeldung zum Halbmarathon: Achenseelauf | Tirols Panoramalauf erleben",
-          "url2": "https://www.achenseelauf.at/"
-        },
-        "2": {
-          "title": "Golf with a View",
-          "desc": "Just a few steps from MALIA lies the Golf & Landclub Achensee — the oldest golf course in Tyrol, nestled between the Karwendel mountains and the lake. The 18-hole course in Pertisau combines tranquility with playful challenge. Gentle terrain, clean lines, and views that accompany every swing.",
-          "link": "→ Discover Golfclub Achensee",
-          "url": "https://www.golfclub-achensee.at/"
-        },
-        "3": {
-          "title": "Running & Walking",
-          "desc": "Around the lake, you'll find routes for running, jogging, and Nordic walking. Sometimes flat along the water, sometimes more challenging towards the mountains. You move through open landscapes, hear the water, feel the ground beneath your feet — and run not against time, but with it.",
-          "link": "Running at Achensee | Running holiday Tyrol",
-          "url": "https://www.achensee.com/de/sommerurlaub/laufsport-tirol-oesterreich/"
-        },
-        "4": {
-          "title": "On the Rocks",
-          "desc": "The Rofan and Karwendel ranges are among Tyrol's most diverse climbing areas. Sport climbing, via ferratas, or alpine routes — all set within a landscape that demands respect and rewards it. For beginners and experienced climbers alike, there are routes, courses, and guided tours. The view from above: vast. The moment: clear.",
-          "link": "Climbing at Lake Achensee | Holiday in Tyrol, Austria",
-          "url": "https://www.achensee.com/de/sommerurlaub/klettern-tirol-oesterreich/"
-        },
-        "5": {
-          "title": "Encounters that Slow You Down",
-          "desc": "For those seeking something even calmer, experience the landscape on an alpaca hike. Slow steps, gentle animals, open paths. You walk through nature, accompany — or are accompanied — and take home a lasting sense of calm.",
-          "link": "Alpaca walk in Tyrol at beautiful Lake Achensee - Achensee-Alpaca",
-          "url": "https://www.achensee-alpaka.at/alpakawanderung/"
-        },
-        "6": {
-          "title": "Cattle Drive at Lake Achensee",
-          "desc": "When autumn arrives, it is time for the return to Lake Achensee: The cows move from the alpine pasture back to their stalls. The cattle drives take place here from mid-September to early October. More detailed information can be found here:",
-          "link": "Cattle drives at Lake Achensee | Tyrol Austria",
-          "url": "https://www.achensee.com/de/kunst-kultur-tradition/almabtriebe/"
-        },
-        "7": {
-          "title": "Water Sports",
-          "desc": "Water lovers take note, Lake Achensee has a lot to offer: from sailing, kite or windsurfing, to stand-up paddling, kayaking and diving. All information can be found here:",
-          "link": "Water sports in Tyrol | Summer holiday at Lake Achensee",
-          "url": "https://www.achensee.com/de/sommerurlaub/wassersport-tirol-oesterreich/"
-        }
-      },
-      "btn": "BOOK YOUR SUMMER HOLIDAY NOW"
-    },
-    "map": {
-      "title": "Interactive Map",
-      "subtitle": "Easy Orientation",
-      "p1": "With the interactive map of the Achensee region, finding your way is effortless – even before you arrive and while you're here. Discover (winter)hiking trails, lakeside walks, routes through the Karwendel, and tours in the Rofan – from gentle to more challenging.",
-      "p2": "All routes are clearly displayed and complemented by helpful information on trail profiles, places to stop for refreshments, and points of interest. Plan your days the way they feel right to you: spontaneous or well prepared, active or deeply relaxed.",
-      "btn": "→ View the interactive map of the Achensee region"
-    },
-    "atoll": {
-      "title": "Atoll Achensee",
-      "p1": "Just a few minutes drive from MALIA, Atoll Achensee is located in Maurach. Expansive glass surfaces, clean architecture. And sweeping views across Achensee define the entire complex. Particularly impressive is the rooftop infinity pool, offering a panoramic view of the lake stretching across its full length.",
-      "p2": "In addition to the water world with sports and leisure pools, the Penthouse Spa invites you to unwind and recharge. Various saunas, a steam bath, quiet relaxation areas, and a rooftop outdoor space create room for rest and recovery - always with a view.",
-      "p3": "For those seeking movement, the Lakeside Gym, bouldering hall, and sports areas offer a wide range of options. Everything is generously designed, everything connected to the surrounding landscape.",
-      "p4": "The Atoll is not a must. But it's a beautiful addition - for days when you're drawn to water, warmth, or movement before returning to the calm of MALIA.",
-      "btn": "→ Discover Atoll Achensee"
     }
   },
   "AGB": {

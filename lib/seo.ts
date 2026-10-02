@@ -42,7 +42,7 @@ export const PUBLIC_ROUTES: RouteConfig[] = [
   { path: '/malia-specials', seoKey: 'specials', priority: 0.8, changeFrequency: 'monthly', inLlmsTxt: true },
   { path: '/booking', seoKey: 'booking', priority: 0.8, changeFrequency: 'weekly', inLlmsTxt: true },
   { path: '/the-feeling', seoKey: 'feeling', priority: 0.7, changeFrequency: 'monthly', inLlmsTxt: true },
-  { path: '/the-setting', seoKey: 'setting', priority: 0.7, changeFrequency: 'monthly', inLlmsTxt: true },
+  { path: '/our-tips', seoKey: 'tips', priority: 0.8, changeFrequency: 'weekly', inLlmsTxt: true },
   { path: '/inquiry', seoKey: 'inquiry', priority: 0.7, changeFrequency: 'monthly', inLlmsTxt: true },
   { path: '/vouchers', seoKey: 'vouchers', priority: 0.6, changeFrequency: 'monthly', inLlmsTxt: true },
   { path: '/agb', seoKey: 'agb', priority: 0.2, changeFrequency: 'yearly' },

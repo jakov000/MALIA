@@ -22,6 +22,19 @@ const nextConfig: NextConfig = {
         destination: 'https://malia-alpine-hideaway.at/:path*',
         permanent: true,
       },
+      // "The Setting" wurde zu "Our Tips". Die alte Adresse steht in der
+      // bisherigen Sitemap und möglicherweise in Googles Index — sie muss
+      // dauerhaft weiterleiten, sonst geht die aufgebaute Relevanz verloren.
+      {
+        source: '/:locale(de|en)/the-setting',
+        destination: '/:locale/our-tips',
+        permanent: true,
+      },
+      {
+        source: '/the-setting',
+        destination: '/de/our-tips',
+        permanent: true,
+      },
     ];
   },
 };

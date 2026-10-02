@@ -67,7 +67,7 @@ export default function Navbar() {
     { name: t('hideaways'), href: loc('/our-hideaways') },
     { name: t('specials'), href: loc('/malia-specials') },
     { name: t('feeling'), href: loc('/the-feeling') },
-    { name: t('setting'), href: loc('/the-setting') },
+    { name: t('tips'), href: loc('/our-tips') },
   ];
 
   const topIcons = [

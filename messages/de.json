@@ -32,9 +32,9 @@
       "title": "The Feeling – Alpine Luxury erleben | MALIA Achensee",
       "description": "Altholz, Naturstein, Leinen und raumhohe Glasfronten: Wie sich Calm Luxury im MALIA Alpine Hideaway in Pertisau am Achensee anfühlt."
     },
-    "setting": {
-      "title": "Lage am Achensee – Winter & Sommer | MALIA Pertisau",
-      "description": "Pertisau am Achensee: Bergbahn in 2 Gehminuten, See und Restaurants fußläufig, Bahnhof Jenbach in 15 Minuten. Tipps für Winter und Sommer."
+    "tips": {
+      "title": "Was kann man am Achensee machen? | MALIA Alpine Hideaway",
+      "description": "Sommer, Winter, Kulinarik und Kultur am Achensee: Wandern, Radfahren, Wassersport, Skifahren, Rodeln, Restaurants und Traditionen — Insider-Tipps aus Pertisau."
     },
     "booking": {
       "title": "Direkt buchen – Verfügbarkeit & Preise | MALIA Achensee",
@@ -72,7 +72,7 @@
   "Navigation": {
     "home": "MALIA Alpine Hideaway",
     "hideaways": "Our Hideaways",
-    "setting": "The Setting",
+    "tips": "Our Tips",
     "feeling": "The Feeling",
     "specials": "MALIA Specials",
     "vouchers": "Gutscheine",
@@ -493,119 +493,6 @@
     "details": {
       "title": "Die Angebote im Detail",
       "included": "Im Angebot enthalten"
-    }
-  },
-  "TheSetting": {
-    "hero": {
-      "title": "The Setting",
-      "subtitle": "Achensee erleben"
-    },
-    "shortcuts": {
-      "tips": "Unsere Tipps",
-      "winter": "Winter",
-      "summer": "Sommer",
-      "map": "interaktive Karte",
-      "atoll": "Atoll - Gym & Freizeit"
-    },
-    "winter": {
-      "title": "Winter am Achensee",
-      "p1": "Im Winter wird es am Achensee ruhig.<br></br>Nicht leer – sondern angenehm still.<br></br>Der Schnee dämpft die Geräusche, die Berge wirken näher, die Tage klarer.<br></br>Ob eine Skitour, ein paar Schwünge auf der Piste, Langlaufen durch die Täler<br></br>oder einfach ein Spaziergang durch den frischen Schnee – nichts muss, alles darf. Nach einem Tag draußen kommst du zurück ins MALIA.<br></br>Ins Warme.",
-      "p2": "Du ziehst die Schuhe aus, machst es dir gemütlich, gehst in die Sauna<br></br>oder sitzt einfach da und schaust nach draußen. Der Kamin knistert, draußen wird es langsam dunkel – und der Alltag ist plötzlich ganz weit weg.",
-      "grid": {
-        "0": {
-          "title": "Skitage ganz entspannt",
-          "desc": "Ganz in der Nähe liegen mehrere Skigebiete, die Abwechslung ohne Trubel bieten. Pertisau eignet sich ideal für entspannte Familientage, das Rofan für längere Abfahrten mit Ausblick, Christlum in Achenkirch für alle, die gerne etwas sportlicher unterwegs sind. Skifahren, wie es sein soll: unkompliziert und nah."
-        },
-        "1": {
-          "title": "Langlaufen am Achensee",
-          "desc": "Rund um den Achensee erwarten dich Langlaufloipen, die sich ruhig durch Wiesen, Wälder und das Karwendel ziehen. Allein rund um Pertisau und im Naturschutzgebiet Karwendel stehen dir rund 80 Kilometer gespurte Loipen zur Verfügung. In der gesamten Achensee-Region findest du über 200 Kilometer Loipen – für klassischen Langlauf und Skating. Du gleitest durch verschneite Landschaften, hörst nur deinen Atem und den Schnee unter den Skiern."
-        },
-        "2": {
-          "title": "Rodeln, wenn es dunkel wird",
-          "desc": "Am Achensee warten mehrere Naturrodelbahnen – kurz oder lang, ruhig oder etwas rasanter. Viele davon sind beleuchtet und laden auch abends dazu ein, noch einmal hinauszugehen. Rodeln unter dem Sternenhimmel – einfach, ehrlich und überraschend schön."
-        },
-        "3": {
-          "title": "Höher hinaus",
-          "desc": "Wenn du Skitouren liebst, findest du im Rofan und im Karwendel ideale Bedingungen. Verschneite Gipfel, klare Linien im Schnee und Weitblick – ob allein oder begleitet. Oben angekommen wird es still, und genau dafür lohnt sich der Weg."
-        }
-      },
-      "lake": {
-        "title": "Der See im Winter",
-        "desc": "Auch im Winter ist der Achensee da. Still, weit und klar.<br></br>Winterspaziergänge am Ufer, kalte Luft, glitzernder Schnee – ein Ort zum Durchatmen und Innehalten, mitten zwischen Berg und Wasser.",
-        "btn": "HOL DIR DEIN ANGEBOT FÜR RUHIGEN LUXUS IM WINTER"
-      }
-    },
-    "summer": {
-      "title": "Sommer am Achensee",
-      "p1": "Im Sommer zeigt sich der Achensee weit, klar und lebendig.<br></br>Zwischen Bergen und See findest du Raum für Bewegung, Leichtigkeit und Tage, die sich nicht voll anfühlen – sondern frei.<br></br>Du entscheidest, wie viel draußen es sein darf. Oder wie wenig.",
-      "grid": {
-        "0": {
-          "title": "Zeit fürs Draußensein",
-          "desc": "Rund um das MALIA beginnt der Sommer direkt vor der Tür. Im Karwendel und im Rofangebirge führen Wanderwege durch Wälder, über Almen und hinauf zu stillen Aussichtspunkten. Mit jedem Schritt wird der Kopf freier, der Rhythmus ruhiger. Du gehst los, bleibst stehen, schaust. Kühlst die Füße im Bergbach, atmest die klare Luft – und merkst, wie wenig es braucht, um ganz im Moment zu sein.",
-          "link": "→ Wanderführer Achensee entdecken",
-          "url": "https://www.achensee.com/de/sommerurlaub/wandern-tirol-oesterreich/"
-        },
-        "1": {
-          "title": "Biken zwischen Berg & See",
-          "desc": "Der Achensee gilt als stiller Favorit für Mountainbiker und E-Biker. Über 250 Kilometer beschilderte Strecken führen durch Karwendel, Rofan und das Vorkarwendel – von entspannten Seerunden bis zu anspruchsvollen Höhenmetern. Ob sportlich oder gemütlich mit E-Bike: Du bist unterwegs in einer Landschaft, die Weite schenkt, ohne laut zu sein.",
-          "link": "Mountainbiken & Radfahren am Achensee | Sommerurlaub Tirol",
-          "url": "https://www.achensee.com/de/sommerurlaub/radfahren-mountainbiken-tirol-oesterreich/",
-          "link2": "Anmeldung zum Halbmarathon: Achenseelauf | Tirols Panoramalauf erleben",
-          "url2": "https://www.achenseelauf.at/"
-        },
-        "2": {
-          "title": "Golfen mit Weitblick",
-          "desc": "Nur wenige Schritte vom MALIA entfernt liegt der Golf- & Landclub Achensee – der älteste Golfplatz Tirols, eingebettet zwischen Karwendel und See. Der 18-Loch-Platz in Pertisau verbindet Ruhe mit spielerischer Herausforderung. Sanftes Gelände, klare Linien und ein Ausblick, der jeden Abschlag begleitet.",
-          "link": "→ Golfclub Achensee entdecken",
-          "url": "https://www.golfclub-achensee.at/"
-        },
-        "3": {
-          "title": "Laufen & Gehen",
-          "desc": "Rund um den See findest du Wege fürs Laufen, Joggen und Nordic Walking. Mal flach am Wasser, mal fordernder Richtung Berge. Du bewegst dich durch offene Landschaften, hörst das Wasser, spürst den Untergrund – und läufst nicht gegen die Zeit, sondern mit ihr.",
-          "link": "Laufsport Achensee | Laufurlaub Tirol",
-          "url": "https://www.achensee.com/de/sommerurlaub/laufsport-tirol-oesterreich/"
-        },
-        "4": {
-          "title": "Am Fels",
-          "desc": "Rofan und Karwendel gehören zu den vielseitigsten Klettergebieten Tirols. Sportklettern, Klettersteige oder alpine Routen – alles eingebettet in eine Landschaft, die Respekt verlangt und belohnt. Für Einsteiger wie Geübte gibt es Routen, Kurse und geführte Touren. Der Blick von oben: weit. Der Moment: klar.",
-          "link": "Klettern am Achensee | Österreich Urlaub in Tirol",
-          "url": "https://www.achensee.com/de/sommerurlaub/klettern-tirol-oesterreich/"
-        },
-        "5": {
-          "title": "Begegnungen, die entschleunigen",
-          "desc": "Wer es noch ruhiger mag, erlebt die Landschaft bei einer Alpaka-Wanderung. Langsame Schritte, sanfte Tiere, offene Wege. Du gehst durch die Natur, begleitest – oder wirst begleitet – und nimmst eine Gelassenheit mit, die bleibt.",
-          "link": "Alpakaspaziergang in Tirol am schönen Achensee - Achensee-Alpaka",
-          "url": "https://www.achensee-alpaka.at/alpakawanderung/"
-        },
-        "6": {
-          "title": "Almabtrieb am Achensee",
-          "desc": "Wenn der Herbst kommt, ist es am Achensee Zeit für die Rückkehr: Die Kühe ziehen von der Alm zurück in ihre Ställe. Die Almabtriebe finden hier von Mitte September bis Anfang Oktober statt. Genauere Infos findet ihr hier:",
-          "link": "Almabtriebe am Achensee | Tirol Österreich",
-          "url": "https://www.achensee.com/de/kunst-kultur-tradition/almabtriebe/"
-        },
-        "7": {
-          "title": "Wassersport",
-          "desc": "Wasserratten aufgepasst, der Achensee hat einiges zu bieten: von Segeln, Kite- oder Windsurfen, bis zu Stand-Up paddeln, Kajakfahren und Tauchen. Alle Infos dazu findet ihr hier:",
-          "link": "Wassersport in Tirol | Sommerurlaub am Achensee",
-          "url": "https://www.achensee.com/de/sommerurlaub/wassersport-tirol-oesterreich/"
-        }
-      },
-      "btn": "JETZT DEINEN SOMMERURLAUB BUCHEN"
-    },
-    "map": {
-      "title": "Interaktive Karte",
-      "subtitle": "Orientierung, ganz entspannt",
-      "p1": "Mit der interaktiven Karte der Achensee-Region findest du dich leicht zurecht – schon vor deiner Anreise und auch unterwegs. Du entdeckst (Winter)Wanderwege, Spaziergänge am See, Routen durchs Karwendel und Touren ins Rofangebirge – von ruhig bis anspruchsvoller.",
-      "p2": "Alle Wege sind übersichtlich dargestellt, ergänzt durch hilfreiche Infos zu Streckenverlauf, Einkehrmöglichkeiten und Sehenswertem. So planst du deine Tage nach deinem Gefühl: spontan oder vorbereitet, aktiv oder ganz entspannt.",
-      "btn": "→ Zur interaktiven Karte der Achensee-Region"
-    },
-    "atoll": {
-      "title": "Atoll Achensee",
-      "p1": "Nur wenige Fahr-Minuten vom MALIA entfernt liegt das Atoll Achensee in Maurach. Große Glasflächen, klare Architektur und der Blick über den See prägen das Areal. Besonders eindrucksvoll ist der Infinity-Pool auf dem Dach, von dem aus sich der Achensee in seiner ganzen Länge zeigt.",
-      "p2": "Neben der Badelandschaft mit Sport- und Erlebnisbecken lädt das Penthouse Spa zum Saunieren und Entspannen ein. Verschiedene Saunen, Dampfbad, Ruhezonen und der Außenbereich am Dach schaffen Raum für Erholung – mit Aussicht.",
-      "p3": "Wer sich bewegen möchte, findet im Lakeside Gym, in der Boulderhalle oder im Sportbereich vielfältige Möglichkeiten. Alles großzügig angelegt, alles mit Blick auf die umliegende Landschaft.",
-      "p4": "Das Atoll ist kein Muss. Aber eine schöne Ergänzung – für Tage, an denen du Wasser, Wärme oder Bewegung suchst, bevor du wieder ins MALIA zurückkehrst.",
-      "btn": "Atoll Achensee entdecken"
     }
   },
   "AGB": {
