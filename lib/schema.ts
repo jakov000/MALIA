@@ -165,6 +165,36 @@ export function organizationSchema(locale: Locale) {
   };
 }
 
+/** Ratgeberartikel aus "Our Tips". */
+export function articleSchema(
+  article: {
+    slug: string;
+    title: Record<Locale, string>;
+    metaDescription: Record<Locale, string>;
+    heroImage: string;
+    author: { name: string };
+    published: string;
+  },
+  locale: Locale
+) {
+  const url = absoluteUrl(locale, `/our-tips/${article.slug}`);
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title[locale],
+    description: article.metaDescription[locale],
+    image: absolute(article.heroImage),
+    datePublished: article.published,
+    dateModified: article.published,
+    inLanguage: locale === 'de' ? 'de-AT' : 'en',
+    author: { '@type': 'Person', name: article.author.name },
+    publisher: { '@id': ORGANIZATION_ID },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    url,
+  };
+}
+
 /** FAQ-Markup — das „Zitierfutter" für Antwortmaschinen. */
 export function faqPageSchema(entries: { question: string; answer: string }[]) {
   return {

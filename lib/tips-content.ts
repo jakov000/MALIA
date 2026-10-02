@@ -66,12 +66,12 @@ export const TIPS_SECTIONS: TipsSection[] = [
           de: 'Bärenkopf, Gaisalmsteig und die Gramai-Alm — mit Tiroler Küche als Belohnung.',
           en: 'Bärenkopf, Gaisalmsteig and the Gramai-Alm — with Tyrolean cuisine as the reward.',
         },
-        image: BILD('s1.jpg'),
+        image: BILD('slidersettin2/2.png'),
         imageAlt: {
-          de: 'Wanderin mit Blick auf den Achensee nahe dem MALIA Alpine Hideaway in Pertisau',
-          en: 'Hiker looking out over Lake Achensee near MALIA Alpine Hideaway in Pertisau',
+          de: 'Zwei Wanderer auf einem Felsgipfel über dem Achensee nahe Pertisau',
+          en: 'Two hikers on a rocky summit above Lake Achensee near Pertisau',
         },
-        // articleSlug: 'wandern-bergsteigen' — wird gesetzt, sobald der Artikel steht
+        articleSlug: 'wandern-bergsteigen',
       },
       {
         slug: 'radfahren-mountainbiken',
@@ -333,4 +333,229 @@ export function tilesWithArticle(): { section: TipsSection; tile: TipTile }[] {
   return TIPS_SECTIONS.flatMap((section) =>
     section.tiles.filter((t) => t.articleSlug).map((tile) => ({ section, tile }))
   );
+}
+
+/* ------------------------------------------------------------------ *
+ * Artikel
+ * ------------------------------------------------------------------ */
+
+export type Tour = {
+  slug: string;
+  nummer: number;
+  title: Localized;
+  text: Localized;
+  route: Localized;
+  laenge: Localized;
+  dauer: Localized;
+  schwierigkeit: Localized;
+  hoehenmeter: Localized;
+  image: string;
+  imageAlt: Localized;
+  tipp: Localized;
+  gutZuWissen?: Localized;
+};
+
+export type TipsArticle = {
+  slug: string;
+  category: TipsCategory;
+  title: Localized;
+  subtitle: Localized;
+  /** Kurzfassung für Suchergebnisse und Antwortmaschinen. */
+  metaDescription: Localized;
+  heroImage: string;
+  heroImageAlt: Localized;
+  author: { name: string; role: Localized; readingMinutes: number };
+  intro: Localized;
+  kurzUndKnapp: Localized;
+  tours: Tour[];
+  comparison: {
+    title: Localized;
+    spalten: { tour: Localized; dauer: Localized; schwierigkeit: Localized; fuer: Localized };
+    zeilen: { tour: Localized; dauer: Localized; schwierigkeit: Localized; fuer: Localized }[];
+  };
+  packliste: { title: Localized; items: Localized[] };
+  weiterlesen: { label: Localized; href?: string }[];
+  /** Veröffentlichung — fliesst ins Article-Markup. */
+  published: string;
+};
+
+const WANDERN: TipsArticle = {
+  slug: 'wandern-bergsteigen',
+  category: 'sommer',
+  title: {
+    de: 'Wandern & Bergsteigen am Achensee: Unsere schönsten Touren rund um Pertisau',
+    en: 'Hiking & mountaineering on Lake Achensee: our finest tours around Pertisau',
+  },
+  subtitle: {
+    de: 'Vom Panoramablick am Bärenkopf bis zur Tiroler Küche auf der Gramai-Alm',
+    en: 'From the panoramic view on the Bärenkopf to Tyrolean cuisine at the Gramai-Alm',
+  },
+  metaDescription: {
+    de: 'Drei Wanderungen rund um Pertisau am Achensee: Bärenkopf (6,4 km), Gaisalmsteig (15,6 km) und Gramai-Alm (14,1 km) — mit Länge, Dauer, Schwierigkeit und Höhenmetern.',
+    en: 'Three hikes around Pertisau on Lake Achensee: Bärenkopf (6.4 km), Gaisalmsteig (15.6 km) and Gramai-Alm (14.1 km) — with distance, duration, difficulty and elevation gain.',
+  },
+  heroImage: BILD('s1.jpg'),
+  heroImageAlt: {
+    de: 'Wanderweg mit Blick auf den Achensee nahe dem MALIA Alpine Hideaway in Pertisau',
+    en: 'Hiking trail overlooking Lake Achensee near MALIA Alpine Hideaway in Pertisau',
+  },
+  author: {
+    name: 'Julia',
+    role: { de: 'unsere Wander-Expertin im Team', en: 'our hiking expert on the team' },
+    readingMinutes: 6,
+  },
+  intro: {
+    de: 'Wandern ist meine Welt — und der Achensee bietet dafür die perfekte Kulisse. Zwischen Bergpanorama, Wasser und urigen Almhütten findet hier jeder die passende Tour, egal ob gemütlich oder sportlich.',
+    en: 'Hiking is my world — and Lake Achensee is the perfect setting for it. Between mountain panoramas, water and rustic alpine huts, everyone finds the right tour here, whether leisurely or demanding.',
+  },
+  kurzUndKnapp: {
+    de: 'Meine drei liebsten Touren: der Bärenkopf für den besten Panoramablick, der Gaisalmsteig direkt am Wasser entlang, und die Wanderung zur Gramai-Alm, wo am Ende Tiroler Küche auf euch wartet.',
+    en: 'My three favourite tours: the Bärenkopf for the best panoramic view, the Gaisalmsteig right along the water, and the walk to the Gramai-Alm, where Tyrolean cuisine awaits at the end.',
+  },
+  tours: [
+    {
+      slug: 'baerenkopf',
+      nummer: 1,
+      title: {
+        de: 'Bärenkopf: der beste Panoramablick über den Achensee',
+        en: 'Bärenkopf: the best panoramic view over Lake Achensee',
+      },
+      text: {
+        de: 'Der Bärenkopf ist für mich ein absolutes Muss, wenn ihr am Achensee wandern geht. Die Route führt von der Bergstation Zwölferkopf zum Bärenkopf und wieder zurück zur Bergstation. Der Aufstieg belohnt euch mit einem der schönsten Ausblicke der ganzen Region — der See liegt euch praktisch zu Füßen.',
+        en: 'For me the Bärenkopf is an absolute must when you go hiking on Lake Achensee. The route runs from the Zwölferkopf mountain station to the Bärenkopf and back again. The climb rewards you with one of the finest views in the whole region — the lake lies practically at your feet.',
+      },
+      route: {
+        de: 'Bergstation Zwölferkopf – Bärenkopf – Bergstation Zwölferkopf',
+        en: 'Zwölferkopf mountain station – Bärenkopf – Zwölferkopf mountain station',
+      },
+      laenge: { de: '6,4 km', en: '6.4 km' },
+      dauer: { de: '3:30 Std.', en: '3:30 hrs' },
+      schwierigkeit: { de: 'Mittel', en: 'Moderate' },
+      hoehenmeter: { de: '590 hm', en: '590 m' },
+      image: BILD('slidersettin2/5.png'),
+      imageAlt: {
+        de: 'Panoramablick vom Gipfel auf den Achensee bei Pertisau',
+        en: 'Panoramic view from the summit over Lake Achensee near Pertisau',
+      },
+      tipp: {
+        de: 'Startet früh, dann habt ihr den Ausblick fast für euch allein — und das Licht ist am schönsten.',
+        en: 'Set off early and you will have the view almost to yourselves — and the light is at its best.',
+      },
+    },
+    {
+      slug: 'gaisalmsteig',
+      nummer: 2,
+      title: {
+        de: 'Gaisalmsteig: die Tour direkt am Wasser',
+        en: 'Gaisalmsteig: the tour right by the water',
+      },
+      text: {
+        de: 'Der Gaisalmsteig führt euch ganz nah am Wasser entlang zur Gaisalm und weiter bis nach Achenkirch, bevor es zurück nach Pertisau geht — landschaftlich einer meiner Favoriten. Wichtig: Festes Schuhwerk und Schwindelfreiheit solltet ihr mitbringen, an manchen Stellen wird’s schmal.',
+        en: 'The Gaisalmsteig takes you right along the water to the Gaisalm and on to Achenkirch before returning to Pertisau — scenically one of my favourites. Important: bring sturdy footwear and a head for heights, as the path narrows in places.',
+      },
+      route: {
+        de: 'Pertisau – Gaisalm – Achenkirch – Pertisau',
+        en: 'Pertisau – Gaisalm – Achenkirch – Pertisau',
+      },
+      laenge: { de: '15,6 km', en: '15.6 km' },
+      dauer: { de: '6 Std.', en: '6 hrs' },
+      schwierigkeit: { de: 'Mittel – Schwindelfreiheit nötig', en: 'Moderate – a head for heights required' },
+      hoehenmeter: { de: '230 hm', en: '230 m' },
+      image: BILD('slidersettin2/4.png'),
+      imageAlt: {
+        de: 'Der Achensee mit türkisem Wasser und dem Ort Pertisau',
+        en: 'Lake Achensee with turquoise water and the village of Pertisau',
+      },
+      tipp: {
+        de: 'Feste Wanderschuhe mit gutem Profil sind hier Pflicht, keine Sneaker.',
+        en: 'Sturdy hiking boots with good grip are essential here — no trainers.',
+      },
+      gutZuWissen: {
+        de: 'Wem die volle Runde zu lang ist — ab der Gaisalm könnt ihr auch ganz einfach mit dem Schiff zurück nach Pertisau fahren.',
+        en: 'If the full loop is too long — from the Gaisalm you can simply take the boat back to Pertisau.',
+      },
+    },
+    {
+      slug: 'gramai-alm',
+      nummer: 3,
+      title: {
+        de: 'Gramai-Alm: Wandern mit Belohnung am Ziel',
+        en: 'Gramai-Alm: hiking with a reward at the end',
+      },
+      text: {
+        de: 'Diese Tour ist meine Empfehlung für alle, die Wandern und gutes Essen verbinden wollen. Der Weg führt über die Falzthurnalm zur Gramai-Alm, wo erstklassige Tiroler Küche auf euch wartet — die perfekte Belohnung nach dem Aufstieg.',
+        en: 'This tour is my recommendation for anyone who wants to combine hiking with good food. The path leads via the Falzthurnalm to the Gramai-Alm, where first-class Tyrolean cuisine awaits — the perfect reward after the climb.',
+      },
+      route: {
+        de: 'Pertisau – Falzthurnalm – Gramai-Alm – Pertisau',
+        en: 'Pertisau – Falzthurnalm – Gramai-Alm – Pertisau',
+      },
+      laenge: { de: '14,1 km', en: '14.1 km' },
+      dauer: { de: '4:30 Std.', en: '4:30 hrs' },
+      schwierigkeit: { de: 'Leicht – familientauglich', en: 'Easy – family friendly' },
+      hoehenmeter: { de: '290 hm', en: '290 m' },
+      image: BILD('slidersettin2/1.jpg'),
+      imageAlt: {
+        de: 'Kühe auf der Alm im Karwendel bei Pertisau am Achensee',
+        en: 'Cattle on the alpine pasture in the Karwendel near Pertisau on Lake Achensee',
+      },
+      tipp: {
+        de: 'Reserviert an schönen Wochenenden vorher einen Tisch, die Alm ist beliebt.',
+        en: 'Reserve a table in advance on fine weekends — the hut is popular.',
+      },
+    },
+  ],
+  comparison: {
+    title: { de: 'Welche Tour passt zu euch?', en: 'Which tour suits you?' },
+    spalten: {
+      tour: { de: 'Tour', en: 'Tour' },
+      dauer: { de: 'Dauer', en: 'Duration' },
+      schwierigkeit: { de: 'Schwierigkeit', en: 'Difficulty' },
+      fuer: { de: 'Am besten für', en: 'Best for' },
+    },
+    zeilen: [
+      {
+        tour: { de: 'Bärenkopf', en: 'Bärenkopf' },
+        dauer: { de: '3:30 Std.', en: '3:30 hrs' },
+        schwierigkeit: { de: 'Mittel', en: 'Moderate' },
+        fuer: { de: 'den besten Ausblick', en: 'the best view' },
+      },
+      {
+        tour: { de: 'Gaisalmsteig', en: 'Gaisalmsteig' },
+        dauer: { de: '6 Std.', en: '6 hrs' },
+        schwierigkeit: { de: 'Mittel', en: 'Moderate' },
+        fuer: { de: 'Naturliebhaber am Wasser', en: 'nature lovers by the water' },
+      },
+      {
+        tour: { de: 'Gramai-Alm', en: 'Gramai-Alm' },
+        dauer: { de: '4:30 Std.', en: '4:30 hrs' },
+        schwierigkeit: { de: 'Leicht', en: 'Easy' },
+        fuer: { de: 'Familien & Genießer', en: 'families & epicures' },
+      },
+    ],
+  },
+  packliste: {
+    title: { de: 'Packliste: Das gehört in euren Rucksack', en: 'Packing list: what belongs in your backpack' },
+    items: [
+      { de: 'Feste Wanderschuhe', en: 'Sturdy hiking boots' },
+      { de: 'Genug Wasser', en: 'Enough water' },
+      { de: 'Sonnenschutz', en: 'Sun protection' },
+      { de: 'Regenjacke', en: 'Rain jacket' },
+      { de: 'Kleiner Proviant', en: 'A small snack' },
+      { de: 'Handy & Powerbank', en: 'Phone & power bank' },
+    ],
+  },
+  weiterlesen: [
+    { label: { de: 'Klettersteige am Achensee', en: 'Via ferratas on Lake Achensee' } },
+    { label: { de: 'Radfahren & Mountainbiken', en: 'Cycling & mountain biking' } },
+    { label: { de: 'Wassersport am Achensee', en: 'Water sports on Lake Achensee' } },
+    { label: { de: 'MALIA Chalets mit Bergblick', en: 'MALIA chalets with mountain views' }, href: '/our-hideaways' },
+  ],
+  published: '2026-10-02',
+};
+
+export const TIPS_ARTICLES: TipsArticle[] = [WANDERN];
+
+export function findArticle(slug: string): TipsArticle | undefined {
+  return TIPS_ARTICLES.find((a) => a.slug === slug);
 }
