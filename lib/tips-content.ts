@@ -225,11 +225,10 @@ export const TIPS_SECTIONS: TipsSection[] = [
           de: 'Geschichte und Tradition der Region zum Anfassen.',
           en: 'The history and traditions of the region, hands-on.',
         },
-        // TODO: kein passendes Motiv im Bestand — Foto vom Kunden nötig.
-        image: BILD('slidersettin2/4.png'),
+        image: '/pictures/museumswelt.jpeg',
         imageAlt: {
-          de: 'Blick über Pertisau und den Achensee',
-          en: 'View across Pertisau and Lake Achensee',
+          de: 'Historische Traktoren und Fahrräder in der Achenseer Museumswelt in Maurach',
+          en: 'Historic tractors and bicycles at the Achensee museum world in Maurach',
         },
       },
       {
@@ -239,11 +238,10 @@ export const TIPS_SECTIONS: TipsSection[] = [
           de: 'Innsbruck, Rattenberg oder Schwaz — schnell erreicht, lohnt sich immer.',
           en: 'Innsbruck, Rattenberg or Schwaz — quickly reached, always worth it.',
         },
-        // TODO: kein passendes Motiv im Bestand — Foto vom Kunden nötig.
-        image: BILD('DJI_0546.jpg'),
+        image: '/pictures/innsbruck.jpeg',
         imageAlt: {
-          de: 'Luftaufnahme von Pertisau am Achensee im Winter',
-          en: 'Aerial view of Pertisau on Lake Achensee in winter',
+          de: 'Die bunten Häuser am Inn in Innsbruck vor der verschneiten Nordkette',
+          en: 'The colourful houses along the river Inn in Innsbruck below the snow-covered Nordkette',
         },
       },
       {
@@ -314,10 +312,24 @@ export const TIPS_HUB = {
  * zugeklappt. Sobald sie vorliegen, hier ergänzen — die Seite rendert den
  * Block dann automatisch samt FAQPage-Markup.
  */
-export const TIPS_FAQ: { question: Localized; answer: Localized }[] = [];
+export const TIPS_FAQ: { question: Localized; answer: Localized }[] = [
+  {
+    question: {
+      de: 'Was kann man bei Regen am Achensee machen?',
+      en: 'What can you do on Lake Achensee when it rains?',
+    },
+    answer: {
+      de: 'Bei Regen bietet der Achensee eine Reihe überdachter Ziele: das Atoll Achensee, die Achenseer Museumswelt, eine Fahrt mit der Achenseebahn und die Achenseeschifffahrt. Etwas weiter entfernt lohnen sich die Swarovski Kristallwelten und das Steinölmuseum Vitalberg. Und mit Regenjacke bleibt auch draußen einiges möglich — ein Spaziergang am See oder eine leichte Wanderung.',
+      en: 'When it rains, Lake Achensee offers a number of indoor options: the Atoll Achensee leisure centre, the Achensee museum world, a ride on the Achensee railway and the Achensee boat service. A little further afield, the Swarovski Crystal Worlds and the Vitalberg stone oil museum are worth the trip. And with a rain jacket, plenty still works outdoors — a walk along the lake or an easy hike.',
+    },
+  },
+];
 
+/**
+ * Noch offene Fragen aus dem Layout-Entwurf. Sobald die Antworten vorliegen,
+ * wandern sie nach TIPS_FAQ — die Seite rendert sie dann samt FAQPage-Markup.
+ */
 export const TIPS_FAQ_PENDING: Localized[] = [
-  { de: 'Was kann man bei Regen am Achensee machen?', en: 'What can you do on Lake Achensee when it rains?' },
   { de: 'Wie viele Tage sollte man am Achensee einplanen?', en: 'How many days should you plan for Lake Achensee?' },
   { de: 'Welche Aktivitäten eignen sich für Familien?', en: 'Which activities are suitable for families?' },
 ];
