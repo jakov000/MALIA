@@ -323,16 +323,30 @@ export const TIPS_FAQ: { question: Localized; answer: Localized }[] = [
       en: 'When it rains, Lake Achensee offers a number of indoor options: the Atoll Achensee leisure centre, the Achensee museum world, a ride on the Achensee railway and the Achensee boat service. A little further afield, the Swarovski Crystal Worlds and the Vitalberg stone oil museum are worth the trip. And with a rain jacket, plenty still works outdoors — a walk along the lake or an easy hike.',
     },
   },
+  {
+    question: {
+      de: 'Wie viele Tage sollte man am Achensee einplanen?',
+      en: 'How many days should you plan for Lake Achensee?',
+    },
+    answer: {
+      de: 'Für einen ersten Eindruck vom Achensee reichen drei bis vier Tage: eine Wanderung, ein Tag am Wasser und Zeit für Pertisau selbst. Wer mehrere Touren gehen oder Aktivitäten am Berg und am See verbinden möchte, plant besser eine Woche ein. Das MALIA Alpine Hideaway in Pertisau ist ab 2 Nächten buchbar.',
+      en: 'Three to four days are enough for a first impression of Lake Achensee: one hike, a day by the water and time for Pertisau itself. If you want to walk several of the tours or combine activities on the mountain and by the lake, plan for a week. MALIA Alpine Hideaway in Pertisau can be booked from 2 nights.',
+    },
+  },
+  {
+    question: {
+      de: 'Welche Aktivitäten eignen sich für Familien?',
+      en: 'Which activities are suitable for families?',
+    },
+    answer: {
+      de: 'Familienfreundlich sind rund um Pertisau am Achensee die Wanderung zur Gramai-Alm (14,1 km, leicht), eine Fahrt mit der Achenseebahn oder der Achenseeschifffahrt, das Atoll Achensee sowie im Winter Rodeln und Eislaufen. Das MALIA Alpine Hideaway stellt Babybetten und Zustellbetten bereit; Kinder bis 14 Jahre sind von der Kurtaxe befreit.',
+      en: 'Family-friendly options around Pertisau on Lake Achensee include the walk to the Gramai-Alm (14.1 km, easy), a ride on the Achensee railway or the Achensee boat service, the Atoll Achensee leisure centre and, in winter, tobogganing and ice skating. MALIA Alpine Hideaway provides cots and extra beds; children under 14 are exempt from the tourist tax.',
+    },
+  },
 ];
 
-/**
- * Noch offene Fragen aus dem Layout-Entwurf. Sobald die Antworten vorliegen,
- * wandern sie nach TIPS_FAQ — die Seite rendert sie dann samt FAQPage-Markup.
- */
-export const TIPS_FAQ_PENDING: Localized[] = [
-  { de: 'Wie viele Tage sollte man am Achensee einplanen?', en: 'How many days should you plan for Lake Achensee?' },
-  { de: 'Welche Aktivitäten eignen sich für Familien?', en: 'Which activities are suitable for families?' },
-];
+/** Alle Fragen aus dem Layout-Entwurf sind beantwortet. */
+export const TIPS_FAQ_PENDING: Localized[] = [];
 
 export function tipsSection(key: TipsCategory): TipsSection {
   const found = TIPS_SECTIONS.find((s) => s.key === key);

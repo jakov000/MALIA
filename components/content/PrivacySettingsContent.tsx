@@ -74,7 +74,7 @@ export default function PrivacySettingsContent() {
     return (
         <div className="bg-white min-h-screen pt-32 pb-24">
             <div className="max-w-4xl mx-auto px-6">
-                <SectionHeader title={t("title")} />
+                <SectionHeader as="h1" title={t("title")} />
 
                 <div className="space-y-8 font-light text-gray-600">
                     <p>{t("intro")}</p>

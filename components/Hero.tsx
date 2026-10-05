@@ -75,14 +75,20 @@ export default function Hero() {
             transition={{ duration: 1.2, ease: "easeOut" }}
             className="w-full max-w-[180px] sm:max-w-[260px] md:max-w-[350px] lg:max-w-[480px] mb-8"
           >
-            <Image
-              src="/pictures/MaliaMainLogo.svg"
-              alt="MALIA Alpine Hideaway"
-              width={900}
-              height={300}
-              className="w-full h-auto brightness-0 invert"
-              priority
-            />
+            {/* Das Logo ist die Hauptüberschrift der Startseite. Als h1
+                ausgezeichnet bekommt die Seite eine Überschriftenebene,
+                ohne dass sich optisch etwas ändert — der Alternativtext
+                des Bildes liefert den Text. */}
+            <h1 className="m-0">
+              <Image
+                src="/pictures/MaliaMainLogo.svg"
+                alt="MALIA Alpine Hideaway — Luxus-Chalet in Pertisau am Achensee"
+                width={900}
+                height={300}
+                className="w-full h-auto brightness-0 invert"
+                priority
+              />
+            </h1>
           </motion.div>
 
           <div className="md:hidden">

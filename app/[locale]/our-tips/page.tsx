@@ -5,7 +5,7 @@ import { pageMetadata } from '@/lib/page-metadata';
 import JsonLd from '@/components/JsonLd';
 import PageFooter from '@/components/PageFooter';
 import { breadcrumbSchema, faqPageSchema } from '@/lib/schema';
-import { isLocale, DEFAULT_LOCALE, absoluteUrl, type Locale } from '@/lib/seo';
+import { isLocale, DEFAULT_LOCALE, type Locale } from '@/lib/seo';
 import { TIPS_HUB, TIPS_SECTIONS, TIPS_FAQ, type TipsSection } from '@/lib/tips-content';
 
 export const generateMetadata = pageMetadata('tips', '/our-tips');

@@ -27,7 +27,7 @@
 
 ---
 
-## SEO 1 — Technisches Fundament & Indexierung (5 Std.) · Pos. 02 — ✅ Code fertig
+## SEO 1 — Technisches Fundament & Indexierung (5 Std.) · Pos. 02 — ✅ Code fertig, www repariert
 
 Ziel: Die Seite wird überhaupt erst sauber crawl- und indexierbar. Alles Weitere baut darauf auf.
 
@@ -38,16 +38,18 @@ Ziel: Die Seite wird überhaupt erst sauber crawl- und indexierbar. Alles Weiter
 - [x] hreflang-Paare DE ↔ EN inkl. `x-default` → DE
 - [x] `www` → Apex per 301 (`next.config.ts`-Redirect als Code-Absicherung)
 - [x] Interne Redirect-Links behoben (4 Stück: `Hero.tsx` ×2, `SuccessContent.tsx`, `InquiryContent.tsx`)
-- [ ] ⚠️ **Zugang nötig:** Domain `www` im Vercel-Projekt hinterlegen + DNS-Eintrag; Sitemap in der Google Search Console einreichen; Indexabdeckung prüfen
+- [x] `www`-Domain im Vercel-Projekt hinterlegt — leitet seit 22.09.2026 per 308 auf die Apex-Domain
+- [x] Search-Console-Property angelegt und verifiziert (24.09.2026)
+- [ ] Sitemap einreichen und Indexabdeckung prüfen — **erst nach dem Deploy möglich**
 
-## SEO 2 — Meta-Daten, Überschriften & Snippets (4 Std.) · Pos. 03 — ✅ weitgehend fertig
+## SEO 2 — Meta-Daten, Überschriften & Snippets (4 Std.) · Pos. 03 — ✅ fertig
 
 - [x] Alle 16 Seiten auf `generateMetadata()` umgestellt (sprachabhängig, über `lib/page-metadata.ts`)
 - [x] 8 `"use client"`-Seiten in Server-Wrapper + `components/content/*Content.tsx` aufgeteilt — Voraussetzung dafür, dass sie überhaupt Metadata tragen können
 - [x] Titel + Descriptions für alle 16 Seiten in DE **und** EN als `Seo`-Namespace in `messages/*.json` (Titel ≤ 60, Descriptions ≤ 160 Zeichen)
 - [x] Open-Graph- und Twitter-Tags mit Hero-Visual, absolute Bild-URLs
 - [x] `/success` auf `noindex, nofollow`
-- [ ] Durchgängige H1-Struktur je Seite prüfen (aktuell 7× h1 über alle Seiten — offen)
+- [x] Überschriftenhierarchie begradigt: **alle 18 Seiten haben jetzt genau eine H1**. Sechs Seiten hatten vorher gar keine — darunter die Startseite, deren Logo nun als H1 ausgezeichnet ist. Auf den Rechtstexten sprang die Ebene von H1 direkt auf H3, jetzt H1 → H2.
 
 ## SEO 3 — Content-Ausbau der Kernseiten (4 Std.) · Pos. 04 — ✅ fertig
 
@@ -162,6 +164,46 @@ Ziel: `malia-alpine-hideaway.at` wird die faktenreichste MALIA-Quelle im Netz �
 | Hauptrufnummer festlegen | GEO 5 | Kundenentscheidung |
 | PLZ 6213 vs. 6216 klären | GEO 5 | Kundenentscheidung |
 | Profile korrigieren | GEO 5 | Google Business Profile, achensee.com, OTA-Logins |
+
+---
+
+## Zusätzlich beauftragt — nicht Teil von AS-2026-007
+
+Beide Themen kamen während der Umsetzung dazu und sind abgeschlossen.
+
+### Z1 — Google Analytics 4 mit Einwilligungsverwaltung ✅ fertig
+
+- [x] Google-Tag G-GBTL50Y45C eingebunden, **lädt ausschließlich nach ausdrücklicher Einwilligung**. Ohne Zustimmung geht kein einziger Request an Google — verifiziert im ausgelieferten HTML.
+- [x] Einwilligungsbanner mit gleichrangigen Schaltflächen: „Nur notwendige" ist genauso prominent wie „Alle akzeptieren", wie es der Europäische Datenschutzausschuss verlangt
+- [x] Messung nur in der Produktionsumgebung — Vorschau-Deployments verfälschen die Zahlen nicht
+- [x] Seite „Datenschutzeinstellungen" von einer Attrappe zu einer funktionierenden Verwaltung umgebaut (speicherte vorher nichts, war hart auf Deutsch)
+- [x] Datenschutzerklärung um einen vollständigen Analytics-Abschnitt erweitert; die bisherige Aussage „wir setzen keine Analyse-Tools ein" war ab Einbau eine Falschaussage
+- [x] Cookie-Einstellungen dauerhaft in der Fußzeile verlinkt (Art. 7 Abs. 3 DSGVO)
+- [ ] ⚠️ **Im GA4-Konto zu erledigen:** Zusatz zur Datenverarbeitung akzeptieren · Datenaufbewahrung auf 14 Monate stellen (die Datenschutzerklärung nennt diesen Wert) · Google Signals ausgeschaltet lassen
+
+### Z2 — „The Setting" wird zu „Our Tips" ✅ fertig
+
+- [x] Neue Hub-Seite `/our-tips` mit drei Rubriken, 12 Themenkacheln und 13 Schlagwörtern, zweisprachig
+- [x] Kurzfassung oben und FAQ unten — beides auf Zitierbarkeit durch Antwortmaschinen ausgelegt
+- [x] Drei FAQ-Antworten mit `FAQPage`-Markup, als `details`-Element gebaut, damit der Text auch zugeklappt im DOM steht
+- [x] Erster Artikel `/our-tips/wandern-bergsteigen` mit drei Touren samt Kennzahlen, Vergleichstabelle, Packliste und `Article`-Markup
+- [x] `/the-setting` entfernt, 301 auf `/our-tips` in beiden Sprachen
+- [x] Artikel landen automatisch in der Sitemap, die damit auf **34 URLs** wächst
+- [ ] Die Antworten zu „Anzahl Tage" und „Familien" sind Entwürfe aus belegten Projektdaten — **bitte von den Gastgeberinnen gegenlesen**
+
+---
+
+## Abschlussstand (05.10.2026)
+
+| Prüfung | Ergebnis |
+|---|---|
+| `npm run build` | erfolgreich, 58 Seiten vorgerendert |
+| `npx tsc --noEmit` | fehlerfrei |
+| Sitemap | 34 URLs, vollständige hreflang-Gruppen |
+| H1 pro Seite | genau eine, auf allen 18 Seiten |
+| Google ohne Einwilligung | null Requests |
+
+**Bekannte Altlasten, bewusst nicht angefasst:** `npm run lint` meldet 44 Fehler, davon 43 aus dem Bestand (`any`-Typen in `invoice.ts`, `mail.ts`, `pricing.ts`, Admin-Komponenten). Sie blockieren den Build nicht. Eine Bereinigung wäre ein eigenes Aufräum-Paket.
 
 ## Nicht Teil dieser Umsetzung
 

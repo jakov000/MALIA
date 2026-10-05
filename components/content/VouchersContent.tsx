@@ -60,6 +60,7 @@ export default function VouchersContent() {
                     className="text-center mb-16"
                 >
                     <SectionHeader
+                        as="h1"
                         title={t('hero.title')}
                         subtitle={t('hero.subtitle')}
                         description={t('hero.description')}

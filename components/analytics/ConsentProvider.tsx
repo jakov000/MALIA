@@ -33,7 +33,12 @@ export default function ConsentProvider({ children }: { children: React.ReactNod
     const [consent, setConsent] = useState<ConsentState | null>(null);
     const [ready, setReady] = useState(false);
 
-    // localStorage steht erst im Browser zur Verfügung.
+    // localStorage steht erst im Browser zur Verfügung, deshalb wird die
+    // gespeicherte Entscheidung bewusst nach dem Mounten gelesen. Würde sie
+    // schon beim ersten Rendern gelesen, lieferte der Server null und der
+    // Client einen Wert — das Ergebnis wäre ein Hydration-Konflikt.
+    // Der Linter mahnt setState im Effect an; hier ist es der vorgesehene Weg,
+    // Zustand aus einem externen System zu übernehmen.
     useEffect(() => {
         setConsent(readConsent());
         setReady(true);
