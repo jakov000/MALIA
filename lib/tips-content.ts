@@ -212,10 +212,10 @@ export const TIPS_SECTIONS: TipsSection[] = [
           de: 'Von urigen Wirtshäusern bis Gourmet-Küche direkt am Wasser.',
           en: 'From rustic inns to gourmet cuisine right by the water.',
         },
-        image: BILD('slidersetting1/5.jpg'),
+        image: '/pictures/kaiserschmarrn-tiroler-kueche.jpeg',
         imageAlt: {
-          de: 'Gedeckter Tisch mit Wein am Abend im MALIA Alpine Hideaway in Pertisau am Achensee',
-          en: 'Table laid with wine in the evening at MALIA Alpine Hideaway in Pertisau on Lake Achensee',
+          de: 'Frisch zubereiteter Kaiserschmarrn in der Pfanne auf einer Almhütte am Achensee',
+          en: 'Freshly made Kaiserschmarrn in the pan at a mountain hut on Lake Achensee',
         },
       },
       {
@@ -458,10 +458,10 @@ const WANDERN: TipsArticle = {
       dauer: { de: '3:30 Std.', en: '3:30 hrs' },
       schwierigkeit: { de: 'Mittel', en: 'Moderate' },
       hoehenmeter: { de: '590 hm', en: '590 m' },
-      image: BILD('slidersettin2/5.png'),
+      image: '/pictures/baerenkopf-panorama-achensee.jpeg',
       imageAlt: {
-        de: 'Panoramablick vom Gipfel auf den Achensee bei Pertisau',
-        en: 'Panoramic view from the summit over Lake Achensee near Pertisau',
+        de: 'Panoramablick vom Bärenkopf über den Achensee im Abendlicht',
+        en: 'Panoramic view from the Bärenkopf across Lake Achensee in the evening light',
       },
       tipp: {
         de: 'Startet früh, dann habt ihr den Ausblick fast für euch allein — und das Licht ist am schönsten.',
@@ -487,10 +487,10 @@ const WANDERN: TipsArticle = {
       dauer: { de: '6 Std.', en: '6 hrs' },
       schwierigkeit: { de: 'Mittel – Schwindelfreiheit nötig', en: 'Moderate – a head for heights required' },
       hoehenmeter: { de: '230 hm', en: '230 m' },
-      image: BILD('slidersettin2/4.png'),
+      image: '/pictures/gaisalmsteig-familie-am-wasser.jpeg',
       imageAlt: {
-        de: 'Der Achensee mit türkisem Wasser und dem Ort Pertisau',
-        en: 'Lake Achensee with turquoise water and the village of Pertisau',
+        de: 'Familie auf dem Gaisalmsteig direkt am Ufer des Achensees',
+        en: 'Family walking the Gaisalmsteig trail right along the shore of Lake Achensee',
       },
       tipp: {
         de: 'Feste Wanderschuhe mit gutem Profil sind hier Pflicht, keine Sneaker.',
@@ -520,10 +520,10 @@ const WANDERN: TipsArticle = {
       dauer: { de: '4:30 Std.', en: '4:30 hrs' },
       schwierigkeit: { de: 'Leicht – familientauglich', en: 'Easy – family friendly' },
       hoehenmeter: { de: '290 hm', en: '290 m' },
-      image: BILD('slidersettin2/1.jpg'),
+      image: '/pictures/gramai-alm-wanderweg.jpeg',
       imageAlt: {
-        de: 'Kühe auf der Alm im Karwendel bei Pertisau am Achensee',
-        en: 'Cattle on the alpine pasture in the Karwendel near Pertisau on Lake Achensee',
+        de: 'Wanderer auf dem Weg zur Gramai-Alm im Falzthurntal bei Pertisau',
+        en: 'Hiker on the path to the Gramai-Alm in the Falzthurntal valley near Pertisau',
       },
       tipp: {
         de: 'Reserviert an schönen Wochenenden vorher einen Tisch, die Alm ist beliebt.',
