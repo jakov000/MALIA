@@ -11,6 +11,14 @@ import { SUITES } from "@/lib/data";
 import { useTranslations } from "next-intl";
 import { calculateStayPrice } from "@/lib/pricing";
 
+// The calendar hands us local midnight. toISOString() converts that to UTC and
+// lands on the PREVIOUS day for every timezone east of UTC (Vienna is UTC+1/+2),
+// which shifted both the stored stay and the server-side price by one night.
+// We rebuild the instant from the picked calendar day and send UTC midnight -
+// the same basis CalendarRule dates are stored on (<input type="date">).
+const toUtcMidnight = (d: Date) =>
+  new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())).toISOString();
+
 export default function BookingForm() {
   const t = useTranslations('BookingForm');
   const tRooms = useTranslations('Rooms');
@@ -309,8 +317,8 @@ export default function BookingForm() {
           guestEmail,
           guestPhone,
           guestAddress,
-          startDate: date.from.toISOString(),
-          endDate: date.to.toISOString(),
+          startDate: toUtcMidnight(date.from),
+          endDate: toUtcMidnight(date.to),
           room: selectedRoom.title,
           guestCount,
           cartTotal: subtotal,
