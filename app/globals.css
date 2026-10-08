@@ -30,3 +30,14 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Waagrechte Kachel-Leisten: die native Scrollleiste wird ausgeblendet,
+   gewischt und gescrollt wird trotzdem. Die Pfeiltasten am Rand
+   übernehmen die Bedienung mit der Maus. */
+.leiste-ohne-scrollbalken {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.leiste-ohne-scrollbalken::-webkit-scrollbar {
+  display: none;
+}

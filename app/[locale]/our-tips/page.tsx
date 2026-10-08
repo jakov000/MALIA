@@ -4,6 +4,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { pageMetadata } from '@/lib/page-metadata';
 import JsonLd from '@/components/JsonLd';
 import PageFooter from '@/components/PageFooter';
+import TileCarousel from '@/components/TileCarousel';
 import { breadcrumbSchema, faqPageSchema } from '@/lib/schema';
 import { isLocale, DEFAULT_LOCALE, type Locale } from '@/lib/seo';
 import { TIPS_HUB, TIPS_SECTIONS, TIPS_FAQ, type TipsSection } from '@/lib/tips-content';
@@ -18,6 +19,13 @@ export const generateMetadata = pageMetadata('tips', '/our-tips');
  * Frage, die Antwortmaschinen gestellt bekommen — die Kurzfassung oben und
  * die FAQ unten sind darauf zugeschnitten.
  */
+
+/**
+ * Bis zu vier Beiträge stehen als Raster nebeneinander. Ab dem fünften
+ * wird die Rubrik zu einer waagrechten Leiste, durch die gewischt wird —
+ * sonst entstünde eine zweite Reihe mit einer einzelnen Kachel.
+ */
+const MAX_IM_RASTER = 4;
 
 const ANKER: { id: string; label: Record<Locale, string> }[] = [
     { id: 'sommer', label: { de: 'Sommer-Aktivitäten', en: 'Summer activities' } },
@@ -73,11 +81,32 @@ function Rubrik({ section, locale, hell }: { section: TipsSection; locale: Local
                 </h2>
                 <p className="font-light text-gray-600 leading-relaxed max-w-3xl mb-12">{section.intro[locale]}</p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {section.tiles.map((tile) => (
-                        <Kachel key={tile.slug} tile={tile} locale={locale} />
-                    ))}
-                </div>
+                {section.tiles.length > MAX_IM_RASTER ? (
+                    <TileCarousel
+                        label={
+                            locale === 'de'
+                                ? `Beiträge zum Thema ${section.eyebrow.de}`
+                                : `Articles on ${section.eyebrow.en}`
+                        }
+                        zurueckLabel={locale === 'de' ? 'Vorherige Beiträge' : 'Previous articles'}
+                        vorLabel={locale === 'de' ? 'Weitere Beiträge' : 'More articles'}
+                    >
+                        {section.tiles.map((tile) => (
+                            <div
+                                key={tile.slug}
+                                className="snap-start shrink-0 basis-[80%] sm:basis-[46%] lg:basis-[calc(25%-1.125rem)]"
+                            >
+                                <Kachel tile={tile} locale={locale} />
+                            </div>
+                        ))}
+                    </TileCarousel>
+                ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {section.tiles.map((tile) => (
+                            <Kachel key={tile.slug} tile={tile} locale={locale} />
+                        ))}
+                    </div>
+                )}
 
                 {section.pills.length > 0 && (
                     <ul className="flex flex-wrap gap-3 mt-10">
