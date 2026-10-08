@@ -279,8 +279,8 @@ export const TIPS_HUB = {
     en: 'What can you do on Lake Achensee?',
   } as Localized,
   subtitle: {
-    de: 'Der ultimative Guide für Sommer, Winter, Kulinarik & Kultur',
-    en: 'The ultimate guide to summer, winter, food & culture',
+    de: 'Der Guide für Sommer, Winter, Kulinarik & Kultur',
+    en: 'The guide to summer, winter, food & culture',
   } as Localized,
   intro: {
     de: 'Der Achensee ist nicht nur super zum Entspannen und la dolce far niente genießen. In der Gegend gibt es einiges zu erleben.',
@@ -319,28 +319,28 @@ export const TIPS_FAQ: { question: Localized; answer: Localized }[] = [
       en: 'What can you do on Lake Achensee when it rains?',
     },
     answer: {
-      de: 'Bei Regen bietet der Achensee eine Reihe überdachter Ziele: das Atoll Achensee, die Achenseer Museumswelt, eine Fahrt mit der Achenseebahn und die Achenseeschifffahrt. Etwas weiter entfernt lohnen sich die Swarovski Kristallwelten und das Steinölmuseum Vitalberg. Und mit Regenjacke bleibt auch draußen einiges möglich — ein Spaziergang am See oder eine leichte Wanderung.',
-      en: 'When it rains, Lake Achensee offers a number of indoor options: the Atoll Achensee leisure centre, the Achensee museum world, a ride on the Achensee railway and the Achensee boat service. A little further afield, the Swarovski Crystal Worlds and the Vitalberg stone oil museum are worth the trip. And with a rain jacket, plenty still works outdoors — a walk along the lake or an easy hike.',
+      de: 'Bei Regen bietet sich das Atoll Achensee mit Hallenbad und Sauna an, dazu die Achensee Museumswelt, die Achenseebahn und die Achenseeschifffahrt. Auch das Steinölmuseum im Vitalberg ist einen Besuch wert, oder ein Ausflug zu den Swarovski Kristallwelten in Wattens (ca. 30 Min. von Maurach). Draußen geht mit Regenjacke auch ein Spaziergang am See oder eine leichte Wanderung.',
+      en: 'When it rains, the Atoll Achensee with its indoor pool and sauna is a good choice, as are the Achensee museum world, the Achensee railway and the Achensee boat service. The Vitalberg stone oil museum is worth a visit too, or a trip to the Swarovski Crystal Worlds in Wattens (about 30 minutes from Maurach). Outdoors, a walk along the lake or an easy hike still works with a rain jacket.',
     },
   },
   {
     question: {
-      de: 'Wie viele Tage sollte man am Achensee einplanen?',
-      en: 'How many days should you plan for Lake Achensee?',
+      de: 'Was kann man am Achensee mit der Familie unternehmen?',
+      en: 'What can you do on Lake Achensee with the family?',
     },
     answer: {
-      de: 'Für einen ersten Eindruck vom Achensee reichen drei bis vier Tage: eine Wanderung, ein Tag am Wasser und Zeit für Pertisau selbst. Wer mehrere Touren gehen oder Aktivitäten am Berg und am See verbinden möchte, plant besser eine Woche ein. Das MALIA Alpine Hideaway in Pertisau ist ab 2 Nächten buchbar.',
-      en: 'Three to four days are enough for a first impression of Lake Achensee: one hike, a day by the water and time for Pertisau itself. If you want to walk several of the tours or combine activities on the mountain and by the lake, plan for a week. MALIA Alpine Hideaway in Pertisau can be booked from 2 nights.',
+      de: 'Schön für die ganze Familie sind eine leichte Wanderung zur Gaisalm, eine Fahrt mit dem Nostalgiebus zur Gramai-Alm oder eine Alpaka-Wanderung. Dazu kommen SUPen und Tretboot fahren auf dem See sowie der Kletterparcours im Adventure Park Achenkirch für die Mutigeren.',
+      en: 'Great options for the whole family are an easy walk to the Gaisalm, a ride on the vintage bus to the Gramai-Alm or an alpaca trek. Add to that stand-up paddling and pedal boats on the lake, plus the climbing course at the Adventure Park Achenkirch for the braver ones.',
     },
   },
   {
     question: {
-      de: 'Welche Aktivitäten eignen sich für Familien?',
-      en: 'Which activities are suitable for families?',
+      de: 'Wie viele Tage sollte man für einen Urlaub am Achensee einplanen?',
+      en: 'How many days should you plan for a holiday on Lake Achensee?',
     },
     answer: {
-      de: 'Familienfreundlich sind rund um Pertisau am Achensee die Wanderung zur Gramai-Alm (14,1 km, leicht), eine Fahrt mit der Achenseebahn oder der Achenseeschifffahrt, das Atoll Achensee sowie im Winter Rodeln und Eislaufen. Das MALIA Alpine Hideaway stellt Babybetten und Zustellbetten bereit; Kinder bis 14 Jahre sind von der Kurtaxe befreit.',
-      en: 'Family-friendly options around Pertisau on Lake Achensee include the walk to the Gramai-Alm (14.1 km, easy), a ride on the Achensee railway or the Achensee boat service, the Atoll Achensee leisure centre and, in winter, tobogganing and ice skating. MALIA Alpine Hideaway provides cots and extra beds; children under 14 are exempt from the tourist tax.',
+      de: 'Mindestens 4 bis 5 Tage — sonst reicht die Zeit weder zum Erholen noch für Berge und See in Ruhe. Die ersten Tage braucht ihr zum Ankommen, dann noch Zeit für eine Bergtour oder einen Skitag und für den See selbst. Eine ganze Woche ist ideal, dann bleibt auch noch Puffer für schlechtes Wetter und einen Tag ohne Programm.',
+      en: 'At least 4 to 5 days — otherwise there is time neither to unwind nor to enjoy the mountains and the lake in peace. The first days are for arriving, then you want time for a mountain tour or a ski day and for the lake itself. A full week is ideal, leaving a buffer for bad weather and one day with nothing planned.',
     },
   },
 ];

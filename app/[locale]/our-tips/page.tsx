@@ -63,7 +63,7 @@ function Kachel({ tile, locale }: { tile: TipsSection['tiles'][number]; locale: 
 
 function Rubrik({ section, locale, hell }: { section: TipsSection; locale: Locale; hell: boolean }) {
     return (
-        <section id={section.key} className={`${hell ? 'bg-white' : 'bg-stone-50/60'} py-20 md:py-28 px-6 scroll-mt-24`}>
+        <section id={section.key} className={`${hell ? 'bg-white' : 'bg-stone-50/60'} py-10 md:py-28 px-6 scroll-mt-24`}>
             <div className="max-w-7xl mx-auto">
                 <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-[#3d3d29] block mb-4">
                     {section.eyebrow[locale]}
@@ -145,7 +145,7 @@ export default async function OurTipsPage({ params }: { params: Promise<{ locale
                 aria-label={de ? 'Abschnitte dieser Seite' : 'Sections on this page'}
                 className="border-b border-stone-100 bg-white"
             >
-                <ul className="max-w-7xl mx-auto px-6 py-5 flex flex-wrap justify-center gap-x-8 gap-y-3">
+                <ul className="max-w-7xl mx-auto px-6 py-4 md:py-5 flex flex-wrap justify-center gap-x-8 gap-y-3">
                     {ANKER.map((a) => (
                         <li key={a.id}>
                             <a
@@ -160,7 +160,7 @@ export default async function OurTipsPage({ params }: { params: Promise<{ locale
             </nav>
 
             {/* --- EINLEITUNG & KURZFASSUNG --- */}
-            <section className="py-16 md:py-20 px-6 bg-white">
+            <section className="py-8 md:py-20 px-6 bg-white">
                 <div className="max-w-3xl mx-auto">
                     <p className="font-light text-gray-600 leading-relaxed mb-8">{TIPS_HUB.intro[locale]}</p>
 
@@ -181,7 +181,7 @@ export default async function OurTipsPage({ params }: { params: Promise<{ locale
             ))}
 
             {/* --- ZITAT & CTA --- */}
-            <section className="py-20 md:py-28 px-6 bg-white text-center">
+            <section className="py-12 md:py-28 px-6 bg-white text-center">
                 <div className="max-w-3xl mx-auto">
                     <p className="text-xl md:text-2xl font-serif italic text-stone-600 leading-relaxed mb-10">
                         {TIPS_HUB.quote[locale]}
@@ -198,7 +198,7 @@ export default async function OurTipsPage({ params }: { params: Promise<{ locale
 
             {/* --- FAQ --- */}
             {TIPS_FAQ.length > 0 && (
-                <section id="faq" className="pb-24 px-6 bg-white scroll-mt-24">
+                <section id="faq" className="pb-12 md:pb-24 px-6 bg-white scroll-mt-24">
                     <div className="max-w-3xl mx-auto bg-stone-50 border border-stone-100 p-8">
                         <h2 className="text-xl font-serif text-stone-800 mb-6">
                             {de ? 'Häufig gestellte Fragen' : 'Frequently asked questions'}

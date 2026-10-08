@@ -53,9 +53,9 @@ function TourBlock({ tour, locale, gespiegelt }: { tour: Tour; locale: Locale; g
     const de = locale === 'de';
 
     return (
-        <article className={`${gespiegelt ? 'bg-stone-50/60' : 'bg-white'} py-14 md:py-20 px-6 scroll-mt-24`} id={tour.slug}>
+        <article className={`${gespiegelt ? 'bg-stone-50/60' : 'bg-white'} py-8 md:py-20 px-6 scroll-mt-24`} id={tour.slug}>
             <div
-                className={`max-w-6xl mx-auto flex flex-col ${gespiegelt ? 'md:flex-row-reverse' : 'md:flex-row'} gap-10 md:gap-16 items-start`}
+                className={`max-w-6xl mx-auto flex flex-col ${gespiegelt ? 'md:flex-row-reverse' : 'md:flex-row'} gap-6 md:gap-16 items-start`}
             >
                 <div className="w-full md:w-1/2">
                     <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
@@ -172,7 +172,7 @@ export default async function TipsArticlePage({
                     <span className="text-stone-600">{rubrik.tiles.find((t) => t.articleSlug === article.slug)?.title[locale]}</span>
                 </nav>
 
-                <div className="max-w-4xl mx-auto px-6 py-5 flex items-center gap-3 text-xs text-stone-500">
+                <div className="max-w-4xl mx-auto px-6 py-4 md:py-5 flex items-center gap-3 text-xs text-stone-500">
                     <span className="w-7 h-7 rounded-full bg-[#bcc2b2] text-stone-800 flex items-center justify-center text-[11px] font-bold">
                         {article.author.name.charAt(0)}
                     </span>
@@ -187,11 +187,11 @@ export default async function TipsArticlePage({
             </div>
 
             {/* --- EINLEITUNG & KURZFASSUNG --- */}
-            <section className="py-14 md:py-16 px-6">
+            <section className="py-8 md:py-16 px-6">
                 <div className="max-w-3xl mx-auto">
-                    <p className="font-light text-gray-600 leading-relaxed mb-8">{article.intro[locale]}</p>
+                    <p className="font-light text-gray-600 leading-relaxed mb-6 md:mb-8">{article.intro[locale]}</p>
 
-                    <aside className="bg-stone-50 border-l-2 border-[#bcc2b2] p-6 mb-8">
+                    <aside className="bg-stone-50 border-l-2 border-[#bcc2b2] p-5 md:p-6 mb-6 md:mb-8">
                         <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#3d3d29] mb-3">
                             {de ? 'Kurz & knapp' : 'In brief'}
                         </h2>
@@ -227,9 +227,9 @@ export default async function TipsArticlePage({
             ))}
 
             {/* --- VERGLEICH --- */}
-            <section className="py-16 px-6 bg-white">
+            <section className="py-10 md:py-16 px-6 bg-white">
                 <div className="max-w-4xl mx-auto">
-                    <h2 className="text-xl md:text-2xl font-serif text-stone-800 text-center mb-8">
+                    <h2 className="text-xl md:text-2xl font-serif text-stone-800 text-center mb-6 md:mb-8">
                         {article.comparison.title[locale]}
                     </h2>
                     <div className="overflow-x-auto">
@@ -268,9 +268,9 @@ export default async function TipsArticlePage({
             </section>
 
             {/* --- PACKLISTE --- */}
-            <section id="packliste" className="py-16 px-6 bg-stone-50/60 scroll-mt-24">
+            <section id="packliste" className="py-10 md:py-16 px-6 bg-stone-50/60 scroll-mt-24">
                 <div className="max-w-3xl mx-auto">
-                    <h2 className="text-xl md:text-2xl font-serif text-stone-800 text-center mb-8">
+                    <h2 className="text-xl md:text-2xl font-serif text-stone-800 text-center mb-6 md:mb-8">
                         {article.packliste.title[locale]}
                     </h2>
                     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3">
@@ -285,7 +285,7 @@ export default async function TipsArticlePage({
             </section>
 
             {/* --- WEITERLESEN --- */}
-            <section className="py-16 px-6 bg-white">
+            <section className="pt-10 pb-6 md:py-16 px-6 bg-white">
                 <div className="max-w-4xl mx-auto text-center">
                     <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-stone-400 mb-6">
                         {de ? 'Weiterlesen' : 'Read on'}
