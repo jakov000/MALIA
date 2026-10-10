@@ -13,6 +13,7 @@ import {
     articleBlocks,
     findArticle,
     tipsSection,
+    type ListenGruppe,
     type TipCard,
     type TipsArticle,
     type Tour,
@@ -214,6 +215,76 @@ function KartenBlock({ card, locale }: { card: TipCard; locale: Locale }) {
     );
 }
 
+/**
+ * Nummerierte Adressliste eines Ortes. Das Bild bleibt beim Scrollen stehen,
+ * weil die Listen unterschiedlich lang sind — in Pertisau sind es vierzehn
+ * Einträge. Die Gehzeiten stehen als eigene Angabe neben dem Namen: genau
+ * das ist die Information, die zitiert wird.
+ */
+function ListenBlock({ gruppe, locale, hell }: { gruppe: ListenGruppe; locale: Locale; hell: boolean }) {
+    return (
+        <section
+            id={gruppe.slug}
+            className={`${hell ? 'bg-white' : 'bg-stone-50/60'} py-10 md:py-20 px-6 scroll-mt-24`}
+        >
+            <div className="max-w-6xl mx-auto">
+                <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#3d3d29] block mb-3">
+                    {gruppe.eyebrow[locale]}
+                </span>
+                <h2 className="text-xl md:text-3xl font-serif text-stone-800 leading-tight mb-4">
+                    {gruppe.title[locale]}
+                </h2>
+                <p className="font-light text-gray-600 leading-relaxed max-w-3xl mb-8 md:mb-12">
+                    {gruppe.intro[locale]}
+                </p>
+
+                <div className="flex flex-col md:flex-row gap-8 md:gap-14 items-start">
+                    <div className="w-full md:w-[38%] md:sticky md:top-24">
+                        <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
+                            <Image
+                                src={gruppe.image}
+                                alt={gruppe.imageAlt[locale]}
+                                fill
+                                sizes="(max-width: 768px) 100vw, 38vw"
+                                className="object-cover"
+                            />
+                        </div>
+                    </div>
+
+                    <ol className="w-full md:w-[62%] space-y-7 md:space-y-9">
+                        {gruppe.eintraege.map((eintrag) => (
+                            <li key={eintrag.nummer} className="flex gap-4 md:gap-6">
+                                <span className="text-sm font-bold text-[#bcc2b2] shrink-0 pt-0.5 tabular-nums">
+                                    {eintrag.nummer}
+                                </span>
+                                <div>
+                                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
+                                        <h3 className="text-base font-bold text-stone-800">{eintrag.name[locale]}</h3>
+                                        {eintrag.entfernung && (
+                                            <span className="text-[10px] uppercase tracking-[0.15em] text-stone-500 border border-stone-200 rounded-full px-2.5 py-1">
+                                                {eintrag.entfernung[locale]}
+                                            </span>
+                                        )}
+                                    </div>
+                                    <p className="text-sm font-light text-gray-600 leading-relaxed">
+                                        {eintrag.text[locale]}
+                                    </p>
+                                </div>
+                            </li>
+                        ))}
+                    </ol>
+                </div>
+
+                {gruppe.ctaDanach && (
+                    <div className="mt-10 md:mt-16">
+                        <CtaButton locale={locale} />
+                    </div>
+                )}
+            </div>
+        </section>
+    );
+}
+
 function Sprungmarken({ article, locale }: { article: TipsArticle; locale: Locale }) {
     const de = locale === 'de';
     const marken = articleBlocks(article).map((b) => ({ href: `#${b.slug}`, label: b.label[locale] }));
@@ -379,6 +450,11 @@ export default async function TipsArticlePage({
                     </div>
                 </section>
             )}
+
+            {/* --- BLÖCKE: LISTE --- */}
+            {article.gruppen?.map((gruppe, i) => (
+                <ListenBlock key={gruppe.slug} gruppe={gruppe} locale={locale} hell={i % 2 === 0} />
+            ))}
 
             {/* --- VERGLEICH --- */}
             {article.comparison && (

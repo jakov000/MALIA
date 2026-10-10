@@ -474,6 +474,7 @@ export const TIPS_SECTIONS: TipsSection[] = [
           de: 'Frisch zubereiteter Kaiserschmarrn in der Pfanne auf einer Almhütte am Achensee',
           en: 'Freshly made Kaiserschmarrn in the pan at a mountain hut on Lake Achensee',
         },
+        articleSlug: 'restaurants-tiroler-kueche',
       },
       {
         slug: 'museumswelt',
@@ -653,11 +654,12 @@ export function tilesWithArticle(): { section: TipsSection; tile: TipTile }[] {
  * ------------------------------------------------------------------ */
 
 /**
- * Zwei Layouts:
+ * Drei Layouts:
  * - "magazin": alternierende Bild-Text-Blöcke, Vergleichstabelle, Packliste.
  * - "karten":  zwei Erlebnisse nebeneinander als Karten mit Infoliste.
+ * - "liste":   nummerierte Adresslisten je Ort, Bild daneben.
  */
-export type ArtikelFormat = 'magazin' | 'karten';
+export type ArtikelFormat = 'magazin' | 'karten' | 'liste';
 
 /** Ein Label-Wert-Paar im Kennzahlenband. Pro Block frei wählbar. */
 export type Kennzahl = { label: Localized; wert: Localized };
@@ -700,6 +702,28 @@ export type TipCard = {
   gutZuWissen?: Localized;
 };
 
+/** Ein Eintrag einer nummerierten Adressliste — Format „liste". */
+export type ListenEintrag = {
+  nummer: string;
+  name: Localized;
+  /** Entfernung ab MALIA, z. B. „15 Gehmin." — genau die Angabe, die zitiert wird. */
+  entfernung?: Localized;
+  text: Localized;
+};
+
+/** Eine Ortsgruppe mit ihrer Liste — Format „liste". */
+export type ListenGruppe = {
+  slug: string;
+  eyebrow: Localized;
+  title: Localized;
+  ankerLabel?: Localized;
+  intro: Localized;
+  image: string;
+  imageAlt: Localized;
+  eintraege: ListenEintrag[];
+  ctaDanach?: boolean;
+};
+
 export type TipsArticle = {
   slug: string;
   format: ArtikelFormat;
@@ -718,6 +742,8 @@ export type TipsArticle = {
   tours?: Tour[];
   /** Format „karten". */
   cards?: TipCard[];
+  /** Format „liste". */
+  gruppen?: ListenGruppe[];
   comparison?: {
     title: Localized;
     spalten: Localized[];
@@ -1701,7 +1727,330 @@ const EISLAUFEN: TipsArticle = {
   published: '2026-10-10',
 };
 
-export const TIPS_ARTICLES: TipsArticle[] = [WANDERN, SKIFAHREN, LANGLAUFEN, RODELN, EISLAUFEN];
+const RESTAURANTS: TipsArticle = {
+  slug: 'restaurants-tiroler-kueche',
+  format: 'liste',
+  category: 'ganzjahr',
+  title: {
+    de: 'Restaurants & Tiroler Küche am Achensee',
+    en: 'Restaurants & Tyrolean cuisine on Lake Achensee',
+  },
+  subtitle: {
+    de: 'Unsere liebsten Lokale in Pertisau, Maurach und Achenkirch',
+    en: 'Our favourite places in Pertisau, Maurach and Achenkirch',
+  },
+  metaDescription: {
+    de: '18 Restaurants am Achensee mit Gehzeiten ab Pertisau: Tiroler Wirtshäuser, Fisch- und Wildspezialitäten, Pizza, gehobene Küche und Konditoreien in Pertisau, Maurach und Achenkirch.',
+    en: '18 restaurants on Lake Achensee with walking times from Pertisau: Tyrolean inns, fish and game specialities, pizza, fine dining and patisseries in Pertisau, Maurach and Achenkirch.',
+  },
+  heroImage: TIPPBILD('restaurants/kaiserschmarrn-blick-achensee.jpeg'),
+  heroImageAlt: {
+    de: 'Kaiserschmarrn mit Preiselbeeren auf einer Almterrasse mit Blick auf den Achensee',
+    en: 'Kaiserschmarrn with cranberries on an alpine terrace overlooking Lake Achensee',
+  },
+  authors: JULIA_UND_MADLEINE,
+  readingMinutes: 7,
+  intro: {
+    de: 'Unsere liebsten Restaurants am Achensee liegen größtenteils direkt in Pertisau, ein paar Minuten zu Fuß vom MALIA entfernt — von gemütlichen Tiroler Wirtshäusern bis zu gehobener Küche mit Seeblick. Dazu kommen ein paar echte Favoriten in Maurach und Achenkirch, die eine kurze Autofahrt wert sind.',
+    en: 'Most of our favourite restaurants on Lake Achensee are right in Pertisau, a few minutes’ walk from MALIA — from cosy Tyrolean inns to fine dining with a lake view. Add to that a few real favourites in Maurach and Achenkirch that are worth the short drive.',
+  },
+  kurzUndKnapp: {
+    de: 'Typisch Tiroler Küche findet ihr fast überall am Achensee: Kaiserschmarrn, Schnitzel, Käsespätzle, dazu oft Fisch- und Wildspezialitäten, hausgemachte Kuchen und Strudel. Die meisten unserer liebsten Lokale erreicht ihr von MALIA aus zu Fuß, ein paar Favoriten in Maurach und Achenkirch sind eine kurze Autofahrt wert.',
+    en: 'You will find typical Tyrolean cooking almost everywhere on Lake Achensee: Kaiserschmarrn, schnitzel, Käsespätzle, often alongside fish and game specialities, home-made cakes and strudel. Most of our favourite places are within walking distance of MALIA; a few favourites in Maurach and Achenkirch are worth the short drive.',
+  },
+  gruppen: [
+    {
+      slug: 'pertisau',
+      eyebrow: { de: 'Pertisau', en: 'Pertisau' },
+      title: {
+        de: 'In Pertisau — zu Fuß vom MALIA erreichbar',
+        en: 'In Pertisau — within walking distance of MALIA',
+      },
+      ankerLabel: { de: 'Pertisau', en: 'Pertisau' },
+      intro: {
+        de: 'Die meisten unserer Favoriten liegen in Pertisau selbst, ihr müsst also gar nicht erst ins Auto steigen.',
+        en: 'Most of our favourites are in Pertisau itself, so you don’t even need to get in the car.',
+      },
+      image: TIPPBILD('restaurants/brettljause-tiroler-wirtshaus.jpeg'),
+      imageAlt: {
+        de: 'Brettljause mit Käse, Schinken und Brot auf einem Holztisch in einem Tiroler Wirtshaus',
+        en: 'Tyrolean snack platter with cheese, ham and bread on a wooden table at an inn',
+      },
+      ctaDanach: true,
+      eintraege: [
+        {
+          nummer: '01',
+          name: {
+            de: 'Hotel Restaurant & Konditorei Christina',
+            en: 'Hotel Restaurant & Konditorei Christina',
+          },
+          entfernung: { de: '15 Gehmin.', en: '15 min walk' },
+          text: {
+            de: 'Hier gibt’s leckeren Kuchen, traditionelles Tiroler Essen modern gemacht, direkt am See, super schönes Ambiente innen mit einer traumhaften Terrasse und riesigem Garten.',
+            en: 'Delicious cakes and traditional Tyrolean food done the modern way, right by the lake, with a lovely interior, a wonderful terrace and a huge garden.',
+          },
+        },
+        {
+          nummer: '02',
+          name: { de: 'Gasthaus Dorfwirt', en: 'Gasthaus Dorfwirt' },
+          entfernung: { de: '9 Gehmin.', en: '9 min walk' },
+          text: {
+            de: 'Im Sommer sitzt ihr hier in einem super schönen Biergarten mit tollem Ambiente und noch besserer traditioneller Küche, im Winter sitzt ihr in einem urigen Lokal.',
+            en: 'In summer you sit in a lovely beer garden with great atmosphere and even better traditional cooking; in winter you sit in a snug, rustic dining room.',
+          },
+        },
+        {
+          nummer: '03',
+          name: { de: 'Langlaufstüberl', en: 'Langlaufstüberl' },
+          entfernung: { de: '9 Gehmin.', en: '9 min walk' },
+          text: {
+            de: 'Hier gibt’s traditionelle österreichische Küche mit ausgezeichneter Qualität. Highlight: Steakabend, ein Kamin mitten im Restaurant, selbst gebrautes Bier und Live-Musik — schaut gerne auf dem Instagram-Account achenseebier wegen der Events vorbei.',
+            en: 'Traditional Austrian cooking of excellent quality. Highlights: steak night, a fireplace in the middle of the restaurant, home-brewed beer and live music — have a look at the achenseebier Instagram account for events.',
+          },
+        },
+        {
+          nummer: '04',
+          name: { de: 'Entners Wirtshaus am See', en: 'Entners Wirtshaus am See' },
+          entfernung: { de: '15 Gehmin.', en: '15 min walk' },
+          text: {
+            de: 'Hier gibt’s typisch Tiroler Küche, unter anderem natürlich Kaiserschmarrn, Schnitzel und Käsespätzle.',
+            en: 'Typical Tyrolean cuisine, including of course Kaiserschmarrn, schnitzel and Käsespätzle.',
+          },
+        },
+        {
+          nummer: '05',
+          name: { de: 'Don Danilos Restaurant & Pizza', en: 'Don Danilos Restaurant & Pizza' },
+          entfernung: { de: '4 Gehmin.', en: '4 min walk' },
+          text: {
+            de: 'Hier gibt’s sehr gute Pizza und Blick auf den Golfplatz und das Bergpanorama — auch zum Mitnehmen.',
+            en: 'Very good pizza with a view of the golf course and the mountain panorama — takeaway available too.',
+          },
+        },
+        {
+          nummer: '06',
+          name: { de: 'Restaurant-Café Erika', en: 'Restaurant-Café Erika' },
+          entfernung: { de: '3 Gehmin.', en: '3 min walk' },
+          text: {
+            de: 'Saisonale Gerichte, internationale und vegetarische Optionen sowie Tiroler Spezialitäten — und richtig gute Desserts. Reservierung empfohlen!',
+            en: 'Seasonal dishes, international and vegetarian options as well as Tyrolean specialities — and really good desserts. Booking recommended!',
+          },
+        },
+        {
+          nummer: '07',
+          name: {
+            de: 'Essbar Pertisau (im Genusshotel Sonnenhof)',
+            en: 'Essbar Pertisau (at the Genusshotel Sonnenhof)',
+          },
+          entfernung: { de: '8 Gehmin.', en: '8 min walk' },
+          text: {
+            de: 'Für alle, die gerne etwas gehobener essen gehen: erstklassiges Essen, von Chateaubriand bis Thunfischsteak und Hummerschaumsuppe — unbedingt im Vorhinein reservieren!',
+            en: 'For anyone who likes to dine a little more upmarket: first-class food, from chateaubriand to tuna steak and lobster bisque — be sure to book in advance!',
+          },
+        },
+        {
+          nummer: '08',
+          name: { de: 'Hotel Kristall', en: 'Hotel Kristall' },
+          entfernung: { de: '9 Gehmin.', en: '9 min walk' },
+          text: {
+            de: 'Tiroler Spezialitäten und internationale, kreative Gerichte. Besonders schön: das Candle-Light-Dinner im Gewölbekeller (5-Gänge-Menü) und Weinverkostungen — am besten reservieren!',
+            en: 'Tyrolean specialities and creative international dishes. Particularly lovely: the candle-light dinner in the vaulted cellar (five-course menu) and wine tastings — best to book!',
+          },
+        },
+        {
+          nummer: '09',
+          name: { de: 'Seehotel Einwaller', en: 'Seehotel Einwaller' },
+          entfernung: { de: '11 Gehmin.', en: '11 min walk' },
+          text: {
+            de: 'Hier gibt’s das beste selbstgemachte Eis am Achensee, im Sommer hat der Eistruck bei schönem Wetter bis 18:00 Uhr geöffnet.',
+            en: 'The best home-made ice cream on Lake Achensee; in summer the ice-cream truck is open until 6 p.m. in fine weather.',
+          },
+        },
+        {
+          nummer: '10',
+          name: {
+            de: 'Hotel Das Karwendel (Wilderer Gourmetstube)',
+            en: 'Hotel Das Karwendel (Wilderer Gourmetstube)',
+          },
+          entfernung: { de: '13 Gehmin.', en: '13 min walk' },
+          text: {
+            de: 'Berggastronomie mit Tiroler Spezialitäten und traditionellem Essen, dazu Panorama-Blick auf die Berge. Für einen besonderen Abend lohnt sich die Gourmetstube.',
+            en: 'Mountain dining with Tyrolean specialities and traditional food, plus a panoramic view of the mountains. For a special evening the Gourmetstube is worth it.',
+          },
+        },
+        {
+          nummer: '11',
+          name: { de: 'Entners Strandbar', en: 'Entners Strandbar' },
+          entfernung: { de: '13 Gehmin.', en: '13 min walk' },
+          text: {
+            de: 'Tolle Strandbar mit stolzen Preisen, dafür sitzt ihr hier direkt am Wasser und könnt es euch gut gehen lassen.',
+            en: 'A great beach bar with steep prices — but you sit right by the water and can really take it easy.',
+          },
+        },
+        {
+          nummer: '12',
+          name: {
+            de: 'Restaurant Laurentius im Fürstenhaus',
+            en: 'Restaurant Laurentius at the Fürstenhaus',
+          },
+          entfernung: { de: '15 Gehmin.', en: '15 min walk' },
+          text: {
+            de: 'Feine Küche in elegantem Ambiente, direkt mit Blick auf den See.',
+            en: 'Fine cuisine in an elegant setting, right by the lake.',
+          },
+        },
+        {
+          nummer: '13',
+          name: { de: 'Gasthaus Hubertus', en: 'Gasthaus Hubertus' },
+          entfernung: { de: '25 Gehmin.', en: '25 min walk' },
+          text: {
+            de: 'Tiroler Küche mit Schwerpunkt auf Fisch- und Wildspezialitäten, in urig-traditioneller Atmosphäre.',
+            en: 'Tyrolean cuisine with a focus on fish and game specialities, in a rustic, traditional atmosphere.',
+          },
+        },
+        {
+          nummer: '14',
+          name: { de: 'Almgasthaus Pletzachalm', en: 'Almgasthaus Pletzachalm' },
+          entfernung: { de: '50 Gehmin. / 8 Automin.', en: '50 min walk / 8 min by car' },
+          text: {
+            de: 'Almgasthof im Gerntal, mitten im Karwendel-Naturpark. Zu Fuß 50 Minuten, mit dem Auto 8 Minuten (Maut erforderlich).',
+            en: 'Alpine inn in the Gerntal valley, in the middle of the Karwendel nature park. 50 minutes on foot, 8 minutes by car (toll road).',
+          },
+        },
+      ],
+    },
+    {
+      slug: 'maurach',
+      eyebrow: { de: 'Maurach', en: 'Maurach' },
+      title: { de: 'In Maurach — mit dem Auto', en: 'In Maurach — by car' },
+      ankerLabel: { de: 'Maurach', en: 'Maurach' },
+      intro: {
+        de: 'Diese zwei Lokale in Maurach sind uns eine kurze Autofahrt wert.',
+        en: 'These two places in Maurach are worth the short drive for us.',
+      },
+      image: TIPPBILD('restaurants/gedeckter-tisch-tiroler-stube.jpeg'),
+      imageAlt: {
+        de: 'Gedeckter Tisch mit Weingläsern und geschnitzter Herz-Stuhllehne in einer Tiroler Stube',
+        en: 'Table laid with wine glasses and a carved heart-shaped chair back in a Tyrolean parlour',
+      },
+      eintraege: [
+        {
+          nummer: '01',
+          name: { de: 'La Vita è Bella', en: 'La Vita è Bella' },
+          entfernung: { de: 'ca. 10 Automin.', en: 'approx. 10 min by car' },
+          text: {
+            de: 'Sehr authentischer Italiener — die Besitzer sind vor ein paar Jahren aus Italien an den Achensee gezogen und verzaubern seitdem all unsere Herzen mit feinster italienischer Küche, von Pasta über Meeresfrüchte findet ihr hier die besten italienischen Spezialitäten. Unser Tipp: probiert unbedingt das Vitello Tonnato!',
+            en: 'A thoroughly authentic Italian — the owners moved to Lake Achensee from Italy a few years ago and have been winning our hearts ever since with the finest Italian cooking. From pasta to seafood, you will find the best Italian specialities here. Our tip: do try the vitello tonnato!',
+          },
+        },
+        {
+          nummer: '02',
+          name: { de: 'Felderer Stadl', en: 'Felderer Stadl' },
+          entfernung: { de: 'ca. 10 Automin.', en: 'approx. 10 min by car' },
+          text: {
+            de: 'Tiroler Spezialitäten, traditionelle österreichische Küche sowie internationale Gerichte.',
+            en: 'Tyrolean specialities, traditional Austrian cooking and international dishes.',
+          },
+        },
+      ],
+    },
+    {
+      slug: 'achenkirch',
+      eyebrow: { de: 'Achenkirch', en: 'Achenkirch' },
+      title: { de: 'In Achenkirch — mit dem Auto', en: 'In Achenkirch — by car' },
+      ankerLabel: { de: 'Achenkirch', en: 'Achenkirch' },
+      intro: {
+        de: 'Für einen Ausflug mit gutem Essen lohnt sich die Fahrt ans andere Ende vom Achensee.',
+        en: 'For an outing with good food, the drive to the far end of Lake Achensee is worth it.',
+      },
+      image: '/pictures/kaiserschmarrn-tiroler-kueche.jpeg',
+      imageAlt: {
+        de: 'Frisch zubereiteter Kaiserschmarrn in der Pfanne auf einer Almhütte am Achensee',
+        en: 'Freshly made Kaiserschmarrn in the pan at a mountain hut on Lake Achensee',
+      },
+      eintraege: [
+        {
+          nummer: '01',
+          name: { de: 'Scholastika', en: 'Scholastika' },
+          entfernung: { de: 'ca. 20 Automin.', en: 'approx. 20 min by car' },
+          text: {
+            de: 'Frische Fischspezialitäten, dazu vegane und vegetarische Optionen und hausgemachter Flammkuchen. Jung, hip und mit super Aussicht — auch toll für einen Kaffee am Nachmittag.',
+            en: 'Fresh fish specialities plus vegan and vegetarian options and home-made tarte flambée. Young, hip and with a great view — lovely for an afternoon coffee too.',
+          },
+        },
+        {
+          nummer: '02',
+          name: { de: 'SeeEck', en: 'SeeEck' },
+          entfernung: { de: 'ca. 20 Automin.', en: 'approx. 20 min by car' },
+          text: {
+            de: 'Tiroler Küche und internationale Klassiker, mit wechselnden Tagesmenüs und hausgemachtem Gebäck bzw. Strudel.',
+            en: 'Tyrolean cuisine and international classics, with changing daily menus and home-made pastries and strudel.',
+          },
+        },
+      ],
+    },
+  ],
+  faq: [
+    {
+      question: {
+        de: 'Muss man in den Restaurants am Achensee reservieren?',
+        en: 'Do you need to book a table at restaurants on Lake Achensee?',
+      },
+      answer: {
+        de: 'Bei den gehobeneren Lokalen wie der Essbar Pertisau, Hotel Kristall oder Restaurant-Café Erika empfehlen wir, vorher zu reservieren. Bei den gemütlichen Wirtshäusern ist das meist nicht nötig.',
+        en: 'At the more upmarket places such as Essbar Pertisau, Hotel Kristall or Restaurant-Café Erika we recommend booking ahead. At the cosy inns it is usually not necessary.',
+      },
+    },
+    {
+      question: {
+        de: 'Gibt es am Achensee auch vegetarische oder vegane Optionen?',
+        en: 'Are there vegetarian or vegan options on Lake Achensee?',
+      },
+      answer: {
+        de: 'Ja, einige Lokale wie Restaurant-Café Erika oder Scholastika bieten explizit vegetarische und vegane Gerichte an.',
+        en: 'Yes, several places such as Restaurant-Café Erika and Scholastika explicitly offer vegetarian and vegan dishes.',
+      },
+    },
+    {
+      question: {
+        de: 'Welche typischen Tiroler Gerichte sollte man am Achensee probieren?',
+        en: 'Which typical Tyrolean dishes should you try on Lake Achensee?',
+      },
+      answer: {
+        de: 'Kaiserschmarrn, Schnitzel und Käsespätzle gehören zu den Klassikern — die findet ihr unter anderem bei Entners Wirtshaus am See.',
+        en: 'Kaiserschmarrn, schnitzel and Käsespätzle are among the classics — you will find them at Entners Wirtshaus am See, among others.',
+      },
+    },
+  ],
+  closing: {
+    de: '„Die meisten unserer Lieblingsrestaurants erreicht ihr von MALIA aus zu Fuß — ihr müsst also gar nicht erst ins Auto steigen, um richtig gut zu essen."',
+    en: '“Most of our favourite restaurants are within walking distance of MALIA — so you don’t even need to get in the car to eat really well.”',
+  },
+  weiterlesen: [
+    GUIDE_LINK,
+    {
+      label: { de: 'Wie viele Tage sollte man einplanen?', en: 'How many days should you plan?' },
+      href: '/our-tips#faq',
+    },
+    {
+      label: {
+        de: 'Was kann man bei Regen am Achensee machen?',
+        en: 'What can you do on Lake Achensee when it rains?',
+      },
+      href: '/our-tips#faq',
+    },
+    CHALETS,
+  ],
+  published: '2026-10-10',
+};
+
+export const TIPS_ARTICLES: TipsArticle[] = [
+  WANDERN,
+  SKIFAHREN,
+  LANGLAUFEN,
+  RODELN,
+  EISLAUFEN,
+  RESTAURANTS,
+];
 
 export function findArticle(slug: string): TipsArticle | undefined {
   return TIPS_ARTICLES.find((a) => a.slug === slug);
@@ -1715,5 +2064,9 @@ export function articleBlocks(article: TipsArticle): { slug: string; label: Loca
       b.ankerLabel ??
       ({ de: b.title.de.split(':')[0], en: b.title.en.split(':')[0] } as Localized),
   });
-  return [...(article.tours ?? []).map(aus), ...(article.cards ?? []).map(aus)];
+  return [
+    ...(article.tours ?? []).map(aus),
+    ...(article.cards ?? []).map(aus),
+    ...(article.gruppen ?? []).map(aus),
+  ];
 }
