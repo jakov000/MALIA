@@ -172,7 +172,7 @@ export function articleSchema(
     title: Record<Locale, string>;
     metaDescription: Record<Locale, string>;
     heroImage: string;
-    author: { name: string };
+    authors: { name: string }[];
     published: string;
   },
   locale: Locale
@@ -188,7 +188,7 @@ export function articleSchema(
     datePublished: article.published,
     dateModified: article.published,
     inLanguage: locale === 'de' ? 'de-AT' : 'en',
-    author: { '@type': 'Person', name: article.author.name },
+    author: article.authors.map((a) => ({ '@type': 'Person', name: a.name })),
     publisher: { '@id': ORGANIZATION_ID },
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
     url,

@@ -10,6 +10,7 @@ import {
   priceRange,
 } from '@/lib/property-facts';
 import { PUBLIC_ROUTES, absoluteUrl, SITE_URL, type Locale } from '@/lib/seo';
+import { TIPS_ARTICLES } from '@/lib/tips-content';
 
 /**
  * llms.txt — maschinenlesbarer Einstiegspunkt für KI-Crawler.
@@ -32,6 +33,18 @@ function pageIndex(locale: Locale): string {
       return `- [${entry.title}](${absoluteUrl(locale, route.path)}): ${entry.description}`;
     })
     .join('\n');
+}
+
+/**
+ * Die Ratgeberbeiträge stehen nicht in PUBLIC_ROUTES — sie wachsen mit und
+ * werden aus lib/tips-content.ts erzeugt. Gerade sie sind das, was
+ * Antwortmaschinen zu Fragen rund um den Achensee zitieren sollen.
+ */
+function guideIndex(locale: Locale): string {
+  return TIPS_ARTICLES.map(
+    (a) =>
+      `- [${a.title[locale]}](${absoluteUrl(locale, `/our-tips/${a.slug}`)}): ${a.metaDescription[locale]}`
+  ).join('\n');
 }
 
 function buildLlmsTxt(): string {
@@ -105,6 +118,14 @@ ${pageIndex('de')}
 ## Pages (English)
 
 ${pageIndex('en')}
+
+## Ratgeber Achensee (Deutsch)
+
+${guideIndex('de')}
+
+## Lake Achensee guides (English)
+
+${guideIndex('en')}
 `;
 }
 
