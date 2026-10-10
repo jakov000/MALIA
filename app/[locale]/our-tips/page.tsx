@@ -69,64 +69,6 @@ function Kachel({ tile, locale }: { tile: TipsSection['tiles'][number]; locale: 
     );
 }
 
-/**
- * Der vollständige Überblick einer Jahreszeit — nummerierte Punkte neben
- * den Bildern. Der Text steht komplett im HTML: „Was kann man am Achensee
- * machen?" ist genau die Frage, die diese Seite beantworten soll.
- */
-function Ueberblick({ uebersicht, locale }: { uebersicht: NonNullable<TipsSection['uebersicht']>; locale: Locale }) {
-    return (
-        <div className="mt-12 md:mt-20 border-t border-stone-200 pt-10 md:pt-16">
-            <h3 className="text-xl md:text-2xl font-serif text-stone-800 leading-tight mb-4">
-                {uebersicht.title[locale]}
-            </h3>
-            <p className="font-light text-gray-600 leading-relaxed max-w-3xl mb-8 md:mb-12">
-                {uebersicht.intro[locale]}
-            </p>
-
-            <div className="flex flex-col md:flex-row gap-8 md:gap-14 items-start">
-                <div className="w-full md:w-[38%] md:sticky md:top-24 flex flex-col gap-5">
-                    {uebersicht.bilder.map((bild) => (
-                        <div key={bild.src} className="relative aspect-[4/3] overflow-hidden bg-stone-100">
-                            <Image
-                                src={bild.src}
-                                alt={bild.alt[locale]}
-                                fill
-                                sizes="(max-width: 768px) 100vw, 38vw"
-                                className="object-cover"
-                            />
-                        </div>
-                    ))}
-                </div>
-
-                <ol className="w-full md:w-[62%] space-y-7 md:space-y-9">
-                    {uebersicht.punkte.map((punkt) => (
-                        <li key={punkt.slug} className="flex gap-4 md:gap-6">
-                            <span className="text-sm font-bold text-[#bcc2b2] shrink-0 pt-0.5 tabular-nums">
-                                {punkt.nummer}
-                            </span>
-                            <div>
-                                <h4 className="text-base font-bold text-stone-800 mb-2">{punkt.title[locale]}</h4>
-                                <p className="text-sm font-light text-gray-600 leading-relaxed">
-                                    {punkt.text[locale]}
-                                </p>
-                                {punkt.link && (
-                                    <Link
-                                        href={`/${locale}${punkt.link.href}`}
-                                        className="inline-block mt-3 text-xs font-bold text-[#3d3d29] hover:underline"
-                                    >
-                                        {punkt.link.label[locale]} &rarr;
-                                    </Link>
-                                )}
-                            </div>
-                        </li>
-                    ))}
-                </ol>
-            </div>
-        </div>
-    );
-}
-
 function Rubrik({ section, locale, hell }: { section: TipsSection; locale: Locale; hell: boolean }) {
     return (
         <section id={section.key} className={`${hell ? 'bg-white' : 'bg-stone-50/60'} py-10 md:py-28 px-6 scroll-mt-24`}>
@@ -178,8 +120,6 @@ function Rubrik({ section, locale, hell }: { section: TipsSection; locale: Local
                         ))}
                     </ul>
                 )}
-
-                {section.uebersicht && <Ueberblick uebersicht={section.uebersicht} locale={locale} />}
             </div>
         </section>
     );

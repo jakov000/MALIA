@@ -34,29 +34,6 @@ export type TipPill = {
   label: Localized;
 };
 
-/**
- * Nummerierter Überblick am Ende einer Rubrik — der vollständige Inhalt des
- * Pillar-Artikels „Was kann man am Achensee machen?“. Er steht hier und nicht
- * auf einer eigenen Artikelseite, damit die Hub-Seite genau die Frage
- * beantwortet, die sie im Titel stellt.
- */
-export type UebersichtPunkt = {
-  slug: string;
-  nummer: string;
-  title: Localized;
-  text: Localized;
-  /** Interner Verweis auf den vertiefenden Artikel, falls vorhanden. */
-  link?: { label: Localized; href: string };
-};
-
-export type Uebersicht = {
-  title: Localized;
-  intro: Localized;
-  /** Bilder begleiten die Liste; bei langen Listen mehrere untereinander. */
-  bilder: { src: string; alt: Localized }[];
-  punkte: UebersichtPunkt[];
-};
-
 export type TipsSection = {
   key: TipsCategory;
   /** Kleine Überzeile über der Rubriküberschrift. */
@@ -65,7 +42,6 @@ export type TipsSection = {
   intro: Localized;
   tiles: TipTile[];
   pills: TipPill[];
-  uebersicht?: Uebersicht;
 };
 
 const BILD = (p: string) => `/pictures/the setting/${p}`;
@@ -145,125 +121,6 @@ export const TIPS_SECTIONS: TipsSection[] = [
       { slug: 'reiten', label: { de: 'Reiten (Wiesenhof)', en: 'Horse riding (Wiesenhof)' } },
       { slug: 'ballon', label: { de: 'Heißluftballon & Paragleiten', en: 'Hot-air ballooning & paragliding' } },
     ],
-    uebersicht: {
-      title: {
-        de: 'Alle Sommer-Aktivitäten am Achensee im Überblick',
-        en: 'All summer activities on Lake Achensee at a glance',
-      },
-      intro: {
-        de: 'Hier geht’s sportlich zu: Rund um und im größten See Tirols kann man unter anderem das hier erleben.',
-        en: 'Things get sporty here: in and around the largest lake in Tyrol you can do all of this and more.',
-      },
-      bilder: [
-        {
-          src: TIPPBILD('achensee-guide/achensee-sommer-panorama.jpeg'),
-          alt: {
-            de: 'Der Achensee im Sommer mit Ausflugsschiff und dem Karwendelgebirge im Hintergrund',
-            en: 'Lake Achensee in summer with an excursion boat and the Karwendel mountains behind',
-          },
-        },
-        {
-          src: TIPPBILD('achensee-guide/pertisau-sommer-golfplatz.jpeg'),
-          alt: {
-            de: 'Blick über Pertisau mit dem 18-Loch-Golfplatz und dem Achensee im Sommer',
-            en: 'View over Pertisau with the 18-hole golf course and Lake Achensee in summer',
-          },
-        },
-      ],
-      punkte: [
-        {
-          slug: 'wandern',
-          nummer: '01',
-          title: { de: 'Wandern & Bergsteigen', en: 'Hiking & mountaineering' },
-          text: {
-            de: 'Zu unseren Favorites zählen der Bärenkopf (der am Achensee ein Must-See ist), der Gaisalmsteig (festes Schuhwerk und Schwindelfreiheit ist hier geboten), und zu guter Letzt eine Wanderung in die Gramai-Alm (wo als Belohnung erstklassige Tiroler Küche auf euch wartet).',
-            en: 'Among our favourites are the Bärenkopf (a must-see on Lake Achensee), the Gaisalmsteig (sturdy footwear and a head for heights are required) and, last but not least, a walk to the Gramai-Alm (where first-class Tyrolean cuisine awaits as a reward).',
-          },
-          link: {
-            label: { de: 'Zum Wander-Artikel', en: 'To the hiking article' },
-            href: '/our-tips/wandern-bergsteigen',
-          },
-        },
-        {
-          slug: 'radfahren',
-          nummer: '02',
-          title: {
-            de: 'Radfahren (ja, sogar E-Biken) und Mountainbiken',
-            en: 'Cycling (yes, e-biking too) and mountain biking',
-          },
-          text: {
-            de: 'Rund um den Achensee gibt’s eine traumhafte Strecke am See entlang. Wer ordentlich Kalorien verbrennen will, der hat 320 km an Strecken zur Auswahl. Unsere Empfehlung: mit dem Rad auf den Feilkopf (auch mit dem E-Bike gut möglich), beim Runterfahren kehrt ihr bei der Feilalm ein und genießt ein eiskaltes Bier, mit Brettljause & 1A Blick auf den Achensee.',
-            en: 'There is a wonderful route running right along Lake Achensee. Anyone wanting to burn some serious calories has 320 km of routes to choose from. Our recommendation: ride up the Feilkopf (an e-bike works well too) and stop at the Feilalm on the way down for an ice-cold beer with a Tyrolean snack platter and a first-class view of the lake.',
-          },
-        },
-        {
-          slug: 'wassersport',
-          nummer: '03',
-          title: { de: 'Jegliche Wassersportart betreiben', en: 'Every water sport you can think of' },
-          text: {
-            de: 'Von Segeln über Kitesurfen, Windsurfen und Foiling bis hin zu Stand Up Paddeln (das allseits bekannte SUPn) und Tretbootfahren sind hier keine Grenzen gesetzt. Für alle, die noch keinen Tauchschein haben und trotzdem mal auf Tiefgang gehen wollen: Am Achensee könnt ihr euren Freediving-Tauchschein machen.',
-            en: 'From sailing, kitesurfing, windsurfing and foiling to stand-up paddling and pedal boats, there are no limits here. And for anyone without a diving licence who still wants to go deep: on Lake Achensee you can earn your freediving certification.',
-          },
-        },
-        {
-          slug: 'klettern',
-          nummer: '04',
-          title: { de: 'Für alle Boulder- und Kletter-Freaks', en: 'For all bouldering and climbing fans' },
-          text: {
-            de: 'Am Achensee geht ne richtige Freakshow ab, jeder Schwierigkeitsgrad ist hier vertreten. Von der Grauwand für Beginner bis hin zur Lamsenspitze für Fortgeschrittene ist alles dabei. Die ORTOVOX Safety Academy bietet außerdem Kletterkurse für jedes Level — vom eintägigen Basic-Kurs für Einsteiger bis zum dreitägigen Alpine-Climbing-Kurs für Profis.',
-            en: 'Lake Achensee puts on a real show — every level of difficulty is represented, from the Grauwand for beginners to the Lamsenspitze for advanced climbers. The ORTOVOX Safety Academy also runs climbing courses for every level, from a one-day basic course for beginners to a three-day alpine climbing course for experts.',
-          },
-        },
-        {
-          slug: 'laufen',
-          nummer: '05',
-          title: { de: 'Laufen & Trailrunning', en: 'Running & trail running' },
-          text: {
-            de: 'kommt im Naturpark Karwendel natürlich auch nicht zu kurz. Über 183 km ausgeschilderte Strecken und Events wie der Achenseelauf und der Karwendelmarsch lassen unsere Läufer-Herzen höherschlagen.',
-            en: 'are not neglected in the Karwendel nature park either. More than 183 km of signposted routes and events such as the Achensee run and the Karwendel march make every runner’s heart beat faster.',
-          },
-        },
-        {
-          slug: 'golf',
-          nummer: '06',
-          title: {
-            de: 'Golfen auf einem der schönsten Golfplätze Österreichs',
-            en: 'Golf on one of Austria’s most beautiful courses',
-          },
-          text: {
-            de: 'Unser 18-Loch-Golfplatz in Pertisau startet und endet mitten im Ort, führt aber relativ schnell in die Natur, wo kleine (oder auch größere) Bäche, atemberaubendes Bergpanorama und ab und zu das ein oder andere Eichkätzchen begrüßen. Natürlich gibt’s auch eine Driving-Range mit Blick auf den See.',
-            en: 'Our 18-hole golf course in Pertisau starts and ends in the middle of the village but quickly leads out into nature, where small (and sometimes larger) streams, a breathtaking mountain panorama and the occasional squirrel greet you. There is of course a driving range with a view of the lake.',
-          },
-        },
-        {
-          slug: 'padel',
-          nummer: '07',
-          title: { de: 'Padel spielen', en: 'Playing padel' },
-          text: {
-            de: 'Seit kurzem gibt’s in Pertisau 2 neue Padel-Plätze, die bei unseren jungen Gästen äußerst beliebt sind. Wer es noch old-school will, kann sich einen Tennisplatz im Hotel Rieser reservieren. Ihr wolltet schon immer mal Squash ausprobieren? Haben wir auch!',
-            en: 'Pertisau recently gained two new padel courts, which are extremely popular with our younger guests. If you prefer something more old-school, you can reserve a tennis court at Hotel Rieser. Always wanted to try squash? We have that too.',
-          },
-        },
-        {
-          slug: 'reiten',
-          nummer: '08',
-          title: { de: 'Reiten', en: 'Horse riding' },
-          text: {
-            de: 'Beim Reitstall Wiesenhof in Pertisau könnt ihr in den Sattel steigen.',
-            en: 'At the Wiesenhof riding stables in Pertisau you can get in the saddle.',
-          },
-        },
-        {
-          slug: 'luftsport',
-          nummer: '09',
-          title: { de: 'Luftsportarten', en: 'Air sports' },
-          text: {
-            de: 'wie Heißluftballonfahrten & Paragleiten stillen jedes noch so Adrenalin-süchtige Abenteuer-Herz.',
-            en: 'such as hot-air balloon rides and paragliding satisfy even the most adrenaline-hungry adventurer.',
-          },
-        },
-      ],
-    },
   },
   {
     key: 'winter',
@@ -340,115 +197,6 @@ export const TIPS_SECTIONS: TipsSection[] = [
       { slug: 'ballon-winter', label: { de: 'Ballonfliegen (Mountain Days)', en: 'Balloon flights (Mountain Days)' } },
       { slug: 'pferdeschlitten', label: { de: 'Pferdeschlittenfahren', en: 'Horse-drawn sleigh rides' } },
     ],
-    uebersicht: {
-      title: {
-        de: 'Alle Winter-Aktivitäten am Achensee im Überblick',
-        en: 'All winter activities on Lake Achensee at a glance',
-      },
-      intro: {
-        de: 'An alle Winterliebhaber, an alle Wintersportler: Unsere Gegend bietet euch im Winter alles, was ihr braucht für einen vielseitigen, erholsamen und doch erlebnisreichen Urlaub.',
-        en: 'To all winter lovers and winter sports fans: in winter our region offers everything you need for a varied, restful and yet eventful holiday.',
-      },
-      bilder: [
-        {
-          src: TIPPBILD('achensee-guide/pertisau-winterabend.jpeg'),
-          alt: {
-            de: 'Pertisau am Achensee im Winter bei Abenddämmerung mit beleuchtetem Ortskern',
-            en: 'Pertisau on Lake Achensee at dusk in winter with the village lit up',
-          },
-        },
-      ],
-      punkte: [
-        {
-          slug: 'skifahren',
-          nummer: '01',
-          title: { de: 'Skifahren & Snowboarden', en: 'Skiing & snowboarding' },
-          text: {
-            de: 'Drei Skigebiete warten am Achensee auf euch — der Zwölferkopf (ideal für Beginner), das Rofan und das Skigebiet Christlum für Fortgeschrittene. Absoluten Profis empfehlen wir, 20 Minuten mit dem Auto ins Zillertal zu fahren und dort auf die Ski zu springen.',
-            en: 'Three ski areas await you on Lake Achensee — the Zwölferkopf (ideal for beginners), the Rofan and the Christlum ski area for advanced skiers. Absolute pros we recommend driving 20 minutes to the Zillertal and clipping into their skis there.',
-          },
-          link: {
-            label: { de: 'Zu unseren drei Skigebieten', en: 'To our three ski areas' },
-            href: '/our-tips/skifahren-snowboarden',
-          },
-        },
-        {
-          slug: 'skitouren',
-          nummer: '02',
-          title: { de: 'Skitouren gehen', en: 'Ski touring' },
-          text: {
-            de: 'ist auch bei den Einheimischen beliebt. Abseits der Pisten ist ein Tourguide ein absolutes Muss.',
-            en: 'is popular with the locals too. Away from the pistes a tour guide is an absolute must.',
-          },
-        },
-        {
-          slug: 'schneeschuh',
-          nummer: '03',
-          title: { de: 'Geführte Schneeschuhwandertouren', en: 'Guided snowshoe tours' },
-          text: {
-            de: 'gibt’s hier natürlich auch und zeigen euch noch unberührte Orte und Landschaften.',
-            en: 'are of course on offer here too, taking you to untouched places and landscapes.',
-          },
-        },
-        {
-          slug: 'langlaufen',
-          nummer: '04',
-          title: { de: 'Langlaufen', en: 'Cross-country skiing' },
-          text: {
-            de: 'in einem der Langlaufgebiete in den Alpen! Der Olympionike Benjamin Moser zieht hier ebenfalls seine Runden. Hier warten 228 km Loipen auf euch, egal ob Skating oder klassisch.',
-            en: 'in one of the finest cross-country areas in the Alps! Olympian Benjamin Moser does his laps here too. 228 km of tracks await you, whether skating or classic.',
-          },
-          link: {
-            label: { de: 'Zu unseren Loipen', en: 'To our cross-country tracks' },
-            href: '/our-tips/langlaufen',
-          },
-        },
-        {
-          slug: 'rodeln',
-          nummer: '05',
-          title: { de: 'Rodeln', en: 'Tobogganing' },
-          text: {
-            de: 'könnt ihr am Zwölferkopf, gleich 2 Mal. Ihr habt die Möglichkeit, entweder mit der Karwendelbahn zu fahren oder die zweite Route zu nehmen und ca. 35 Minuten zur Rodelhütte hinaufzuwandern (oder euch mit dem Rodelexpress an der Hütte absetzen zu lassen).',
-            en: 'is possible on the Zwölferkopf, on two different runs. You can either take the Karwendel cable car up or choose the second route and walk about 35 minutes up to the toboggan hut (or let the Rodelexpress drop you off there).',
-          },
-          link: {
-            label: { de: 'Zu unseren Rodelbahnen', en: 'To our toboggan runs' },
-            href: '/our-tips/rodeln',
-          },
-        },
-        {
-          slug: 'eislaufen',
-          nummer: '06',
-          title: { de: 'Eislaufen', en: 'Ice skating' },
-          text: {
-            de: 'kann man bei den richtigen Bedingungen (und damit meinen wir eiskalte Temperaturen) auch auf dem Achensee selbst (Gebiet Maurach — betreten immer auf eigene Gefahr!), oder aber auch auf dem Eislaufplatz im Atoll.',
-            en: 'is possible under the right conditions (and by that we mean freezing temperatures) on Lake Achensee itself (the Maurach area — always at your own risk!), or at the ice rink at the Atoll.',
-          },
-          link: {
-            label: { de: 'Zum Eislaufen am Achensee', en: 'To ice skating on Lake Achensee' },
-            href: '/our-tips/eislaufen',
-          },
-        },
-        {
-          slug: 'ballonfliegen',
-          nummer: '07',
-          title: { de: 'Ballonfliegen', en: 'Balloon flights' },
-          text: {
-            de: 'ist auch im Winter bei den Ballon Mountain Days möglich!',
-            en: 'are possible in winter too, during the Balloon Mountain Days!',
-          },
-        },
-        {
-          slug: 'pferdeschlitten',
-          nummer: '08',
-          title: { de: 'Pferdeschlittenfahren', en: 'Horse-drawn sleigh rides' },
-          text: {
-            de: 'gibt es für alle, die es etwas romantischer wollen, ebenfalls zu buchen.',
-            en: 'can also be booked by anyone looking for something more romantic.',
-          },
-        },
-      ],
-    },
   },
   {
     key: 'ganzjahr',
@@ -546,8 +294,8 @@ export const TIPS_HUB = {
   } as Localized,
   /** Zusammenfassung oben auf der Seite — der Teil, den KI-Systeme am liebsten zitieren. */
   kurzUndKnapp: {
-    de: 'Im Sommer: Wandern, Radfahren, Wassersport, Klettern, Laufen, Golfen, Padel, Reiten und Luftsport. Im Winter: Skifahren, Skitouren, Schneeschuhwandern, Langlaufen, Rodeln, Eislaufen, Ballonfliegen und Pferdeschlittenfahren. Dazu das ganze Jahr über: gute Restaurants, Museen, Ausflüge und das ein oder andere Event in der Umgebung. Alles direkt rund um Pertisau und den Achensee.',
-    en: 'In summer: hiking, cycling, water sports, climbing, running, golf, padel, horse riding and air sports. In winter: skiing, ski touring, snowshoe hiking, cross-country skiing, tobogganing, ice skating, balloon flights and horse-drawn sleigh rides. All year round: good restaurants, museums, excursions and the occasional event nearby. All of it right around Pertisau and Lake Achensee.',
+    de: 'Im Sommer: Wandern, Radfahren, Wassersport, Klettern, Golfen und mehr. Im Winter: Skifahren, Langlaufen, Rodeln, Eislaufen und Pferdeschlittenfahren. Dazu das ganze Jahr über: gute Restaurants, Museen, Ausflüge und das ein oder andere Event in der Umgebung. Alles direkt rund um Pertisau und den Achensee.',
+    en: 'In summer: hiking, cycling, water sports, climbing, golf and more. In winter: skiing, cross-country skiing, tobogganing, ice skating and horse-drawn sleigh rides. All year round: good restaurants, museums, excursions and the occasional event nearby. All of it right around Pertisau and Lake Achensee.',
   } as Localized,
   quote: {
     de: '„Egal ob Sommer oder Winter, ob Adrenalin oder Ruhe — am Achensee wird’s nie langweilig. Für welches Abenteuer entscheidet ihr euch zuerst?"',
@@ -599,36 +347,6 @@ export const TIPS_FAQ: { question: Localized; answer: Localized }[] = [
     answer: {
       de: 'Mindestens 4 bis 5 Tage — sonst reicht die Zeit weder zum Erholen noch für Berge und See in Ruhe. Die ersten Tage braucht ihr zum Ankommen, dann noch Zeit für eine Bergtour oder einen Skitag und für den See selbst. Eine ganze Woche ist ideal, dann bleibt auch noch Puffer für schlechtes Wetter und einen Tag ohne Programm.',
       en: 'At least 4 to 5 days — otherwise there is time neither to unwind nor to enjoy the mountains and the lake in peace. The first days are for arriving, then you want time for a mountain tour or a ski day and for the lake itself. A full week is ideal, leaving a buffer for bad weather and one day with nothing planned.',
-    },
-  },
-  {
-    question: {
-      de: 'Ist der Achensee auch für einen Kurzurlaub geeignet?',
-      en: 'Is Lake Achensee suitable for a short break?',
-    },
-    answer: {
-      de: 'Ja. Der Achensee bietet eigene Kurzurlaubs-Pauschalen, ist aber auch für längere Aufenthalte perfekt — weil Sommer und Winter hier beide so viel zu bieten haben.',
-      en: 'Yes. Lake Achensee offers its own short-break packages, but it is just as perfect for longer stays — because both summer and winter have so much to offer here.',
-    },
-  },
-  {
-    question: {
-      de: 'Ist der Achensee auch mit Kindern zu empfehlen?',
-      en: 'Is Lake Achensee a good destination with children?',
-    },
-    answer: {
-      de: 'Auf jeden Fall. Der Achensee hat ein eigenes Familienprogramm mit Aktivitäten wie Brotbacken und Laternenwanderungen — ideal für einen Urlaub mit Kindern.',
-      en: 'Absolutely. Lake Achensee has its own family programme with activities such as bread baking and lantern walks — ideal for a holiday with children.',
-    },
-  },
-  {
-    question: {
-      de: 'Zu welcher Jahreszeit ist der Achensee am schönsten?',
-      en: 'What is the best season to visit Lake Achensee?',
-    },
-    answer: {
-      de: 'Der Achensee ist ein ganzjähriges Reiseziel: im Sommer für Wandern, Radfahren und Wassersport, im Winter für Skifahren, Langlaufen und Winterwandern.',
-      en: 'Lake Achensee is a year-round destination: in summer for hiking, cycling and water sports, in winter for skiing, cross-country skiing and winter walking.',
     },
   },
 ];
