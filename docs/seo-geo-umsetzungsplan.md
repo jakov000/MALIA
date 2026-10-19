@@ -183,25 +183,59 @@ Beide Themen kamen während der Umsetzung dazu und sind abgeschlossen.
 
 ### Z2 — „The Setting" wird zu „Our Tips" ✅ fertig
 
-- [x] Neue Hub-Seite `/our-tips` mit drei Rubriken, 12 Themenkacheln und 13 Schlagwörtern, zweisprachig
+- [x] Neue Hub-Seite `/our-tips` mit drei Rubriken und Schlagwörtern, zweisprachig
 - [x] Kurzfassung oben und FAQ unten — beides auf Zitierbarkeit durch Antwortmaschinen ausgelegt
-- [x] Drei FAQ-Antworten mit `FAQPage`-Markup, als `details`-Element gebaut, damit der Text auch zugeklappt im DOM steht
-- [x] Erster Artikel `/our-tips/wandern-bergsteigen` mit drei Touren samt Kennzahlen, Vergleichstabelle, Packliste und `Article`-Markup
+- [x] FAQ mit `FAQPage`-Markup, als `details`-Element gebaut, damit der Text auch zugeklappt im DOM steht. Die Antworten stammen von den Gastgeberinnen.
 - [x] `/the-setting` entfernt, 301 auf `/our-tips` in beiden Sprachen
-- [x] Artikel landen automatisch in der Sitemap, die damit auf **34 URLs** wächst
-- [ ] Die Antworten zu „Anzahl Tage" und „Familien" sind Entwürfe aus belegten Projektdaten — **bitte von den Gastgeberinnen gegenlesen**
+- [x] Artikel landen automatisch in der Sitemap
+
+### Z3 — Ratgeberbeiträge ✅ elf Beiträge live (19.10.2026)
+
+Die Beiträge kamen in drei Lieferungen und haben den Ratgeberbereich von einem
+auf elf Artikel gebracht, jeweils in Deutsch und Englisch.
+
+| Rubrik | Kacheln | mit Artikel | Darstellung |
+|---|---|---|---|
+| Sommer | 4 | 1 | Raster |
+| Winter | 5 | 5 | Swipe-Leiste |
+| Das ganze Jahr über | 7 | 5 | Swipe-Leiste |
+
+- [x] **Sommer:** Wandern & Bergsteigen
+- [x] **Winter:** Skifahren & Snowboarden, Langlaufen, Rodeln, Eislaufen, Skitouren gehen
+- [x] **Ganzjährig:** Restaurants & Tiroler Küche, Städtetrip Innsbruck, Städtetrip Rattenberg, Schwazer Silberbergwerk, Bergadvent beim Fischergut
+- [x] Drei Layouts: „magazin" (alternierende Bild-Text-Blöcke), „karten" (zwei Erlebnisse nebeneinander) und „liste" (nummerierte Adresslisten je Ort)
+- [x] Ab der fünften Kachel wird eine Rubrik zur waagrechten Leiste, durch die gewischt wird — alle Kacheln bleiben dabei im ausgelieferten HTML
+- [x] `Article`-Markup mit beiden Autorinnen und `FAQPage` je Beitrag
+- [x] Ratgeber-Index in `llms.txt`, damit Antwortmaschinen die Beiträge finden
+- [x] Der Pillar-Artikel „Was kann man am Achensee machen?" war eingearbeitet und wurde auf Kundenwunsch wieder entfernt (Stand liegt in Commit `5954f44`)
+- [ ] `bergadvent-familien` liegt nur in 615 × 401 px vor — **größere Fassung erwünscht**
+- [ ] Signatur beim Skitouren-Beitrag: Entwurf nennt in der Byline „Julia & Madleine", am Ende „— eure Julia". Aktuell steht überall „Julia & Madleine" — **bitte bestätigen**
+
+### Z4 — Nebenkosten in der Buchungsstrecke ✅ fertig (19.10.2026)
+
+- [x] Endreinigung und Ortstaxe werden in der Buchungsübersicht genannt, bevor bezahlt wird. `calculateStayPrice` rechnete nur Nächte mal Preis minus Specials; beide Posten fehlten damit auch in der Summe, die Stripe abbucht.
+- [x] Der Reinigungsbetrag kommt aus den Stammdaten und wechselt mit der Einheit (160 / 120 / 45 €)
+- [x] Bestätigungsmail um einen Abschnitt „Vor Ort zu zahlen" ergänzt — dort fehlte der Hinweis ebenfalls
+- [x] Am abgebuchten Betrag ändert sich nichts: beides wird weiterhin vor Ort bezahlt
+- [ ] Die Rechnung im PDF-Anhang weist nur den online bezahlten Betrag aus. Für Endreinigung und Ortstaxe stellen die Gastgeberinnen **vor Ort einen eigenen Beleg** aus.
 
 ---
 
-## Abschlussstand (05.10.2026)
+## Abschlussstand (19.10.2026)
 
 | Prüfung | Ergebnis |
 |---|---|
-| `npm run build` | erfolgreich, 58 Seiten vorgerendert |
+| `npm run build` | erfolgreich |
 | `npx tsc --noEmit` | fehlerfrei |
-| Sitemap | 34 URLs, vollständige hreflang-Gruppen |
-| H1 pro Seite | genau eine, auf allen 18 Seiten |
+| Sitemap | **54 URLs**, vollständige hreflang-Gruppen |
+| Ratgeberbeiträge | 11, je Deutsch und Englisch, alle mit `Article`- und `FAQPage`-Markup |
+| `llms.txt` | Seitenindex plus 22 Ratgeber-Einträge |
+| Canonical & hreflang | je Seite selbstreferenzierend, de/en/x-default |
 | Google ohne Einwilligung | null Requests |
+
+Bei jeder Erweiterung wurden die bereits abgenommenen Seiten Zeile für Zeile
+gegen die Live-Fassung verglichen, damit Umbauten am Datenmodell nichts am
+ausgelieferten Text verändern.
 
 **Bekannte Altlasten, bewusst nicht angefasst:** `npm run lint` meldet 44 Fehler, davon 43 aus dem Bestand (`any`-Typen in `invoice.ts`, `mail.ts`, `pricing.ts`, Admin-Komponenten). Sie blockieren den Build nicht. Eine Bereinigung wäre ein eigenes Aufräum-Paket.
 

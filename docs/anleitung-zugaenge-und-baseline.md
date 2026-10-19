@@ -108,7 +108,7 @@ Danach sage mir Bescheid — den Rest (Domain hinzufügen, Redirect setzen, Stat
 
 ---
 
-## C — Google Search Console ✅ Property verifiziert (24.09.2026), Sitemap offen
+## C — Google Search Console ✅ Property verifiziert (24.09.2026), Sitemap eingereicht (10.10.2026)
 
 **Jetzt schon machen:** Property anlegen und verifizieren.
 **Erst nach dem Deploy:** Sitemap einreichen (vorher liefert sie noch 404).
@@ -120,7 +120,17 @@ Danach sage mir Bescheid — den Rest (Domain hinzufügen, Redirect setzen, Stat
 4. Google zeigt einen **TXT-Eintrag** an → beim Domain-Anbieter hinterlegen (gleiche Stelle wie der CNAME aus Schritt B)
 5. In der Search Console auf **Verifizieren** klicken
 6. **Nach dem Deploy:** links **Sitemaps** → `sitemap.xml` eintragen → **Senden**
-7. Ein paar Tage später unter **Seiten** prüfen, wie viele der 32 URLs indexiert sind
+7. Ein paar Tage später unter **Seiten** prüfen, wie viele der inzwischen 54 URLs indexiert sind
+
+> **Nach jedem neuen Beitrag:** die neuen Adressen zusätzlich einzeln über die
+> **URL-Prüfung → Indexierung beantragen** einreichen (rund 10 bis 12 pro Tag
+> möglich). Das ersetzt kein Ranking, verkürzt das Warten aufs erste Crawling
+> aber meist von Wochen auf Tage. Deutsche Fassung zuerst, dann die englische.
+>
+> Zeigt die Sitemap-Übersicht direkt nach dem Einreichen „Konnte nicht
+> abgerufen werden" und ist die Spalte „Zuletzt gelesen" leer, hat Google sie
+> schlicht noch nicht geholt. Nicht löschen und neu einreichen — 24 bis 48
+> Stunden abwarten.
 
 ---
 
