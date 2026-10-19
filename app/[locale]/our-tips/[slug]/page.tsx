@@ -93,8 +93,6 @@ function CtaButton({ locale }: { locale: Locale }) {
 }
 
 function TourBlock({ tour, locale, gespiegelt }: { tour: Tour; locale: Locale; gespiegelt: boolean }) {
-    const de = locale === 'de';
-
     return (
         <article className={`${gespiegelt ? 'bg-stone-50/60' : 'bg-white'} py-8 md:py-20 px-6 scroll-mt-24`} id={tour.slug}>
             <div
@@ -130,21 +128,20 @@ function TourBlock({ tour, locale, gespiegelt }: { tour: Tour; locale: Locale; g
                         </p>
                     )}
 
-                    <dl
-                        className={`grid ${KENNZAHL_RASTER[tour.kennzahlen.length] ?? 'grid-cols-2'} gap-5 border-y border-stone-200 py-4 mb-5`}
-                    >
-                        {tour.kennzahlen.map((k) => (
-                            <Kennzahl key={k.label.de} label={k.label[locale]} wert={k.wert[locale]} />
-                        ))}
-                    </dl>
+                    {tour.kennzahlen && tour.kennzahlen.length > 0 && (
+                        <dl
+                            className={`grid ${KENNZAHL_RASTER[tour.kennzahlen.length] ?? 'grid-cols-2'} gap-5 border-y border-stone-200 py-4 mb-5`}
+                        >
+                            {tour.kennzahlen.map((k) => (
+                                <Kennzahl key={k.label.de} label={k.label[locale]} wert={k.wert[locale]} />
+                            ))}
+                        </dl>
+                    )}
 
                     <div className="space-y-3">
-                        {tour.tipp && (
-                            <Hinweis titel={de ? 'Julias Tipp:' : 'Julia’s tip:'} text={tour.tipp[locale]} />
-                        )}
-                        {tour.gutZuWissen && (
-                            <Hinweis titel={de ? 'Gut zu wissen:' : 'Good to know:'} text={tour.gutZuWissen[locale]} />
-                        )}
+                        {tour.hinweise?.map((h) => (
+                            <Hinweis key={h.label.de} titel={`${h.label[locale]}:`} text={h.text[locale]} />
+                        ))}
                     </div>
                 </div>
             </div>
@@ -153,8 +150,6 @@ function TourBlock({ tour, locale, gespiegelt }: { tour: Tour; locale: Locale; g
 }
 
 function KartenBlock({ card, locale }: { card: TipCard; locale: Locale }) {
-    const de = locale === 'de';
-
     return (
         <article id={card.slug} className="bg-white border border-stone-200 flex flex-col scroll-mt-24">
             <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
@@ -207,9 +202,9 @@ function KartenBlock({ card, locale }: { card: TipCard; locale: Locale }) {
                     </div>
                 )}
 
-                {card.gutZuWissen && (
-                    <Hinweis titel={de ? 'Gut zu wissen:' : 'Good to know:'} text={card.gutZuWissen[locale]} />
-                )}
+                {card.hinweise?.map((h) => (
+                    <Hinweis key={h.label.de} titel={`${h.label[locale]}:`} text={h.text[locale]} />
+                ))}
             </div>
         </article>
     );
@@ -260,9 +255,9 @@ function ListenBlock({ gruppe, locale, hell }: { gruppe: ListenGruppe; locale: L
                                 <div>
                                     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
                                         <h3 className="text-base font-bold text-stone-800">{eintrag.name[locale]}</h3>
-                                        {eintrag.entfernung && (
+                                        {eintrag.badge && (
                                             <span className="text-[10px] uppercase tracking-[0.15em] text-stone-500 border border-stone-200 rounded-full px-2.5 py-1">
-                                                {eintrag.entfernung[locale]}
+                                                {eintrag.badge[locale]}
                                             </span>
                                         )}
                                     </div>
@@ -291,6 +286,9 @@ function Sprungmarken({ article, locale }: { article: TipsArticle; locale: Local
 
     if (article.packliste) {
         marken.push({ href: '#packliste', label: de ? 'Packliste' : 'Packing list' });
+    }
+    if (article.infoBloecke && article.infoBloecke.length > 0) {
+        marken.push({ href: '#gut-zu-wissen', label: de ? 'Gut zu wissen' : 'Good to know' });
     }
     if (article.faq && article.faq.length > 0) {
         marken.push({ href: '#faq', label: de ? 'Häufige Fragen' : 'FAQ' });
@@ -421,6 +419,15 @@ export default async function TipsArticlePage({
                         <p className="font-light text-gray-600 leading-relaxed">{article.kurzUndKnapp[locale]}</p>
                     </aside>
 
+                    {article.highlight && (
+                        <p className="flex gap-3 items-start bg-white border border-stone-200 p-5 mb-6 md:mb-8 text-sm font-light text-gray-600 leading-relaxed">
+                            <span className="text-lg leading-none shrink-0" aria-hidden="true">
+                                {article.highlight.icon}
+                            </span>
+                            <span>{article.highlight.text[locale]}</span>
+                        </p>
+                    )}
+
                     <Sprungmarken article={article} locale={locale} />
                 </div>
             </section>
@@ -515,6 +522,29 @@ export default async function TipsArticlePage({
                                 </li>
                             ))}
                         </ul>
+                    </div>
+                </section>
+            )}
+
+            {/* --- GUT ZU WISSEN --- */}
+            {article.infoBloecke && article.infoBloecke.length > 0 && (
+                <section id="gut-zu-wissen" className="py-10 md:py-16 px-6 bg-stone-50/60 scroll-mt-24">
+                    <div className="max-w-4xl mx-auto">
+                        <h2 className="text-xl md:text-2xl font-serif text-stone-800 text-center mb-6 md:mb-10">
+                            {de ? 'Gut zu wissen' : 'Good to know'}
+                        </h2>
+                        <dl className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+                            {article.infoBloecke.map((block) => (
+                                <div key={block.label.de} className="bg-white border border-stone-200 p-5 md:p-6">
+                                    <dt className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#3d3d29] mb-3">
+                                        {block.label[locale]}
+                                    </dt>
+                                    <dd className="text-sm font-light text-gray-600 leading-relaxed">
+                                        {block.text[locale]}
+                                    </dd>
+                                </div>
+                            ))}
+                        </dl>
                     </div>
                 </section>
             )}
