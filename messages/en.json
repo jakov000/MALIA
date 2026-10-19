@@ -589,6 +589,7 @@
     "subtotal": "Subtotal:",
     "voucher_applied": "Voucher applied:",
     "total": "Total:",
+    "extra_costs_note": "Plus € {touristTax} tourist tax per person/night (from age {fromAge}) and € {cleaningFee} final cleaning — both payable on site.",
     "continue_data": "Continue to details",
     "step2": "Step 2",
     "title2": "Your details",

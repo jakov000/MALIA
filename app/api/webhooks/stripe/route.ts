@@ -71,7 +71,7 @@ export async function POST(req: Request) {
           console.error("Failed to generate custom invoice PDF:", e);
         }
 
-        await sendBookingConfirmation(booking.guestEmail, booking.guestName, booking.startDate, booking.endDate, invoicePdfBuffer);
+        await sendBookingConfirmation(booking, invoicePdfBuffer);
         await sendAdminNotification(booking);
         
         console.log(`Payment successful for booking ${bookingId}. Emails dispatched.`);

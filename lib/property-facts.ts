@@ -172,6 +172,22 @@ export function amenitiesFor(keys: string[]) {
     .filter((a): a is { key: string; de: string; en: string } => Boolean(a));
 }
 
+/** Einheit über den Seitenpfad — so hält die Buchungsstrecke die Zuordnung. */
+export function unitByPath(path: string): Unit | undefined {
+  return UNITS.find((u) => u.path === path);
+}
+
+/**
+ * Einheit über den gespeicherten Namen einer Buchung.
+ * Die Buchungsstrecke legt die Schreibweise aus lib/data.ts ab
+ * („THE ALPINE HIDEAWAY"), der Prisma-Default dagegen „The Alpine Hideaway" —
+ * deshalb ohne Rücksicht auf Groß- und Kleinschreibung.
+ */
+export function unitByName(name: string): Unit | undefined {
+  const gesucht = name.trim().toLowerCase();
+  return UNITS.find((u) => u.name.toLowerCase() === gesucht);
+}
+
 /** Entfernungen als konkrete Zahlen — genau das, was Antwortmaschinen zitieren. */
 export const DISTANCES: { key: string; de: string; en: string }[] = [
   { key: 'skislope', de: 'Skipiste: 2 Gehminuten', en: 'Ski slope: 2 minutes on foot' },

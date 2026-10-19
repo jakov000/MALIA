@@ -10,6 +10,7 @@ import Button from "@/components/ui/Button";
 import { SUITES } from "@/lib/data";
 import { useTranslations } from "next-intl";
 import { calculateStayPrice } from "@/lib/pricing";
+import { PROPERTY, unitByPath } from "@/lib/property-facts";
 
 // The calendar hands us local midnight. toISOString() converts that to UTC and
 // lands on the PREVIOUS day for every timezone east of UTC (Vienna is UTC+1/+2),
@@ -45,6 +46,10 @@ export default function BookingForm() {
   const [detailsRoomIndex, setDetailsRoomIndex] = useState<number | null>(null); // State for Room Details Modal
 
   const selectedRoom = SUITES[selectedRoomIndex];
+  // Endreinigung und Ortstaxe stecken nicht im Online-Betrag und werden vor Ort
+  // bezahlt. Die Endreinigung unterscheidet sich je Einheit, deshalb aus den
+  // Stammdaten statt als fester Text.
+  const selectedUnit = selectedRoom.href ? unitByPath(selectedRoom.href) : undefined;
   const maxGuests = selectedRoom.persons.includes('-') ? parseInt(selectedRoom.persons.split('-')[1]) : parseInt(selectedRoom.persons);
   const minGuests = selectedRoom.persons.includes('-') ? parseInt(selectedRoom.persons.split('-')[0]) : parseInt(selectedRoom.persons);
   
@@ -526,6 +531,16 @@ export default function BookingForm() {
               <span>{t('total')}</span>
               <span>€ {finalTotal.toFixed(2)}</span>
             </div>
+
+            {selectedUnit && (
+              <p className="text-xs font-light text-stone-300 leading-relaxed">
+                {t('extra_costs_note', {
+                  touristTax: PROPERTY.touristTaxPerPersonPerNight,
+                  fromAge: PROPERTY.touristTaxExemptUnderAge,
+                  cleaningFee: selectedUnit.cleaningFee,
+                })}
+              </p>
+            )}
 
             {step === 1 && (
               <button 

@@ -589,6 +589,7 @@
     "subtotal": "Zwischensumme:",
     "voucher_applied": "Gutschein eingelöst:",
     "total": "Gesamt:",
+    "extra_costs_note": "Zuzüglich {touristTax} € Ortstaxe p. P./Nacht (ab {fromAge} Jahren) und Endreinigung {cleaningFee} € — beides vor Ort zu bezahlen.",
     "continue_data": "Weiter zu den Daten",
     "step2": "Step 2",
     "title2": "Deine Daten",

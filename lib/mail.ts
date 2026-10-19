@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 import fs from "fs";
 import path from "path";
+import { PROPERTY, unitByName } from "@/lib/property-facts";
 // Reuse the existing Next.js transporter or create a new one
 // Assuming SMTP settings are provided in .env
 const transporter = nodemailer.createTransport({
@@ -15,7 +16,32 @@ const transporter = nodemailer.createTransport({
 
 const FROM_EMAIL = process.env.SMTP_FROM || '"Malia Villa Tirol" <info@villatirol.at>';
 
-export async function sendBookingConfirmation(email: string, name: string, startDate: Date, endDate: Date, invoicePdfBuffer?: Buffer) {
+type ConfirmationBooking = {
+  guestEmail: string;
+  guestName: string;
+  startDate: Date;
+  endDate: Date;
+  room: string;
+};
+
+/**
+ * Endreinigung und Ortstaxe stecken nicht im online bezahlten Betrag — der Gast
+ * erfuhr davon bisher erst bei der Anreise. Die Endreinigung unterscheidet sich
+ * je Einheit; findet sich der gebuchte Raum nicht in den Stammdaten, bleibt die
+ * Zeile weg, statt einen falschen Betrag zu nennen.
+ */
+function nebenkostenZeile(room: string): string {
+  const ortstaxe = `Ortstaxe: ${PROPERTY.touristTaxPerPersonPerNight} € pro Person und Nacht (ab ${PROPERTY.touristTaxExemptUnderAge} Jahren)`;
+  const unit = unitByName(room);
+  if (!unit) {
+    console.warn(`Keine Einheit zu "${room}" gefunden — Endreinigung nicht in der Mail genannt`);
+    return `${ortstaxe}<br/>`;
+  }
+  return `Endreinigung ${unit.name}: ${unit.cleaningFee} €<br/>\n        ${ortstaxe}<br/>`;
+}
+
+export async function sendBookingConfirmation(booking: ConfirmationBooking, invoicePdfBuffer?: Buffer) {
+  const email = booking.guestEmail;
   const attachments = [];
   
   // Static PDFs - assuming they are placed in public/
@@ -69,6 +95,10 @@ export async function sendBookingConfirmation(email: string, name: string, start
 
         <p><strong>Parken</strong><br/>
         Überdachte Parkmöglichkeiten befinden sich direkt hinter dem Haus.</p>
+
+        <p><strong>Vor Ort zu zahlen</strong><br/>
+        ${nebenkostenZeile(booking.room)}
+        Diese Beträge sind im online bezahlten Betrag nicht enthalten.</p>
 
         <p><strong>Rauchen & Haustiere</strong><br/>
         Rauchen ist ausschließlich im Außenbereich erlaubt.<br/>
