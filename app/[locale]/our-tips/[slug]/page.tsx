@@ -13,6 +13,7 @@ import {
     articleBlocks,
     findArticle,
     tipsSection,
+    type KartenRaster,
     type ListenGruppe,
     type TipCard,
     type TipsArticle,
@@ -280,6 +281,34 @@ function ListenBlock({ gruppe, locale, hell }: { gruppe: ListenGruppe; locale: L
     );
 }
 
+/** Kurze Varianten nebeneinander, ohne eigenes Foto — etwa Einsteiger-Runden. */
+function KartenRasterBlock({ raster, locale }: { raster: KartenRaster; locale: Locale }) {
+    return (
+        <section id={raster.slug} className="py-10 md:py-20 px-6 bg-stone-50/60 scroll-mt-24">
+            <div className="max-w-4xl mx-auto">
+                <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#3d3d29] block mb-3 text-center">
+                    {raster.eyebrow[locale]}
+                </span>
+                <h2 className="text-xl md:text-2xl font-serif text-stone-800 text-center mb-4">
+                    {raster.title[locale]}
+                </h2>
+                <p className="font-light text-gray-600 leading-relaxed text-center max-w-2xl mx-auto mb-8 md:mb-10">
+                    {raster.intro[locale]}
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+                    {raster.karten.map((k) => (
+                        <article key={k.name.de} className="bg-white border border-stone-200 p-5 md:p-6">
+                            <h3 className="text-base font-bold text-stone-800 mb-2">{k.name[locale]}</h3>
+                            <p className="text-xs uppercase tracking-[0.15em] text-stone-500 mb-3">{k.meta[locale]}</p>
+                            <p className="text-sm font-light text-gray-600 leading-relaxed">{k.text[locale]}</p>
+                        </article>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
 function Sprungmarken({ article, locale }: { article: TipsArticle; locale: Locale }) {
     const de = locale === 'de';
     const marken = articleBlocks(article).map((b) => ({ href: `#${b.slug}`, label: b.label[locale] }));
@@ -463,6 +492,9 @@ export default async function TipsArticlePage({
                 <ListenBlock key={gruppe.slug} gruppe={gruppe} locale={locale} hell={i % 2 === 0} />
             ))}
 
+            {/* --- KARTENRASTER --- */}
+            {article.kartenRaster && <KartenRasterBlock raster={article.kartenRaster} locale={locale} />}
+
             {/* --- VERGLEICH --- */}
             {article.comparison && (
                 <section className="py-10 md:py-16 px-6 bg-white">
@@ -497,6 +529,12 @@ export default async function TipsArticlePage({
                                 </tbody>
                             </table>
                         </div>
+
+                        {article.comparison.fussnote && (
+                            <p className="mt-4 text-xs font-light text-stone-500 leading-relaxed">
+                                {article.comparison.fussnote[locale]}
+                            </p>
+                        )}
 
                         {article.ctaNachVergleich && (
                             <div className="mt-10 md:mt-14">
@@ -533,10 +571,18 @@ export default async function TipsArticlePage({
                         <h2 className="text-xl md:text-2xl font-serif text-stone-800 text-center mb-6 md:mb-10">
                             {de ? 'Gut zu wissen' : 'Good to know'}
                         </h2>
-                        <dl className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+                        <dl className={`grid gap-6 md:gap-10 ${article.infoBloecke.length > 1 ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'}`}>
                             {article.infoBloecke.map((block) => (
                                 <div key={block.label.de} className="bg-white border border-stone-200 p-5 md:p-6">
-                                    <dt className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#3d3d29] mb-3">
+                                    {/* Lautet die Beschriftung wie die Abschnittsüberschrift, stünde sie
+                                        doppelt da — sie bleibt dann nur für Screenreader erhalten. */}
+                                    <dt
+                                        className={
+                                            block.label.de === 'Gut zu wissen'
+                                                ? 'sr-only'
+                                                : 'text-[10px] uppercase tracking-[0.3em] font-bold text-[#3d3d29] mb-3'
+                                        }
+                                    >
                                         {block.label[locale]}
                                     </dt>
                                     <dd className="text-sm font-light text-gray-600 leading-relaxed">

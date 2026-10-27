@@ -113,11 +113,37 @@ export const TIPS_SECTIONS: TipsSection[] = [
           en: 'Mountaineer on a ridge in the Karwendel above Pertisau on Lake Achensee',
         },
       },
+      {
+        slug: 'padel-squash-tennis',
+        title: { de: 'Padel, Squash & Tennis', en: 'Padel, squash & tennis' },
+        teaser: {
+          de: 'Neu seit diesem Sommer: Padel in Pertisau, 3 Gehminuten vom MALIA.',
+          en: 'New this summer: padel in Pertisau, 3 minutes on foot from MALIA.',
+        },
+        image: TIPPBILD('padel/padel-squash-tennis-hero.jpeg'),
+        imageAlt: {
+          de: 'Tennisplatz von oben mit Spieler beim Aufschlag',
+          en: 'Tennis court from above with a player serving',
+        },
+        articleSlug: 'padel-squash-tennis',
+      },
+      {
+        slug: 'trailrunning',
+        title: { de: 'Trailrunning', en: 'Trail running' },
+        teaser: {
+          de: '183 km Laufstrecken — vom Seerundweg bis zur Erfurter Hütte.',
+          en: '183 km of routes — from the lakeside loop to the Erfurter Hütte.',
+        },
+        image: TIPPBILD('trailrunning/trailrunning-hero.jpeg'),
+        imageAlt: {
+          de: 'Läuferin auf einem Trail über dem Achensee im Herbst',
+          en: 'Runner on a trail above Lake Achensee in autumn',
+        },
+        articleSlug: 'trailrunning',
+      },
     ],
     pills: [
-      { slug: 'laufen', label: { de: 'Laufen & Trailrunning', en: 'Running & trail running' } },
       { slug: 'golf', label: { de: 'Golfen (18-Loch)', en: 'Golf (18 holes)' } },
-      { slug: 'padel', label: { de: 'Padel, Tennis & Squash', en: 'Padel, tennis & squash' } },
       { slug: 'reiten', label: { de: 'Reiten (Wiesenhof)', en: 'Horse riding (Wiesenhof)' } },
       { slug: 'ballon', label: { de: 'Heißluftballon & Paragleiten', en: 'Hot-air ballooning & paragliding' } },
     ],
@@ -203,6 +229,20 @@ export const TIPS_SECTIONS: TipsSection[] = [
           en: 'Ski tourers ascending in the Rofan above Lake Achensee',
         },
         articleSlug: 'skitouren',
+      },
+      {
+        slug: 'skigebiete',
+        title: { de: 'Skigebiete rund um den Achensee', en: 'Ski areas around Lake Achensee' },
+        teaser: {
+          de: 'Sechs Gebiete von 2 Gehminuten bis 35 Autominuten — mit Preisvergleich.',
+          en: 'Six areas from 2 minutes on foot to 35 by car — with a price comparison.',
+        },
+        image: TIPPBILD('skigebiete/skigebiete-hero.jpeg'),
+        imageAlt: {
+          de: 'Verschneite Berge rund um den Achensee im Winter',
+          en: 'Snow-covered mountains around Lake Achensee in winter',
+        },
+        articleSlug: 'skigebiete',
       },
     ],
     pills: [
@@ -305,6 +345,20 @@ export const TIPS_SECTIONS: TipsSection[] = [
           en: 'The Mountain Advent market at the Fischergut in Pertisau in the evening, right on Lake Achensee',
         },
         articleSlug: 'bergadvent-fischergut',
+      },
+      {
+        slug: 'weihnachtszeit',
+        title: { de: 'Weihnachtszeit am Achensee', en: 'Christmas time on Lake Achensee' },
+        teaser: {
+          de: 'Adventkranzbinden und mit dem Schiff zu drei Christkindlmärkten.',
+          en: 'Advent wreath binding and a boat ride to three Christmas markets.',
+        },
+        image: TIPPBILD('weihnachtszeit/weihnachtszeit-hero.jpeg'),
+        imageAlt: {
+          de: 'Der verschneite Achensee im Winter mit Bergen im Hintergrund',
+          en: 'Snow-covered Lake Achensee in winter with mountains behind',
+        },
+        articleSlug: 'weihnachtszeit',
       },
       {
         slug: 'traditionen-braeuche',
@@ -504,6 +558,19 @@ export type ListenGruppe = {
   ctaDanach?: boolean;
 };
 
+/**
+ * Kleines Kartenraster innerhalb eines Magazin-Beitrags — kurze Varianten, die
+ * keinen eigenen Bild-Text-Block rechtfertigen und kein eigenes Foto haben.
+ */
+export type KartenRaster = {
+  slug: string;
+  eyebrow: Localized;
+  title: Localized;
+  ankerLabel?: Localized;
+  intro: Localized;
+  karten: { name: Localized; meta: Localized; text: Localized }[];
+};
+
 export type TipsArticle = {
   slug: string;
   format: ArtikelFormat;
@@ -526,10 +593,14 @@ export type TipsArticle = {
   cards?: TipCard[];
   /** Format „liste". */
   gruppen?: ListenGruppe[];
+  /** Ergänzendes Kartenraster, unabhängig vom Format. */
+  kartenRaster?: KartenRaster;
   comparison?: {
     title: Localized;
     spalten: Localized[];
     zeilen: Localized[][];
+    /** Kleingedrucktes unter der Tabelle, etwa ein Preisvorbehalt. */
+    fussnote?: Localized;
   };
   /** Buchungs-Button unter der Vergleichstabelle. */
   ctaNachVergleich?: boolean;
@@ -551,6 +622,7 @@ const FUN_FACT: Localized = { de: 'Fun Fact', en: 'Fun fact' };
 const WICHTIG: Localized = { de: 'Wichtig', en: 'Important' };
 const EINKEHR: Localized = { de: 'Einkehr', en: 'Where to stop' };
 const ANREISE: Localized = { de: 'Anreise', en: 'Getting there' };
+const ADRESSE_KONTAKT: Localized = { de: 'Adresse & Kontakt', en: 'Address & contact' };
 
 const LAENGE: Localized = { de: 'Länge', en: 'Distance' };
 const DAUER: Localized = { de: 'Dauer', en: 'Duration' };
@@ -3005,6 +3077,963 @@ const RATTENBERG: TipsArticle = {
   published: '2026-10-19',
 };
 
+
+const PADEL: TipsArticle = {
+  slug: 'padel-squash-tennis',
+  format: 'magazin',
+  category: 'sommer',
+  title: {
+    de: 'Wo kann man am Achensee Padel, Squash und Tennis spielen?',
+    en: 'Where can you play padel, squash and tennis on Lake Achensee?',
+  },
+  subtitle: {
+    de: 'Neu seit diesem Sommer: der Padel-Platz direkt in Pertisau',
+    en: 'New this summer: the padel court right in Pertisau',
+  },
+  metaDescription: {
+    de: 'Padel, Tennis und Squash am Achensee: Padel-Platz in Pertisau (3 Gehminuten vom MALIA, neu seit diesem Sommer), Tennisanlage Sportcenter Pertisau mit 4 Sand- und 2 Hallenplätzen, Squash im Posthotel Achenkirch — mit Adressen, Kontakt und Reservierungshinweisen.',
+    en: 'Padel, tennis and squash on Lake Achensee: the padel court in Pertisau (3 minutes on foot from MALIA, new this summer), the Sportcenter Pertisau tennis courts with 4 clay and 2 indoor courts, and squash at the Posthotel Achenkirch — with addresses, contacts and booking notes.',
+  },
+  heroImage: TIPPBILD('padel/padel-squash-tennis-hero.jpeg'),
+  heroImageAlt: {
+    de: 'Tennisplatz von oben mit Spieler beim Aufschlag',
+    en: 'Tennis court from above with a player serving',
+  },
+  authors: JULIA_UND_MADLEINE,
+  readingMinutes: 5,
+  intro: {
+    de: 'Rund um den Achensee könnt ihr Padel, Tennis und Squash spielen — alle drei mit kurzer Anfahrt von MALIA. Neu seit diesem Sommer: In Pertisau ist ein Padel-Platz dazugekommen, nur 3 Gehminuten von MALIA entfernt — deshalb steht Padel bei uns ganz oben.',
+    en: 'Around Lake Achensee you can play padel, tennis and squash — all three a short trip from MALIA. New this summer: a padel court has opened in Pertisau, just 3 minutes on foot from MALIA — which is why padel comes first for us.',
+  },
+  kurzUndKnapp: {
+    de: 'Padel: 3 Gehminuten (Pertisau, seit diesem Sommer neu). Tennis: 9 Gehminuten (Sportcenter Pertisau). Squash: 20 Autominuten (Posthotel Achenkirch). Bei allen drei Sportarten solltet ihr vorab reservieren.',
+    en: 'Padel: 3 minutes on foot (Pertisau, new this summer). Tennis: 9 minutes on foot (Sportcenter Pertisau). Squash: 20 minutes by car (Posthotel Achenkirch). For all three you should book ahead.',
+  },
+  tours: [
+    {
+      slug: 'padel',
+      eyebrow: {
+        de: 'Padel — Pertisau, neu seit diesem Sommer',
+        en: 'Padel — Pertisau, new this summer',
+      },
+      title: { de: 'Padel-Platz Pertisau', en: 'Padel court Pertisau' },
+      ankerLabel: { de: 'Padel', en: 'Padel' },
+      text: {
+        de: 'Padel gilt als eine der einsteigerfreundlichsten Schlägersportarten — gespielt wird zu viert auf einem kleineren, von Glas- und Gitterwänden umgebenen Platz. Vorkenntnisse braucht ihr keine. Der Padel-Platz in Pertisau ist diesen Sommer neu dazugekommen und liegt nur 3 Gehminuten von MALIA entfernt — geöffnet bis 31.10.2026, bei guter Witterung auch länger.',
+        en: 'Padel is one of the most beginner-friendly racket sports — played in fours on a smaller court enclosed by glass and mesh walls. No previous experience needed. The padel court in Pertisau opened this summer and is just 3 minutes on foot from MALIA — open until 31 October 2026, and longer in good weather.',
+      },
+      routeLabel: { de: 'Fahrzeit ab MALIA', en: 'From MALIA' },
+      route: { de: '3 Gehminuten', en: '3 minutes on foot' },
+      kennzahlen: [
+        { label: { de: 'Buchung', en: 'Booking' }, wert: { de: '1-Stunden-Slots, 8–20 Uhr', en: 'One-hour slots, 8 a.m.–8 p.m.' } },
+        { label: { de: 'Ausrüstung', en: 'Equipment' }, wert: { de: 'Vor Ort leihbar', en: 'Rental on site' } },
+        { label: { de: 'Saison', en: 'Season' }, wert: { de: 'Bis 31.10. (wetterabhängig länger)', en: 'Until 31 Oct (longer if weather allows)' } },
+      ],
+      image: TIPPBILD('padel/padel-pertisau.jpeg'),
+      imageAlt: {
+        de: 'Padel-Spieler auf dem neuen Platz in Pertisau am Achensee',
+        en: 'Padel players on the new court in Pertisau on Lake Achensee',
+      },
+      hinweise: [
+        {
+          label: ADRESSE_KONTAKT,
+          text: {
+            de: 'Kirchstraße 11, Pertisau · +43 5 95300-0 · info@achensee.com. Schläger und Bälle könnt ihr direkt vor Ort ausleihen. Es gibt außerdem einen Vielspielerpass: 10 Spiele bezahlen, 11 spielen.',
+            en: 'Kirchstraße 11, Pertisau · +43 5 95300-0 · info@achensee.com. Rackets and balls can be rented on site. There is also a frequent-player pass: pay for 10 games, play 11.',
+          },
+        },
+      ],
+      ctaDanach: true,
+    },
+    {
+      slug: 'tennis',
+      eyebrow: { de: 'Tennis — Pertisau', en: 'Tennis — Pertisau' },
+      title: {
+        de: 'Tennisanlage Sportcenter Pertisau',
+        en: 'Sportcenter Pertisau tennis courts',
+      },
+      ankerLabel: { de: 'Tennis', en: 'Tennis' },
+      text: {
+        de: 'Das Sportcenter Pertisau ist Teil des Rieser Achensee Resorts und bietet 4 Sandplätze im Freien sowie 2 Hallentennisplätze — die Tennishalle ist ganzjährig geöffnet. Privatstunden mit einem Tennistrainer könnt ihr auf Anfrage buchen.',
+        en: 'The Sportcenter Pertisau is part of the Rieser Achensee Resort and offers 4 outdoor clay courts and 2 indoor courts — the indoor hall is open all year. Private lessons with a coach can be booked on request.',
+      },
+      routeLabel: { de: 'Fahrzeit ab MALIA', en: 'From MALIA' },
+      route: { de: '9 Gehminuten', en: '9 minutes on foot' },
+      kennzahlen: [
+        { label: { de: 'Plätze', en: 'Courts' }, wert: { de: '4 Sand + 2 Halle', en: '4 clay + 2 indoor' } },
+        { label: { de: 'Geöffnet', en: 'Open' }, wert: { de: 'Ganzjährig (Halle)', en: 'All year (indoor)' } },
+        { label: { de: 'Gut für', en: 'Good for' }, wert: { de: 'Alle Levels', en: 'All levels' } },
+      ],
+      image: TIPPBILD('padel/tennis-pertisau.jpeg'),
+      imageAlt: {
+        de: 'Tennisspielerin beim Aufschlag auf dem Platz in Pertisau',
+        en: 'Tennis player serving on the court in Pertisau',
+      },
+      hinweise: [
+        {
+          label: ADRESSE_KONTAKT,
+          text: {
+            de: 'Karwendelstraße 40, 6213 Pertisau am Achensee · +43 (5243) 6251 · info@hotel-rieser.com · hotel-rieser.com/de/erleben/tennishotel',
+            en: 'Karwendelstraße 40, 6213 Pertisau am Achensee · +43 (5243) 6251 · info@hotel-rieser.com · hotel-rieser.com/de/erleben/tennishotel',
+          },
+        },
+      ],
+    },
+    {
+      slug: 'squash',
+      eyebrow: { de: 'Squash — Achenkirch', en: 'Squash — Achenkirch' },
+      title: {
+        de: 'Squash im Posthotel Achenkirch',
+        en: 'Squash at the Posthotel Achenkirch',
+      },
+      ankerLabel: { de: 'Squash', en: 'Squash' },
+      text: {
+        de: 'Squash könnt ihr am Achensee ganzjährig und bei jedem Wetter im Posthotel Achenkirch spielen. Das Hotel selbst ist nur für Erwachsene (18+), die Sportanlage steht aber auch externen Gästen jeden Alters offen — eine Platzreservierung vorab ist Pflicht.',
+        en: 'You can play squash on Lake Achensee all year round and in any weather at the Posthotel Achenkirch. The hotel itself is adults only (18+), but the sports facility is open to outside guests of any age — booking a court in advance is compulsory.',
+      },
+      routeLabel: { de: 'Fahrzeit ab MALIA', en: 'From MALIA' },
+      route: { de: '20 Autominuten', en: '20 minutes by car' },
+      kennzahlen: [
+        { label: { de: 'Reservierung', en: 'Booking' }, wert: { de: 'Erforderlich', en: 'Required' } },
+        { label: { de: 'Ausrüstung', en: 'Equipment' }, wert: { de: 'Vor Ort leihbar', en: 'Rental on site' } },
+        { label: { de: 'Zugang', en: 'Access' }, wert: { de: 'Auch für externe Gäste', en: 'Outside guests welcome' } },
+      ],
+      image: TIPPBILD('padel/squash-achenkirch.jpeg'),
+      imageAlt: {
+        de: 'Squashball an der Wand eines Squashcourts',
+        en: 'Squash ball against the wall of a squash court',
+      },
+      hinweise: [
+        {
+          label: ADRESSE_KONTAKT,
+          text: {
+            de: 'Obere Dorfstraße 382, 6215 Achenkirch am Achensee · +43 (5246) 6522 · info@posthotel.at · posthotel.at/aktivurlaub/tennis-squash. Individuelle Trainerstunden könnt ihr über die Rezeption buchen.',
+            en: 'Obere Dorfstraße 382, 6215 Achenkirch am Achensee · +43 (5246) 6522 · info@posthotel.at · posthotel.at/aktivurlaub/tennis-squash. Individual coaching sessions can be booked through reception.',
+          },
+        },
+      ],
+    },
+  ],
+  faq: [
+    {
+      question: { de: 'Wo kann man am Achensee Padel spielen?', en: 'Where can you play padel on Lake Achensee?' },
+      answer: {
+        de: 'In Pertisau — seit diesem Sommer neu, nur 3 Gehminuten vom MALIA entfernt. Schläger und Bälle könnt ihr direkt vor Ort ausleihen, gebucht wird in 1-Stunden-Slots zwischen 8 und 20 Uhr. Der Platz ist bis 31.10. geöffnet, bei guter Witterung auch länger.',
+        en: 'In Pertisau — new this summer, just 3 minutes on foot from MALIA. Rackets and balls can be rented on site, and courts are booked in one-hour slots between 8 a.m. and 8 p.m. The court is open until 31 October, and longer in good weather.',
+      },
+    },
+    {
+      question: { de: 'Wo kann man am Achensee Tennis spielen?', en: 'Where can you play tennis on Lake Achensee?' },
+      answer: {
+        de: 'Die Tennisanlage Sportcenter Pertisau, Teil des Rieser Achensee Resorts, bietet 4 Sandplätze im Freien und 2 Hallentennisplätze für ganzjährigen Spielbetrieb — nur 9 Gehminuten vom MALIA entfernt.',
+        en: 'The Sportcenter Pertisau, part of the Rieser Achensee Resort, offers 4 outdoor clay courts and 2 indoor courts for year-round play — just 9 minutes on foot from MALIA.',
+      },
+    },
+    {
+      question: { de: 'Wo kann man am Achensee Squash spielen?', en: 'Where can you play squash on Lake Achensee?' },
+      answer: {
+        de: 'Squash spielt man am Achensee im Posthotel Achenkirch, ganzjährig und bei jedem Wetter. Die Anlage ist auch für externe Gäste jeden Alters geöffnet, eine Reservierung vorab ist aber Pflicht.',
+        en: 'Squash is played at the Posthotel Achenkirch, all year round and in any weather. The facility is open to outside guests of any age, but booking in advance is compulsory.',
+      },
+    },
+    {
+      question: {
+        de: 'Muss man den Padel-, Tennis- oder Squash-Platz am Achensee vorher reservieren?',
+        en: 'Do you have to book the padel, tennis or squash court in advance?',
+      },
+      answer: {
+        de: 'Ja, bei allen drei Sportarten solltet ihr vorab reservieren — beim Padel-Platz in festen 1-Stunden-Slots, bei Tennis und Squash direkt beim jeweiligen Anbieter.',
+        en: 'Yes, for all three sports you should book ahead — the padel court in fixed one-hour slots, tennis and squash directly with the respective provider.',
+      },
+    },
+  ],
+  closing: {
+    de: '„Padel, Tennis oder Squash — Hauptsache, der Schläger ist in der Hand und die Berge sind im Blick."',
+    en: '“Padel, tennis or squash — what matters is a racket in your hand and the mountains in view.”',
+  },
+  weiterlesen: [
+    { label: { de: 'Wo kann man am Achensee golfen?', en: 'Where can you play golf on Lake Achensee?' } },
+    { label: { de: 'Was kann man am Achensee mit Freunden unternehmen?', en: 'What can you do on Lake Achensee with friends?' } },
+    { label: { de: 'Welche Ausflugsziele rund um den Achensee lohnen sich?', en: 'Which day trips around Lake Achensee are worthwhile?' } },
+    { label: { de: 'Wo kann man am Achensee ein Boot ausleihen?', en: 'Where can you rent a boat on Lake Achensee?' } },
+  ],
+  published: '2026-10-27',
+};
+
+const TRAILRUNNING: TipsArticle = {
+  slug: 'trailrunning',
+  format: 'magazin',
+  category: 'sommer',
+  title: {
+    de: 'Wo kann man am Achensee im Herbst Trailrunning machen?',
+    en: 'Where can you go trail running on Lake Achensee in autumn?',
+  },
+  subtitle: {
+    de: '183 km markierte Laufstrecken — vom flachen Seerundweg bis zur steilen Berglaufstrecke',
+    en: '183 km of marked routes — from the flat lakeside loop to the steep mountain run',
+  },
+  metaDescription: {
+    de: 'Trailrunning am Achensee: Achenseelauf 23 km in 3:30 Std. rund um den See, Berglaufstrecke zur Erfurter Hütte 14,7 km mit 910 Hm, dazu leichte Einsteiger-Runden ab Pertisau. Insgesamt 183 km markierte Laufstrecken.',
+    en: 'Trail running on Lake Achensee: the 23 km Achenseelauf around the lake in 3:30 hrs, the 14.7 km mountain route to the Erfurter Hütte with 910 m of ascent, plus easy beginner loops from Pertisau. 183 km of marked routes in total.',
+  },
+  heroImage: TIPPBILD('trailrunning/trailrunning-hero.jpeg'),
+  heroImageAlt: {
+    de: 'Läuferin auf einem Trail über dem Achensee im Herbst',
+    en: 'Runner on a trail above Lake Achensee in autumn',
+  },
+  authors: JULIA_UND_MADLEINE,
+  readingMinutes: 5,
+  intro: {
+    de: 'Im Herbst ist Trailrunning am Achensee besonders schön: kühlere Temperaturen, buntes Laub an den Hängen, und kaum Trubel auf den Wegen. Rund um den See gibt’s 183 km markierte Laufstrecken — vom flachen Rundweg direkt in Pertisau bis zur steilen Berglaufstrecke hinauf zur Erfurter Hütte.',
+    en: 'Autumn is a particularly fine time for trail running on Lake Achensee: cooler temperatures, colourful foliage on the slopes and hardly anyone on the paths. Around the lake there are 183 km of marked routes — from the flat loop right in Pertisau to the steep mountain run up to the Erfurter Hütte.',
+  },
+  kurzUndKnapp: {
+    de: 'Achenseelauf: 23 km rund um den See, 3:30 Std., schwer. Berglaufstrecke zur Erfurter Hütte: 14,7 km, 910 Hm, schwer. Für Einsteiger: Kleine Dorfrunde Pertisau, nur 2,2 km, leicht — direkt im Ort.',
+    en: 'Achenseelauf: 23 km around the lake, 3:30 hrs, difficult. Mountain route to the Erfurter Hütte: 14.7 km, 910 m of ascent, difficult. For beginners: the small village loop in Pertisau, just 2.2 km, easy — right in the village.',
+  },
+  tours: [
+    {
+      slug: 'achenseelauf',
+      eyebrow: { de: 'Der Klassiker', en: 'The classic' },
+      title: {
+        de: 'Achenseelauf: einmal rund um den ganzen See',
+        en: 'Achenseelauf: all the way around the lake',
+      },
+      ankerLabel: { de: 'Rund um den See', en: 'Around the lake' },
+      text: {
+        de: 'Der Achenseelauf gilt als einer der schönsten Panorama-Läufe Österreichs und führt einmal komplett um den Achensee herum. Der erste Teil — rund 14,5 km von Pertisau nach Achenkirch — läuft sich flach auf Asphalt und Schotter, vorbei an der Seepromenade und Seespitz in Maurach mit dem Atoll Achensee. Zurück nach Pertisau geht’s auf einem schmaleren, anspruchsvolleren Pfad über die Gaisalm und die Prälatenbuche. Start und Ziel liegen direkt in Pertisau, nur wenige Gehminuten von MALIA entfernt — ihr lauft praktisch direkt vor der Haustür los.',
+        en: 'The Achenseelauf counts as one of Austria’s finest panoramic runs and goes right around Lake Achensee. The first part — about 14.5 km from Pertisau to Achenkirch — is flat, on asphalt and gravel, past the lakeside promenade and Seespitz in Maurach with the Atoll Achensee. The way back to Pertisau takes a narrower, more demanding path via the Gaisalm and the Prälatenbuche. Start and finish are right in Pertisau, only a few minutes’ walk from MALIA — you set off practically on the doorstep.',
+      },
+      routeLabel: { de: 'Start/Ziel', en: 'Start/finish' },
+      route: {
+        de: 'Pertisau, direkt am Schiffsanlegesteg',
+        en: 'Pertisau, right at the boat landing',
+      },
+      kennzahlen: [
+        { label: LAENGE, wert: { de: '23 km', en: '23 km' } },
+        { label: DAUER, wert: { de: 'ca. 3:30 Std.', en: 'approx. 3:30 hrs' } },
+        { label: SCHWIERIGKEIT, wert: { de: 'Schwer', en: 'Difficult' } },
+        { label: HOEHENMETER, wert: { de: '220 Hm', en: '220 m' } },
+      ],
+      image: TIPPBILD('trailrunning/trailrunning-achenseelauf.jpeg'),
+      imageAlt: {
+        de: 'Läufer auf dem Weg rund um den Achensee im Morgenlicht',
+        en: 'Runner on the route around Lake Achensee in the morning light',
+      },
+      hinweise: [
+        {
+          label: GUT_ZU_WISSEN,
+          text: {
+            de: 'Unterwegs gibt’s Toiletten am Pertisauer Schiffsanlegesteg und an der Seepromenade. Eine GPX-Datei zur Strecke könnt ihr euch auf achensee.com herunterladen.',
+            en: 'There are toilets at the Pertisau boat landing and along the lakeside promenade. A GPX file for the route can be downloaded from achensee.com.',
+          },
+        },
+      ],
+      ctaDanach: true,
+    },
+    {
+      slug: 'berglaufstrecke',
+      eyebrow: { de: 'Für Geübte', en: 'For the experienced' },
+      title: {
+        de: 'Berglaufstrecke: hinauf zur Erfurter Hütte',
+        en: 'Mountain route: up to the Erfurter Hütte',
+      },
+      ankerLabel: { de: 'Für Ambitionierte', en: 'For the ambitious' },
+      text: {
+        de: 'Die anspruchsvollste der großen Strecken startet ebenfalls beim SEE-Bad Atoll Achensee in Maurach und führt am Familienresort Buchau vorbei bergauf zum Dalfazer Wasserfall (daneben verläuft ein Klettersteig), weiter über die Dalfaz Alm und die Teissalm bis zur Erfurter Hütte in den Rofan-Bergen. Mit 910 Höhenmetern auf 14,7 km ist das eine echte Herausforderung — dafür habt ihr bei fast jeder Kehre einen herrlichen Blick auf den Achensee.',
+        en: 'The most demanding of the long routes also starts at the SEE-Bad Atoll Achensee in Maurach and climbs past the Buchau family resort to the Dalfaz waterfall (a via ferrata runs alongside it), then on over the Dalfaz Alm and the Teissalm to the Erfurter Hütte in the Rofan mountains. With 910 metres of ascent over 14.7 km it is a genuine challenge — but almost every bend rewards you with a view of the lake.',
+      },
+      routeLabel: { de: 'Start und Ziel', en: 'Start and finish' },
+      route: {
+        de: 'SEE-Bad Atoll Achensee, Maurach · Ziel: Erfurter Hütte',
+        en: 'SEE-Bad Atoll Achensee, Maurach · finish: Erfurter Hütte',
+      },
+      kennzahlen: [
+        { label: LAENGE, wert: { de: '14,7 km', en: '14.7 km' } },
+        { label: DAUER, wert: { de: 'ca. 3 Std.', en: 'approx. 3 hrs' } },
+        { label: SCHWIERIGKEIT, wert: { de: 'Schwer', en: 'Difficult' } },
+        { label: HOEHENMETER, wert: { de: '910 Hm', en: '910 m' } },
+      ],
+      image: TIPPBILD('trailrunning/trailrunning-berglaufstrecke.jpeg'),
+      imageAlt: {
+        de: 'Berglaufstrecke im Rofan oberhalb des Achensees im Herbst',
+        en: 'Mountain running route in the Rofan above Lake Achensee in autumn',
+      },
+      hinweise: [
+        {
+          label: EINKEHR,
+          text: {
+            de: 'Erfurter Hütte am Zielpunkt.',
+            en: 'The Erfurter Hütte at the finish.',
+          },
+        },
+      ],
+    },
+  ],
+  kartenRaster: {
+    slug: 'einsteiger',
+    eyebrow: { de: 'Für Einsteiger', en: 'For beginners' },
+    title: { de: 'Leichte Runden in Pertisau', en: 'Easy loops in Pertisau' },
+    ankerLabel: { de: 'Für Einsteiger', en: 'For beginners' },
+    intro: {
+      de: 'Beide starten direkt im Ort, nur wenige Gehminuten von MALIA entfernt — perfekt zum Reinschnuppern ins Trailrunning.',
+      en: 'Both start right in the village, only a few minutes’ walk from MALIA — perfect for a first taste of trail running.',
+    },
+    karten: [
+      {
+        name: { de: 'Kleine Dorfrunde Pertisau', en: 'Small village loop, Pertisau' },
+        meta: { de: '2,2 km · 0:30 Std. · 10 Hm · Leicht', en: '2.2 km · 0:30 hrs · 10 m · Easy' },
+        text: {
+          de: 'Startet direkt an der Mautstelle Karwendeltäler in Pertisau, führt am Fußballplatz vorbei und ein Stück in den Naturpark Karwendel hinein — fast eben, ideal für den ersten Lauf.',
+          en: 'Starts at the Karwendeltäler toll gate in Pertisau, passes the football pitch and runs a little way into the Karwendel nature park — almost flat, ideal for a first run.',
+        },
+      },
+      {
+        name: {
+          de: 'Achensee Fitnesslauf (Pertisau → Achenkirch)',
+          en: 'Achensee fitness run (Pertisau → Achenkirch)',
+        },
+        meta: { de: '14,5 km · 73 Hm · Mittel', en: '14.5 km · 73 m · Moderate' },
+        text: {
+          de: 'Die flache, einfache Strecke am See entlang auf Asphalt und Schotter — für alle, die etwas mehr Kilometer wollen, aber noch keine Höhenmeter. Zurück geht’s mit Bus oder Schiff.',
+          en: 'The flat, easy route along the lake on asphalt and gravel — for anyone who wants a few more kilometres but not yet the climbing. The way back is by bus or boat.',
+        },
+      },
+    ],
+  },
+  infoBloecke: [
+    {
+      label: GUT_ZU_WISSEN,
+      text: {
+        de: 'Insgesamt gibt’s rund um den Achensee 183 km markierte Laufstrecken — ein interaktiver Tourenplaner auf achensee.com lässt euch nach Länge und Schwierigkeit filtern, und zu jeder Strecke gibt’s eine GPX-Datei zum Download. Wer sein Training verbessern will, findet auf achensee.com auch Tipps zur richtigen Lauftechnik bergauf und bergab (z. B. zum Einsatz von Laufstöcken) sowie ein Lauf- & Sprung-ABC. Im Sommer gibt’s außerdem das Achensee Laufcamp und die Veranstaltung Karwendelmarsch mit eigenem Trailrunning-Camp.',
+        en: 'In total there are 183 km of marked running routes around Lake Achensee — an interactive route planner on achensee.com lets you filter by length and difficulty, and every route comes with a GPX file to download. Anyone wanting to improve their training will also find tips on uphill and downhill technique there (for example on using running poles) as well as a running and jumping drill guide. In summer there is the Achensee running camp and the Karwendelmarsch event with its own trail running camp.',
+      },
+    },
+  ],
+  faq: [
+    {
+      question: {
+        de: 'Wie lang ist der Achenseelauf und wie schwierig ist er?',
+        en: 'How long is the Achenseelauf and how difficult is it?',
+      },
+      answer: {
+        de: 'Der Achenseelauf führt einmal rund um den gesamten Achensee: 23 km in rund 3:30 Stunden, Schwierigkeit schwer. Der erste Teil (ca. 14,5 km von Pertisau nach Achenkirch) ist flacher Asphalt und Schotter, zurück geht’s auf rund 8,5 km über die Gaisalm auf einem schmaleren, anspruchsvolleren Pfad.',
+        en: 'The Achenseelauf runs right around Lake Achensee: 23 km in about 3:30 hours, rated difficult. The first part (about 14.5 km from Pertisau to Achenkirch) is flat asphalt and gravel; the return covers about 8.5 km via the Gaisalm on a narrower, more demanding path.',
+      },
+    },
+    {
+      question: {
+        de: 'Welche Trailrunning-Strecke eignet sich am Achensee für Einsteiger?',
+        en: 'Which trail running route on Lake Achensee suits beginners?',
+      },
+      answer: {
+        de: 'Für den Einstieg eignet sich die Kleine Dorfrunde Pertisau: nur 2,2 km, 10 Hm, leicht, ca. 30 Minuten. Sie startet an der Mautstelle Karwendeltäler direkt in Pertisau und führt am Fußballplatz vorbei. Wer etwas mehr Strecke will, ohne Höhenmeter zu sammeln, läuft den flachen Achensee Fitnesslauf von Pertisau nach Achenkirch (14,5 km, 73 Hm).',
+        en: 'The small village loop in Pertisau is ideal to start with: just 2.2 km, 10 m of ascent, easy, about 30 minutes. It starts at the Karwendeltäler toll gate in Pertisau and passes the football pitch. For a longer run without the climbing, the flat Achensee fitness run from Pertisau to Achenkirch covers 14.5 km with 73 m of ascent.',
+      },
+    },
+    {
+      question: {
+        de: 'Wie viele Kilometer Laufstrecken gibt es insgesamt rund um den Achensee?',
+        en: 'How many kilometres of running routes are there around Lake Achensee?',
+      },
+      answer: {
+        de: 'Insgesamt gibt es in der Region 183 km markierte Laufstrecken — von flachen Einsteiger-Runden bis zu steilen, technischen Trails für erfahrene Läufer. Ein interaktiver Tourenplaner auf achensee.com lässt euch nach Länge und Schwierigkeit filtern.',
+        en: 'The region has 183 km of marked running routes in total — from flat beginner loops to steep, technical trails for experienced runners. An interactive route planner on achensee.com lets you filter by length and difficulty.',
+      },
+    },
+    {
+      question: {
+        de: 'Gibt es am Achensee auch Lauf-Camps oder geführtes Training?',
+        en: 'Are there running camps or guided training on Lake Achensee?',
+      },
+      answer: {
+        de: 'Ja — im Sommer gibt’s das Achensee Laufcamp, im Winter das Achensee Winter Trailrunning Camp, dazu die Veranstaltung Karwendelmarsch mit eigenem Trailrunning-Camp. Auf achensee.com findet ihr außerdem Technik-Tipps fürs Berglaufen, zum Beispiel zum richtigen Einsatz von Laufstöcken bergauf und bergab.',
+        en: 'Yes — in summer there is the Achensee running camp, in winter the Achensee winter trail running camp, plus the Karwendelmarsch event with its own trail running camp. achensee.com also offers technique tips for mountain running, for example on using running poles uphill and downhill.',
+      },
+    },
+  ],
+  closing: {
+    de: 'Kühle Luft, buntes Laub und der Blick auf den See bei jedem Schritt — Herbst ist Trailrunning-Saison am Achensee.',
+    en: 'Cool air, colourful foliage and the lake in view at every step — autumn is trail running season on Lake Achensee.',
+  },
+  weiterlesen: [
+    {
+      label: {
+        de: 'Wo kann man am Achensee klettern und welche Klettersteige eignen sich für Anfänger und Fortgeschrittene?',
+        en: 'Where can you climb on Lake Achensee, and which via ferratas suit beginners and advanced climbers?',
+      },
+    },
+    {
+      label: {
+        de: 'Welche leichten Wanderungen am Achensee eignen sich für Anfänger und Familien?',
+        en: 'Which easy hikes on Lake Achensee suit beginners and families?',
+      },
+    },
+    {
+      label: {
+        de: 'Welche Sonnenaufgangswanderung am Achensee ist besonders schön?',
+        en: 'Which sunrise hike on Lake Achensee is especially beautiful?',
+      },
+    },
+    {
+      label: { de: 'Welche Skigebiete liegen rund um den Achensee?', en: 'Which ski areas lie around Lake Achensee?' },
+      href: '/our-tips/skigebiete',
+    },
+  ],
+  published: '2026-10-27',
+};
+
+const WEIHNACHTSZEIT: TipsArticle = {
+  slug: 'weihnachtszeit',
+  format: 'magazin',
+  category: 'ganzjahr',
+  title: {
+    de: 'Was kann man am Achensee zur Weihnachtszeit machen?',
+    en: 'What can you do on Lake Achensee at Christmas time?',
+  },
+  subtitle: {
+    de: 'Adventkranzbinden, Weihnachtsschifffahrt und Christkindlmärkte rund um den See',
+    en: 'Advent wreath workshops, the Christmas boat line and markets around the lake',
+  },
+  metaDescription: {
+    de: 'Advent am Achensee: Adventkranzbinden am 21. November 2026 in Maurach (35 €, Anmeldung bis 18.11.) und die Weihnachtslinie der Achenseeschifffahrt vom 27. November bis 27. Dezember zu drei Christkindlmärkten zwischen Pertisau und Achenkirch.',
+    en: 'Advent on Lake Achensee: an Advent wreath workshop on 21 November 2026 in Maurach (€ 35, registration by 18 Nov) and the Christmas boat line from 27 November to 27 December serving three Christmas markets between Pertisau and Achenkirch.',
+  },
+  heroImage: TIPPBILD('weihnachtszeit/weihnachtszeit-hero.jpeg'),
+  heroImageAlt: {
+    de: 'Der verschneite Achensee im Winter mit Bergen im Hintergrund',
+    en: 'Snow-covered Lake Achensee in winter with mountains behind',
+  },
+  authors: JULIA_UND_MADLEINE,
+  readingMinutes: 4,
+  intro: {
+    de: 'Zur Weihnachtszeit wird’s am Achensee besonders gemütlich — zwischen Kranzbinden, einer winterlich geschmückten Schifffahrt zu gleich drei Christkindlmärkten und dem Bergadvent beim Fischergut gibt’s hier jede Menge Adventsstimmung.',
+    en: 'At Christmas time Lake Achensee turns especially cosy — between wreath binding, a festively decorated boat service to three Christmas markets and the Mountain Advent at the Fischergut, there is Advent atmosphere in abundance.',
+  },
+  kurzUndKnapp: {
+    de: 'Am 21. November 2026 könnt ihr in Maurach euren eigenen Adventkranz binden (35 €, Anmeldung bis 18.11.). Vom 27. November bis 27. Dezember fährt die Weihnachtslinie der Achenseeschifffahrt zwischen Pertisau und Achenkirch zu drei Christkindlmärkten — darunter der Bergadvent beim Fischergut direkt in Pertisau.',
+    en: 'On 21 November 2026 you can bind your own Advent wreath in Maurach (€ 35, registration by 18 Nov). From 27 November to 27 December the Christmas line of the Achensee boat service runs between Pertisau and Achenkirch to three Christmas markets — including the Mountain Advent at the Fischergut in Pertisau.',
+  },
+  tours: [
+    {
+      slug: 'adventkranzbinden',
+      eyebrow: { de: 'Adventkranzbinden — Maurach', en: 'Advent wreath workshop — Maurach' },
+      title: {
+        de: 'Euren eigenen Adventkranz binden',
+        en: 'Bind your own Advent wreath',
+      },
+      ankerLabel: { de: 'Adventkranzbinden', en: 'Wreath workshop' },
+      text: {
+        de: 'Am 21. November 2026 lädt die Gesunde Gemeinde Eben zum Adventkranzbinden ins Gemeindezentrum Maurach. Unter Anleitung von Denise Wurzer bindet ihr dort von 10 bis 15 Uhr euren eigenen Adventkranz — ein schöner Start in die Adventszeit, egal ob allein oder mit der Familie.',
+        en: 'On 21 November 2026 the Gesunde Gemeinde Eben invites you to bind Advent wreaths at the Maurach community centre. Guided by Denise Wurzer, you make your own wreath between 10 a.m. and 3 p.m. — a lovely start to Advent, on your own or with the family.',
+      },
+      kennzahlen: [
+        { label: { de: 'Termin', en: 'Date' }, wert: { de: '21.11.2026', en: '21 Nov 2026' } },
+        { label: { de: 'Uhrzeit', en: 'Time' }, wert: { de: '10–15 Uhr', en: '10 a.m.–3 p.m.' } },
+        { label: { de: 'Preis', en: 'Price' }, wert: { de: '35 € p. P.', en: '€ 35 p.p.' } },
+      ],
+      image: TIPPBILD('weihnachtszeit/weihnachtszeit-adventkranz.jpeg'),
+      imageAlt: {
+        de: 'Selbst gebundener Adventkranz mit getrockneten Orangen auf Holz',
+        en: 'Hand-bound Advent wreath with dried oranges on wood',
+      },
+      hinweise: [
+        {
+          label: GUT_ZU_WISSEN,
+          text: {
+            de: 'Anmeldung bis 18.11.2026 per E-Mail an gesundegemeinde@eben-achensee.gv.at oder telefonisch unter +43 676 9541712. Ort: Gemeindezentrum Medienraum, Dorfstraße 30, 6212 Maurach am Achensee.',
+            en: 'Register by 18 November 2026 by e-mail to gesundegemeinde@eben-achensee.gv.at or by phone on +43 676 9541712. Venue: community centre media room, Dorfstraße 30, 6212 Maurach am Achensee.',
+          },
+        },
+      ],
+      ctaDanach: true,
+    },
+    {
+      slug: 'weihnachtslinie',
+      eyebrow: { de: 'Weihnachtslinie — Achenseeschifffahrt', en: 'Christmas line — Achensee boat service' },
+      title: {
+        de: 'Mit dem Schiff zu drei Christkindlmärkten',
+        en: 'By boat to three Christmas markets',
+      },
+      ankerLabel: { de: 'Weihnachtslinie', en: 'Christmas line' },
+      text: {
+        de: 'Vom 27. November bis 27. Dezember 2026 (plus 8. Dezember) fährt die weihnachtlich geschmückte Achenseeschifffahrt zwischen Pertisau und Achenkirch und verbindet dabei gleich drei Weihnachtsmärkte: den Bergadvent beim Fischergut in Pertisau, die Landweihnacht beim Kräuterhüttl und die Tiroler Bergweihnacht im Heimatmuseum Sixenhof in Achenkirch. An Bord gibt’s Glühwein, heiße Getränke und hausgemachte Snacks (nicht im Fahrpreis inklusive). Am 6. Dezember kommt sogar der Nikolaus per Schiff direkt nach Pertisau.',
+        en: 'From 27 November to 27 December 2026 (plus 8 December) the festively decorated Achensee boats run between Pertisau and Achenkirch, linking three Christmas markets: the Mountain Advent at the Fischergut in Pertisau, the country Christmas at the Kräuterhüttl and the Tyrolean mountain Christmas at the Sixenhof museum in Achenkirch. On board there is mulled wine, hot drinks and home-made snacks (not included in the fare). On 6 December St Nicholas even arrives in Pertisau by boat.',
+      },
+      kennzahlen: [
+        { label: { de: 'Fahrzeiten', en: 'Sailings' }, wert: { de: '11:30–16:10 Uhr', en: '11:30 a.m.–4:10 p.m.' } },
+        { label: { de: 'Tage', en: 'Days' }, wert: { de: 'Fr–So + 8.12.', en: 'Fri–Sun + 8 Dec' } },
+        { label: { de: 'Preis Erw.', en: 'Adult fare' }, wert: { de: '15 € (einfach)', en: '€ 15 (one way)' } },
+      ],
+      image: TIPPBILD('weihnachtszeit/weihnachtszeit-schiff-abend.jpeg'),
+      imageAlt: {
+        de: 'Beleuchtetes Schiff der Achenseeschifffahrt auf dem winterlichen See',
+        en: 'Illuminated Achensee boat on the lake in winter',
+      },
+      hinweise: [
+        {
+          label: GUT_ZU_WISSEN,
+          text: {
+            de: 'Kinder bis 6 Jahre fahren gratis, 7- bis 15-Jährige zahlen die Hälfte, eine Familienkarte kostet 60 €. Tickets gibt’s online im Achensee Erlebnisshop. Hinweis: An anderer Stelle auf achensee.com steht für die Strecke Pertisau–Scholastika ein Preis „ab 7,50 €" — die Seite erklärt diesen Unterschied nicht, am besten vor der Fahrt direkt nachfragen, was genau gilt.',
+            en: 'Children up to 6 travel free, 7- to 15-year-olds pay half, a family ticket costs € 60. Tickets are available online in the Achensee experience shop. Note: elsewhere on achensee.com a price of “from € 7.50” is quoted for the Pertisau–Scholastika route — the site does not explain the difference, so it is best to ask before travelling.',
+          },
+        },
+      ],
+    },
+  ],
+  faq: [
+    {
+      question: {
+        de: 'Wann kann man am Achensee einen Adventkranz binden?',
+        en: 'When can you bind an Advent wreath on Lake Achensee?',
+      },
+      answer: {
+        de: 'Am 21. November 2026 im Gemeindezentrum Maurach, von 10 bis 15 Uhr, unter Anleitung von Denise Wurzer. Anmeldung bis 18. November nötig, Kosten 35 € pro Person.',
+        en: 'On 21 November 2026 at the Maurach community centre, from 10 a.m. to 3 p.m., guided by Denise Wurzer. Registration is required by 18 November; the cost is € 35 per person.',
+      },
+    },
+    {
+      question: {
+        de: 'Wann fährt die Weihnachtslinie der Achenseeschifffahrt?',
+        en: 'When does the Christmas line of the Achensee boat service run?',
+      },
+      answer: {
+        de: 'Vom 27. November bis 27. Dezember 2026, freitags bis sonntags plus 8. Dezember, zwischen 11:30 und 16:10 Uhr, zwischen Pertisau und Achenkirch.',
+        en: 'From 27 November to 27 December 2026, Fridays to Sundays plus 8 December, between 11:30 a.m. and 4:10 p.m., between Pertisau and Achenkirch.',
+      },
+    },
+    {
+      question: {
+        de: 'Welche Weihnachtsmärkte erreicht man mit der Weihnachtsschifffahrt?',
+        en: 'Which Christmas markets does the Christmas boat reach?',
+      },
+      answer: {
+        de: 'Den Bergadvent beim Fischergut in Pertisau sowie die Landweihnacht beim Kräuterhüttl und die Tiroler Bergweihnacht im Heimatmuseum Sixenhof, beide in Achenkirch.',
+        en: 'The Mountain Advent at the Fischergut in Pertisau, plus the country Christmas at the Kräuterhüttl and the Tyrolean mountain Christmas at the Sixenhof museum, both in Achenkirch.',
+      },
+    },
+    {
+      question: {
+        de: 'Was kostet die Weihnachtsschifffahrt am Achensee?',
+        en: 'What does the Christmas boat trip on Lake Achensee cost?',
+      },
+      answer: {
+        de: 'Laut achensee.com kostet ein einfaches Erwachsenenticket 15 €, eine Familienkarte 60 €, Kinder bis 6 Jahre fahren gratis, 7- bis 15-Jährige zahlen die Hälfte. An anderer Stelle der Seite steht ein Preis ab 7,50 € — am besten vor der Fahrt direkt nachfragen, was genau gilt.',
+        en: 'According to achensee.com a one-way adult ticket costs € 15 and a family ticket € 60; children up to 6 travel free and 7- to 15-year-olds pay half. Elsewhere on the site a price from € 7.50 is quoted — it is best to ask before travelling which applies.',
+      },
+    },
+  ],
+  closing: {
+    de: '„Zwischen Kranzbinden, Glühwein auf dem Schiff und Lichterglanz am Ufer wird der Achensee im Advent richtig gemütlich."',
+    en: '“Between wreath binding, mulled wine on the boat and lights along the shore, Lake Achensee gets properly cosy in Advent.”',
+  },
+  weiterlesen: [
+    {
+      label: { de: 'Bergadvent beim Fischergut am Achensee', en: 'Mountain Advent at the Fischergut' },
+      href: '/our-tips/bergadvent-fischergut',
+    },
+    {
+      label: {
+        de: 'Welche Traditionen und Bräuche erlebt man am Achensee?',
+        en: 'Which traditions and customs can you experience on Lake Achensee?',
+      },
+    },
+    {
+      label: { de: 'Was kann man bei Regen am Achensee machen?', en: 'What can you do on Lake Achensee when it rains?' },
+      href: '/our-tips#faq',
+    },
+    {
+      label: {
+        de: 'Welche Veranstaltungen am Achensee sollte man sich nicht entgehen lassen?',
+        en: 'Which events on Lake Achensee should you not miss?',
+      },
+    },
+  ],
+  published: '2026-10-27',
+};
+
+const TAGESTICKET: Localized = { de: 'Tagesticket Erwachsene', en: 'Adult day pass' };
+const FUNPARK: Localized = { de: 'Funpark', en: 'Funpark' };
+const GUT_FUER: Localized = { de: 'Gut für', en: 'Good for' };
+const FAHRZEIT: Localized = { de: 'Fahrzeit ab MALIA', en: 'From MALIA' };
+const HUETTEN_TIPPS: Localized = { de: 'Unsere Hütten-Tipps', en: 'Our hut tips' };
+
+const SKIGEBIETE: TipsArticle = {
+  slug: 'skigebiete',
+  format: 'magazin',
+  category: 'winter',
+  title: {
+    de: 'Welche Skigebiete liegen rund um den Achensee?',
+    en: 'Which ski areas lie around Lake Achensee?',
+  },
+  subtitle: {
+    de: 'Von 2 Minuten zu Fuß bis 35 Minuten mit dem Auto — sechs Skigebiete im Überblick',
+    en: 'From 2 minutes on foot to 35 minutes by car — six ski areas at a glance',
+  },
+  metaDescription: {
+    de: 'Sechs Skigebiete ab dem MALIA: Pertisau (2 Gehminuten, 35,50 €), Maurach (5 Min., 46,50 €), Achenkirch (15 Min., 69 €), Kaltenbach/Hochfügen (23 Min., 82 €), Alpbachtal (30 Min., 71,50 €) und Zell am Ziller (35 Min., 82 €) — mit Vergleichstabelle und Hütten-Tipps.',
+    en: 'Six ski areas from MALIA: Pertisau (2 min on foot, € 35.50), Maurach (5 min, € 46.50), Achenkirch (15 min, € 69), Kaltenbach/Hochfügen (23 min, € 82), Alpbachtal (30 min, € 71.50) and Zell am Ziller (35 min, € 82) — with a comparison table and hut tips.',
+  },
+  heroImage: TIPPBILD('skigebiete/skigebiete-hero.jpeg'),
+  heroImageAlt: {
+    de: 'Verschneite Berge rund um den Achensee im Winter',
+    en: 'Snow-covered mountains around Lake Achensee in winter',
+  },
+  authors: JULIA_UND_MADLEINE,
+  readingMinutes: 6,
+  intro: {
+    de: 'Vom MALIA aus habt ihr gleich sechs Skigebiete in Reichweite: drei direkt am Achensee, drei weitere im Zillertal und im Alpbachtal, alle in maximal 35 Autominuten erreichbar. Vom Anfängerhang direkt vor der Tür bis zur urigen Einkehr-Hütte, die nur Einheimische kennen: Hier findet ihr für jeden Skitag das passende Gebiet.',
+    en: 'From MALIA you have six ski areas within reach: three right on Lake Achensee and three more in the Zillertal and the Alpbachtal, all no more than 35 minutes away by car. From the beginners’ slope on the doorstep to the rustic hut only locals know — here you will find the right area for every ski day.',
+  },
+  kurzUndKnapp: {
+    de: 'Direkt am Achensee: Pertisau (2 Gehminuten, ideal für Anfänger), Maurach (5 Autominuten, ideal für Familien) und Achenkirch (15 Autominuten, für Fortgeschrittene). Etwas weiter weg, aber einen Ausflug wert: Kaltenbach/Hochfügen im Hochzillertal (23 Autominuten), Zell am Ziller in der Zillertal Arena (35 Autominuten) sowie das Alpbachtal (30 Autominuten) — alle drei bekannt für ihre Hütten und Funparks.',
+    en: 'Right on Lake Achensee: Pertisau (2 minutes on foot, ideal for beginners), Maurach (5 minutes by car, ideal for families) and Achenkirch (15 minutes by car, for advanced skiers). A little further out but worth the trip: Kaltenbach/Hochfügen in the Hochzillertal (23 minutes), Zell am Ziller in the Zillertal Arena (35 minutes) and the Alpbachtal (30 minutes) — all three known for their huts and funparks.',
+  },
+  tours: [
+    {
+      slug: 'kaltenbach-hochfuegen',
+      eyebrow: { de: 'Zillertal — Kaltenbach / Hochfügen', en: 'Zillertal — Kaltenbach / Hochfügen' },
+      title: {
+        de: 'Großes, bekanntes Skigebiet mit Top-Hütten',
+        en: 'A large, well-known area with excellent huts',
+      },
+      ankerLabel: { de: 'Kaltenbach / Hochfügen', en: 'Kaltenbach / Hochfügen' },
+      text: {
+        de: 'Kaltenbach und Hochfügen gehören zum Hochzillertal und zählen zu den bekanntesten Skigebieten der Region — entsprechend voll kann es werden, vor allem an der Hütte solltet ihr unbedingt vorab einen Platz reservieren. In Kaltenbach gibt’s außerdem einen eigenen Funpark.',
+        en: 'Kaltenbach and Hochfügen belong to the Hochzillertal and are among the best-known ski areas in the region — which also means they get busy, so be sure to reserve a table at the hut in advance. Kaltenbach also has its own funpark.',
+      },
+      routeLabel: FAHRZEIT,
+      route: { de: '23 Autominuten', en: '23 minutes by car' },
+      kennzahlen: [
+        { label: TAGESTICKET, wert: { de: '82 €', en: '€ 82' } },
+        { label: FUNPARK, wert: { de: 'Ja, in Kaltenbach', en: 'Yes, in Kaltenbach' } },
+        { label: GUT_FUER, wert: { de: 'Genuss- & Party-Skifahrer', en: 'Foodies & party skiers' } },
+      ],
+      image: TIPPBILD('skigebiete/skigebiete-kaltenbach.jpeg'),
+      imageAlt: {
+        de: 'Skigebiet Kaltenbach im Hochzillertal',
+        en: 'Kaltenbach ski area in the Hochzillertal',
+      },
+      hinweise: [
+        {
+          label: HUETTEN_TIPPS,
+          text: {
+            de: 'Die Kristallhütte können wir fürs Essen sehr empfehlen, aber auch um ein bisschen zu feiern — der Outdoor-Bereich ist richtig cool, auf der Website lohnt sich ein Blick wegen Events. Auch die Kashütte ist sehr cool, und wer den besten Ausblick will, geht ins Albergo.',
+            en: 'We can highly recommend the Kristallhütte for the food, but also for a bit of a party — the outdoor area is really cool, and their website is worth checking for events. The Kashütte is great too, and for the best view head to the Albergo.',
+          },
+        },
+      ],
+    },
+    {
+      slug: 'alpbachtal',
+      eyebrow: { de: 'Alpbachtal', en: 'Alpbachtal' },
+      title: { de: 'Ski Juwel Alpbachtal Wildschönau', en: 'Ski Juwel Alpbachtal Wildschönau' },
+      ankerLabel: { de: 'Alpbachtal', en: 'Alpbachtal' },
+      text: {
+        de: 'Das Alpbachtal ist etwas weiter weg als Kaltenbach, dafür mit eigenem Funpark — perfekt, wenn ihr neben den normalen Pisten auch ein bisschen Tricks üben wollt.',
+        en: 'The Alpbachtal is a little further than Kaltenbach but has its own funpark — perfect if you want to practise a few tricks alongside the regular pistes.',
+      },
+      routeLabel: FAHRZEIT,
+      route: { de: '30 Autominuten', en: '30 minutes by car' },
+      kennzahlen: [
+        { label: TAGESTICKET, wert: { de: '71,50 €', en: '€ 71.50' } },
+        { label: FUNPARK, wert: { de: 'Ja', en: 'Yes' } },
+        { label: GUT_FUER, wert: { de: 'Familien & Funpark-Fans', en: 'Families & funpark fans' } },
+      ],
+      image: TIPPBILD('skigebiete/skigebiete-alpbachtal.jpeg'),
+      imageAlt: {
+        de: 'Pisten im Skigebiet Ski Juwel Alpbachtal Wildschönau',
+        en: 'Pistes in the Ski Juwel Alpbachtal Wildschönau area',
+      },
+      hinweise: [
+        {
+          label: GUT_ZU_WISSEN,
+          text: {
+            de: 'Der Skipass Ski Juwel gilt in sechs Orten gleichzeitig — Alpbach, Auffach, Kramsach, Niederau, Oberau und Reith i. A. — ihr habt also die freie Wahl, wo ihr einsteigt.',
+            en: 'The Ski Juwel pass is valid in six villages at once — Alpbach, Auffach, Kramsach, Niederau, Oberau and Reith i. A. — so you can choose where to start.',
+          },
+        },
+      ],
+    },
+    {
+      slug: 'zell-am-ziller',
+      eyebrow: { de: 'Zillertal — Zell am Ziller', en: 'Zillertal — Zell am Ziller' },
+      title: {
+        de: 'Geheimtipp-Hütten & das Lederhosen Wedelfinale',
+        en: 'Insider huts & the Lederhosen Wedelfinale',
+      },
+      ankerLabel: { de: 'Zell am Ziller', en: 'Zell am Ziller' },
+      text: {
+        de: 'Zell am Ziller gehört zur Zillertal Arena — einem eigenen Skipass-Verbund, der nicht mit Kaltenbach/Hochfügen (Hochzillertal) zu verwechseln ist, auch wenn beide Tickets zufällig gleich viel kosten. Bekannt ist das Gebiet auch für das Lederhosen Wedelfinale, das traditionell am letzten Skiwochenende der Saison stattfindet.',
+        en: 'Zell am Ziller belongs to the Zillertal Arena — a separate pass area not to be confused with Kaltenbach/Hochfügen (Hochzillertal), even though both tickets happen to cost the same. The area is also known for the Lederhosen Wedelfinale, traditionally held on the last ski weekend of the season.',
+      },
+      routeLabel: FAHRZEIT,
+      route: { de: '35 Autominuten', en: '35 minutes by car' },
+      kennzahlen: [
+        { label: TAGESTICKET, wert: { de: '82 €', en: '€ 82' } },
+        { label: { de: 'Event', en: 'Event' }, wert: { de: 'Lederhosen Wedelfinale', en: 'Lederhosen Wedelfinale' } },
+        { label: GUT_FUER, wert: { de: 'Geheimtipp-Hütten & Aussicht', en: 'Insider huts & views' } },
+      ],
+      image: TIPPBILD('skigebiete/skigebiete-zell.jpeg'),
+      imageAlt: {
+        de: 'Einkehr in einer Hütte im Skigebiet Zell am Ziller',
+        en: 'A stop at a mountain hut in the Zell am Ziller ski area',
+      },
+      hinweise: [
+        {
+          label: HUETTEN_TIPPS,
+          text: {
+            de: 'Die schönste und urigste Hütte heißt s’Legal (Legalalm) — hier gehen alle Einheimischen hin, sie liegt etwas versteckt. Checkt vorher unbedingt auf Instagram (@legalalm), ob geöffnet ist — hier gibt’s Tiroler Küche vom Feinsten. Für die beste Aussicht in der ganzen Zillertal Arena empfehlen wir die Arena Stadl auf 2.400 m Höhe: Pizza, Burger, Tiroler Küche, Buchteln, Kaiserschmarrn, Tiroler Gröstl, Kasspatzln und Gulaschsuppe. Auch hier unbedingt vorher auf Instagram (@arenastadl) wegen Öffnungszeiten und Events schauen.',
+            en: 'The loveliest and most rustic hut is s’Legal (Legalalm) — where all the locals go, tucked slightly out of the way. Check Instagram (@legalalm) beforehand to see whether it is open — the Tyrolean cooking there is superb. For the best view in the whole Zillertal Arena we recommend the Arena Stadl at 2,400 m: pizza, burgers, Tyrolean dishes, Buchteln, Kaiserschmarrn, Tiroler Gröstl, Kasspatzln and goulash soup. Here too, check Instagram (@arenastadl) for opening times and events.',
+          },
+        },
+      ],
+      ctaDanach: true,
+    },
+    {
+      slug: 'pertisau',
+      eyebrow: { de: 'Pertisau — Karwendelbergbahn', en: 'Pertisau — Karwendel cable car' },
+      title: {
+        de: 'Direkt vor der Tür — perfekt für Anfänger & Kinder',
+        en: 'Right on the doorstep — perfect for beginners & children',
+      },
+      ankerLabel: { de: 'Pertisau', en: 'Pertisau' },
+      text: {
+        de: 'Die Karwendelbergbahn liegt nur 2 Gehminuten vom MALIA entfernt — näher geht’s nicht. Das Gebiet ist für Skianfänger und Kinder perfekt geeignet, und im Vergleich zu den anderen Skigebieten relativ günstig.',
+        en: 'The Karwendel cable car is just 2 minutes on foot from MALIA — you cannot get closer. The area is perfect for beginners and children, and relatively inexpensive compared with the others.',
+      },
+      routeLabel: FAHRZEIT,
+      route: { de: '2 Gehminuten', en: '2 minutes on foot' },
+      kennzahlen: [
+        { label: TAGESTICKET, wert: { de: '35,50 €', en: '€ 35.50' } },
+        { label: { de: 'Pistenkilometer', en: 'Pistes' }, wert: { de: '12 km', en: '12 km' } },
+        { label: GUT_FUER, wert: { de: 'Anfänger & Kinder', en: 'Beginners & children' } },
+      ],
+      image: TIPPBILD('skigebiete/skigebiete-pertisau.jpeg'),
+      imageAlt: {
+        de: 'Skipiste am Zwölferkopf über Pertisau am Achensee',
+        en: 'Ski piste on the Zwölferkopf above Pertisau on Lake Achensee',
+      },
+      hinweise: [
+        {
+          label: { de: 'Unser Tipp', en: 'Our tip' },
+          text: {
+            de: 'Weil die Karwendelbergbahn direkt beim MALIA liegt, müsst ihr für den ersten Skitag mit den Kindern gar nicht erst ins Auto steigen.',
+            en: 'Because the Karwendel cable car is right by MALIA, you do not even need the car for a first ski day with the children.',
+          },
+        },
+      ],
+    },
+    {
+      slug: 'maurach',
+      eyebrow: { de: 'Maurach — Rofanseilbahn', en: 'Maurach — Rofan cable car' },
+      title: { de: 'Bestens geeignet für Familien', en: 'Ideally suited to families' },
+      ankerLabel: { de: 'Maurach', en: 'Maurach' },
+      text: {
+        de: 'Mit der Rofanseilbahn geht’s in nur 5 Autominuten von MALIA aus hinauf aufs Rofan — ein Skigebiet, das sich besonders gut für Familien eignet.',
+        en: 'The Rofan cable car takes you up onto the Rofan just 5 minutes by car from MALIA — a ski area particularly well suited to families.',
+      },
+      routeLabel: FAHRZEIT,
+      route: { de: '5 Autominuten', en: '5 minutes by car' },
+      kennzahlen: [
+        { label: TAGESTICKET, wert: { de: '46,50 €', en: '€ 46.50' } },
+        { label: { de: 'Pistenkilometer', en: 'Pistes' }, wert: { de: '11 km', en: '11 km' } },
+        { label: GUT_FUER, wert: { de: 'Familien', en: 'Families' } },
+      ],
+      image: TIPPBILD('skigebiete/skigebiete-rofan.jpeg'),
+      imageAlt: {
+        de: 'Skigebiet Rofan oberhalb von Maurach am Achensee',
+        en: 'Rofan ski area above Maurach on Lake Achensee',
+      },
+      hinweise: [
+        {
+          label: GUT_ZU_WISSEN,
+          text: {
+            de: 'Für die Kleinsten gibt’s eine eigene Kinderzone, und mit dem AIRROFAN Skyglider könnt ihr sogar wie an einer Zipline übers Gebiet schweben.',
+            en: 'There is a dedicated children’s area for the youngest, and with the AIRROFAN Skyglider you can even glide over the area as on a zipline.',
+          },
+        },
+      ],
+    },
+    {
+      slug: 'achenkirch',
+      eyebrow: { de: 'Achenkirch — Christlum', en: 'Achenkirch — Christlum' },
+      title: { de: 'Für Fortgeschrittene am Achensee', en: 'For advanced skiers on Lake Achensee' },
+      ankerLabel: { de: 'Achenkirch', en: 'Achenkirch' },
+      text: {
+        de: 'Das Christlum ist das Skigebiet am Achensee für Fortgeschrittene — mit mehreren Pisten und einem kleinen Funpark.',
+        en: 'The Christlum is the Lake Achensee ski area for advanced skiers — with several pistes and a small funpark.',
+      },
+      routeLabel: FAHRZEIT,
+      route: { de: '15 Autominuten', en: '15 minutes by car' },
+      kennzahlen: [
+        { label: TAGESTICKET, wert: { de: '69 €', en: '€ 69' } },
+        { label: { de: 'Pistenkilometer', en: 'Pistes' }, wert: { de: '27 km', en: '27 km' } },
+        { label: GUT_FUER, wert: { de: 'Fortgeschrittene', en: 'Advanced skiers' } },
+      ],
+      image: TIPPBILD('skigebiete/skigebiete-achenkirch.jpeg'),
+      imageAlt: {
+        de: 'Carving-Piste im Skigebiet Christlum in Achenkirch',
+        en: 'Carving piste in the Christlum ski area in Achenkirch',
+      },
+      hinweise: [
+        {
+          label: GUT_ZU_WISSEN,
+          text: {
+            de: 'Zwischen 950 und 1.800 m Höhe wartet das Christlum mit breiten Carving-Pisten und auch knackigen Buckelpisten — dazu gibt’s einen kleinen Funpark zum Üben.',
+            en: 'Between 950 and 1,800 m the Christlum offers wide carving pistes as well as demanding mogul runs — plus a small funpark to practise in.',
+          },
+        },
+      ],
+    },
+  ],
+  comparison: {
+    title: { de: 'Alle 6 Skigebiete im Vergleich', en: 'All six ski areas compared' },
+    spalten: [
+      { de: 'Skigebiet', en: 'Ski area' },
+      { de: 'Fahrzeit ab MALIA', en: 'From MALIA' },
+      { de: 'Tagesticket Erw.', en: 'Adult day pass' },
+      FUNPARK,
+      GUT_FUER,
+    ],
+    zeilen: [
+      [
+        { de: 'Kaltenbach / Hochfügen (Hochzillertal)', en: 'Kaltenbach / Hochfügen (Hochzillertal)' },
+        { de: '23 Min.', en: '23 min' },
+        { de: '82 €', en: '€ 82' },
+        { de: 'Ja (Kaltenbach)', en: 'Yes (Kaltenbach)' },
+        { de: 'Genuss- & Party-Skifahrer', en: 'Foodies & party skiers' },
+      ],
+      [
+        { de: 'Alpbachtal', en: 'Alpbachtal' },
+        { de: '30 Min.', en: '30 min' },
+        { de: '71,50 €', en: '€ 71.50' },
+        { de: 'Ja', en: 'Yes' },
+        { de: 'Familien', en: 'Families' },
+      ],
+      [
+        { de: 'Zell am Ziller (Zillertal Arena)', en: 'Zell am Ziller (Zillertal Arena)' },
+        { de: '35 Min.', en: '35 min' },
+        { de: '82 €', en: '€ 82' },
+        { de: 'Ja (Action-Park Kreuzwiese)', en: 'Yes (Action Park Kreuzwiese)' },
+        { de: 'Geheimtipp-Hütten', en: 'Insider huts' },
+      ],
+      [
+        { de: 'Pertisau (Karwendelbergbahn)', en: 'Pertisau (Karwendel cable car)' },
+        { de: '2 Min. zu Fuß', en: '2 min on foot' },
+        { de: '35,50 €', en: '€ 35.50' },
+        { de: '—', en: '—' },
+        { de: 'Anfänger & Kinder', en: 'Beginners & children' },
+      ],
+      [
+        { de: 'Maurach (Rofanseilbahn)', en: 'Maurach (Rofan cable car)' },
+        { de: '5 Min.', en: '5 min' },
+        { de: '46,50 €', en: '€ 46.50' },
+        { de: '—', en: '—' },
+        { de: 'Familien', en: 'Families' },
+      ],
+      [
+        { de: 'Achenkirch (Christlum)', en: 'Achenkirch (Christlum)' },
+        { de: '15 Min.', en: '15 min' },
+        { de: '69 €', en: '€ 69' },
+        { de: 'Ja (klein)', en: 'Yes (small)' },
+        { de: 'Fortgeschrittene', en: 'Advanced skiers' },
+      ],
+    ],
+    fussnote: {
+      de: 'Preise: Hauptsaison, Stand der jeweils aktuellen Saison — ohne Gewähr, bitte vor der Anreise auf der Skigebiets-Website prüfen.',
+      en: 'Prices: high season, as of the current season — without guarantee, please check on the ski area’s website before travelling.',
+    },
+  },
+  infoBloecke: [
+    {
+      label: {
+        de: 'Zwei verschiedene Skipässe, zufällig gleicher Preis',
+        en: 'Two separate passes, coincidentally the same price',
+      },
+      text: {
+        de: 'Kaltenbach/Hochfügen (Hochzillertal) und Zell am Ziller (Zillertal Arena) sind zwei komplett getrennte Skigebiete mit eigenen Skipässen — ein Ticket gilt jeweils nur im eigenen Gebiet. Beide Tagestickets kosten aktuell zufällig gleich viel (82 €).',
+        en: 'Kaltenbach/Hochfügen (Hochzillertal) and Zell am Ziller (Zillertal Arena) are two completely separate ski areas with their own passes — a ticket is valid only in its own area. Both day passes currently happen to cost the same (€ 82).',
+      },
+    },
+    {
+      label: {
+        de: 'Instagram vor der Hüttenfahrt checken',
+        en: 'Check Instagram before heading to a hut',
+      },
+      text: {
+        de: 'Bei Hütten wie s’Legal (@legalalm) oder der Arena Stadl (@arenastadl) lohnt sich vorab ein Blick auf Instagram — dort stehen aktuelle Öffnungszeiten und Events.',
+        en: 'For huts such as s’Legal (@legalalm) or the Arena Stadl (@arenastadl) it is worth checking Instagram beforehand — current opening times and events are posted there.',
+      },
+    },
+  ],
+  faq: [
+    {
+      question: {
+        de: 'Wie viele Skigebiete gibt es rund um den Achensee?',
+        en: 'How many ski areas are there around Lake Achensee?',
+      },
+      answer: {
+        de: 'Direkt am Achensee gibt es drei Skigebiete: Pertisau, Maurach und Achenkirch. Dazu kommen drei weitere Skigebiete im nahen Zillertal und Alpbachtal, die in 23 bis 35 Autominuten erreichbar sind.',
+        en: 'There are three ski areas right on Lake Achensee: Pertisau, Maurach and Achenkirch. Three more lie in the nearby Zillertal and Alpbachtal, reachable in 23 to 35 minutes by car.',
+      },
+    },
+    {
+      question: {
+        de: 'Welches Skigebiet am Achensee eignet sich am besten für Anfänger?',
+        en: 'Which ski area on Lake Achensee is best for beginners?',
+      },
+      answer: {
+        de: 'Pertisau mit der Karwendelbergbahn ist ideal für Anfänger und Kinder — das Gebiet ist übersichtlich, liegt nur 2 Gehminuten vom MALIA entfernt und ist im Vergleich zu den anderen Skigebieten relativ günstig.',
+        en: 'Pertisau with the Karwendel cable car is ideal for beginners and children — the area is easy to navigate, just 2 minutes on foot from MALIA and relatively inexpensive compared with the others.',
+      },
+    },
+    {
+      question: {
+        de: 'Welches Skigebiet eignet sich für fortgeschrittene Skifahrer?',
+        en: 'Which ski area suits advanced skiers?',
+      },
+      answer: {
+        de: 'Das Christlum in Achenkirch ist das Skigebiet am Achensee für Fortgeschrittene, mit 27 Pistenkilometern zwischen 950 und 1.800 m Höhe sowie breiten Carving- und auch anspruchsvolleren Buckelpisten.',
+        en: 'The Christlum in Achenkirch is the Lake Achensee area for advanced skiers, with 27 kilometres of piste between 950 and 1,800 m plus wide carving runs and more demanding moguls.',
+      },
+    },
+    {
+      question: {
+        de: 'Was kostet ein Tagesskipass für Erwachsene am Achensee?',
+        en: 'What does an adult day ski pass cost on Lake Achensee?',
+      },
+      answer: {
+        de: 'Die Preise reichen von 35,50 € in Pertisau bis 82 € in Kaltenbach/Hochfügen (Hochzillertal) bzw. Zell am Ziller (Zillertal Arena). Maurach kostet 46,50 €, Christlum in Achenkirch 69 € und das Alpbachtal 71,50 € (Hauptsaison, Stand aktuelle Saison, ohne Gewähr).',
+        en: 'Prices range from € 35.50 in Pertisau to € 82 in Kaltenbach/Hochfügen (Hochzillertal) and Zell am Ziller (Zillertal Arena). Maurach costs € 46.50, the Christlum in Achenkirch € 69 and the Alpbachtal € 71.50 (high season, current season, without guarantee).',
+      },
+    },
+  ],
+  weiterlesen: [
+    {
+      label: { de: 'Wo kann man am Achensee als Anfänger Skifahren?', en: 'Where can beginners ski on Lake Achensee?' },
+      href: '/our-tips/skifahren-snowboarden',
+    },
+    {
+      label: {
+        de: 'Welche Skischulen am Achensee eignen sich für Anfänger?',
+        en: 'Which ski schools on Lake Achensee suit beginners?',
+      },
+    },
+    {
+      label: { de: 'Wo kann man am Achensee Skitouren gehen?', en: 'Where can you go ski touring on Lake Achensee?' },
+      href: '/our-tips/skitouren',
+    },
+    {
+      label: {
+        de: 'Was kann man im Winter am Achensee machen, wenn man nicht Ski fährt?',
+        en: 'What can you do on Lake Achensee in winter if you do not ski?',
+      },
+    },
+  ],
+  published: '2026-10-27',
+};
+
 export const TIPS_ARTICLES: TipsArticle[] = [
   WANDERN,
   SKIFAHREN,
@@ -3012,11 +4041,15 @@ export const TIPS_ARTICLES: TipsArticle[] = [
   RODELN,
   EISLAUFEN,
   SKITOUREN,
+  SKIGEBIETE,
+  PADEL,
+  TRAILRUNNING,
   RESTAURANTS,
   INNSBRUCK,
   RATTENBERG,
   SILBERBERGWERK,
   BERGADVENT,
+  WEIHNACHTSZEIT,
 ];
 
 export function findArticle(slug: string): TipsArticle | undefined {
@@ -3035,5 +4068,6 @@ export function articleBlocks(article: TipsArticle): { slug: string; label: Loca
     ...(article.tours ?? []).map(aus),
     ...(article.cards ?? []).map(aus),
     ...(article.gruppen ?? []).map(aus),
+    ...(article.kartenRaster ? [aus(article.kartenRaster)] : []),
   ];
 }
