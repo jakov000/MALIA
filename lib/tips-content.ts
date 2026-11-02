@@ -3574,8 +3574,8 @@ const WEIHNACHTSZEIT: TipsArticle = {
         {
           label: GUT_ZU_WISSEN,
           text: {
-            de: 'Kinder bis 6 Jahre fahren gratis, 7- bis 15-Jährige zahlen die Hälfte, eine Familienkarte kostet 60 €. Tickets gibt’s online im Achensee Erlebnisshop. Hinweis: An anderer Stelle auf achensee.com steht für die Strecke Pertisau–Scholastika ein Preis „ab 7,50 €" — die Seite erklärt diesen Unterschied nicht, am besten vor der Fahrt direkt nachfragen, was genau gilt.',
-            en: 'Children up to 6 travel free, 7- to 15-year-olds pay half, a family ticket costs € 60. Tickets are available online in the Achensee experience shop. Note: elsewhere on achensee.com a price of “from € 7.50” is quoted for the Pertisau–Scholastika route — the site does not explain the difference, so it is best to ask before travelling.',
+            de: 'Die einfache Fahrt kostet ca. 15 € (Fahrdauer ca. 45 Minuten), Hin- und Rückfahrt ca. 30 €. Das Familienticket für 2 Erwachsene mit eigenen Kindern oder Enkeln bis einschließlich 16 Jahre kostet ca. 60 €. Kinder bis 6 Jahre fahren gratis, 7- bis 15-Jährige zahlen die Hälfte. Gruppen ab 10 Personen bekommen ca. 10 % Rabatt (nur für die erste Fahrt ab Pertisau und Scholastika). Hunde fahren mit Leine und Maulkorb für ca. 4 € mit. Tickets gibt’s online im Achensee Erlebnisshop.',
+            en: 'A single trip costs about € 15 (journey time about 45 minutes), a return trip about € 30. The family ticket for 2 adults with their own children or grandchildren up to and including 16 costs about € 60. Children up to 6 travel free, 7- to 15-year-olds pay half. Groups of 10 or more get about 10 % off (only for the first trip from Pertisau and Scholastika). Dogs travel on a lead and muzzled for about € 4. Tickets are available online in the Achensee experience shop.',
           },
         },
       ],
@@ -3618,8 +3618,8 @@ const WEIHNACHTSZEIT: TipsArticle = {
         en: 'What does the Christmas boat trip on Lake Achensee cost?',
       },
       answer: {
-        de: 'Laut achensee.com kostet ein einfaches Erwachsenenticket 15 €, eine Familienkarte 60 €, Kinder bis 6 Jahre fahren gratis, 7- bis 15-Jährige zahlen die Hälfte. An anderer Stelle der Seite steht ein Preis ab 7,50 € — am besten vor der Fahrt direkt nachfragen, was genau gilt.',
-        en: 'According to achensee.com a one-way adult ticket costs € 15 and a family ticket € 60; children up to 6 travel free and 7- to 15-year-olds pay half. Elsewhere on the site a price from € 7.50 is quoted — it is best to ask before travelling which applies.',
+        de: 'Die einfache Fahrt kostet ca. 15 € pro Erwachsenem, Hin- und Rückfahrt ca. 30 €. Das Familienticket (2 Erwachsene mit eigenen Kindern oder Enkeln bis einschließlich 16 Jahre) kostet ca. 60 €. Kinder bis 6 Jahre fahren gratis, 7- bis 15-Jährige zahlen die Hälfte, Gruppen ab 10 Personen bekommen ca. 10 % Rabatt.',
+        en: 'A single trip costs about € 15 per adult, a return trip about € 30. The family ticket (2 adults with their own children or grandchildren up to and including 16) costs about € 60. Children up to 6 travel free, 7- to 15-year-olds pay half, and groups of 10 or more get about 10 % off.',
       },
     },
   ],
@@ -3711,8 +3711,8 @@ const SKIGEBIETE: TipsArticle = {
       ],
       image: TIPPBILD('skigebiete/skigebiete-kaltenbach.jpeg'),
       imageAlt: {
-        de: 'Skigebiet Kaltenbach im Hochzillertal',
-        en: 'Kaltenbach ski area in the Hochzillertal',
+        de: 'Volle Sonnenterrasse einer Skihütte in Kaltenbach vor verschneiten Bergen',
+        en: 'Packed sun terrace of a ski hut in Kaltenbach with snowy mountains behind',
       },
       hinweise: [
         {
