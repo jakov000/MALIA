@@ -189,26 +189,29 @@ Beide Themen kamen während der Umsetzung dazu und sind abgeschlossen.
 - [x] `/the-setting` entfernt, 301 auf `/our-tips` in beiden Sprachen
 - [x] Artikel landen automatisch in der Sitemap
 
-### Z3 — Ratgeberbeiträge ✅ elf Beiträge live (19.10.2026)
+### Z3 — Ratgeberbeiträge ✅ 15 Beiträge live (02.11.2026)
 
-Die Beiträge kamen in drei Lieferungen und haben den Ratgeberbereich von einem
-auf elf Artikel gebracht, jeweils in Deutsch und Englisch.
+Die Beiträge kamen in vier Lieferungen und haben den Ratgeberbereich von einem
+auf 15 Artikel gebracht, jeweils in Deutsch und Englisch.
 
 | Rubrik | Kacheln | mit Artikel | Darstellung |
 |---|---|---|---|
-| Sommer | 4 | 1 | Raster |
-| Winter | 5 | 5 | Swipe-Leiste |
-| Das ganze Jahr über | 7 | 5 | Swipe-Leiste |
+| Sommer | 6 | 3 | Swipe-Leiste |
+| Winter | 6 | 6 | Swipe-Leiste |
+| Das ganze Jahr über | 8 | 6 | Swipe-Leiste |
 
-- [x] **Sommer:** Wandern & Bergsteigen
-- [x] **Winter:** Skifahren & Snowboarden, Langlaufen, Rodeln, Eislaufen, Skitouren gehen
-- [x] **Ganzjährig:** Restaurants & Tiroler Küche, Städtetrip Innsbruck, Städtetrip Rattenberg, Schwazer Silberbergwerk, Bergadvent beim Fischergut
+- [x] **Sommer:** Wandern & Bergsteigen, Padel, Squash & Tennis, Trailrunning im Herbst
+- [x] **Winter:** Skifahren & Snowboarden, Langlaufen, Rodeln, Eislaufen, Skitouren gehen, Skigebiete rund um den Achensee
+- [x] **Ganzjährig:** Restaurants & Tiroler Küche, Städtetrip Innsbruck, Städtetrip Rattenberg, Schwazer Silberbergwerk, Bergadvent beim Fischergut, Weihnachtszeit am Achensee
+- [x] Vierte Lieferung nach Kundenreview angepasst: Schiffspreise der Weihnachtslinie laut Achenseeschifffahrt, neues Foto für Kaltenbach. Padel-Saisonende und die Weiterlesen-Kacheln ohne Ziel bleiben auf Kundenwunsch so.
+- [x] Die Schlagwörter „Padel, Tennis & Squash" und „Laufen & Trailrunning" sind dafür zu Kacheln mit Artikel geworden
 - [x] Drei Layouts: „magazin" (alternierende Bild-Text-Blöcke), „karten" (zwei Erlebnisse nebeneinander) und „liste" (nummerierte Adresslisten je Ort)
 - [x] Ab der fünften Kachel wird eine Rubrik zur waagrechten Leiste, durch die gewischt wird — alle Kacheln bleiben dabei im ausgelieferten HTML
 - [x] `Article`-Markup mit beiden Autorinnen und `FAQPage` je Beitrag
 - [x] Ratgeber-Index in `llms.txt`, damit Antwortmaschinen die Beiträge finden
 - [x] Der Pillar-Artikel „Was kann man am Achensee machen?" war eingearbeitet und wurde auf Kundenwunsch wieder entfernt (Stand liegt in Commit `5954f44`)
 - [ ] `bergadvent-familien` liegt nur in 615 × 401 px vor — **größere Fassung erwünscht**
+- [ ] Ebenso klein: `skigebiete-zell` (433 × 529 px, bleibt auf Kundenwunsch) und `skigebiete-kaltenbach` (515 × 499 px, vermutlich von WhatsApp verkleinert — Original wäre besser)
 - [ ] Signatur beim Skitouren-Beitrag: Entwurf nennt in der Byline „Julia & Madleine", am Ende „— eure Julia". Aktuell steht überall „Julia & Madleine" — **bitte bestätigen**
 
 ### Z4 — Nebenkosten in der Buchungsstrecke ✅ fertig (19.10.2026)
@@ -219,17 +222,28 @@ auf elf Artikel gebracht, jeweils in Deutsch und Englisch.
 - [x] Am abgebuchten Betrag ändert sich nichts: beides wird weiterhin vor Ort bezahlt
 - [ ] Die Rechnung im PDF-Anhang weist nur den online bezahlten Betrag aus. Für Endreinigung und Ortstaxe stellen die Gastgeberinnen **vor Ort einen eigenen Beleg** aus.
 
+### Z5 — Wechseltage im Buchungskalender ✅ fertig (02.11.2026)
+
+Anlass: Reist ein Gast am 20. ab, konnte der nächste am 20. nicht anreisen.
+
+- [x] Die Prüfung vor Stripe verglich Uhrzeiten statt Tage. iCal-Sperren liegen auf 12:00 UTC, Website-Buchungen auf 00:00 — „Abreise 20. um 12:00" galt als Überschneidung mit „Anreise 20.". Jetzt zählen Wiener Kalendertage (`lib/stay-dates.ts`).
+- [x] Gegenstück im Kalender: Der Anreisetag des nächsten Gastes war als Abreise nicht wählbar, weil react-day-picker 9 beim ersten Klick An- und Abreise auf denselben Tag setzt. Mit `min={1}` bleibt die Abreise offen; nebenbei greift der Mindestaufenthalt jetzt schon nach dem ersten Klick.
+- [x] Die Prüfung vor Stripe berücksichtigt auch eigene Sperren aus dem Admin-Kalender (Eigenbelegung, Geschlossen, Nicht verfügbar) — vorher hielt sie nur der Kalender im Browser ab.
+- [x] An- und Abreisetage diagonal halb rot, halb grün, mit Legende; im Admin-Kalender in der Farbe der jeweiligen Belegung
+- [x] „Bis" im Admin-Kalender bleibt die letzte belegte Nacht — so tragen die Gastgeberinnen ihre Einträge bereits ein
+- [x] Geprüft im echten Browser (14 Klickfälle, lokal und live), gegen alle Live-Daten des kommenden Jahres und Zelle für Zelle in der Admin-Matrix
+
 ---
 
-## Abschlussstand (19.10.2026)
+## Abschlussstand (02.11.2026)
 
 | Prüfung | Ergebnis |
 |---|---|
 | `npm run build` | erfolgreich |
 | `npx tsc --noEmit` | fehlerfrei |
-| Sitemap | **54 URLs**, vollständige hreflang-Gruppen |
-| Ratgeberbeiträge | 11, je Deutsch und Englisch, alle mit `Article`- und `FAQPage`-Markup |
-| `llms.txt` | Seitenindex plus 22 Ratgeber-Einträge |
+| Sitemap | **62 URLs**, vollständige hreflang-Gruppen |
+| Ratgeberbeiträge | 15, je Deutsch und Englisch, alle mit `Article`- und `FAQPage`-Markup |
+| `llms.txt` | Seitenindex plus 30 Ratgeber-Einträge |
 | Canonical & hreflang | je Seite selbstreferenzierend, de/en/x-default |
 | Google ohne Einwilligung | null Requests |
 

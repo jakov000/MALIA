@@ -120,7 +120,7 @@ Danach sage mir Bescheid — den Rest (Domain hinzufügen, Redirect setzen, Stat
 4. Google zeigt einen **TXT-Eintrag** an → beim Domain-Anbieter hinterlegen (gleiche Stelle wie der CNAME aus Schritt B)
 5. In der Search Console auf **Verifizieren** klicken
 6. **Nach dem Deploy:** links **Sitemaps** → `sitemap.xml` eintragen → **Senden**
-7. Ein paar Tage später unter **Seiten** prüfen, wie viele der inzwischen 54 URLs indexiert sind
+7. Ein paar Tage später unter **Seiten** prüfen, wie viele der inzwischen 62 URLs indexiert sind (Stand 02.11.2026)
 
 > **Nach jedem neuen Beitrag:** die neuen Adressen zusätzlich einzeln über die
 > **URL-Prüfung → Indexierung beantragen** einreichen (rund 10 bis 12 pro Tag
