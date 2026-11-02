@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import { db } from "@/lib/db";
 import { z } from "zod";
 import { calculateStayPrice } from "@/lib/pricing";
+import { ruleBlocksNight, stayNights, staysOverlap } from "@/lib/stay-dates";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_dummy123", {
   apiVersion: "2026-02-25.clover", // Use latest API version
@@ -84,28 +85,60 @@ export async function POST(req: Request) {
           ? ["THE RESIDENCE", "THE ALPINE HIDEAWAY"] 
           : ["THE RETREAT", "THE ALPINE HIDEAWAY"]);
 
-    const overlappingBooking = await db.booking.findFirst({
+    // Die Datenbank liefert nur Kandidaten (einen Tag Puffer je Seite), ob sie sich
+    // wirklich überschneiden, entscheidet staysOverlap auf Kalendertagen - sonst
+    // blockiert eine iCal-Sperre mit Abreise 12:00 die Anreise am selben Tag.
+    const ONE_DAY = 24 * 60 * 60 * 1000;
+    const candidateWindow = {
+      startDate: { lt: new Date(end.getTime() + ONE_DAY) },
+      endDate: { gt: new Date(start.getTime() - ONE_DAY) },
+    };
+    const requestedStay = { startDate: start, endDate: end };
+
+    // Eigene Sperren aus dem Admin-Kalender (Eigenbelegung, Geschlossen, Nicht
+    // verfügbar) - nicht nur der Kalender im Browser darf sie durchsetzen. Alle
+    // Regeln der Einheiten laden, nicht nur sperrende: Eine jüngere "Verfügbar"-
+    // Regel hebt eine ältere Sperre auf, genau wie im Buchungskalender.
+    const ruleCandidates = await db.calendarRule.findMany({
+      where: {
+        room: { in: ["ALL", ...relatedRooms] },
+        startDate: { lte: new Date(end.getTime() + ONE_DAY) },
+        endDate: { gte: new Date(start.getTime() - ONE_DAY) },
+      },
+      orderBy: { createdAt: 'asc' },
+      select: { room: true, status: true, startDate: true, endDate: true },
+    });
+
+    const blockedByRule = stayNights(start, end).some(night =>
+      relatedRooms.some(room => ruleBlocksNight(ruleCandidates, room, night))
+    );
+
+    if (blockedByRule) {
+      return NextResponse.json({ error: "Dieser Zeitraum ist leider nicht verfügbar." }, { status: 400 });
+    }
+
+    const bookingCandidates = await db.booking.findMany({
       where: {
         status: "PAID",
         room: { in: relatedRooms },
-        startDate: { lt: end },
-        endDate: { gt: start },
-      }
+        ...candidateWindow,
+      },
+      select: { startDate: true, endDate: true },
     });
 
-    if (overlappingBooking) {
+    if (bookingCandidates.some(b => staysOverlap(b, requestedStay))) {
       return NextResponse.json({ error: "Dieser Zeitraum ist leider in der Zwischenzeit gebucht worden." }, { status: 400 });
     }
 
-    const overlappingBlock = await db.blockedDate.findFirst({
+    const blockCandidates = await db.blockedDate.findMany({
       where: {
         room: { in: ["ALL", ...relatedRooms] },
-        startDate: { lt: end },
-        endDate: { gt: start },
-      }
+        ...candidateWindow,
+      },
+      select: { startDate: true, endDate: true },
     });
 
-    if (overlappingBlock) {
+    if (blockCandidates.some(b => staysOverlap(b, requestedStay))) {
       return NextResponse.json({ error: "Dieser Zeitraum ist aufgrund von Sperrungen nicht verfügbar." }, { status: 400 });
     }
     // ----------------------------------------------------------------------

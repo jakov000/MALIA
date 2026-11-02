@@ -573,6 +573,8 @@
     "select_dates": "Zeitraum auswählen",
     "loading": "Lade...",
     "no_checkout_day": "Keine Abreise an diesem Wochentag möglich",
+    "departure_day": "Abreisetag – Anreise am selben Tag möglich",
+    "arrival_day": "Anreisetag – Abreise am selben Tag möglich",
     "stay_title": "Dein Aufenthalt",
     "checkin": "Anreise (ab 15:00 Uhr):",
     "checkout": "Abreise (bis 10:00 Uhr):",

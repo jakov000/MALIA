@@ -573,6 +573,8 @@
     "select_dates": "Select period",
     "loading": "Loading...",
     "no_checkout_day": "Check-out is not possible on this day of the week",
+    "departure_day": "Check-out day – check-in possible the same day",
+    "arrival_day": "Check-in day – check-out possible the same day",
     "stay_title": "Your stay",
     "checkin": "Arrival (from 3:00 PM):",
     "checkout": "Departure (until 10:00 AM):",

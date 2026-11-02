@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { Loader2, Save, RefreshCw, ChevronLeft, ChevronRight, Trash2 } from "lucide-react";
-import { format, addMonths, startOfMonth, getDaysInMonth, isWithinInterval, startOfDay, subMonths } from "date-fns";
+import { format, addMonths, addDays, startOfMonth, getDaysInMonth, isWithinInterval, startOfDay, subMonths } from "date-fns";
 import { de } from "date-fns/locale";
 
 const ROOMS = ["THE ALPINE HIDEAWAY", "THE RESIDENCE", "THE RETREAT"];
@@ -18,6 +18,7 @@ const ROOM_AFFECTS: Record<string, string[]> = {
 };
 
 const BLOCKING_STATUS = ["OWN_USE", "CLOSED", "UNAVAILABLE"];
+const OCCUPIED_STATUS = [...BLOCKING_STATUS, "BOOKED", "EXTERNAL"];
 
 const STATUS_LABEL: Record<string, string> = {
   OWN_USE: "Eigenbelegung",
@@ -32,6 +33,29 @@ type DailyState = {
   minStay: number | null;
   source?: string;
   isInvalidDay?: boolean;
+  /** Gesetzt am Abreisetag: die belegte Nacht davor (für die obere linke Zellhälfte). */
+  departureFrom?: DailyState;
+  /** Anreisetag: Nacht davor frei, diese belegt. */
+  isArrival?: boolean;
+};
+
+// Farben der Matrix als Werte, damit sich eine Zelle diagonal teilen lässt.
+// Entsprechen den Tailwind-Klassen in getCellColor (…-100 mit 50 % Deckkraft).
+const GREEN_HALF = "#dcfce780";
+const occupiedHalf = (state: DailyState) => {
+  if (state.status === "OWN_USE") return "#fce7f380";
+  if (state.status === "CLOSED" || state.status === "UNAVAILABLE") return "#fee2e280";
+  if (state.status === "BOOKED") return "#dbeafe80";
+  if (state.source === "AIRBNB") return "#ffe4e699";
+  if (state.source === "BOOKING") return "#e0e7ff80";
+  return "#ffedd580";
+};
+
+// Wechseltage diagonal geteilt: oben links die Nacht davor, unten rechts diese Nacht.
+const splitCellStyle = (state: DailyState) => {
+  if (state.departureFrom) return { background: `linear-gradient(135deg, ${occupiedHalf(state.departureFrom)} 50%, ${GREEN_HALF} 50%)` };
+  if (state.isArrival) return { background: `linear-gradient(135deg, ${GREEN_HALF} 50%, ${occupiedHalf(state)} 50%)` };
+  return undefined;
 };
 
 export default function AdminCalendar() {
@@ -194,6 +218,48 @@ export default function AdminCalendar() {
 
   // Generate matrix
   const matrix = useMemo(() => {
+    // Status der NACHT, die an diesem Tag beginnt.
+    const stateForNight = (currentDate: Date): DailyState => {
+      const currentTarget = startOfDay(currentDate);
+
+      let dayState: DailyState = { status: "AVAILABLE", price: null, minStay: null };
+
+      // 1. Base Rules 
+      const activeRules = data.rules.filter((r: any) => 
+        isWithinInterval(currentTarget, { start: startOfDay(new Date(r.startDate)), end: startOfDay(new Date(r.endDate)) })
+      );
+      for (const rule of activeRules) {
+        dayState.status = rule.status;
+        if (rule.price !== null) dayState.price = rule.price;
+        if (rule.minStay !== null) dayState.minStay = rule.minStay;
+      }
+
+      // 2. External Blocks 
+      const externalBlock = data.blocks.find((b: any) => {
+        const start = startOfDay(new Date(b.startDate)).getTime();
+        const end = startOfDay(new Date(b.endDate)).getTime();
+        const target = currentTarget.getTime();
+        return target >= start && target < end;
+      });
+      if (externalBlock) {
+        dayState.status = "EXTERNAL";
+        dayState.source = externalBlock.source;
+      }
+
+      // 3. Direct Bookings 
+      const directBooking = data.bookings.find((b: any) => {
+        const start = startOfDay(new Date(b.startDate)).getTime();
+        const end = startOfDay(new Date(b.endDate)).getTime();
+        const target = currentTarget.getTime();
+        return target >= start && target < end;
+      });
+      if (directBooking) {
+        dayState.status = "BOOKED";
+      }
+
+      return dayState;
+    };
+
     const months = [];
 
     for (let i = 0; i < 18; i++) {
@@ -208,42 +274,15 @@ export default function AdminCalendar() {
         }
 
         const currentDate = new Date(monthDate.getFullYear(), monthDate.getMonth(), day);
-        const currentTarget = startOfDay(currentDate);
+        const dayState = stateForNight(currentDate);
 
-        let dayState: DailyState = { status: "AVAILABLE", price: null, minStay: null };
-
-        // 1. Base Rules 
-        const activeRules = data.rules.filter((r: any) => 
-          isWithinInterval(currentTarget, { start: startOfDay(new Date(r.startDate)), end: startOfDay(new Date(r.endDate)) })
-        );
-        for (const rule of activeRules) {
-          dayState.status = rule.status;
-          if (rule.price !== null) dayState.price = rule.price;
-          if (rule.minStay !== null) dayState.minStay = rule.minStay;
-        }
-
-        // 2. External Blocks 
-        const externalBlock = data.blocks.find((b: any) => {
-          const start = startOfDay(new Date(b.startDate)).getTime();
-          const end = startOfDay(new Date(b.endDate)).getTime();
-          const target = currentTarget.getTime();
-          return target >= start && target < end;
-        });
-        if (externalBlock) {
-          dayState.status = "EXTERNAL";
-          dayState.source = externalBlock.source;
-        }
-
-        // 3. Direct Bookings 
-        const directBooking = data.bookings.find((b: any) => {
-          const start = startOfDay(new Date(b.startDate)).getTime();
-          const end = startOfDay(new Date(b.endDate)).getTime();
-          const target = currentTarget.getTime();
-          return target >= start && target < end;
-        });
-        if (directBooking) {
-          dayState.status = "BOOKED";
-        }
+        // Wechseltage: Abreisetag (Nacht davor belegt, diese frei - Anreise möglich)
+        // und Anreisetag (Nacht davor frei, diese belegt - Abreise möglich).
+        const previousNight = stateForNight(addDays(currentDate, -1));
+        const occupiedNow = OCCUPIED_STATUS.includes(dayState.status);
+        const occupiedBefore = OCCUPIED_STATUS.includes(previousNight.status);
+        if (!occupiedNow && occupiedBefore) dayState.departureFrom = previousNight;
+        if (occupiedNow && !occupiedBefore) dayState.isArrival = true;
 
         daysRow.push(dayState);
       }
@@ -386,8 +425,9 @@ export default function AdminCalendar() {
                     {month.daysRow.map((dayState, i) => (
                       <div 
                         key={i} 
-                        title={`Status: ${dayState.status}\nQuelle: ${dayState.source || '-'}\nPreis: ${dayState.price ? dayState.price + '€' : 'Standard'}\nMin: ${dayState.minStay ? dayState.minStay + ' Nächte' : 'Standard'}`}
+                        title={`Status: ${dayState.status}${dayState.departureFrom ? ' (Abreisetag, Anreise möglich)' : ''}${dayState.isArrival ? ' (Anreisetag, Abreise möglich)' : ''}\nQuelle: ${dayState.source || '-'}\nPreis: ${dayState.price ? dayState.price + '€' : 'Standard'}\nMin: ${dayState.minStay ? dayState.minStay + ' Nächte' : 'Standard'}`}
                         className={`w-8 h-8 flex items-center justify-center text-[10px] font-bold cursor-default transition-colors ${getCellColor(dayState)}`}
+                        style={splitCellStyle(dayState)}
                       >
                         {getCellLabel(dayState)}
                       </div>
@@ -424,6 +464,14 @@ export default function AdminCalendar() {
           <div className="flex items-center space-x-2">
             <div className="w-4 h-4 bg-blue-100 border border-blue-200 flex items-center justify-center text-[8px] text-blue-700 font-bold">D</div>
             <span>Direktbuchung</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <div className="w-4 h-4 border border-green-200 flex items-center justify-center text-[8px] text-green-700 font-bold" style={{ background: `linear-gradient(135deg, #dbeafe 50%, #dcfce7 50%)` }}>1</div>
+            <span>Abreisetag (Anreise möglich)</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <div className="w-4 h-4 border border-blue-200 flex items-center justify-center text-[8px] text-blue-700 font-bold" style={{ background: `linear-gradient(135deg, #dcfce7 50%, #dbeafe 50%)` }}>D</div>
+            <span>Anreisetag (Abreise möglich)</span>
           </div>
         </div>
       </div>

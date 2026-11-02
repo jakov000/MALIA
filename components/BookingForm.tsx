@@ -20,6 +20,10 @@ import { PROPERTY, unitByPath } from "@/lib/property-facts";
 const toUtcMidnight = (d: Date) =>
   new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())).toISOString();
 
+// Abreisetag: oben links belegt (rot), unten rechts frei (grün). Anreisetag umgekehrt.
+const DEPARTURE_GRADIENT = 'linear-gradient(135deg, #fee2e2 50%, #dcfce7 50%)';
+const ARRIVAL_GRADIENT = 'linear-gradient(135deg, #dcfce7 50%, #fee2e2 50%)';
+
 export default function BookingForm() {
   const t = useTranslations('BookingForm');
   const tRooms = useTranslations('Rooms');
@@ -210,6 +214,25 @@ export default function BookingForm() {
     return allBlocked;
   }, [rawBookings, rawBlockedDates, selectedRoom.title]);
 
+  // Wechseltage, im Kalender halb belegt (rot) und halb frei (grün):
+  //  - Abreisetag: Nacht davor belegt, Nacht selbst frei. Der vorige Gast reist
+  //    ab, der nächste kann am selben Tag anreisen.
+  //  - Anreisetag: Nacht davor frei, Nacht selbst belegt. Wer davor wohnt, kann
+  //    an diesem Tag noch abreisen.
+  const { departureDays, arrivalDays } = useMemo(() => {
+    const blockedKeys = new Set(blockedDates.map(d => d.getTime()));
+    const today = new Date(); today.setHours(0,0,0,0);
+    const departures = new Map<number, Date>();
+    const arrivals = new Map<number, Date>();
+    for (const night of blockedDates) {
+      const next = addDays(night, 1);
+      if (!blockedKeys.has(next.getTime()) && next >= today) departures.set(next.getTime(), next);
+      // Abreisen geht frühestens morgen, ein Anreisetag heute bringt also nichts.
+      if (!blockedKeys.has(addDays(night, -1).getTime()) && night > today) arrivals.set(night.getTime(), night);
+    }
+    return { departureDays: [...departures.values()], arrivalDays: [...arrivals.values()] };
+  }, [blockedDates]);
+
   // Compute Prices
   const basePricePerNight = activeConfig ? activeConfig.pricePerNight : parseInt(selectedRoom.price);
 
@@ -269,14 +292,28 @@ export default function BookingForm() {
     return disabled;
   };
 
+  const isPicked = (d: Date) =>
+    d.getTime() === date?.from?.getTime() || d.getTime() === date?.to?.getTime();
+
+  // Ist an diesem Wochentag keine Abreise erlaubt, bleibt der Anreisetag ganz belegt.
+  const shownArrivals = arrivalDays.filter(d => !noCheckoutDays.includes(d.getDay()));
+  const shownArrivalKeys = new Set(shownArrivals.map(d => d.getTime()));
+
   const modifiers = {
-    booked: blockedDates,
+    booked: blockedDates.filter(d => !shownArrivalKeys.has(d.getTime())),
+    // Ein gewählter An- oder Abreisetag behält die Auswahlfarbe des Kalenders.
+    departure: departureDays.filter(d => !isPicked(d)),
+    arrival: shownArrivals.filter(d => !isPicked(d)),
     noCheckout: (d: Date) => noCheckoutDays.includes(d.getDay())
   };
 
   const modifiersStyles: any = {
     // @ts-ignore
     booked: { textDecoration: 'line-through', color: '#991b1b', backgroundColor: '#fef2f2', borderRadius: '100%', opacity: 0.8 },
+    departure: { background: DEPARTURE_GRADIENT, borderRadius: '100%' },
+    // Klickbar erst als Abreise, wenn davor eine Anreise gewählt ist - bis dahin
+    // wie belegte Tage leicht abgeblendet.
+    arrival: { background: ARRIVAL_GRADIENT, borderRadius: '100%', opacity: 0.8 },
     // @ts-ignore
     noCheckout: { textDecoration: 'underline', textDecorationColor: '#f87171', textDecorationStyle: 'dotted', textUnderlineOffset: '4px' }
   };
@@ -426,6 +463,11 @@ export default function BookingForm() {
                  <div className="transform scale-110 origin-top">
                    <Calendar
                     mode="range"
+                    // Mindestens eine Nacht. Ohne min setzt react-day-picker 9 beim ersten
+                    // Klick Anreise UND Abreise auf denselben Tag - dann greift die Logik
+                    // für "Anreise gewählt, Abreise offen" in getDisabledDates nie, und der
+                    // Anreisetag des nächsten Gastes bleibt als Abreise gesperrt.
+                    min={1}
                     selected={date}
                     // @ts-ignore
                     onSelect={(range: DateRange | undefined) => {
@@ -452,10 +494,26 @@ export default function BookingForm() {
                   />
                  </div>
               </div>
-              {noCheckoutDays.length > 0 && (
-                <div className="flex justify-center mt-6 text-xs font-medium text-stone-600 items-center gap-3 bg-stone-50 py-2 px-4 rounded-sm border border-stone-100 inline-flex mx-auto">
-                   <span className="w-8 border-b-[3px] border-red-400 border-dotted opacity-80"></span>
-                   <span className="tracking-wide">{t('no_checkout_day')}</span>
+              {(departureDays.length > 0 || shownArrivals.length > 0 || noCheckoutDays.length > 0) && (
+                <div className="flex flex-wrap justify-center gap-3 mt-6">
+                  {departureDays.length > 0 && (
+                    <div className="inline-flex text-xs font-medium text-stone-600 items-center gap-3 bg-stone-50 py-2 px-4 rounded-sm border border-stone-100">
+                       <span className="w-4 h-4 rounded-full shrink-0" style={{ background: DEPARTURE_GRADIENT }}></span>
+                       <span className="tracking-wide">{t('departure_day')}</span>
+                    </div>
+                  )}
+                  {shownArrivals.length > 0 && (
+                    <div className="inline-flex text-xs font-medium text-stone-600 items-center gap-3 bg-stone-50 py-2 px-4 rounded-sm border border-stone-100">
+                       <span className="w-4 h-4 rounded-full shrink-0" style={{ background: ARRIVAL_GRADIENT }}></span>
+                       <span className="tracking-wide">{t('arrival_day')}</span>
+                    </div>
+                  )}
+                  {noCheckoutDays.length > 0 && (
+                    <div className="inline-flex text-xs font-medium text-stone-600 items-center gap-3 bg-stone-50 py-2 px-4 rounded-sm border border-stone-100">
+                       <span className="w-8 border-b-[3px] border-red-400 border-dotted opacity-80"></span>
+                       <span className="tracking-wide">{t('no_checkout_day')}</span>
+                    </div>
+                  )}
                 </div>
               )}
             </>
