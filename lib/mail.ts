@@ -2,6 +2,8 @@ import nodemailer from "nodemailer";
 import fs from "fs";
 import path from "path";
 import { PROPERTY, unitByName } from "@/lib/property-facts";
+import { findOffer, offerUpgradeApplies, type Offer } from "@/lib/offers";
+import { absoluteUrl } from "@/lib/seo";
 // Reuse the existing Next.js transporter or create a new one
 // Assuming SMTP settings are provided in .env
 const transporter = nodemailer.createTransport({
@@ -22,6 +24,8 @@ type ConfirmationBooking = {
   startDate: Date;
   endDate: Date;
   room: string;
+  /** Slug des gebuchten Erlebnisangebots, leer bei normalen Buchungen. */
+  offer?: string | null;
 };
 
 /**
@@ -40,9 +44,33 @@ function nebenkostenZeile(room: string): string {
   return `Endreinigung ${unit.name}: ${unit.cleaningFee} €<br/>\n        ${ortstaxe}<br/>`;
 }
 
+/** Wiener Kalendertag der Anreise als "YYYY-MM-DD" – für die Nebensaison-Regel. */
+function anreiseTag(startDate: Date): string {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Vienna", year: "numeric", month: "2-digit", day: "2-digit" }).format(startDate);
+}
+
+/**
+ * Bei Erlebnisangeboten sind Endreinigung und Kurtaxe im bezahlten Paketpreis
+ * enthalten – statt "Vor Ort zu zahlen" stehen dort Angebot und Leistungen.
+ */
+function angebotsAbschnitt(offer: Offer, startDate: Date): string {
+  const angebotsSeite = absoluteUrl("de", `/malia-specials/${offer.slug}`);
+  const upgrade = offerUpgradeApplies(offer, anreiseTag(startDate))
+    ? `Ihre Anreise fällt in die Nebensaison – das Nebensaison-Upgrade ist inklusive. Details finden Sie auf der <a href="${angebotsSeite}" style="color: #333;">Angebotsseite</a>.<br/>`
+    : "";
+  const leistungen = offer.includes.map((l) => `✓ ${l.de}<br/>`).join("\n        ");
+  return `<p><strong>Ihr Angebot: ${offer.title.de}</strong><br/>
+        Endreinigung und Kurtaxe sind im bezahlten Paketpreis bereits enthalten.<br/>
+        ${upgrade}</p>
+
+        <p><strong>Im Angebot enthalten</strong><br/>
+        ${leistungen}</p>`;
+}
+
 export async function sendBookingConfirmation(booking: ConfirmationBooking, invoicePdfBuffer?: Buffer) {
   const email = booking.guestEmail;
   const attachments = [];
+  const offer = findOffer(booking.offer);
   
   // Static PDFs - assuming they are placed in public/
   const rulesPath = path.join(process.cwd(), "public", "hausregeln.pdf");
@@ -87,7 +115,7 @@ export async function sendBookingConfirmation(booking: ConfirmationBooking, invo
         
         <p><strong>An- & Abreise</strong><br/>
         Check-in: ab 15:00 Uhr<br/>
-        Check-out: bis 10:00 Uhr</p>
+        Check-out: bis ${offer?.lateCheckout ? `${offer.lateCheckout.de} Uhr (Late Check-out laut Angebot)` : "10:00 Uhr"}</p>
 
         <p><strong>WLAN & Technik</strong><br/>
         WLAN-Name: Home<br/>
@@ -96,9 +124,9 @@ export async function sendBookingConfirmation(booking: ConfirmationBooking, invo
         <p><strong>Parken</strong><br/>
         Überdachte Parkmöglichkeiten befinden sich direkt hinter dem Haus.</p>
 
-        <p><strong>Vor Ort zu zahlen</strong><br/>
+        ${offer ? angebotsAbschnitt(offer, booking.startDate) : `<p><strong>Vor Ort zu zahlen</strong><br/>
         ${nebenkostenZeile(booking.room)}
-        Diese Beträge sind im online bezahlten Betrag nicht enthalten.</p>
+        Diese Beträge sind im online bezahlten Betrag nicht enthalten.</p>`}
 
         <p><strong>Rauchen & Haustiere</strong><br/>
         Rauchen ist ausschließlich im Außenbereich erlaubt.<br/>
@@ -145,10 +173,11 @@ export async function sendBookingConfirmation(booking: ConfirmationBooking, invo
 }
 
 export async function sendAdminNotification(booking: any) {
+  const offer = findOffer(booking.offer);
   const mailOptions = {
     from: FROM_EMAIL,
     to: FROM_EMAIL, // Admin receives it at their own email
-    subject: `Neue Buchung: ${booking.room} - ${booking.guestName}`,
+    subject: `Neue Buchung: ${offer ? `Angebot "${offer.title.de}" – ` : ""}${booking.room} - ${booking.guestName}`,
     html: `
       <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
         <h2>Neue Buchung eingegangen!</h2>
@@ -156,6 +185,7 @@ export async function sendAdminNotification(booking: any) {
         <ul>
           <li><strong>Gast:</strong> ${booking.guestName} (${booking.guestEmail})</li>
           <li><strong>Hideaway:</strong> ${booking.room}</li>
+          ${offer ? `<li><strong>Angebot:</strong> ${offer.title.de} (inkl. Endreinigung und Kurtaxe)</li>` : ""}
           <li><strong>Gästezahl:</strong> ${booking.guests}</li>
           <li><strong>Zeitraum:</strong> ${booking.startDate.toLocaleDateString('de-DE')} - ${booking.endDate.toLocaleDateString('de-DE')}</li>
           <li><strong>Umsatz:</strong> €${booking.totalPrice.toFixed(2)}</li>

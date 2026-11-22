@@ -439,7 +439,14 @@
     },
     "card": {
       "exclusive": "Exclusive Package",
-      "book": "Book now"
+      "book": "Book now",
+      "details": "Details",
+      "nights": "{count} nights",
+      "upTo": "up to {count} guests",
+      "perPerson": "{price} per person for {count} guests",
+      "inclusive": "incl. final cleaning and tourist tax",
+      "photoFollows": "Photo to follow",
+      "directBooking": "When booking direct"
     },
     "buttons": {
       "book": "Book Now",
@@ -493,7 +500,18 @@
     "details": {
       "title": "The offers in detail",
       "included": "Included in this offer"
-    }
+    },
+    "packages": {
+      "eyebrow": "Experience packages",
+      "title": "Getaways with everything included",
+      "intro": "Hand-picked stays at a fixed price – final cleaning and tourist tax are already included."
+    },
+    "discounts": {
+      "eyebrow": "Specials",
+      "title": "Benefits when you book direct",
+      "intro": "We apply these discounts automatically when you book on our website."
+    },
+    "inquiryNote": "Do you have a special wish or different dates in mind? Write to us – together we will find the right offer."
   },
   "AGB": {
     "title": "Terms and Conditions",
@@ -633,7 +651,18 @@
     "special_midweek_desc": "20% discount for 5 nights from Sunday to Friday. Perfect for quiet days.",
     "applied_special_label": "Special applied:",
     "special_76_name": "7=6 Offer",
-    "special_midweek_name": "Midweek Special (20%)"
+    "special_midweek_name": "Midweek Special (20%)",
+    "offer_label": "Your package",
+    "offer_view": "View package",
+    "offer_without": "Book without package",
+    "offer_calendar_hint": "Choose your arrival day – we set your departure {nights} nights later automatically. Greyed-out days are not available for this package.",
+    "offer_no_dates": "Unfortunately there are no dates left for this package in the coming year. Write to us – we will find a solution.",
+    "offer_price": "Package price",
+    "offer_included_note": "Final cleaning and tourist tax are included in the package price.",
+    "offer_upgrade_note": "Your dates fall in the off-season – the off-season upgrade is included.",
+    "offer_guests_max": "This package is available for up to {count} guests.",
+    "checkout_late": "Departure (until {time}):",
+    "offer_inquiry_link": "Go to the enquiry form"
   },
   "Inquiry": {
     "contact": "Contact",

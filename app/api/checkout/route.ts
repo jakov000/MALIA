@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { db } from "@/lib/db";
 import { z } from "zod";
-import { calculateStayPrice } from "@/lib/pricing";
+import { calculateStayPrice, type PricingResult } from "@/lib/pricing";
 import { ruleBlocksNight, stayNights, staysOverlap } from "@/lib/stay-dates";
+import { findOffer, offerStayAllowed } from "@/lib/offers";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_dummy123", {
   apiVersion: "2026-02-25.clover", // Use latest API version
@@ -21,12 +22,20 @@ const checkoutSchema = z.object({
   cartTotal: z.number().min(0),
   voucherCode: z.string().optional(),
   notes: z.string().optional(),
+  offer: z.string().optional(),
 });
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     const parsed = checkoutSchema.parse(body);
+
+    // Erlebnisangebot (Paket): Einheit, Dauer, Personen und Termin müssen passen,
+    // der Preis kommt ausschließlich aus lib/offers.ts.
+    const offer = parsed.offer ? findOffer(parsed.offer) : undefined;
+    if (parsed.offer && !offer) {
+      return NextResponse.json({ error: "Dieses Angebot gibt es nicht." }, { status: 400 });
+    }
 
     let voucherId = null;
     let discountApplied = 0;
@@ -67,7 +76,20 @@ export async function POST(req: Request) {
       if (rule.minStay !== null) activeMinStay = rule.minStay;
     }
 
-    if (nights < activeMinStay) {
+    if (offer) {
+      if (parsed.room !== offer.room) {
+        return NextResponse.json({ error: "Dieses Angebot gilt für eine andere Einheit." }, { status: 400 });
+      }
+      if (parsed.guestCount > offer.maxGuests) {
+        return NextResponse.json({ error: `Dieses Angebot gilt für bis zu ${offer.maxGuests} Personen.` }, { status: 400 });
+      }
+      if (!offerStayAllowed(offer, stayNights(start, end))) {
+        return NextResponse.json({ error: "Dieser Termin ist für das Angebot nicht buchbar." }, { status: 400 });
+      }
+    }
+
+    // Pakete haben ihre feste Dauer; der Mindestaufenthalt gilt nur für normale Buchungen.
+    if (!offer && nights < activeMinStay) {
       return NextResponse.json({ error: `Mindestaufenthalt nicht erreicht. Minimum am Anreisetag: ${activeMinStay} Nächte.` }, { status: 400 });
     }
 
@@ -144,7 +166,9 @@ export async function POST(req: Request) {
     // ----------------------------------------------------------------------
 
     // Server-side price calculation override (never trust client)
-    const pricing = calculateStayPrice(start, end, roomConfig.pricePerNight, calendarRules);
+    const pricing: PricingResult = offer
+      ? { nights: offer.nights, basePrice: offer.price, discount: 0, total: offer.price, appliedSpecial: null }
+      : calculateStayPrice(start, end, roomConfig.pricePerNight, calendarRules);
     let finalTotal = pricing.total;
     let specialDiscount = pricing.discount;
 
@@ -192,7 +216,8 @@ export async function POST(req: Request) {
         status: "PENDING",
         voucherId,
         notes: parsed.notes,
-        source: "DIRECT"
+        source: "DIRECT",
+        offer: offer?.slug ?? null,
       }
     });
 
@@ -203,8 +228,8 @@ export async function POST(req: Request) {
           price_data: {
             currency: "eur",
             product_data: {
-              name: `Malia - ${parsed.room}`,
-              description: `${parsed.guestCount} Gäste, von ${new Date(parsed.startDate).toLocaleDateString()} bis ${new Date(parsed.endDate).toLocaleDateString()}`,
+              name: offer ? `Malia - ${offer.title.de} (${parsed.room})` : `Malia - ${parsed.room}`,
+              description: `${parsed.guestCount} Gäste, von ${new Date(parsed.startDate).toLocaleDateString()} bis ${new Date(parsed.endDate).toLocaleDateString()}${offer ? ", inkl. Endreinigung und Kurtaxe" : ""}`,
             },
             unit_amount: amountInCents,
           },
@@ -213,13 +238,14 @@ export async function POST(req: Request) {
       ],
       mode: "payment",
       success_url: `${process.env.NEXT_PUBLIC_APP_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/booking?canceled=true`,
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/booking?canceled=true${offer ? `&angebot=${offer.slug}` : ""}`,
       customer_email: parsed.guestEmail,
       metadata: {
         bookingId: booking.id, // Important for webhook to link payment to DB
         voucherId: voucherId || "",
         discountApplied: (discountApplied + specialDiscount).toString(),
         specialApplied: pricing.appliedSpecial || "",
+        offer: offer?.slug ?? "",
       },
     });
 

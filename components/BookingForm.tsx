@@ -8,9 +8,11 @@ import { DateRange } from "react-day-picker";
 import { Loader2 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { SUITES } from "@/lib/data";
-import { useTranslations } from "next-intl";
-import { calculateStayPrice } from "@/lib/pricing";
+import { useLocale, useTranslations } from "next-intl";
+import { calculateStayPrice, type PricingResult } from "@/lib/pricing";
 import { PROPERTY, unitByPath } from "@/lib/property-facts";
+import { findOffer, formatEuro, offerStayAllowed, offerUpgradeApplies } from "@/lib/offers";
+import type { Locale } from "@/lib/seo";
 
 // The calendar hands us local midnight. toISOString() converts that to UTC and
 // lands on the PREVIOUS day for every timezone east of UTC (Vienna is UTC+1/+2),
@@ -24,9 +26,15 @@ const toUtcMidnight = (d: Date) =>
 const DEPARTURE_GRADIENT = 'linear-gradient(135deg, #fee2e2 50%, #dcfce7 50%)';
 const ARRIVAL_GRADIENT = 'linear-gradient(135deg, #dcfce7 50%, #fee2e2 50%)';
 
-export default function BookingForm() {
+// Kalendertag als "YYYY-MM-DD" – so prüfen lib/offers.ts und der Server die Nächte.
+const ymd = (d: Date) => format(d, "yyyy-MM-dd");
+
+export default function BookingForm({ offerSlug }: { offerSlug?: string }) {
   const t = useTranslations('BookingForm');
   const tRooms = useTranslations('Rooms');
+  const locale = useLocale() as Locale;
+  // Paketmodus (?angebot=…): Einheit, Dauer und Preis kommen aus dem Angebot.
+  const offer = findOffer(offerSlug);
   
   const richOptions = {
     bold: (chunks: React.ReactNode) => <strong className="font-bold">{chunks}</strong>,
@@ -46,7 +54,9 @@ export default function BookingForm() {
   const [step, setStep] = useState<1 | 2>(1); // 1 = Calendar & Suite, 2 = Form Details
   
   // Room and Guest Selection
-  const [selectedRoomIndex, setSelectedRoomIndex] = useState<number>(0);
+  const [selectedRoomIndex, setSelectedRoomIndex] = useState<number>(() =>
+    offer ? Math.max(0, SUITES.findIndex((s) => s.title === offer.room)) : 0
+  );
   const [detailsRoomIndex, setDetailsRoomIndex] = useState<number | null>(null); // State for Room Details Modal
 
   const selectedRoom = SUITES[selectedRoomIndex];
@@ -54,7 +64,8 @@ export default function BookingForm() {
   // bezahlt. Die Endreinigung unterscheidet sich je Einheit, deshalb aus den
   // Stammdaten statt als fester Text.
   const selectedUnit = selectedRoom.href ? unitByPath(selectedRoom.href) : undefined;
-  const maxGuests = selectedRoom.persons.includes('-') ? parseInt(selectedRoom.persons.split('-')[1]) : parseInt(selectedRoom.persons);
+  const unitMaxGuests = selectedRoom.persons.includes('-') ? parseInt(selectedRoom.persons.split('-')[1]) : parseInt(selectedRoom.persons);
+  const maxGuests = offer ? Math.min(unitMaxGuests, offer.maxGuests) : unitMaxGuests;
   const minGuests = selectedRoom.persons.includes('-') ? parseInt(selectedRoom.persons.split('-')[0]) : parseInt(selectedRoom.persons);
   
   const [guestCount, setGuestCount] = useState<number>(minGuests);
@@ -233,13 +244,37 @@ export default function BookingForm() {
     return { departureDays: [...departures.values()], arrivalDays: [...arrivals.values()] };
   }, [blockedDates]);
 
+  // Paketmodus: Anreise nur, wenn alle Nächte frei sind und die Regeln des
+  // Angebots sie erlauben (Monate, Sperrzeiten, Fr/Sa). Die Abreise ergibt sich.
+  const offerArrivals = useMemo(() => {
+    if (!offer) return [];
+    const blockedKeys = new Set(blockedDates.map(d => d.getTime()));
+    const today = new Date(); today.setHours(0,0,0,0);
+    const arrivals: Date[] = [];
+    for (let i = 0; i <= 365; i++) {
+      const arrival = addDays(today, i);
+      const nights = Array.from({ length: offer.nights }, (_, n) => addDays(arrival, n));
+      if (nights.every(n => !blockedKeys.has(n.getTime())) && offerStayAllowed(offer, nights.map(ymd))) {
+        arrivals.push(arrival);
+      }
+    }
+    return arrivals;
+  }, [offer, blockedDates]);
+  const offerArrivalKeys = useMemo(() => new Set(offerArrivals.map(d => d.getTime())), [offerArrivals]);
+  const isOfferArrival = (d: Date) => {
+    const day = new Date(d); day.setHours(0,0,0,0);
+    return offerArrivalKeys.has(day.getTime());
+  };
+
   // Compute Prices
   const basePricePerNight = activeConfig ? activeConfig.pricePerNight : parseInt(selectedRoom.price);
 
-  const pricing = useMemo(() => {
+  const pricing = useMemo<PricingResult | null>(() => {
     if (!date?.from || !date?.to) return null;
+    // Festpreis des Pakets – 7=6 und Midweek gelten hier nicht.
+    if (offer) return { nights: offer.nights, basePrice: offer.price, discount: 0, total: offer.price, appliedSpecial: null };
     return calculateStayPrice(date.from, date.to, basePricePerNight, roomRules);
-  }, [date, basePricePerNight, roomRules]);
+  }, [date, basePricePerNight, roomRules, offer]);
 
   const nights = pricing?.nights || 0;
   const subtotal = pricing?.basePrice || 0;
@@ -257,6 +292,9 @@ export default function BookingForm() {
 
   // Dynamic Calendar Constraints
   const getDisabledDates = () => {
+    // Paketmodus: geklickt wird nur die Anreise, alles andere ist gesperrt.
+    if (offer) return [{ before: new Date() }, (d: Date) => !isOfferArrival(d)];
+
     let disabled: any[] = [
       { before: new Date() }, // Cannot book past
       ...blockedDates
@@ -366,6 +404,7 @@ export default function BookingForm() {
           cartTotal: subtotal,
           voucherCode: voucherData ? voucherCode : undefined,
           notes,
+          offer: offer?.slug,
         }),
       });
       
@@ -394,6 +433,24 @@ export default function BookingForm() {
              <h2 className="text-3xl md:text-4xl font-serif text-stone-900 tracking-wide uppercase">{t('title1')}</h2>
           </div>
           
+          {offer ? (
+            // Paketmodus: das Angebot ersetzt Specials-Hinweis und Zimmerauswahl.
+            <div className="mb-10 p-6 bg-[#fdfaf8] border border-[#f3e8e2] rounded-sm">
+              <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#3d3d29] mb-3">{t('offer_label')}</h4>
+              <p className="font-serif text-2xl text-stone-900">{offer.title[locale]}</p>
+              <p className="text-xs text-stone-600 mt-2 uppercase tracking-wider">
+                {selectedRoom.title} · {offer.nights} {t('nights')} · {offer.maxGuests} {t('persons')}
+              </p>
+              <p className="text-sm text-stone-800 mt-3">
+                {formatEuro(offer.price, locale)} <span className="text-xs text-stone-500 font-light">· {t('offer_included_note')}</span>
+              </p>
+              <div className="flex flex-wrap gap-x-6 gap-y-2 mt-4 text-[10px] uppercase tracking-wider">
+                <a href={`/${locale}/malia-specials/${offer.slug}`} className="text-stone-600 underline hover:text-stone-900">{t('offer_view')}</a>
+                <a href={`/${locale}/booking`} className="text-stone-400 underline hover:text-stone-900">{t('offer_without')}</a>
+              </div>
+            </div>
+          ) : (
+          <>
           <div className="mb-10 p-6 bg-[#fdfaf8] border border-[#f3e8e2] rounded-sm">
             <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#3d3d29] mb-4">{t('specials_title')}</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -433,6 +490,8 @@ export default function BookingForm() {
               ))}
             </div>
           </div>
+          </>
+          )}
 
           {/* Guest Selection */}
           <div className="mb-10 w-full sm:w-1/2">
@@ -450,9 +509,22 @@ export default function BookingForm() {
                  className="px-4 py-3 bg-stone-50 hover:bg-stone-100 disabled:opacity-50 text-stone-600 transition-colors w-12 flex justify-center items-center"
                >+</button>
             </div>
+            {offer && (
+              <p className="text-xs text-stone-500 font-light mt-2">{t('offer_guests_max', { count: maxGuests })}</p>
+            )}
           </div>
 
           <label className="block text-sm text-stone-600 font-medium mb-3">{t('select_dates')}</label>
+          {offer && !loadingDates && (
+            offerArrivals.length > 0 ? (
+              <p className="text-xs text-stone-500 font-light mb-4 leading-relaxed">{t('offer_calendar_hint', { nights: offer.nights })}</p>
+            ) : (
+              <p className="text-sm text-stone-700 mb-4 p-4 bg-[#fdfaf8] border border-[#f3e8e2] leading-relaxed">
+                {t('offer_no_dates')}{' '}
+                <a href={`/${locale}/inquiry`} className="underline">{t('offer_inquiry_link')}</a>
+              </p>
+            )
+          )}
           {loadingDates ? (
             <div className="flex items-center justify-center p-12 bg-stone-50 rounded-lg">
               <Loader2 className="animate-spin text-stone-400" size={32} />
@@ -469,8 +541,17 @@ export default function BookingForm() {
                     // Anreisetag des nächsten Gastes bleibt als Abreise gesperrt.
                     min={1}
                     selected={date}
+                    // Im Paketmodus mit dem ersten möglichen Anreisemonat öffnen.
+                    defaultMonth={offer ? offerArrivals[0] : undefined}
                     // @ts-ignore
-                    onSelect={(range: DateRange | undefined) => {
+                    onSelect={(range: DateRange | undefined, triggerDate: Date) => {
+                      if (offer) {
+                        // Feste Dauer: der Klick setzt die Anreise, die Abreise folgt daraus.
+                        if (triggerDate && isOfferArrival(triggerDate)) {
+                          setDate({ from: triggerDate, to: addDays(triggerDate, offer.nights) });
+                        }
+                        return;
+                      }
                       if (range?.from && range?.to) {
                         // Check if any blocked date strictly falls between the selected check-in and check-out
                         const overlaps = blockedDates.some(d => {
@@ -523,12 +604,18 @@ export default function BookingForm() {
         {date?.from && date?.to && (
           <div className="bg-[#3d3d29] text-white p-6 rounded-lg space-y-4">
             <h3 className="font-serif text-xl tracking-wider">{t('stay_title')}</h3>
+            {offer && (
+              <div className="flex justify-between gap-4 text-sm font-light">
+                <span>{t('offer_label')}:</span>
+                <span className="text-right">{offer.title[locale]}</span>
+              </div>
+            )}
             <div className="flex justify-between text-sm font-light">
               <span>{t('checkin')}</span>
               <span>{format(date.from, "dd. MMMM yyyy", { locale: de })}</span>
             </div>
             <div className="flex justify-between text-sm font-light">
-              <span>{t('checkout')}</span>
+              <span>{offer?.lateCheckout ? t('checkout_late', { time: offer.lateCheckout[locale] }) : t('checkout')}</span>
               <span>{format(date.to, "dd. MMMM yyyy", { locale: de })}</span>
             </div>
             <div className="flex justify-between text-sm font-light">
@@ -547,20 +634,20 @@ export default function BookingForm() {
             <hr className="border-stone-700 my-4" />
             
             {/* Validation Messages */}
-            {date.to && nights < activeMinStay && (
+            {!offer && date.to && nights < activeMinStay && (
               <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-sm text-sm mb-4">
                 {t('min_stay_1')} <strong>{activeMinStay} {activeMinStay === 1 ? t('night') : t('nights')}</strong>.<br/>{t('min_stay_2')}
               </div>
             )}
             
-            {date.to && noCheckoutDays.includes(date.to.getDay()) && (
+            {!offer && date.to && noCheckoutDays.includes(date.to.getDay()) && (
               <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-sm text-sm mb-4">
                 {t('checkout_error_1')} <strong>{format(date.to, "EEEE", { locale: de })}</strong> {t('checkout_error_2')}<br/>{t('checkout_error_3')}
               </div>
             )}
 
             <div className="flex justify-between items-center text-lg">
-              <span>{t('subtotal')}</span>
+              <span>{offer ? t('offer_price') : t('subtotal')}</span>
               <span className={specialDiscount > 0 ? "line-through opacity-50 text-sm" : ""}>
                 € {subtotal.toFixed(2)}
               </span>
@@ -590,7 +677,12 @@ export default function BookingForm() {
               <span>€ {finalTotal.toFixed(2)}</span>
             </div>
 
-            {selectedUnit && (
+            {offer ? (
+              <div className="text-xs font-light text-stone-300 leading-relaxed space-y-1">
+                <p>{t('offer_included_note')}</p>
+                {offerUpgradeApplies(offer, ymd(date.from)) && <p>{t('offer_upgrade_note')}</p>}
+              </div>
+            ) : selectedUnit && (
               <p className="text-xs font-light text-stone-300 leading-relaxed">
                 {t('extra_costs_note', {
                   touristTax: PROPERTY.touristTaxPerPersonPerNight,
@@ -601,9 +693,10 @@ export default function BookingForm() {
             )}
 
             {step === 1 && (
-              <button 
+              <button
                 onClick={() => setStep(2)}
-                disabled={nights < activeMinStay || (date?.to ? noCheckoutDays.includes(date.to.getDay()) : false)}
+                // Im Paketmodus sind Dauer und Termin durch die Auswahl schon gültig.
+                disabled={!offer && (nights < activeMinStay || (date?.to ? noCheckoutDays.includes(date.to.getDay()) : false))}
                 className="w-full mt-6 py-3 bg-white text-stone-900 font-medium uppercase tracking-widest text-xs hover:bg-stone-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {t('continue_data')}

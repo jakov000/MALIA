@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
 import { Loader2, Trash2, XCircle } from "lucide-react";
+import { findOffer } from "@/lib/offers";
 
 type Booking = {
   id: string;
@@ -16,6 +17,8 @@ type Booking = {
   status: string;
   source: string;
   notes: string | null;
+  /** Slug des Erlebnisangebots (lib/offers.ts), leer bei normalen Buchungen. */
+  offer?: string | null;
   createdAt: string;
 };
 
@@ -111,6 +114,11 @@ export default function BookingsTable() {
                 </td>
                 <td className="px-6 py-4">
                   <span className="inline-block px-2 py-0.5 bg-stone-100 text-[#3d3d29] text-[10px] uppercase tracking-wider rounded-sm font-bold mb-1.5">{b.room}</span>
+                  {findOffer(b.offer) && (
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-amber-700 mb-1">
+                      Angebot: {findOffer(b.offer)!.title.de}
+                    </div>
+                  )}
                   <div className="text-stone-900 block">{format(new Date(b.startDate), "dd.MM.yyyy")}</div>
                   <div className="text-stone-500 text-xs mt-0.5">bis {format(new Date(b.endDate), "dd.MM.yyyy")}</div>
                 </td>

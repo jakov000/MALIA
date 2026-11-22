@@ -439,7 +439,14 @@
     },
     "card": {
       "exclusive": "Exklusives Paket",
-      "book": "Jetzt buchen"
+      "book": "Jetzt buchen",
+      "details": "Details",
+      "nights": "{count} Nächte",
+      "upTo": "bis {count} Personen",
+      "perPerson": "{price} pro Person bei {count} Personen",
+      "inclusive": "inkl. Endreinigung und Kurtaxe",
+      "photoFollows": "Foto folgt",
+      "directBooking": "Bei Direktbuchung"
     },
     "buttons": {
       "book": "Jetzt Buchen",
@@ -493,7 +500,18 @@
     "details": {
       "title": "Die Angebote im Detail",
       "included": "Im Angebot enthalten"
-    }
+    },
+    "packages": {
+      "eyebrow": "Erlebnisangebote",
+      "title": "Auszeiten mit allem, was dazugehört",
+      "intro": "Ausgewählte Aufenthalte zum Festpreis – Endreinigung und Kurtaxe sind bereits enthalten."
+    },
+    "discounts": {
+      "eyebrow": "Specials",
+      "title": "Vorteile bei direkter Buchung",
+      "intro": "Diese Rabatte berücksichtigen wir bei einer Buchung über unsere Website automatisch."
+    },
+    "inquiryNote": "Ihr habt einen besonderen Wunsch oder einen anderen Zeitraum im Kopf? Schreibt uns – wir finden gemeinsam das passende Angebot."
   },
   "AGB": {
     "title": "Allgemeine Geschäftsbedingungen",
@@ -633,7 +651,18 @@
     "special_midweek_desc": "20% Rabatt bei 5 Nächten von Sonntag bis Freitag. Perfekt für ruhige Tage.",
     "applied_special_label": "Special angewendet:",
     "special_76_name": "7=6 Angebot",
-    "special_midweek_name": "Midweek Special (20%)"
+    "special_midweek_name": "Midweek Special (20%)",
+    "offer_label": "Dein Angebot",
+    "offer_view": "Angebot ansehen",
+    "offer_without": "Ohne Angebot buchen",
+    "offer_calendar_hint": "Wähle deinen Anreisetag – die Abreise setzen wir automatisch {nights} Nächte später. Ausgegraute Tage sind für dieses Angebot nicht möglich.",
+    "offer_no_dates": "Für dieses Angebot ist im kommenden Jahr leider kein Termin mehr frei. Schreib uns gern – wir finden eine Lösung.",
+    "offer_price": "Paketpreis",
+    "offer_included_note": "Endreinigung und Kurtaxe sind im Paketpreis enthalten.",
+    "offer_upgrade_note": "Euer Termin liegt in der Nebensaison – das Nebensaison-Upgrade ist inklusive.",
+    "offer_guests_max": "Für dieses Angebot sind bis zu {count} Personen möglich.",
+    "checkout_late": "Abreise (bis {time} Uhr):",
+    "offer_inquiry_link": "Zum Anfrageformular"
   },
   "Inquiry": {
     "contact": "Kontakt",

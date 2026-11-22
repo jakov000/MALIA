@@ -1,4 +1,5 @@
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import { findOffer } from '@/lib/offers';
 
 export async function generateInvoicePdf(booking: any, invoiceNumber: string): Promise<Buffer> {
   const pdfDoc = await PDFDocument.create();
@@ -60,11 +61,19 @@ export async function generateInvoicePdf(booking: any, invoiceNumber: string): P
   const startStr = new Date(booking.startDate).toLocaleDateString('de-DE');
   const endStr = new Date(booking.endDate).toLocaleDateString('de-DE');
   
+  // Erlebnisangebote: Paket mit Festpreis, Endreinigung und Kurtaxe sind enthalten.
+  const offer = findOffer(booking.offer);
   drawText('1', 50, rowTop);
-  drawText(`Übernachtung ${booking.room} (${startStr} - ${endStr})`, 100, rowTop);
+  if (offer) {
+    drawText(`Angebot "${offer.title.de}"`, 100, rowTop);
+    drawText(`${booking.room} (${startStr} - ${endStr}), inkl. Endreinigung und Kurtaxe`, 100, rowTop + 13, 9);
+  } else {
+    drawText(`Übernachtung ${booking.room} (${startStr} - ${endStr})`, 100, rowTop);
+  }
   drawRightText(booking.totalPrice.toFixed(2), 545, rowTop);
-  
-  page.drawLine({ start: { x: 50, y: height - rowTop - 15 }, end: { x: 545, y: height - rowTop - 15 }, thickness: 1 });
+
+  const rowBottom = offer ? rowTop + 28 : rowTop + 15;
+  page.drawLine({ start: { x: 50, y: height - rowBottom }, end: { x: 545, y: height - rowBottom }, thickness: 1 });
 
   // --- Totals ---
   const totalTop = 330;

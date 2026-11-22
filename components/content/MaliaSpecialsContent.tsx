@@ -1,92 +1,119 @@
 "use client";
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { SPECIALS } from '@/lib/data';
+import Link from 'next/link';
 import Button from '@/components/ui/Button';
 import PageFooter from '@/components/PageFooter';
 import { useTranslations, useLocale } from 'next-intl';
+import { DISCOUNT_SPECIALS, OFFERS, formatEuro, offerUnit, type DiscountSpecial, type Offer } from '@/lib/offers';
+import type { Locale } from '@/lib/seo';
+
+/** Bildfläche einer Kachel – mit Foto oder, solange keins da ist, mit Platzhalter. */
+function TileImage({ src, alt, placeholder }: { src?: string; alt: string; placeholder: string }) {
+    return (
+        <div className="aspect-[4/3] relative overflow-hidden bg-[#ebe8e1]">
+            {src ? (
+                <Image
+                    src={src}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-[2000ms] group-hover:scale-105"
+                    alt={alt}
+                />
+            ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-stone-400">{placeholder}</span>
+                </div>
+            )}
+        </div>
+    );
+}
+
+function OfferTile({ offer, locale }: { offer: Offer; locale: Locale }) {
+    const t = useTranslations('Specials');
+    const detailHref = `/${locale}/malia-specials/${offer.slug}`;
+    return (
+        <article className="group flex flex-col bg-white border border-stone-200">
+            <Link href={detailHref} aria-label={offer.title[locale]}>
+                <TileImage src={offer.image} alt={offer.imageAlt?.[locale] ?? offer.title[locale]} placeholder={t('card.photoFollows')} />
+            </Link>
+            <div className="flex flex-col flex-1 p-6 md:p-7">
+                <p className="text-[10px] uppercase tracking-[0.25em] text-[#3d3d29] font-bold">
+                    {offerUnit(offer).name} · {t('card.nights', { count: offer.nights })} · {t('card.upTo', { count: offer.maxGuests })}
+                </p>
+                <h3 className="mt-3 text-2xl font-serif text-stone-800 leading-snug">
+                    <Link href={detailHref} className="hover:text-[#3d3d29] transition-colors">
+                        {offer.title[locale]}
+                    </Link>
+                </h3>
+                <p className="mt-3 text-sm font-light text-gray-600 leading-relaxed">{offer.teaser[locale]}</p>
+
+                <div className="mt-auto pt-6">
+                    <p className="text-xl font-serif text-stone-800">{formatEuro(offer.price, locale)}</p>
+                    <p className="text-xs font-light text-stone-500 mt-1">
+                        {t('card.perPerson', { price: formatEuro(offer.pricePerPerson, locale, 0), count: offer.maxGuests })}
+                    </p>
+                    <p className="text-xs font-light text-stone-500">{t('card.inclusive')}</p>
+                    <div className="grid grid-cols-2 gap-3 mt-6">
+                        <Button href={detailHref} variant="outline" className="px-2! tracking-[0.15em]! whitespace-nowrap">{t('card.details')}</Button>
+                        <Button href={`/${locale}/booking?angebot=${offer.slug}`} variant="sage" className="px-2! tracking-[0.15em]! whitespace-nowrap">{t('card.book')}</Button>
+                    </div>
+                </div>
+            </div>
+        </article>
+    );
+}
+
+function DiscountTile({ special, locale }: { special: DiscountSpecial; locale: Locale }) {
+    const t = useTranslations('Specials');
+    const detailHref = `/${locale}/malia-specials/${special.slug}`;
+    const titel = t(`offers.${special.messageId}.shortTitle`);
+    return (
+        <article className="group flex flex-col bg-white border border-stone-200">
+            <Link href={detailHref} aria-label={titel}>
+                <TileImage
+                    src={special.image}
+                    alt={`${titel} – MALIA Alpine Hideaway in Pertisau am Achensee`}
+                    placeholder={t('card.photoFollows')}
+                />
+            </Link>
+            <div className="flex flex-col flex-1 p-6 md:p-7">
+                <p className="text-[10px] uppercase tracking-[0.25em] text-[#3d3d29] font-bold">{t('card.directBooking')}</p>
+                <h3 className="mt-3 text-2xl font-serif text-stone-800 leading-snug">
+                    <Link href={detailHref} className="hover:text-[#3d3d29] transition-colors">{titel}</Link>
+                </h3>
+                <p className="mt-3 text-sm font-light text-gray-600 leading-relaxed italic font-serif">
+                    {t(`offers.${special.messageId}.subtitle`)}
+                </p>
+                <div className="mt-auto pt-6 grid grid-cols-2 gap-3">
+                    <Button href={detailHref} variant="outline" className="px-2! tracking-[0.15em]! whitespace-nowrap">{t('card.details')}</Button>
+                    <Button href={`/${locale}/booking`} variant="sage" className="px-2! tracking-[0.15em]! whitespace-nowrap">{t('card.book')}</Button>
+                </div>
+            </div>
+        </article>
+    );
+}
+
+function Rubrik({ eyebrow, title, intro, children }: { eyebrow: string; title: string; intro: string; children: React.ReactNode }) {
+    return (
+        <div>
+            <div className="max-w-2xl mb-10 md:mb-14">
+                <span className="text-[10px] uppercase tracking-[0.4em] text-[#3d3d29] font-bold">{eyebrow}</span>
+                <h2 className="mt-3 text-3xl md:text-4xl font-serif text-stone-800 tracking-wide">{title}</h2>
+                <p className="mt-4 font-light text-gray-600 leading-relaxed">{intro}</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">{children}</div>
+        </div>
+    );
+}
 
 export default function MaliaSpecialsContent() {
     const t = useTranslations('Specials');
-    const localActive = useLocale();
-    const loc = (path: string) => `/${localActive}${path}`;
-
-    const [selectedSpecial, setSelectedSpecial] = useState<number | null>(null);
-
-    const richOptions = {
-        bold: (chunks: React.ReactNode) => <strong className="font-medium text-stone-800">{chunks}</strong>,
-        br: () => <br />
-    };
-
-    const currentSpecial = SPECIALS.find(s => s.id === selectedSpecial);
+    const locale = useLocale() as Locale;
 
     return (
         <div className="bg-white min-h-screen">
-
-            {/* --- MODAL SYSTEM --- */}
-            <AnimatePresence>
-                {selectedSpecial && currentSpecial && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[100] bg-stone-900/40 backdrop-blur-md flex items-center justify-center p-4 md:p-8"
-                        onClick={() => setSelectedSpecial(null)} // Schließt Modal beim Klick auf Hintergrund
-                    >
-                        <motion.div
-                            initial={{ scale: 0.9, y: 20 }}
-                            animate={{ scale: 1, y: 0 }}
-                            exit={{ scale: 0.9, y: 20 }}
-                            onClick={(e) => e.stopPropagation()} // Verhindert Schließen beim Klick ins Modal
-                            className="bg-white w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl relative rounded-sm"
-                        >
-                            <button
-                                onClick={() => setSelectedSpecial(null)}
-                                className="absolute top-6 right-6 p-2 hover:bg-stone-100 rounded-full transition-colors z-10"
-                            >
-                                <X size={24} className="text-stone-800" />
-                            </button>
-
-                            {/* --- MODAL INHALT --- */}
-                            <div className="p-10 md:p-16 space-y-10">
-                                <div className="space-y-6 text-center">
-                                    <span className="text-[10px] uppercase tracking-[0.4em] text-[#3d3d29] font-bold">{t('modal.label')}</span>
-                                    <h2 className="text-3xl md:text-4xl font-serif text-stone-800 uppercase tracking-wide leading-tight">
-                                        {t(`offers.${selectedSpecial}.title`)}
-                                    </h2>
-                                    <div className="text-gray-600 font-light leading-relaxed max-w-xl mx-auto space-y-4">
-                                        <p>{t.rich(`offers.${selectedSpecial}.description`, richOptions)}</p>
-                                        {t(`offers.${selectedSpecial}.intro_bullets`) && (
-                                            <p className="font-bold pt-2">{t(`offers.${selectedSpecial}.intro_bullets`)}</p>
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div className="bg-stone-50/80 p-8 border-y border-stone-100">
-                                    <p className="text-sm font-bold uppercase tracking-widest text-[#3d3d29] mb-6 text-center">
-                                        {t.rich(`offers.${selectedSpecial}.highlight`, richOptions)}
-                                    </p>
-                                    <ul className="space-y-3 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
-                                        {Array.from({ length: 10 }).map((_, i) => (
-                                            <li key={i} className="flex items-start gap-3 text-xs text-gray-600 font-light">
-                                                <Check size={14} className="text-[#3d3d29] mt-0.5 flex-shrink-0" />
-                                                <span>{t.rich(`offers.${selectedSpecial}.features.${i}`, richOptions)}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-
-                                <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
-                                    <Button href={loc("/booking")} variant="sage" className="w-full sm:w-auto min-w-[200px]">{t('buttons.book')}</Button>
-                                    <Button href={loc("/inquiry")} variant="outline" className="w-full sm:w-auto min-w-[200px]">{t('buttons.inquiry')}</Button>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
 
             {/* --- 1. HERO SECTION --- */}
             <section className="relative h-screen w-full overflow-hidden bg-stone-900">
@@ -115,110 +142,25 @@ export default function MaliaSpecialsContent() {
                 </div>
             </section>
 
-            {/* --- 2. SPECIALS GRID SECTION --- */}
-            <section className="py-24 md:py-40 px-6 max-w-5xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
-                    {SPECIALS.map((special) => (
-                        <motion.div
-                            key={special.id}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            className="group cursor-pointer"
-                            onClick={() => setSelectedSpecial(special.id)}
-                        >
-                            <div className="aspect-[4/5] overflow-hidden relative mb-8 shadow-sm bg-stone-100">
-                                <Image
-                                    src={special.img}
-                                    fill
-                                    className="object-cover transition-transform duration-[2000ms] group-hover:scale-110"
-                                    alt={`${special.shortTitle} – MALIA Alpine Hideaway in Pertisau am Achensee`}
-                                    sizes="(max-width: 768px) 100vw, 50vw"
-                                />
-                                <div className="absolute inset-0 bg-stone-900/20 group-hover:bg-stone-900/40 transition-colors duration-500" />
-
-                                {/* Center Content */}
-                                <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-8">
-                                    <span className="text-[10px] uppercase tracking-[0.4em] mb-4 opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0">
-                                        {t('card.exclusive')}
-                                    </span>
-                                    <h3 className="text-3xl md:text-5xl font-serif uppercase tracking-widest mb-2">
-                                        {t(`offers.${special.id}.shortTitle`)}
-                                    </h3>
-                                    <p className="text-sm md:text-lg italic font-serif opacity-90">
-                                        {t(`offers.${special.id}.subtitle`)}
-                                    </p>
-
-                                    <div className="mt-12">
-                                        <Button href={loc("/booking")} variant="white" className="bg-transparent border border-white/50 backdrop-blur-sm hover:bg-white hover:text-stone-900 pointer-events-auto">
-                                            {t('card.book')}
-                                        </Button>
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
+            {/* --- 2. ERLEBNISANGEBOTE & SPECIALS --- */}
+            <section className="py-24 md:py-32 px-6 max-w-7xl mx-auto space-y-24 md:space-y-32">
+                <Rubrik eyebrow={t('packages.eyebrow')} title={t('packages.title')} intro={t('packages.intro')}>
+                    {OFFERS.map((offer) => (
+                        <OfferTile key={offer.slug} offer={offer} locale={locale} />
                     ))}
-                </div>
-            </section>
+                </Rubrik>
 
-            {/*
-              --- 2b. ANGEBOTE IM DETAIL (SEO 3) ---
-              Dieselben Inhalte wie im Modal, aber als regulärer Seiteninhalt.
-              Das Modal wird nur bei Klick gerendert und stand damit nie im
-              DOM — die gesamten Angebotstexte waren für Crawler und
-              KI-Systeme unsichtbar.
-            */}
-            <section className="pb-24 md:pb-32 px-6 bg-white">
-                <div className="max-w-3xl mx-auto border-t border-stone-200 pt-16 space-y-20">
-                    <h2 className="text-xl md:text-2xl font-serif uppercase tracking-[0.3em] text-stone-800">
-                        {t('details.title')}
-                    </h2>
-
-                    {SPECIALS.map((special) => (
-                        <article key={special.id} className="space-y-5">
-                            <h3 className="text-2xl md:text-3xl font-serif text-stone-800 leading-tight">
-                                {t(`offers.${special.id}.title`)}
-                            </h3>
-                            <p className="text-xs uppercase tracking-[0.3em] text-[#3d3d29] font-bold">
-                                {t(`offers.${special.id}.subtitle`)}
-                            </p>
-
-                            <div className="font-light text-gray-600 leading-relaxed">
-                                {t.rich(`offers.${special.id}.description`, richOptions)}
-                            </div>
-
-                            <p className="font-light text-stone-800 border-l-2 border-[#bcc2b2] pl-4">
-                                {t.rich(`offers.${special.id}.highlight`, richOptions)}
-                            </p>
-
-                            <div>
-                                <p className="text-xs uppercase tracking-widest font-bold text-stone-700 mb-3">
-                                    {t('details.included')}
-                                </p>
-                                <ul className="space-y-2">
-                                    {/* Nur Einträge rendern, die auch übersetzt sind — die
-                                        features-Listen in data.ts und in den Sprachdateien
-                                        sind unterschiedlich lang. */}
-                                    {special.features
-                                        .map((_, i) => i)
-                                        .filter((i) => t.has(`offers.${special.id}.features.${i}`))
-                                        .map((i) => (
-                                            <li key={i} className="flex gap-3 font-light text-gray-600 text-sm leading-relaxed">
-                                                <Check className="w-4 h-4 mt-1 shrink-0 text-[#bcc2b2]" strokeWidth={2} />
-                                                <span>{t.rich(`offers.${special.id}.features.${i}`, richOptions)}</span>
-                                            </li>
-                                        ))}
-                                </ul>
-                            </div>
-                        </article>
+                <Rubrik eyebrow={t('discounts.eyebrow')} title={t('discounts.title')} intro={t('discounts.intro')}>
+                    {DISCOUNT_SPECIALS.map((special) => (
+                        <DiscountTile key={special.slug} special={special} locale={locale} />
                     ))}
+                </Rubrik>
 
-                    <div className="flex flex-wrap gap-4 pt-4">
-                        <Button href={loc('/booking')} variant="primary">{t('buttons.book')}</Button>
-                        <Button href={loc('/inquiry')} variant="outline" className="border-stone-800 hover:bg-stone-50">
-                            {t('buttons.inquiry')}
-                        </Button>
-                    </div>
+                <div className="border-t border-stone-200 pt-12 flex flex-col sm:flex-row sm:items-center gap-6 justify-between">
+                    <p className="font-light text-gray-600 max-w-xl">{t('inquiryNote')}</p>
+                    <Button href={`/${locale}/inquiry`} variant="outline" className="border-stone-800 hover:bg-stone-50 shrink-0">
+                        {t('buttons.inquiry')}
+                    </Button>
                 </div>
             </section>
 

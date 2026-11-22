@@ -29,6 +29,7 @@ model Booking {
   voucherId     String?  
   notes         String?
   source        String   @default("DIRECT") // DIRECT, AIRBNB, BOOKING
+  offer         String?  // Slug des Erlebnisangebots (lib/offers.ts), leer bei normalen Buchungen
   createdAt     DateTime @default(now())
 }
 

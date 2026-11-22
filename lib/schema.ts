@@ -8,6 +8,7 @@ import {
   type Unit,
 } from '@/lib/property-facts';
 import { SITE_URL, OG_IMAGE, absoluteUrl, type Locale } from '@/lib/seo';
+import { offerUnit, type Offer } from '@/lib/offers';
 
 /**
  * Schema.org-Bausteine. Alle Werte stammen aus lib/property-facts.ts,
@@ -192,6 +193,36 @@ export function articleSchema(
     publisher: { '@id': ORGANIZATION_ID },
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
     url,
+  };
+}
+
+/**
+ * Ein Erlebnisangebot als buchbares Offer: Festpreis, Dauer und die Einheit,
+ * auf deren Accommodation-Eintrag (Hideaway-Detailseite) verwiesen wird.
+ */
+export function offerSchema(offer: Offer, locale: Locale) {
+  const unit = offerUnit(offer);
+  const url = absoluteUrl(locale, `/malia-specials/${offer.slug}`);
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Offer',
+    '@id': `${url}#offer`,
+    name: offer.title[locale],
+    description: offer.teaser[locale],
+    url,
+    price: offer.price.toFixed(2),
+    priceCurrency: 'EUR',
+    availability: 'https://schema.org/InStock',
+    eligibleDuration: { '@type': 'QuantitativeValue', value: offer.nights, unitCode: 'DAY' },
+    eligibleQuantity: { '@type': 'QuantitativeValue', maxValue: offer.maxGuests, unitText: locale === 'de' ? 'Personen' : 'guests' },
+    itemOffered: {
+      '@type': unit.schemaType,
+      '@id': `${absoluteUrl(locale, unit.path)}#accommodation`,
+      name: unit.name,
+      url: absoluteUrl(locale, unit.path),
+    },
+    offeredBy: { '@id': ORGANIZATION_ID },
+    ...(offer.image ? { image: absolute(offer.image) } : {}),
   };
 }
 

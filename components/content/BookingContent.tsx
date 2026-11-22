@@ -24,7 +24,7 @@ function BookingMessages() {
   return null;
 }
 
-export default function BookingContent() {
+export default function BookingContent({ offerSlug }: { offerSlug?: string }) {
   const t = useTranslations('BookingPage');
 
   return (
@@ -49,7 +49,7 @@ export default function BookingContent() {
           <BookingMessages />
         </Suspense>
 
-        <BookingForm />
+        <BookingForm offerSlug={offerSlug} />
         
       </main>
 

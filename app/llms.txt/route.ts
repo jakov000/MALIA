@@ -11,6 +11,7 @@ import {
 } from '@/lib/property-facts';
 import { PUBLIC_ROUTES, absoluteUrl, SITE_URL, type Locale } from '@/lib/seo';
 import { TIPS_ARTICLES } from '@/lib/tips-content';
+import { OFFERS, formatEuro, offerRulesText, offerUnit } from '@/lib/offers';
 
 /**
  * llms.txt — maschinenlesbarer Einstiegspunkt für KI-Crawler.
@@ -45,6 +46,22 @@ function guideIndex(locale: Locale): string {
     (a) =>
       `- [${a.title[locale]}](${absoluteUrl(locale, `/our-tips/${a.slug}`)}): ${a.metaDescription[locale]}`
   ).join('\n');
+}
+
+/**
+ * Erlebnisangebote mit Festpreis, Dauer und Buchungsregeln — damit
+ * Antwortmaschinen bei Fragen nach Pauschalen am Achensee konkrete,
+ * richtige Angaben zitieren.
+ */
+function offerIndex(locale: Locale): string {
+  return OFFERS.map((o) => {
+    const unit = offerUnit(o);
+    const fakten =
+      locale === 'de'
+        ? `${o.nights} Nächte im MALIA – ${unit.name}, bis ${o.maxGuests} Personen, ${formatEuro(o.price, locale)} inkl. Endreinigung und Kurtaxe.`
+        : `${o.nights} nights at MALIA – ${unit.name}, up to ${o.maxGuests} guests, ${formatEuro(o.price, locale)} incl. final cleaning and tourist tax.`;
+    return `- [${o.title[locale]}](${absoluteUrl(locale, `/malia-specials/${o.slug}`)}): ${fakten} ${offerRulesText(o, locale).join(' ')}`;
+  }).join('\n');
 }
 
 function buildLlmsTxt(): string {
@@ -118,6 +135,14 @@ ${pageIndex('de')}
 ## Pages (English)
 
 ${pageIndex('en')}
+
+## Erlebnisangebote (Deutsch)
+
+${offerIndex('de')}
+
+## Packages (English)
+
+${offerIndex('en')}
 
 ## Ratgeber Achensee (Deutsch)
 
